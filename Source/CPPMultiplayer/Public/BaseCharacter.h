@@ -8,6 +8,7 @@
 
 class UCameraComponent;
 class USpringArmComponent;
+class USceneComponent;
 
 UCLASS()
 class CPPMULTIPLAYER_API ABaseCharacter : public ACharacter
@@ -26,6 +27,8 @@ protected:
 
 	void MoveRight(float AxisValue);
 
+	void LookRight(float AxisValue);
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -34,11 +37,19 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-	UCameraComponent* CameraComponent;
+	UCameraComponent* CameraComponent = nullptr;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-	USpringArmComponent* SpringArmComponent;
+	USpringArmComponent* SpringArmComponent = nullptr;;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	USceneComponent* AzimuthComponent = nullptr;;
 
 	void BeginCrouch();
 	void EndCrouch();
+
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	void InitializeComponents(UCameraComponent* CameraToSet, 
+			USpringArmComponent* SpringArmToSet, 
+			USceneComponent* AzimuthToSet);
 };

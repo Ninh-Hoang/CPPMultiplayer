@@ -6,6 +6,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Components/SceneComponent.h"
 
 // Sets default values
 ABaseCharacter::ABaseCharacter()
@@ -46,7 +47,7 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	PlayerInputComponent->BindAxis("MoveRight", this, &ABaseCharacter::MoveRight);
 
 	PlayerInputComponent->BindAxis("LookUp", this, &ABaseCharacter::AddControllerPitchInput);
-	PlayerInputComponent->BindAxis("LookRight", this, &ABaseCharacter::AddControllerYawInput);
+	PlayerInputComponent->BindAxis("LookRight", this, &ABaseCharacter::LookRight);
 
 	PlayerInputComponent->BindAction("Crouch", IE_Pressed,this, &ABaseCharacter::BeginCrouch);
 	PlayerInputComponent->BindAction("Crouch", IE_Released,this, &ABaseCharacter::EndCrouch);
@@ -54,21 +55,43 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 void ABaseCharacter::MoveForward(float AxisValue)
 {
-	AddMovementInput(GetActorForwardVector() * AxisValue);
+	//AddMovementInput(GetActorForwardVector() * AxisValue);
+	if (ensure(CameraComponent)) {
+		AddMovementInput(CameraComponent->GetForwardVector() * AxisValue);
+	}
 }
 
 void ABaseCharacter::MoveRight(float AxisValue)
 {
-	AddMovementInput(GetActorRightVector() * AxisValue);
+	//AddMovementInput(GetActorRightVector() * AxisValue);
+	if (ensure(CameraComponent)) {
+		AddMovementInput(CameraComponent->GetRightVector() * AxisValue);
+	}
 }
+
 
 void ABaseCharacter::BeginCrouch()
 {
-	Crouch();
+	//Crouch();
 }
 
 void ABaseCharacter::EndCrouch()
 {
-	UnCrouch();
+	//UnCrouch();
+}	
+
+void ABaseCharacter::LookRight(float AxisValue){
+	if (ensure(AzimuthComponent)) {
+		FRotator CurrentRotation = AzimuthComponent->GetRelativeRotation();
+		FRotator AddRotation = FRotator(0, 0, AxisValue);
+		AzimuthComponent->AddLocalRotation(AddRotation);
+		//UE_LOG(LogTemp, Warning, TEXT("%f"), AxisValue);
+	}
+}
+
+void ABaseCharacter::InitializeComponents(UCameraComponent* CameraToSet, USpringArmComponent* SpringArmToSet, USceneComponent* AzimuthToSet){
+	CameraComponent = CameraToSet;
+	SpringArmComponent = SpringArmToSet;
+	AzimuthComponent = AzimuthToSet;
 }
 
