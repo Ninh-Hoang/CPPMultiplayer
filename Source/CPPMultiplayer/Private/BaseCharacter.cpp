@@ -7,6 +7,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/SceneComponent.h"
+#include "Math/Rotator.h"
 
 // Sets default values
 ABaseCharacter::ABaseCharacter()
@@ -57,7 +58,12 @@ void ABaseCharacter::MoveForward(float AxisValue)
 {
 	//AddMovementInput(GetActorForwardVector() * AxisValue);
 	if (ensure(CameraComponent)) {
-		AddMovementInput(CameraComponent->GetForwardVector() * AxisValue);
+		FVector CameraForward = CameraComponent->GetForwardVector();
+		FRotator CameraRotation = CameraComponent->GetComponentRotation();
+		float SpringArmPitch = SpringArmComponent->GetRelativeRotation().Pitch;
+		FRotator Rotation = FRotator(-SpringArmPitch, -CameraRotation.Yaw, - CameraRotation.Roll);
+		FVector TrueForwardVector = Rotation.RotateVector(CameraForward);
+		AddMovementInput(TrueForwardVector * AxisValue);
 	}
 }
 
@@ -72,21 +78,21 @@ void ABaseCharacter::MoveRight(float AxisValue)
 
 void ABaseCharacter::BeginCrouch()
 {
-	//Crouch();
+	Crouch();
 }
 
 void ABaseCharacter::EndCrouch()
 {
-	//UnCrouch();
+	UnCrouch();
 }	
 
 void ABaseCharacter::LookRight(float AxisValue){
-	if (ensure(AzimuthComponent)) {
+	/*if (ensure(AzimuthComponent)) {
 		FRotator CurrentRotation = AzimuthComponent->GetRelativeRotation();
-		FRotator AddRotation = FRotator(0, 0, AxisValue);
+		FRotator AddRotation = FRotator(0, AxisValue, 0);
 		AzimuthComponent->AddLocalRotation(AddRotation);
 		//UE_LOG(LogTemp, Warning, TEXT("%f"), AxisValue);
-	}
+	}*/
 }
 
 void ABaseCharacter::InitializeComponents(UCameraComponent* CameraToSet, USpringArmComponent* SpringArmToSet, USceneComponent* AzimuthToSet){
