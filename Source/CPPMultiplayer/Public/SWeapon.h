@@ -29,4 +29,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void Initialize(USkeletalMeshComponent* MeshComponentToSet);
 
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	void Fire();
+
 };
