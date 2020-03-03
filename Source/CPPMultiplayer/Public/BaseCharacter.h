@@ -29,6 +29,9 @@ protected:
 
 	void LookRight(float AxisValue);
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+	float BaseTurnRate;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -50,8 +53,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void InitializeComponents(UCameraComponent* CameraToSet, 
-			USpringArmComponent* SpringArmToSet, 
-			USceneComponent* AzimuthToSet);
+			USpringArmComponent* SpringArmToSet);
 
 	virtual FVector GetPawnViewLocation() const override;
 };

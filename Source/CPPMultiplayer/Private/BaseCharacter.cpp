@@ -24,6 +24,7 @@ ABaseCharacter::ABaseCharacter()
 	CameraComponent->SetupAttachment(SpringArmComponent);*/
 
 	GetMovementComponent()->GetNavAgentPropertiesRef().bCanCrouch = true;
+	BaseTurnRate = 45;
 }
 
 // Called when the game starts or when spawned
@@ -58,21 +59,40 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 void ABaseCharacter::MoveForward(float AxisValue)
 {
 	//AddMovementInput(GetActorForwardVector() * AxisValue);
-	if (ensure(CameraComponent)) {
+	/*if (ensure(CameraComponent)) {
 		FVector CameraForward = CameraComponent->GetForwardVector();
 		FRotator CameraRotation = CameraComponent->GetComponentRotation();
 		float SpringArmPitch = SpringArmComponent->GetRelativeRotation().Pitch;
 		FRotator Rotation = FRotator(-SpringArmPitch, -CameraRotation.Yaw, - CameraRotation.Roll);
 		FVector TrueForwardVector = Rotation.RotateVector(CameraForward);
 		AddMovementInput(TrueForwardVector * AxisValue);
+	}*/
+	if ((Controller != NULL) && (AxisValue != 0.0f)) {
+		const FRotator Rotation = Controller->GetControlRotation();
+		const FRotator YawRotation(0, Rotation.Yaw, 0);
+
+		// get forward vector
+		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+		AddMovementInput(Direction, AxisValue);
 	}
 }
 
 void ABaseCharacter::MoveRight(float AxisValue)
 {
 	//AddMovementInput(GetActorRightVector() * AxisValue);
-	if (ensure(CameraComponent)) {
+	/*if (ensure(CameraComponent)) {
 		AddMovementInput(CameraComponent->GetRightVector() * AxisValue);
+	}*/
+	if ((Controller != NULL) && (AxisValue != 0.0f))
+	{
+		// find out which way is right
+		const FRotator Rotation = Controller->GetControlRotation();
+		const FRotator YawRotation(0, Rotation.Yaw, 0);
+
+		// get right vector 
+		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+		// add movement in that direction
+		AddMovementInput(Direction, AxisValue);
 	}
 }
 
@@ -94,12 +114,12 @@ void ABaseCharacter::LookRight(float AxisValue){
 		AzimuthComponent->AddLocalRotation(AddRotation);
 		//UE_LOG(LogTemp, Warning, TEXT("%f"), AxisValue);
 	}*/
+	AddControllerYawInput(AxisValue * BaseTurnRate* GetWorld()->GetDeltaSeconds());
 }
 
-void ABaseCharacter::InitializeComponents(UCameraComponent* CameraToSet, USpringArmComponent* SpringArmToSet, USceneComponent* AzimuthToSet){
+void ABaseCharacter::InitializeComponents(UCameraComponent* CameraToSet, USpringArmComponent* SpringArmToSet){
 	CameraComponent = CameraToSet;
 	SpringArmComponent = SpringArmToSet;
-	AzimuthComponent = AzimuthToSet;
 }
 
 FVector ABaseCharacter::GetPawnViewLocation() const
