@@ -37,7 +37,7 @@ protected:
 	void Initialize(UMeshComponent* MeshComponentToSet);
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
-	void Fire();
+	virtual void Fire();
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	void Debug();

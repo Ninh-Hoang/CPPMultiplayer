@@ -45,7 +45,7 @@ void ASWeapon::Fire()
 	FHitResult Hit;
 	AActor* MyOwner = GetOwner();
 	if (!MyOwner) {
-		//UE_LOG(LogTemp, Warning, TEXT("OwnerNotFound"));
+		UE_LOG(LogTemp, Warning, TEXT("OwnerNotFound"));
 	}
 	else {
 		FVector ShotPosition = GetActorLocation(); ;
