@@ -40,20 +40,27 @@ void ASWeapon::Fire()
 	if (!MyOwner) {
 		UE_LOG(LogTemp, Warning, TEXT("OwnerNotFound"));
 	}
-	if (MyOwner) {
+	else {
+		FVector OwnerPosition;
 		FVector EyeLocation;
 		FRotator EyeRotation;
-		MyOwner->GetActorEyesViewPoint(EyeLocation, EyeRotation);
+		OwnerPosition = MyOwner->GetActorLocation();
+		EyeLocation = MyOwner->GetActorForwardVector();
+		EyeRotation = MyOwner->GetActorRotation();
 		FVector TraceEnd = EyeLocation + (EyeRotation.Vector() * 10000);
 		FCollisionQueryParams QueryParams;
 		QueryParams.AddIgnoredActor(MyOwner);
 		QueryParams.AddIgnoredActor(this);
 		QueryParams.bTraceComplex = true;
-		if (GetWorld()->LineTraceSingleByChannel(Hit, EyeLocation, TraceEnd, ECC_Visibility, QueryParams)) {
+		if (GetWorld()->LineTraceSingleByChannel(Hit, OwnerPosition, TraceEnd, ECC_Visibility, QueryParams)) {
 			//block hit, process
 		}
-		DrawDebugLine(GetWorld(), EyeLocation, TraceEnd, FColor::Cyan, false, 1, 0, 1);
+		DrawDebugLine(GetWorld(), OwnerPosition, TraceEnd, FColor::Cyan, false, 1, 0, 1);
 		UE_LOG(LogTemp, Warning, TEXT("Firing"));
 	}
+}
+
+void ASWeapon::Debug(){
+	UE_LOG(LogTemp, Warning, TEXT("Working"));
 }
 
