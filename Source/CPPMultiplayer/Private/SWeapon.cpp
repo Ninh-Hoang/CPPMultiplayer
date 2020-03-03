@@ -5,6 +5,7 @@
 #include "Engine/World.h"
 #include "DrawDebugHelpers.h"
 #include "Components/ActorComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ASWeapon::ASWeapon()
@@ -38,24 +39,26 @@ void ASWeapon::Fire()
 	FHitResult Hit;
 	AActor* MyOwner = GetOwner();
 	if (!MyOwner) {
-		UE_LOG(LogTemp, Warning, TEXT("OwnerNotFound"));
+		//UE_LOG(LogTemp, Warning, TEXT("OwnerNotFound"));
 	}
 	else {
-		FVector OwnerPosition;
-		FVector EyeLocation;
-		FRotator EyeRotation;
-		OwnerPosition = MyOwner->GetActorLocation();
-		EyeLocation = MyOwner->GetActorForwardVector();
-		EyeRotation = MyOwner->GetActorRotation();
-		FVector TraceEnd = EyeLocation + (EyeRotation.Vector() * 10000);
+		FVector OwnerPosition = MyOwner->GetActorLocation(); ;
+		FVector ShotDirection = MyOwner->GetActorRotation().Vector();
+		FVector TraceEnd = OwnerPosition + (ShotDirection * 10000);
 		FCollisionQueryParams QueryParams;
 		QueryParams.AddIgnoredActor(MyOwner);
 		QueryParams.AddIgnoredActor(this);
 		QueryParams.bTraceComplex = true;
 		if (GetWorld()->LineTraceSingleByChannel(Hit, OwnerPosition, TraceEnd, ECC_Visibility, QueryParams)) {
 			//block hit, process
+
+			AActor* HitActor = Hit.GetActor();
+			if (HitActor) {
+				UE_LOG(LogTemp, Warning, TEXT("%s"), *HitActor->GetName());
+			}
+			UGameplayStatics::ApplyPointDamage(HitActor, 20, ShotDirection, Hit, MyOwner->GetInstigatorController(), this, DamageType);
 		}
-		DrawDebugLine(GetWorld(), OwnerPosition, TraceEnd, FColor::Cyan, false, 1, 0, 1);
+		DrawDebugLine(GetWorld(), OwnerPosition, TraceEnd, FColor::Cyan, false, 1, 0, 10);
 		UE_LOG(LogTemp, Warning, TEXT("Firing"));
 	}
 }

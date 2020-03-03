@@ -102,3 +102,12 @@ void ABaseCharacter::InitializeComponents(UCameraComponent* CameraToSet, USpring
 	AzimuthComponent = AzimuthToSet;
 }
 
+FVector ABaseCharacter::GetPawnViewLocation() const
+{
+	if (CameraComponent) {
+		return CameraComponent->GetComponentLocation();
+	}
+
+	return Super::GetPawnViewLocation();
+}
+

@@ -52,4 +52,6 @@ public:
 	void InitializeComponents(UCameraComponent* CameraToSet, 
 			USpringArmComponent* SpringArmToSet, 
 			USceneComponent* AzimuthToSet);
+
+	virtual FVector GetPawnViewLocation() const override;
 };

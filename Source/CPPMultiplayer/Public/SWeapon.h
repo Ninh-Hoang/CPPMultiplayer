@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "SWeapon.generated.h"
 
+class UDamageType;
+
 UCLASS()
 class CPPMULTIPLAYER_API ASWeapon : public AActor
 {
@@ -26,6 +28,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+protected:
+
+
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void Initialize(USkeletalMeshComponent* MeshComponentToSet);
 
@@ -35,4 +40,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	void Debug();
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
+	TSubclassOf<UDamageType> DamageType;
 };

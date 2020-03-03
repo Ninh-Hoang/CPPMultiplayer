@@ -11,7 +11,7 @@
  */
 UCLASS(meta = (BlueprintSpawnableComponent), Category = "Custom Component")
 class CPPMULTIPLAYER_API UCustomSpringArm : public USpringArmComponent
-{
+{ 
 	GENERATED_BODY()
 	
 };
