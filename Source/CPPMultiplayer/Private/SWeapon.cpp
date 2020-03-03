@@ -6,6 +6,8 @@
 #include "DrawDebugHelpers.h"
 #include "Components/ActorComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Particles/ParticleSystem.h"
+#include "Components/MeshComponent.h"
 
 // Sets default values
 ASWeapon::ASWeapon()
@@ -19,6 +21,8 @@ ASWeapon::ASWeapon()
 void ASWeapon::BeginPlay()
 {
 	Super::BeginPlay();
+
+	MuzzleSocketName = "MuzzleSocket";
 	
 }
 
@@ -29,7 +33,7 @@ void ASWeapon::Tick(float DeltaTime)
 
 }
 
-void ASWeapon::Initialize(USkeletalMeshComponent* MeshComponentToSet){
+void ASWeapon::Initialize(UMeshComponent* MeshComponentToSet){
 	MeshComponent = MeshComponentToSet;
 }
 
@@ -42,14 +46,14 @@ void ASWeapon::Fire()
 		//UE_LOG(LogTemp, Warning, TEXT("OwnerNotFound"));
 	}
 	else {
-		FVector OwnerPosition = MyOwner->GetActorLocation(); ;
+		FVector ShotPosition = GetActorLocation(); ;
 		FVector ShotDirection = MyOwner->GetActorRotation().Vector();
-		FVector TraceEnd = OwnerPosition + (ShotDirection * 10000);
+		FVector TraceEnd = ShotPosition + (ShotDirection * 10000);
 		FCollisionQueryParams QueryParams;
 		QueryParams.AddIgnoredActor(MyOwner);
 		QueryParams.AddIgnoredActor(this);
 		QueryParams.bTraceComplex = true;
-		if (GetWorld()->LineTraceSingleByChannel(Hit, OwnerPosition, TraceEnd, ECC_Visibility, QueryParams)) {
+		if (GetWorld()->LineTraceSingleByChannel(Hit, ShotPosition, TraceEnd, ECC_Visibility, QueryParams)) {
 			//block hit, process
 
 			AActor* HitActor = Hit.GetActor();
@@ -57,9 +61,19 @@ void ASWeapon::Fire()
 				UE_LOG(LogTemp, Warning, TEXT("%s"), *HitActor->GetName());
 			}
 			UGameplayStatics::ApplyPointDamage(HitActor, 20, ShotDirection, Hit, MyOwner->GetInstigatorController(), this, DamageType);
+			if (ImpactEffect) {
+				UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, Hit.ImpactPoint, Hit.ImpactNormal.Rotation());
+			}
 		}
-		DrawDebugLine(GetWorld(), OwnerPosition, TraceEnd, FColor::Cyan, false, 1, 0, 10);
+		DrawDebugLine(GetWorld(), ShotPosition, TraceEnd, FColor::Cyan, false, 1, 0, 5);
 		UE_LOG(LogTemp, Warning, TEXT("Firing"));
+
+		if (!MeshComponent) {
+			UE_LOG(LogTemp, Warning, TEXT("No Mesh"));
+		}
+		if (MuzzleEffect) {
+			UGameplayStatics::SpawnEmitterAttached(MuzzleEffect, MeshComponent, MuzzleSocketName);
+		}
 	}
 }
 

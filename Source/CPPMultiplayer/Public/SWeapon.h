@@ -7,6 +7,8 @@
 #include "SWeapon.generated.h"
 
 class UDamageType;
+class UParticleSystem;
+class UMeshComponent;
 
 UCLASS()
 class CPPMULTIPLAYER_API ASWeapon : public AActor
@@ -22,7 +24,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Component")
-	USkeletalMeshComponent* MeshComponent;
+	UMeshComponent* MeshComponent;
 
 public:	
 	// Called every frame
@@ -32,7 +34,7 @@ protected:
 
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
-	void Initialize(USkeletalMeshComponent* MeshComponentToSet);
+	void Initialize(UMeshComponent* MeshComponentToSet);
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	void Fire();
@@ -42,4 +44,13 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
 	TSubclassOf<UDamageType> DamageType;
+
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
+	FName MuzzleSocketName;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
+	UParticleSystem* MuzzleEffect;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
+	UParticleSystem* ImpactEffect;
 };
