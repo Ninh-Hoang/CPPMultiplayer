@@ -56,4 +56,5 @@ public:
 			USpringArmComponent* SpringArmToSet);
 
 	virtual FVector GetPawnViewLocation() const override;
+
 };

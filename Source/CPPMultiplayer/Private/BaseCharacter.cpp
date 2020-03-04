@@ -31,7 +31,8 @@ ABaseCharacter::ABaseCharacter()
 void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	APlayerController* PC = Cast< APlayerController>(GetController());
+	PC->bShowMouseCursor = true;
 }
 
 // Called every frame
@@ -70,7 +71,6 @@ void ABaseCharacter::MoveForward(float AxisValue)
 	if ((Controller != NULL) && (AxisValue != 0.0f)) {
 		const FRotator Rotation = Controller->GetControlRotation();
 		const FRotator YawRotation(0, Rotation.Yaw, 0);
-
 		// get forward vector
 		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
 		AddMovementInput(Direction, AxisValue);
@@ -127,7 +127,10 @@ FVector ABaseCharacter::GetPawnViewLocation() const
 	if (CameraComponent) {
 		return CameraComponent->GetComponentLocation();
 	}
-
 	return Super::GetPawnViewLocation();
 }
+
+
+
+
 
