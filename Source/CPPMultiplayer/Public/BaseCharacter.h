@@ -32,6 +32,15 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 	float BaseTurnRate;
 
+	FTimerHandle AimTimerHandler;
+
+	UFUNCTION()
+	void LookAtCursor();
+
+	bool IsAiming;
+
+	UCharacterMovementComponent* CharacterMovementComponent;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -56,5 +65,5 @@ public:
 			USpringArmComponent* SpringArmToSet);
 
 	virtual FVector GetPawnViewLocation() const override;
-
+	void Aim();
 };

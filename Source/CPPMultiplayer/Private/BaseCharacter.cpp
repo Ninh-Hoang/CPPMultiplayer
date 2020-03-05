@@ -8,6 +8,8 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/SceneComponent.h"
 #include "Math/Rotator.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "DrawDebugHelpers.h"
 
 // Sets default values
 ABaseCharacter::ABaseCharacter()
@@ -25,6 +27,7 @@ ABaseCharacter::ABaseCharacter()
 
 	GetMovementComponent()->GetNavAgentPropertiesRef().bCanCrouch = true;
 	BaseTurnRate = 45;
+	IsAiming = false;
 }
 
 // Called when the game starts or when spawned
@@ -33,6 +36,7 @@ void ABaseCharacter::BeginPlay()
 	Super::BeginPlay();
 	APlayerController* PC = Cast< APlayerController>(GetController());
 	PC->bShowMouseCursor = true;
+	CharacterMovementComponent = GetCharacterMovement();
 }
 
 // Called every frame
@@ -54,7 +58,11 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 	PlayerInputComponent->BindAction("Crouch", IE_Pressed,this, &ABaseCharacter::BeginCrouch);
 	PlayerInputComponent->BindAction("Crouch", IE_Released,this, &ABaseCharacter::EndCrouch);
+
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ABaseCharacter::Jump);
+
+	PlayerInputComponent->BindAction("Aim", IE_Pressed, this, &ABaseCharacter::Aim);
+	PlayerInputComponent->BindAction("Aim", IE_Released, this, &ABaseCharacter::Aim);
 }
 
 void ABaseCharacter::MoveForward(float AxisValue)
@@ -110,7 +118,7 @@ void ABaseCharacter::EndCrouch()
 void ABaseCharacter::LookRight(float AxisValue){
 	/*if (ensure(AzimuthComponent)) {
 		FRotator CurrentRotation = AzimuthComponent->GetRelativeRotation();
-		FRotator AddRotation = FRotator(0, AxisValue, 0);
+		FRotator AddRotation = FRotator(0, AxisValue, 0);q
 		AzimuthComponent->AddLocalRotation(AddRotation);
 		//UE_LOG(LogTemp, Warning, TEXT("%f"), AxisValue);
 	}*/
@@ -128,6 +136,41 @@ FVector ABaseCharacter::GetPawnViewLocation() const
 		return CameraComponent->GetComponentLocation();
 	}
 	return Super::GetPawnViewLocation();
+}
+
+void ABaseCharacter::Aim(){
+	if (IsAiming) {
+		IsAiming = !IsAiming;
+		CharacterMovementComponent->bOrientRotationToMovement = true;
+		CharacterMovementComponent->bUseControllerDesiredRotation = false;
+		GetWorld()->GetTimerManager().ClearTimer(AimTimerHandler);
+
+	}
+	else {
+		CharacterMovementComponent->bOrientRotationToMovement = false;
+		CharacterMovementComponent->bUseControllerDesiredRotation = true;
+
+		GetWorld()->GetTimerManager().SetTimer(AimTimerHandler, 
+			this,
+			&ABaseCharacter::LookAtCursor, 
+			GetWorld()->GetDeltaSeconds(),
+			true);
+		IsAiming = !IsAiming;
+	}
+}
+
+void ABaseCharacter::LookAtCursor() {
+	APlayerController* PC = Cast<APlayerController>(GetController());
+	FVector MousePosition;
+	//PC->GetMousePosition(MousePosition);
+	FVector WorldLocation;
+	FVector WorldDirection;
+	PC->DeprojectMousePositionToWorld(WorldLocation, WorldDirection);
+	FVector ActorLocation = GetActorLocation();
+	FVector Intersection = FMath::LinePlaneIntersection(WorldLocation, WorldLocation + WorldDirection * 1000, ActorLocation, FVector::UpVector);
+	DrawDebugSphere(GetWorld(), Intersection, 100, 12, FColor::Red, false, GetWorld()->GetDeltaSeconds(), 0, 1);
+	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(ActorLocation, Intersection);
+	Controller->SetControlRotation(LookAtRotation);
 }
 
 
