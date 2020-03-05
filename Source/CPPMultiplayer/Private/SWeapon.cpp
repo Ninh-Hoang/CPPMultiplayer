@@ -10,6 +10,13 @@
 #include "Components/MeshComponent.h"
 #include "Particles/ParticleSystemComponent.h"
 
+static int32 DebugWeaponDrawing = 0;
+FAutoConsoleVariableRef CVARDebugWeaponDrawing(
+	TEXT("COOP.DebugWeapon"),
+	DebugWeaponDrawing,
+	TEXT("Draw Debug For Weapon"),
+	ECVF_Cheat);
+
 // Sets default values
 ASWeapon::ASWeapon()
 {
@@ -19,8 +26,7 @@ ASWeapon::ASWeapon()
 }
 
 // Called when the game starts or when spawned
-void ASWeapon::BeginPlay()
-{
+void ASWeapon::BeginPlay(){
 	Super::BeginPlay();
 
 	MuzzleSocketName = "MuzzleSocket";
@@ -58,6 +64,9 @@ void ASWeapon::Fire()
 
 		//Particle "Target: parameter
 		FVector TraceEndPoint = TraceEnd;
+		if (DebugWeaponDrawing > 0) {
+			DrawDebugLine(GetWorld(), ShotPosition, TraceEndPoint, FColor::Red, false, 1,0,1);
+		}
 
 		if (GetWorld()->LineTraceSingleByChannel(Hit, ShotPosition, TraceEnd, ECC_Visibility, QueryParams)) {
 			//block hit, process

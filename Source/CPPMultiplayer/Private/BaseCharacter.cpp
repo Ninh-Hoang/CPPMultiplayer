@@ -11,6 +11,12 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "DrawDebugHelpers.h"
 
+static int32 DebugAimDrawing = 0;
+FAutoConsoleVariableRef CVARDebugAimDrawing(TEXT("COOP.DebugAim"),
+	DebugAimDrawing,
+	TEXT("Draw Debug For Aim"),
+	ECVF_Cheat);
+
 // Sets default values
 ABaseCharacter::ABaseCharacter()
 {
@@ -180,7 +186,10 @@ void ABaseCharacter::LookAtCursor() {
 	PC->DeprojectMousePositionToWorld(WorldLocation, WorldDirection);
 	FVector ActorLocation = GetActorLocation();
 	FVector Intersection = FMath::LinePlaneIntersection(WorldLocation, WorldLocation + WorldDirection * 1000, ActorLocation, FVector::UpVector);
-	DrawDebugSphere(GetWorld(), Intersection, 100, 12, FColor::Red, false, GetWorld()->GetDeltaSeconds(), 0, 1);
+	if (DebugAimDrawing > 0) {
+		DrawDebugSphere(GetWorld(), Intersection, 10, 12, FColor::Red, false, GetWorld()->GetDeltaSeconds(), 0, 1);
+		DrawDebugLine(GetWorld(), ActorLocation, Intersection, FColor::Red, false, GetWorld()->GetDeltaSeconds(), 0, 1);
+	}
 	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(ActorLocation, Intersection);
 	Controller->SetControlRotation(LookAtRotation);
 }
