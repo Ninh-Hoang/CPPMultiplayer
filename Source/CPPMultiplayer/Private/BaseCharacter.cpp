@@ -83,6 +83,12 @@ void ABaseCharacter::MoveForward(float AxisValue)
 		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
 		AddMovementInput(Direction, AxisValue);
 	}*/
+
+	if (ensure(CameraComponent)) {
+		FVector ProjectedVector = UKismetMathLibrary::ProjectVectorOnToPlane(CameraComponent->GetForwardVector(), GetActorUpVector());
+		FVector ForwardDirection = ProjectedVector.GetSafeNormal();
+		AddMovementInput(ForwardDirection, AxisValue);
+	}
 }
 
 void ABaseCharacter::MoveRight(float AxisValue)
