@@ -74,24 +74,24 @@ void ABaseCharacter::MoveForward(float AxisValue)
 		float SpringArmPitch = SpringArmComponent->GetRelativeRotation().Pitch;
 		FRotator Rotation = FRotator(-SpringArmPitch, -CameraRotation.Yaw, - CameraRotation.Roll);
 		FVector TrueForwardVector = Rotation.RotateVector(CameraForward);
-		AddMovementInput(TrueForwardVector * AxisValue);
+		AddMovementInput(CameraComponent->GetForwardVector() * AxisValue);
 	}*/
-	if ((Controller != NULL) && (AxisValue != 0.0f)) {
+	/*if ((Controller != NULL) && (AxisValue != 0.0f)) {
 		const FRotator Rotation = Controller->GetControlRotation();
 		const FRotator YawRotation(0, Rotation.Yaw, 0);
 		// get forward vector
 		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
 		AddMovementInput(Direction, AxisValue);
-	}
+	}*/
 }
 
 void ABaseCharacter::MoveRight(float AxisValue)
 {
 	//AddMovementInput(GetActorRightVector() * AxisValue);
-	/*if (ensure(CameraComponent)) {
+	if (ensure(CameraComponent)) {
 		AddMovementInput(CameraComponent->GetRightVector() * AxisValue);
-	}*/
-	if ((Controller != NULL) && (AxisValue != 0.0f))
+	}
+	/*if ((Controller != NULL) && (AxisValue != 0.0f))
 	{
 		// find out which way is right
 		const FRotator Rotation = Controller->GetControlRotation();
@@ -101,7 +101,7 @@ void ABaseCharacter::MoveRight(float AxisValue)
 		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 		// add movement in that direction
 		AddMovementInput(Direction, AxisValue);
-	}
+	}*/
 }
 
 
@@ -118,11 +118,17 @@ void ABaseCharacter::EndCrouch()
 void ABaseCharacter::LookRight(float AxisValue){
 	/*if (ensure(AzimuthComponent)) {
 		FRotator CurrentRotation = AzimuthComponent->GetRelativeRotation();
-		FRotator AddRotation = FRotator(0, AxisValue, 0);q
+		FRotator AddRotation = FRotator(0, AxisValue, 0);
 		AzimuthComponent->AddLocalRotation(AddRotation);
 		//UE_LOG(LogTemp, Warning, TEXT("%f"), AxisValue);
 	}*/
-	AddControllerYawInput(AxisValue * BaseTurnRate* GetWorld()->GetDeltaSeconds());
+	//AddControllerYawInput(AxisValue * BaseTurnRate* GetWorld()->GetDeltaSeconds());
+
+	if (ensure(SpringArmComponent)) {
+		//FRotator SpringArmRotation = SpringArmComponent->GetRelativeRotation();
+		//SpringArmRotation = FRotator(SpringArmRotation.Pitch, SpringArmRotation.Roll+ AxisValue, SpringArmRotation.Yaw);
+		SpringArmComponent->AddRelativeRotation(FRotator(0, 0, AxisValue));
+	}
 }
 
 void ABaseCharacter::InitializeComponents(UCameraComponent* CameraToSet, USpringArmComponent* SpringArmToSet){
