@@ -10,8 +10,7 @@
 #include "Components/MeshComponent.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "PhysicalMaterials/PhysicalMaterial.h"
-
-
+#include "CPPMultiplayer/CPPMultiplayer.h"
 
 static int32 DebugWeaponDrawing = 0;
 FAutoConsoleVariableRef CVARDebugWeaponDrawing(
@@ -58,11 +57,12 @@ void ASWeapon::Fire()
 		QueryParams.AddIgnoredActor(MyOwner);
 		QueryParams.AddIgnoredActor(this);
 		QueryParams.bTraceComplex = true;
+		QueryParams.bReturnPhysicalMaterial = true;
 
 		//Particle "Target: parameter
 		FVector TraceEndPoint = TraceEnd;
 
-		if (GetWorld()->LineTraceSingleByChannel(Hit, ShotPosition, TraceEnd, ECC_Visibility, QueryParams)) {
+		if (GetWorld()->LineTraceSingleByChannel(Hit, ShotPosition, TraceEnd, COLLISION_WEAPON, QueryParams)) {
 			//block hit, process
 
 			AActor* HitActor = Hit.GetActor();
@@ -70,15 +70,16 @@ void ASWeapon::Fire()
 
 			EPhysicalSurface SurfaceType = UPhysicalMaterial::DetermineSurfaceType(Hit.PhysMaterial.Get());
 			UParticleSystem* SelectedEffect = nullptr;
+			if (SurfaceType == SurfaceType1 || SurfaceType == SurfaceType2) {
+				UE_LOG(LogTemp, Warning, TEXT("FleshHit"));
+			}
 			switch (SurfaceType) {
-			case SurfaceType1:
-			case SurfaceType2:
+			case SURFACE_FLESHDEFAULT:
+			case SURFACE_FLESHVULNERABLE:
 				SelectedEffect = FleshImpactEffect;
-				UE_LOG(LogTemp, Warning, TEXT("Flesh"));
-				break;
+				break;	
 			default:
 				SelectedEffect = DefaultImpactEffect;
-				UE_LOG(LogTemp, Warning, TEXT("Default"));
 				break;
 			}
 
