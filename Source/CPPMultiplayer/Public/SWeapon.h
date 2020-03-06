@@ -27,8 +27,8 @@ protected:
 	UMeshComponent* MeshComponent;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	virtual void Fire();
 
 protected:
 
@@ -36,11 +36,12 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void Initialize(UMeshComponent* MeshComponentToSet);
 
-	UFUNCTION(BlueprintCallable, Category = "Weapon")
-	virtual void Fire();
+	
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	void Debug();
+
+	void PlayerFireEffect(FVector TraceEndPoint);
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
 	TSubclassOf<UDamageType> DamageType;

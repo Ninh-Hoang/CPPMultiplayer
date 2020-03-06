@@ -21,7 +21,6 @@ FAutoConsoleVariableRef CVARDebugWeaponDrawing(
 ASWeapon::ASWeapon()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
 
 }
 
@@ -35,19 +34,14 @@ void ASWeapon::BeginPlay(){
 }
 
 // Called every frame
-void ASWeapon::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
 
 void ASWeapon::Initialize(UMeshComponent* MeshComponentToSet){
 	MeshComponent = MeshComponentToSet;
 }
-
+	
 void ASWeapon::Fire()
 {
-	//trace to crosshair
+	//trace to cross hair
 	FHitResult Hit;
 	AActor* MyOwner = GetOwner();
 	if (!MyOwner) {
@@ -87,22 +81,26 @@ void ASWeapon::Fire()
 		if (!MeshComponent) {
 			UE_LOG(LogTemp, Warning, TEXT("No Mesh"));
 		}
-		if (MuzzleEffect) {
-			UGameplayStatics::SpawnEmitterAttached(MuzzleEffect, MeshComponent, MuzzleSocketName);
-		}
-
-		if (TracerEffect) {
-			FVector MuzzleLocation = MeshComponent->GetSocketLocation(MuzzleSocketName);
-			UParticleSystemComponent* TracerComp = UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), TracerEffect, MuzzleLocation);
-			if (TracerComp) {
-				TracerComp->SetVectorParameter(TracerTargetName, TraceEndPoint);
-			}
-
-		}
+		PlayerFireEffect(TraceEndPoint);
 	}
 }
 
 void ASWeapon::Debug(){
 	UE_LOG(LogTemp, Warning, TEXT("Working"));
+}
+
+void ASWeapon::PlayerFireEffect(FVector TraceEndPoint){
+	if (MuzzleEffect) {
+		UGameplayStatics::SpawnEmitterAttached(MuzzleEffect, MeshComponent, MuzzleSocketName);
+	}
+
+	if (TracerEffect) {
+		FVector MuzzleLocation = MeshComponent->GetSocketLocation(MuzzleSocketName);
+		UParticleSystemComponent* TracerComp = UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), TracerEffect, MuzzleLocation);
+		if (TracerComp) {
+			TracerComp->SetVectorParameter(TracerTargetName, TraceEndPoint);
+		}
+
+	}
 }
 

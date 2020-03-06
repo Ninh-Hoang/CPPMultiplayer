@@ -10,6 +10,7 @@
 #include "Math/Rotator.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "DrawDebugHelpers.h"
+#include "SWeapon.h"
 
 static int32 DebugAimDrawing = 0;
 FAutoConsoleVariableRef CVARDebugAimDrawing(TEXT("COOP.DebugAim"),
@@ -34,6 +35,7 @@ ABaseCharacter::ABaseCharacter()
 	GetMovementComponent()->GetNavAgentPropertiesRef().bCanCrouch = true;
 	BaseTurnRate = 45;
 	IsAiming = false;
+	WeaponAttackSocketName = "WeaponSocket";
 }
 
 // Called when the game starts or when spawned
@@ -43,6 +45,16 @@ void ABaseCharacter::BeginPlay()
 	APlayerController* PC = Cast< APlayerController>(GetController());
 	PC->bShowMouseCursor = true;
 	CharacterMovementComponent = GetCharacterMovement();
+
+	//spawn default weapon
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+	CurrentWeapon = GetWorld()->SpawnActor<ASWeapon>(StarterWeaponClass, FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
+	if (CurrentWeapon) {
+		CurrentWeapon->SetOwner(this);
+		CurrentWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, WeaponAttackSocketName);
+	}
 }
 
 // Called every frame
@@ -69,6 +81,8 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 	PlayerInputComponent->BindAction("Aim", IE_Pressed, this, &ABaseCharacter::Aim);
 	PlayerInputComponent->BindAction("Aim", IE_Released, this, &ABaseCharacter::Aim);
+
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ABaseCharacter::Fire);
 }
 
 void ABaseCharacter::MoveForward(float AxisValue)
@@ -194,6 +208,11 @@ void ABaseCharacter::LookAtCursor() {
 	Controller->SetControlRotation(LookAtRotation);
 }
 
+void ABaseCharacter::Fire(){
+	if (CurrentWeapon) {
+		CurrentWeapon->Fire();
+	}
+}
 
 
 

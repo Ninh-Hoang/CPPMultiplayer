@@ -9,6 +9,7 @@
 class UCameraComponent;
 class USpringArmComponent;
 class USceneComponent;
+class ASWeapon;
 
 UCLASS()
 class CPPMULTIPLAYER_API ABaseCharacter : public ACharacter
@@ -40,6 +41,16 @@ protected:
 	bool IsAiming;
 
 	UCharacterMovementComponent* CharacterMovementComponent;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Player")
+	TSubclassOf<ASWeapon> StarterWeaponClass;
+
+	ASWeapon* CurrentWeapon;
+
+	void Fire();
+
+	UPROPERTY(VisibleDefaultsOnly, Category = "Player")
+	FName WeaponAttackSocketName;
 
 public:	
 	// Called every frame
