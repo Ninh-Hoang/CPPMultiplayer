@@ -9,6 +9,9 @@
 #include "Particles/ParticleSystem.h"
 #include "Components/MeshComponent.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "PhysicalMaterials/PhysicalMaterial.h"
+
+
 
 static int32 DebugWeaponDrawing = 0;
 FAutoConsoleVariableRef CVARDebugWeaponDrawing(
@@ -58,29 +61,38 @@ void ASWeapon::Fire()
 
 		//Particle "Target: parameter
 		FVector TraceEndPoint = TraceEnd;
-		if (DebugWeaponDrawing > 0) {
-			DrawDebugLine(GetWorld(), ShotPosition, TraceEndPoint, FColor::Red, false, 1,0,1);
-		}
 
 		if (GetWorld()->LineTraceSingleByChannel(Hit, ShotPosition, TraceEnd, ECC_Visibility, QueryParams)) {
 			//block hit, process
 
 			AActor* HitActor = Hit.GetActor();
-			if (HitActor) {
-				UE_LOG(LogTemp, Warning, TEXT("%s"), *HitActor->GetName());
-			}
 			UGameplayStatics::ApplyPointDamage(HitActor, 20, ShotDirection, Hit, MyOwner->GetInstigatorController(), this, DamageType);
-			if (ImpactEffect) {
-				UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, Hit.ImpactPoint, Hit.ImpactNormal.Rotation());
+
+			EPhysicalSurface SurfaceType = UPhysicalMaterial::DetermineSurfaceType(Hit.PhysMaterial.Get());
+			UParticleSystem* SelectedEffect = nullptr;
+			switch (SurfaceType) {
+			case SurfaceType1:
+			case SurfaceType2:
+				SelectedEffect = FleshImpactEffect;
+				UE_LOG(LogTemp, Warning, TEXT("Flesh"));
+				break;
+			default:
+				SelectedEffect = DefaultImpactEffect;
+				UE_LOG(LogTemp, Warning, TEXT("Default"));
+				break;
 			}
+
+			if (SelectedEffect) {
+				UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), SelectedEffect, Hit.ImpactPoint, Hit.ImpactNormal.Rotation());
+			}
+
 			TraceEndPoint = Hit.ImpactPoint;
 		}
-		//DrawDebugLine(GetWorld(), ShotPosition, TraceEnd, FColor::Cyan, false, 1, 0, 5);
-		UE_LOG(LogTemp, Warning, TEXT("Firing"));
 
-		if (!MeshComponent) {
-			UE_LOG(LogTemp, Warning, TEXT("No Mesh"));
+		if (DebugWeaponDrawing > 0) {
+			DrawDebugLine(GetWorld(), ShotPosition, TraceEndPoint, FColor::Red, false, 1, 0, 1);
 		}
+
 		PlayerFireEffect(TraceEndPoint);
 	}
 }
@@ -101,6 +113,13 @@ void ASWeapon::PlayerFireEffect(FVector TraceEndPoint){
 			TracerComp->SetVectorParameter(TracerTargetName, TraceEndPoint);
 		}
 
+	}
+	APawn* MyOwner = Cast<APawn>(GetOwner());
+	if (MyOwner) {
+		APlayerController* PC = Cast<APlayerController>(MyOwner->GetController());
+		if (PC) {
+			PC->ClientPlayCameraShake(FireCameraShake);
+		}
 	}
 }
 
