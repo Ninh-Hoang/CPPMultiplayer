@@ -26,12 +26,29 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Component")
 	UMeshComponent* MeshComponent;
 
-public:
-	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	virtual void Fire();
 
-protected:
+	FTimerHandle TimerHandle_TimeBetweenShot;
 
+	float LastFireTime;
+
+	//RPM
+	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+	float RateOfFire;
+
+	//derived from RateOfFire
+	float TimeBetweenShot;
+
+public:
+
+	void StartFire();
+
+	void StopFire();
+
+	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+	float BaseDamage;
+
+protected:
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void Initialize(UMeshComponent* MeshComponentToSet);

@@ -47,7 +47,9 @@ protected:
 
 	ASWeapon* CurrentWeapon;
 
-	void Fire();
+	void StartFire();
+
+	void StopFire();
 
 	UPROPERTY(VisibleDefaultsOnly, Category = "Player")
 	FName WeaponAttackSocketName;

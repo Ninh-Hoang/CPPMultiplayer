@@ -11,6 +11,7 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "PhysicalMaterials/PhysicalMaterial.h"
 #include "CPPMultiplayer/CPPMultiplayer.h"
+#include "TimerManager.h"
 
 static int32 DebugWeaponDrawing = 0;
 FAutoConsoleVariableRef CVARDebugWeaponDrawing(
@@ -23,7 +24,9 @@ FAutoConsoleVariableRef CVARDebugWeaponDrawing(
 ASWeapon::ASWeapon()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	BaseDamage = 20;
 
+	RateOfFire = 600;
 }
 
 // Called when the game starts or when spawned
@@ -32,7 +35,7 @@ void ASWeapon::BeginPlay(){
 
 	MuzzleSocketName = "MuzzleSocket";
 	TracerTargetName = "Target";
-	
+	TimeBetweenShot = 60 / RateOfFire;
 }
 
 // Called every frame
@@ -65,14 +68,18 @@ void ASWeapon::Fire()
 		if (GetWorld()->LineTraceSingleByChannel(Hit, ShotPosition, TraceEnd, COLLISION_WEAPON, QueryParams)) {
 			//block hit, process
 
-			AActor* HitActor = Hit.GetActor();
-			UGameplayStatics::ApplyPointDamage(HitActor, 20, ShotDirection, Hit, MyOwner->GetInstigatorController(), this, DamageType);
-
 			EPhysicalSurface SurfaceType = UPhysicalMaterial::DetermineSurfaceType(Hit.PhysMaterial.Get());
 			UParticleSystem* SelectedEffect = nullptr;
-			if (SurfaceType == SurfaceType1 || SurfaceType == SurfaceType2) {
-				UE_LOG(LogTemp, Warning, TEXT("FleshHit"));
+
+			float ActualDamage = BaseDamage;
+			
+			if(SurfaceType == SURFACE_FLESHVULNERABLE){
+				ActualDamage *= 4;
 			}
+
+			AActor* HitActor = Hit.GetActor();
+			UGameplayStatics::ApplyPointDamage(HitActor, ActualDamage, ShotDirection, Hit, MyOwner->GetInstigatorController(), this, DamageType);
+
 			switch (SurfaceType) {
 			case SURFACE_FLESHDEFAULT:
 			case SURFACE_FLESHVULNERABLE:
@@ -95,7 +102,19 @@ void ASWeapon::Fire()
 		}
 
 		PlayerFireEffect(TraceEndPoint);
+
+		LastFireTime = GetWorld()->TimeSeconds;
 	}
+}
+
+void ASWeapon::StartFire(){
+	float FirstDelay = FMath::Max<float>(LastFireTime + TimeBetweenShot - GetWorld()->TimeSeconds, 0);
+
+	GetWorldTimerManager().SetTimer(TimerHandle_TimeBetweenShot, this, &ASWeapon::Fire, TimeBetweenShot, true, FirstDelay);
+}
+
+void ASWeapon::StopFire(){
+	GetWorldTimerManager().ClearTimer(TimerHandle_TimeBetweenShot);
 }
 
 void ASWeapon::Debug(){

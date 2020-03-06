@@ -82,7 +82,8 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	PlayerInputComponent->BindAction("Aim", IE_Pressed, this, &ABaseCharacter::Aim);
 	PlayerInputComponent->BindAction("Aim", IE_Released, this, &ABaseCharacter::Aim);
 
-	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ABaseCharacter::Fire);
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ABaseCharacter::StartFire);
+	PlayerInputComponent->BindAction("Fire", IE_Released, this, &ABaseCharacter::StopFire);
 }
 
 void ABaseCharacter::MoveForward(float AxisValue)
@@ -208,12 +209,18 @@ void ABaseCharacter::LookAtCursor() {
 	Controller->SetControlRotation(LookAtRotation);
 }
 
-void ABaseCharacter::Fire(){
+void ABaseCharacter::StartFire(){
 	if (CurrentWeapon) {
-		CurrentWeapon->Fire();
+		CurrentWeapon->StartFire();
 	}
 }
 
+void ABaseCharacter::StopFire()
+{
+	if (CurrentWeapon) {
+		CurrentWeapon->StopFire();
+	}
+}
 
 
 
