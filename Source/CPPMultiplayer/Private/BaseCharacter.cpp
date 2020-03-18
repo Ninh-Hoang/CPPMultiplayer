@@ -43,7 +43,6 @@ void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	APlayerController* PC = Cast< APlayerController>(GetController());
-	PC->bShowMouseCursor = true;
 	CharacterMovementComponent = GetCharacterMovement();
 
 	//spawn default weapon
