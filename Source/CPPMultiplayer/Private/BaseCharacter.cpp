@@ -11,6 +11,8 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "DrawDebugHelpers.h"
 #include "SWeapon.h"
+#include "Components/CapsuleComponent.h"
+#include "CPPMultiplayer/CPPMultiplayer.h"
 
 static int32 DebugAimDrawing = 0;
 FAutoConsoleVariableRef CVARDebugAimDrawing(TEXT("COOP.DebugAim"),
@@ -33,6 +35,9 @@ ABaseCharacter::ABaseCharacter()
 	CameraComponent->SetupAttachment(SpringArmComponent);*/
 
 	GetMovementComponent()->GetNavAgentPropertiesRef().bCanCrouch = true;
+
+	GetCapsuleComponent()->SetCollisionResponseToChannel(COLLISION_WEAPON, ECR_Ignore);
+
 	BaseTurnRate = 45;
 	IsAiming = false;
 	WeaponAttackSocketName = "WeaponSocket";

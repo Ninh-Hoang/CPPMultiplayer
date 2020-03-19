@@ -6,6 +6,10 @@
 #include "Components/ActorComponent.h"
 #include "SHealthComponent.generated.h"
 
+//on Health Change Event
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_SixParams(FOnHealthChangedSingature,
+USHealthComponent*, HealthComp, float, Health, float, HealthDelta,
+const class UDamageType*, DamageType, class AController*, InstigatedBy, AActor*, DamageCauser);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class CPPMULTIPLAYER_API USHealthComponent : public UActorComponent
@@ -30,5 +34,7 @@ protected:
 	void HandleTakeAnyDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
 
 public:	
+	UPROPERTY(BlueprintAssignable, Category = "Events")
+	FOnHealthChangedSingature OnHealthChanged;
 		
 };
