@@ -13,6 +13,7 @@
 #include "SWeapon.h"
 #include "Components/CapsuleComponent.h"
 #include "CPPMultiplayer/CPPMultiplayer.h"
+#include "SHealthComponent.h"
 
 static int32 DebugAimDrawing = 0;
 FAutoConsoleVariableRef CVARDebugAimDrawing(TEXT("COOP.DebugAim"),
@@ -58,6 +59,10 @@ void ABaseCharacter::BeginPlay()
 	if (CurrentWeapon) {
 		CurrentWeapon->SetOwner(this);
 		CurrentWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, WeaponAttackSocketName);
+	}
+
+	if (HealthComponent) {
+		HealthComponent->OnHealthChanged.AddDynamic(this, &ABaseCharacter::OnHealthChanged);
 	}
 }
 
@@ -162,9 +167,10 @@ void ABaseCharacter::LookRight(float AxisValue){
 	}
 }
 
-void ABaseCharacter::InitializeComponents(UCameraComponent* CameraToSet, USpringArmComponent* SpringArmToSet){
+void ABaseCharacter::InitializeComponents(UCameraComponent* CameraToSet, USpringArmComponent* SpringArmToSet, USHealthComponent* HealthComp){
 	CameraComponent = CameraToSet;
 	SpringArmComponent = SpringArmToSet;
+	HealthComponent = HealthComp;
 }
 
 FVector ABaseCharacter::GetPawnViewLocation() const
@@ -211,6 +217,23 @@ void ABaseCharacter::LookAtCursor() {
 	}
 	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(ActorLocation, Intersection);
 	Controller->SetControlRotation(LookAtRotation);
+}
+
+void ABaseCharacter::OnHealthChanged(USHealthComponent* HealthComp, 
+	float Health, float HealthDelta,
+	const class UDamageType* DamageType, 
+	class AController* InstigatedBy, AActor* DamageCauser)
+{
+	if (Health <= 0 && !bDied) {
+		//ded
+		bDied = true;
+		GetMovementComponent()->StopMovementImmediately();
+		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+		//DetachFromControllerPendingDestroy();
+
+		SetLifeSpan(5.0);
+	}
 }
 
 void ABaseCharacter::StartFire(){

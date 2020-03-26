@@ -10,6 +10,7 @@ class UCameraComponent;
 class USpringArmComponent;
 class USceneComponent;
 class ASWeapon;
+class USHealthComponent;
 
 UCLASS()
 class CPPMULTIPLAYER_API ABaseCharacter : public ACharacter
@@ -30,26 +31,36 @@ protected:
 
 	void LookRight(float AxisValue);
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
-	float BaseTurnRate;
+	void StartFire();
 
-	FTimerHandle AimTimerHandler;
+	void StopFire();
 
 	UFUNCTION()
 	void LookAtCursor();
 
+	UFUNCTION()
+	void OnHealthChanged(USHealthComponent* HealthComp, float Health, float HealthDelta,
+		const class UDamageType* DamageType, 
+		class AController* InstigatedBy, AActor* DamageCauser);
+
 	bool IsAiming;
 
+	FTimerHandle AimTimerHandler;
+
 	UCharacterMovementComponent* CharacterMovementComponent;
-	
-	UPROPERTY(EditDefaultsOnly, Category = "Player")
-	TSubclassOf<ASWeapon> StarterWeaponClass;
 
 	ASWeapon* CurrentWeapon;
 
-	void StartFire();
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+	float BaseTurnRate;
 
-	void StopFire();
+	//pawn die previously
+	UPROPERTY(BlueprintReadOnly, Category = "Player")
+	bool bDied;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Player")
+	TSubclassOf<ASWeapon> StarterWeaponClass;
 
 	UPROPERTY(VisibleDefaultsOnly, Category = "Player")
 	FName WeaponAttackSocketName;
@@ -65,17 +76,20 @@ public:
 	UCameraComponent* CameraComponent = nullptr;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-	USpringArmComponent* SpringArmComponent = nullptr;;
+	USpringArmComponent* SpringArmComponent = nullptr;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
-	USceneComponent* AzimuthComponent = nullptr;;
+	USceneComponent* AzimuthComponent = nullptr;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	USHealthComponent* HealthComponent;
 
 	void BeginCrouch();
 	void EndCrouch();
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
-	void InitializeComponents(UCameraComponent* CameraToSet, 
-			USpringArmComponent* SpringArmToSet);
+	void InitializeComponents(UCameraComponent* CameraToSet,
+	USpringArmComponent* SpringArmToSet, USHealthComponent* HealthComp);
 
 	virtual FVector GetPawnViewLocation() const override;
 	void Aim();
