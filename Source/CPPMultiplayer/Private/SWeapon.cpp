@@ -79,7 +79,6 @@ void ASWeapon::Fire()
 
 			AActor* HitActor = Hit.GetActor();
 			UGameplayStatics::ApplyPointDamage(HitActor, ActualDamage, ShotDirection, Hit, MyOwner->GetInstigatorController(), this, DamageType);
-
 			switch (SurfaceType) {
 			case SURFACE_FLESHDEFAULT:
 			case SURFACE_FLESHVULNERABLE:

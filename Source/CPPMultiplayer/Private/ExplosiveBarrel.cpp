@@ -8,6 +8,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystem.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "PhysicsEngine/RadialForceComponent.h"
+#include "TimerManager.h"
 
 // Sets default values
 AExplosiveBarrel::AExplosiveBarrel(){
@@ -16,15 +18,29 @@ AExplosiveBarrel::AExplosiveBarrel(){
 
 	bDied = false;
 	BarrelDamage = 100;
-	BarrelExplosionRadius = 400;
+	ExplosionDamageRadius = 300;
+	ForceRadius = 300;
+	ExplosionImpluse = 500;
+	ForceStrenght = 500;
+	ExplosionDelay = 1;
 }
 
 // Called when the game starts or when spawned
 void AExplosiveBarrel::BeginPlay(){
 	Super::BeginPlay();
 	SetBarrelMaterial();
+	if (BarrelMesh) {
+		BarrelMesh->SetCollisionObjectType(ECC_PhysicsBody);
+	}
 	if (HealthComponent) {
 		HealthComponent->OnHealthChanged.AddDynamic(this, &AExplosiveBarrel::OnHealthChanged);
+	}
+	if (RadialForceComponent) {
+		RadialForceComponent->Radius = ForceRadius;
+		RadialForceComponent->ImpulseStrength = ForceStrenght;
+		RadialForceComponent->bImpulseVelChange = true;
+		RadialForceComponent->bAutoActivate = true;
+		RadialForceComponent->bIgnoreOwningActor = true;
 	}
 }
 
@@ -38,10 +54,21 @@ void AExplosiveBarrel::SetBarrelMaterial(){
 	}
 }
 
-void AExplosiveBarrel::PlayExplosionEffect(){
+void AExplosiveBarrel::ExplodeBarrel(){
+	SetBarrelMaterial();
+
 	if (ExplosionEffect) {
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionEffect, GetActorLocation(), GetActorRotation());
 	}
+
+	FVector BoostVector = FVector::UpVector * ExplosionImpluse;
+	BarrelMesh->AddImpulse(BoostVector, NAME_None, true);
+	RadialForceComponent->FireImpulse();
+
+	TArray<AActor*> IgnoreActors;
+	UGameplayStatics::ApplyRadialDamage(this, BarrelDamage, 
+		GetActorLocation(), ExplosionDamageRadius, 
+		BarrelDamageType, IgnoreActors, this, NULL, true);
 }
 
 void AExplosiveBarrel::OnHealthChanged(USHealthComponent* HealthComp, float Health, 
@@ -49,22 +76,15 @@ void AExplosiveBarrel::OnHealthChanged(USHealthComponent* HealthComp, float Heal
 	class AController* InstigatedBy, AActor* DamageCauser){
 	if (Health <= 0 && bDied == false) {
 		bDied = true;
-		PlayExplosionEffect();
-		SetBarrelMaterial();
-		FVector Origin;
-		//UGameplayStatics::ApplyRadialDamage(GetWorld(), BarrelDamage, Origin, BarrelExplosionRadius,);
+		GetWorldTimerManager().SetTimer(ExplosionTimer, this, &AExplosiveBarrel::ExplodeBarrel, GetWorld()->DeltaTimeSeconds, false, ExplosionDelay);
+		GetWorld()->GetTimerManager().ClearTimer(ExplosionTimer);
 	}
 }
 
-// Called every frame
-void AExplosiveBarrel::Tick(float DeltaTime){
-	Super::Tick(DeltaTime);
-
-}
-
-void AExplosiveBarrel::InitializeComponents(USHealthComponent* HealthComp, UStaticMeshComponent* BarrelMeshToSet){
+void AExplosiveBarrel::InitializeComponents(USHealthComponent* HealthComp, UStaticMeshComponent* BarrelMeshToSet, URadialForceComponent* RadialForceComp){
 	HealthComponent = HealthComp;
 	BarrelMesh = BarrelMeshToSet;
+	RadialForceComponent = RadialForceComp;
 }
 
 

@@ -9,6 +9,7 @@
 class USHealthComponent;
 class UStaticMeshComponent;
 class UMaterial;
+class URadialForceComponent;
 
 UCLASS()
 class CPPMULTIPLAYER_API AExplosiveBarrel : public AActor
@@ -23,6 +24,25 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, Category = "Health Component")
 	bool bDied;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Barrel")
+	float BarrelDamage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Barrel")
+	float ExplosionDamageRadius;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Barrel")
+	float ForceRadius;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Barrel")
+	float ForceStrenght;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Barrel")
+	float ExplosionImpluse;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Barrel")
+	float ExplosionDelay;
+
+	FTimerHandle ExplosionTimer;
 
 	UPROPERTY(BlueprintReadOnly, Category = "Health Component")
 	USHealthComponent* HealthComponent;
@@ -30,27 +50,11 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Barrel")
 	UStaticMeshComponent* BarrelMesh;
 
-	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
+	URadialForceComponent* RadialForceComponent;
 
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-	void SetBarrelMaterial();
-
-	void PlayExplosionEffect();
-
-	UFUNCTION()
-	void OnHealthChanged(USHealthComponent* HealthComp, float Health, float HealthDelta,
-		const class UDamageType* DamageType,
-		class AController* InstigatedBy, AActor* DamageCauser);
-
-public:	
-
-	UPROPERTY(BlueprintReadWrite, Category = "Barrel")
-	float BarrelDamage;
-
-	UPROPERTY(BlueprintReadWrite, Category = "Barrel")
-	float BarrelExplosionRadius;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
+	TSubclassOf<UDamageType> BarrelDamageType;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Texture")
 	UMaterial* BarrelTexture;
@@ -61,10 +65,26 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Effect")
 	UParticleSystem* ExplosionEffect;
 
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+	void SetBarrelMaterial();
+
+	UFUNCTION()
+	void ExplodeBarrel();
+
+	UFUNCTION()
+	void OnHealthChanged(USHealthComponent* HealthComp, float Health, float HealthDelta,
+		const class UDamageType* DamageType,
+		class AController* InstigatedBy, AActor* DamageCauser);
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
-	void InitializeComponents(USHealthComponent* HealthComp, UStaticMeshComponent* BarrelMeshToSet);
+	void InitializeComponents(USHealthComponent* HealthComp, 
+		UStaticMeshComponent* BarrelMeshToSet, 
+		URadialForceComponent* RadialForceComp);
+
+	
+
+	
 
 };
