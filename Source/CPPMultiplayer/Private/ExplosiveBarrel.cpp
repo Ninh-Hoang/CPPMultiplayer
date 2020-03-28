@@ -69,6 +69,8 @@ void AExplosiveBarrel::ExplodeBarrel(){
 	UGameplayStatics::ApplyRadialDamage(this, BarrelDamage, 
 		GetActorLocation(), ExplosionDamageRadius, 
 		BarrelDamageType, IgnoreActors, this, NULL, true);
+
+	GetWorld()->GetTimerManager().ClearTimer(ExplosionTimer);
 }
 
 void AExplosiveBarrel::OnHealthChanged(USHealthComponent* HealthComp, float Health, 
@@ -77,7 +79,6 @@ void AExplosiveBarrel::OnHealthChanged(USHealthComponent* HealthComp, float Heal
 	if (Health <= 0 && bDied == false) {
 		bDied = true;
 		GetWorldTimerManager().SetTimer(ExplosionTimer, this, &AExplosiveBarrel::ExplodeBarrel, GetWorld()->DeltaTimeSeconds, false, ExplosionDelay);
-		GetWorld()->GetTimerManager().ClearTimer(ExplosionTimer);
 	}
 }
 

@@ -48,9 +48,6 @@ protected:
 	FTimerHandle AimTimerHandler;
 
 	UCharacterMovementComponent* CharacterMovementComponent;
-
-	ASWeapon* CurrentWeapon;
-
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 	float BaseTurnRate;
@@ -58,6 +55,9 @@ protected:
 	//pawn die previously
 	UPROPERTY(BlueprintReadOnly, Category = "Player")
 	bool bDied;
+
+	UPROPERTY(Replicated)
+	ASWeapon* CurrentWeapon;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Player")
 	TSubclassOf<ASWeapon> StarterWeaponClass;

@@ -14,6 +14,7 @@
 #include "Components/CapsuleComponent.h"
 #include "CPPMultiplayer/CPPMultiplayer.h"
 #include "SHealthComponent.h"
+#include "Net/UnrealNetwork.h"
 
 static int32 DebugAimDrawing = 0;
 FAutoConsoleVariableRef CVARDebugAimDrawing(TEXT("COOP.DebugAim"),
@@ -51,18 +52,21 @@ void ABaseCharacter::BeginPlay()
 	APlayerController* PC = Cast< APlayerController>(GetController());
 	CharacterMovementComponent = GetCharacterMovement();
 
-	//spawn default weapon
-	FActorSpawnParameters SpawnParams;
-	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	//only spawn weapon on server
+	if (Role == ROLE_Authority) {
+		//spawn default weapon
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-	CurrentWeapon = GetWorld()->SpawnActor<ASWeapon>(StarterWeaponClass, FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
-	if (CurrentWeapon) {
-		CurrentWeapon->SetOwner(this);
-		CurrentWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, WeaponAttackSocketName);
-	}
+		CurrentWeapon = GetWorld()->SpawnActor<ASWeapon>(StarterWeaponClass, FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
+		if (CurrentWeapon) {
+			CurrentWeapon->SetOwner(this);
+			CurrentWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, WeaponAttackSocketName);
+		}
 
-	if (HealthComponent) {
-		HealthComponent->OnHealthChanged.AddDynamic(this, &ABaseCharacter::OnHealthChanged);
+		if (HealthComponent) {
+			HealthComponent->OnHealthChanged.AddDynamic(this, &ABaseCharacter::OnHealthChanged);
+		}
 	}
 }
 
@@ -247,6 +251,12 @@ void ABaseCharacter::StopFire()
 	if (CurrentWeapon) {
 		CurrentWeapon->StopFire();
 	}
+}
+
+void ABaseCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(ABaseCharacter, CurrentWeapon);
 }
 
 
