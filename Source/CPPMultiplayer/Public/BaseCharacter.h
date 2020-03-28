@@ -87,10 +87,14 @@ public:
 	void BeginCrouch();
 	void EndCrouch();
 
+	void Aim();
+
+	virtual FVector GetPawnViewLocation() const override;
+
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void InitializeComponents(UCameraComponent* CameraToSet,
 	USpringArmComponent* SpringArmToSet, USHealthComponent* HealthComp);
 
-	virtual FVector GetPawnViewLocation() const override;
-	void Aim();
+	
+	
 };

@@ -19,26 +19,6 @@ public:
 	// Sets default values for this actor's properties
 	ASWeapon();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Component")
-	UMeshComponent* MeshComponent;
-
-	virtual void Fire();
-
-	FTimerHandle TimerHandle_TimeBetweenShot;
-
-	float LastFireTime;
-
-	//RPM
-	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
-	float RateOfFire;
-
-	//derived from RateOfFire
-	float TimeBetweenShot;
-
 public:
 
 	void StartFire();
@@ -50,15 +30,16 @@ public:
 
 protected:
 
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-	void Initialize(UMeshComponent* MeshComponentToSet);
+	float LastFireTime;
 
+	FTimerHandle TimerHandle_TimeBetweenShot;
 
+	//RPM
+	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+	float RateOfFire;
 
-	UFUNCTION(BlueprintCallable, Category = "Weapon")
-	void Debug();
-
-	void PlayerFireEffect(FVector TraceEndPoint);
+	//derived from RateOfFire
+	float TimeBetweenShot;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
 	TSubclassOf<UDamageType> DamageType;
@@ -84,4 +65,21 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
 	TSubclassOf<UCameraShake> FireCameraShake;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Component")
+	UMeshComponent* MeshComponent;
+
+	virtual void BeginPlay() override;
+
+	void PlayerFireEffect(FVector TraceEndPoint);
+
+	virtual void Fire();
+
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	void Initialize(UMeshComponent* MeshComponentToSet);
+
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	void Debug();
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerFire();
 };

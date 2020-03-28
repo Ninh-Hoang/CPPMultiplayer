@@ -186,6 +186,7 @@ FVector ABaseCharacter::GetPawnViewLocation() const
 }
 
 void ABaseCharacter::Aim(){
+
 	if (IsAiming) {
 		IsAiming = !IsAiming;
 		CharacterMovementComponent->bOrientRotationToMovement = true;
@@ -258,6 +259,8 @@ void ABaseCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 
 	DOREPLIFETIME(ABaseCharacter, CurrentWeapon);
 }
+
+
 
 
 

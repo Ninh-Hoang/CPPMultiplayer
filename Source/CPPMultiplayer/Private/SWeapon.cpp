@@ -47,7 +47,13 @@ void ASWeapon::Initialize(UMeshComponent* MeshComponentToSet){
 }
 	
 void ASWeapon::Fire()
-{
+{	
+	//use ServerFire() for clients
+	if (Role < ROLE_Authority) {
+		ServerFire();
+		return;
+	}
+
 	//trace to cross hair
 	FHitResult Hit;
 	AActor* MyOwner = GetOwner();
@@ -120,6 +126,14 @@ void ASWeapon::StopFire(){
 
 void ASWeapon::Debug(){
 	UE_LOG(LogTemp, Warning, TEXT("Working"));
+}
+
+void ASWeapon::ServerFire_Implementation(){
+	Fire();
+}
+
+bool ASWeapon::ServerFire_Validate(){
+	return true;
 }
 
 void ASWeapon::PlayerFireEffect(FVector TraceEndPoint){
