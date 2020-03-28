@@ -74,12 +74,14 @@ protected:
 
 	virtual void Fire();
 
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerFire();
+
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void Initialize(UMeshComponent* MeshComponentToSet);
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	void Debug();
 
-	UFUNCTION(Server, Reliable, WithValidation)
-	void ServerFire();
+	
 };
