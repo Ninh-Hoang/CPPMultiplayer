@@ -18,6 +18,9 @@ struct FHitScanTrace {
 
 public:
 	UPROPERTY()
+	TEnumAsByte<EPhysicalSurface> SurfaceType;
+
+	UPROPERTY()
 	FVector_NetQuantize TraceTo;
 };
 
@@ -84,7 +87,9 @@ protected:
 
 	virtual void BeginPlay() override;
 		
-	void PlayerFireEffect(FVector TraceEndPoint);
+	void PlayFireEffect(FVector TraceEndPoint);
+
+	void PlayImpactEffect(EPhysicalSurface SurfaceType, FVector ImpactPoint);
 
 	virtual void Fire();
 	
