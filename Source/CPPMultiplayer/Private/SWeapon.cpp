@@ -120,7 +120,6 @@ void ASWeapon::Fire()
 
 void ASWeapon::OnRep_HitScanTrace(){
 	//play cosmetic effect
-	UE_LOG(LogTemp, Warning, TEXT("Replicated"));
 	PlayerFireEffect(HitScanTrace.TraceTo);
 }
 
