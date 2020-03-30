@@ -118,7 +118,7 @@ void ABaseCharacter::MoveForward(float AxisValue)
 		AddMovementInput(Direction, AxisValue);
 	}*/
 
-	if (ensure(CameraComponent)) {
+	if (CameraComponent) {
 		FVector ProjectedVector = UKismetMathLibrary::ProjectVectorOnToPlane(CameraComponent->GetForwardVector(), GetActorUpVector());
 		FVector ForwardDirection = ProjectedVector.GetSafeNormal();
 		AddMovementInput(ForwardDirection, AxisValue);

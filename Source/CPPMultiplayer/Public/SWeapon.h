@@ -10,6 +10,17 @@ class UDamageType;
 class UParticleSystem;
 class UMeshComponent;
 
+
+//contain weapon of LineTrace
+USTRUCT()
+struct FHitScanTrace {
+	GENERATED_BODY()
+
+public:
+	UPROPERTY()
+	FVector_NetQuantize TraceTo;
+};
+
 UCLASS()
 class CPPMULTIPLAYER_API ASWeapon : public AActor
 {
@@ -67,12 +78,18 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Component")
 	UMeshComponent* MeshComponent;
+	
+	UPROPERTY(ReplicatedUsing=OnRep_HitScanTrace)
+	FHitScanTrace HitScanTrace;
 
 	virtual void BeginPlay() override;
-
+		
 	void PlayerFireEffect(FVector TraceEndPoint);
 
 	virtual void Fire();
+	
+	UFUNCTION()
+	void OnRep_HitScanTrace();
 
 	UFUNCTION(Server, Reliable, WithValidation)
 	void ServerFire();
@@ -82,6 +99,4 @@ protected:
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	void Debug();
-
-	
 };

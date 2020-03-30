@@ -12,6 +12,7 @@
 #include "PhysicalMaterials/PhysicalMaterial.h"
 #include "CPPMultiplayer/CPPMultiplayer.h"
 #include "TimerManager.h"
+#include "Net/UnrealNetwork.h"
 
 static int32 DebugWeaponDrawing = 0;
 FAutoConsoleVariableRef CVARDebugWeaponDrawing(
@@ -51,7 +52,6 @@ void ASWeapon::Fire()
 	//use ServerFire() for clients
 	if (Role < ROLE_Authority) {
 		ServerFire();
-		return;
 	}
 
 	//trace to cross hair
@@ -110,8 +110,18 @@ void ASWeapon::Fire()
 
 		PlayerFireEffect(TraceEndPoint);
 
+		if (Role == ROLE_Authority) {
+			HitScanTrace.TraceTo = TraceEndPoint;
+		}
+
 		LastFireTime = GetWorld()->TimeSeconds;
 	}
+}
+
+void ASWeapon::OnRep_HitScanTrace(){
+	//play cosmetic effect
+	UE_LOG(LogTemp, Warning, TEXT("Replicated"));
+	PlayerFireEffect(HitScanTrace.TraceTo);
 }
 
 void ASWeapon::StartFire(){
@@ -157,4 +167,10 @@ void ASWeapon::PlayerFireEffect(FVector TraceEndPoint){
 		}
 	}
 }
+
+void ASWeapon::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME_CONDITION(ASWeapon, HitScanTrace, COND_SkipOwner);
+}
+
 
