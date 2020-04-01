@@ -23,8 +23,8 @@ FAutoConsoleVariableRef CVARDebugAimDrawing(TEXT("COOP.DebugAim"),
 	ECVF_Cheat);
 
 // Sets default values
-ABaseCharacter::ABaseCharacter()
-{
+ABaseCharacter::ABaseCharacter(){
+
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -35,6 +35,9 @@ ABaseCharacter::ABaseCharacter()
 
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	CameraComponent->SetupAttachment(SpringArmComponent);*/
+
+	SetReplicates(true);
+	SetReplicateMovement(true);
 
 	GetMovementComponent()->GetNavAgentPropertiesRef().bCanCrouch = true;
 
@@ -186,7 +189,9 @@ FVector ABaseCharacter::GetPawnViewLocation() const
 }
 
 void ABaseCharacter::Aim(){
-
+	if (Role < ROLE_Authority) {
+		ServerAim();
+	}
 	if (IsAiming) {
 		IsAiming = !IsAiming;
 		CharacterMovementComponent->bOrientRotationToMovement = true;
@@ -207,10 +212,15 @@ void ABaseCharacter::Aim(){
 	}
 }
 
+void ABaseCharacter::ServerAim_Implementation(){
+	Aim();
+}
+
+bool ABaseCharacter::ServerAim_Validate(){
+	return true;
+}
+
 void ABaseCharacter::LookAtCursor() {
-	if (Role == ROLE_Authority) {
-		ServerLookAtCursor();
-	}
 	APlayerController* PC = Cast<APlayerController>(GetController());
 	FVector MousePosition;
 	//PC->GetMousePosition(MousePosition);
@@ -225,15 +235,6 @@ void ABaseCharacter::LookAtCursor() {
 	}
 	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(ActorLocation, Intersection);
 	Controller->SetControlRotation(LookAtRotation);
-}
-
-
-void ABaseCharacter::ServerLookAtCursor_Implementation(){
-	LookAtCursor();
-}
-
-bool ABaseCharacter::ServerLookAtCursor_Validate(){
-	return true;
 }
 
 void ABaseCharacter::OnHealthChanged(USHealthComponent* HealthComp, 

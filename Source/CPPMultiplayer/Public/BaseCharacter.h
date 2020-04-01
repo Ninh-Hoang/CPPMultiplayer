@@ -38,14 +38,13 @@ protected:
 	UFUNCTION()
 	void LookAtCursor();
 
-	UFUNCTION(Server, Reliable, WithValidation)
-	void ServerLookAtCursor();
-
 	UFUNCTION()
 	void OnHealthChanged(USHealthComponent* HealthComp, float Health, float HealthDelta,
 		const class UDamageType* DamageType, 
 		class AController* InstigatedBy, AActor* DamageCauser);
 
+
+	UPROPERTY(Replicated)
 	bool IsAiming;
 
 	FTimerHandle AimTimerHandler;
@@ -91,6 +90,9 @@ public:
 	void EndCrouch();
 
 	void Aim();
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerAim();
 
 	virtual FVector GetPawnViewLocation() const override;
 
