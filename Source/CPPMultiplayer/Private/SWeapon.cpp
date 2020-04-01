@@ -103,7 +103,7 @@ void ASWeapon::Fire()
 		PlayFireEffect(TraceEndPoint);
 
 		if (Role == ROLE_Authority) {
-			HitScanTrace.TraceTo = Hit.ImpactPoint;
+			HitScanTrace.TraceTo = TraceEndPoint;
 			HitScanTrace.SurfaceType = SurfaceType;
 			HitScanTrace.StructIncreasement++;
 		}
