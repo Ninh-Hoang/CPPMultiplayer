@@ -22,8 +22,9 @@ public:
 
 protected:
 
-	UPROPERTY(BlueprintReadOnly, Category = "Health Component")
+	UPROPERTY(ReplicatedUsing=OnRep_Explode, BlueprintReadOnly, Category = "Health Component")
 	bool bDied;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Barrel")
 	float BarrelDamage;
 
@@ -68,10 +69,13 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	void SetBarrelMaterial();
+	void PlayBarrelEffect();
 
 	UFUNCTION()
 	void ExplodeBarrel();
+
+	UFUNCTION()
+	void OnRep_Explode();
 
 	UFUNCTION()
 	void OnHealthChanged(USHealthComponent* HealthComp, float Health, float HealthDelta,

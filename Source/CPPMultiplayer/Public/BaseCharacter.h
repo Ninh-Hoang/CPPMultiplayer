@@ -38,6 +38,9 @@ protected:
 	UFUNCTION()
 	void LookAtCursor();
 
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerLookAtCursor();
+
 	UFUNCTION()
 	void OnHealthChanged(USHealthComponent* HealthComp, float Health, float HealthDelta,
 		const class UDamageType* DamageType, 
@@ -53,7 +56,7 @@ protected:
 	float BaseTurnRate;
 
 	//pawn die previously
-	UPROPERTY(BlueprintReadOnly, Category = "Player")
+	UPROPERTY(Replicated, BlueprintReadOnly, Category = "Player")
 	bool bDied;
 
 	UPROPERTY(Replicated)

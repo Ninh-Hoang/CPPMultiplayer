@@ -208,6 +208,9 @@ void ABaseCharacter::Aim(){
 }
 
 void ABaseCharacter::LookAtCursor() {
+	if (Role == ROLE_Authority) {
+		ServerLookAtCursor();
+	}
 	APlayerController* PC = Cast<APlayerController>(GetController());
 	FVector MousePosition;
 	//PC->GetMousePosition(MousePosition);
@@ -222,6 +225,15 @@ void ABaseCharacter::LookAtCursor() {
 	}
 	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(ActorLocation, Intersection);
 	Controller->SetControlRotation(LookAtRotation);
+}
+
+
+void ABaseCharacter::ServerLookAtCursor_Implementation(){
+	LookAtCursor();
+}
+
+bool ABaseCharacter::ServerLookAtCursor_Validate(){
+	return true;
 }
 
 void ABaseCharacter::OnHealthChanged(USHealthComponent* HealthComp, 
@@ -258,6 +270,7 @@ void ABaseCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(ABaseCharacter, CurrentWeapon);
+	DOREPLIFETIME(ABaseCharacter, bDied);
 }
 
 

@@ -10,12 +10,14 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "PhysicsEngine/RadialForceComponent.h"
 #include "TimerManager.h"
+#include "Net/UnrealNetwork.h"
 
 // Sets default values
 AExplosiveBarrel::AExplosiveBarrel(){
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	SetReplicates(true);
+	SetReplicateMovement(true);
 	bDied = false;
 	BarrelDamage = 100;
 	ExplosionDamageRadius = 300;
@@ -28,7 +30,9 @@ AExplosiveBarrel::AExplosiveBarrel(){
 // Called when the game starts or when spawned
 void AExplosiveBarrel::BeginPlay(){
 	Super::BeginPlay();
-	SetBarrelMaterial();
+	if (BarrelMesh && BarrelTexture) {
+		BarrelMesh->SetMaterial(0, BarrelTexture);
+	}
 	if (BarrelMesh) {
 		BarrelMesh->SetCollisionObjectType(ECC_PhysicsBody);
 	}
@@ -44,19 +48,25 @@ void AExplosiveBarrel::BeginPlay(){
 	}
 }
 
-void AExplosiveBarrel::SetBarrelMaterial(){
+void AExplosiveBarrel::PlayBarrelEffect(){
 	if (!BarrelMesh) { return; }
-	if (!bDied) {		
+	if (!bDied && BarrelTexture && BarrelTextureExploded) {
 		BarrelMesh->SetMaterial(0, BarrelTexture);
 	}
 	else {
 		BarrelMesh->SetMaterial(0, BarrelTextureExploded);
 	}
+
+	if (ExplosionEffect) {
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionEffect, GetActorLocation(), GetActorRotation());
+	}
 }
 
 void AExplosiveBarrel::ExplodeBarrel(){
-	SetBarrelMaterial();
-
+	PlayBarrelEffect();
+	if (Role < ROLE_Authority) {
+		OnRep_Explode();
+	}
 	if (ExplosionEffect) {
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionEffect, GetActorLocation(), GetActorRotation());
 	}
@@ -73,6 +83,10 @@ void AExplosiveBarrel::ExplodeBarrel(){
 	GetWorld()->GetTimerManager().ClearTimer(ExplosionTimer);
 }
 
+void AExplosiveBarrel::OnRep_Explode(){
+	PlayBarrelEffect();
+}
+
 void AExplosiveBarrel::OnHealthChanged(USHealthComponent* HealthComp, float Health, 
 	float HealthDelta, const class UDamageType* DamageType, 
 	class AController* InstigatedBy, AActor* DamageCauser){
@@ -86,6 +100,11 @@ void AExplosiveBarrel::InitializeComponents(USHealthComponent* HealthComp, UStat
 	HealthComponent = HealthComp;
 	BarrelMesh = BarrelMeshToSet;
 	RadialForceComponent = RadialForceComp;
+}
+
+void AExplosiveBarrel::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(AExplosiveBarrel, bDied);
 }
 
 
