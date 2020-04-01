@@ -64,9 +64,7 @@ void AExplosiveBarrel::PlayBarrelEffect(){
 
 void AExplosiveBarrel::ExplodeBarrel(){
 	PlayBarrelEffect();
-	if (Role < ROLE_Authority) {
-		OnRep_Explode();
-	}
+
 	if (ExplosionEffect) {
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionEffect, GetActorLocation(), GetActorRotation());
 	}
@@ -104,7 +102,7 @@ void AExplosiveBarrel::InitializeComponents(USHealthComponent* HealthComp, UStat
 
 void AExplosiveBarrel::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	DOREPLIFETIME(AExplosiveBarrel, bDied);
+	DOREPLIFETIME_CONDITION(AExplosiveBarrel, bDied, COND_SkipOwner);
 }
 
 

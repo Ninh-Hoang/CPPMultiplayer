@@ -22,6 +22,9 @@ public:
 
 	UPROPERTY()
 	FVector_NetQuantize TraceTo;
+
+	UPROPERTY()
+	uint8 StructIncreasement;
 };
 
 UCLASS()

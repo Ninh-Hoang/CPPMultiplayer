@@ -105,6 +105,7 @@ void ASWeapon::Fire()
 		if (Role == ROLE_Authority) {
 			HitScanTrace.TraceTo = Hit.ImpactPoint;
 			HitScanTrace.SurfaceType = SurfaceType;
+			HitScanTrace.StructIncreasement++;
 		}
 
 		LastFireTime = GetWorld()->TimeSeconds;

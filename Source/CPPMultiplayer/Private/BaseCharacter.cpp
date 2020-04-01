@@ -229,7 +229,7 @@ void ABaseCharacter::LookAtCursor() {
 	PC->DeprojectMousePositionToWorld(WorldLocation, WorldDirection);
 	FVector ActorLocation = GetActorLocation();
 	FVector Intersection = FMath::LinePlaneIntersection(WorldLocation, WorldLocation + WorldDirection * 1000, ActorLocation, FVector::UpVector);
-	if (DebugAimDrawing > 0) {
+	if (DebugAimDrawing > 0 && IsLocallyControlled()) {
 		DrawDebugSphere(GetWorld(), Intersection, 10, 12, FColor::Red, false, GetWorld()->GetDeltaSeconds(), 0, 1);
 		DrawDebugLine(GetWorld(), ActorLocation, Intersection, FColor::Red, false, GetWorld()->GetDeltaSeconds(), 0, 1);
 	}
