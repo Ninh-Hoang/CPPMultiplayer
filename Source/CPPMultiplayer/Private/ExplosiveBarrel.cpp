@@ -15,7 +15,7 @@
 // Sets default values
 AExplosiveBarrel::AExplosiveBarrel(){
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 	SetReplicates(true);
 	SetReplicateMovement(true);
 	bDied = false;

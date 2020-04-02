@@ -17,6 +17,10 @@ USHealthComponent::USHealthComponent()
 }
 
 
+void USHealthComponent::SetDefaultHealth(float HealthToSet){
+	DefaultHealth = HealthToSet;
+}
+
 // Called when the game starts
 void USHealthComponent::BeginPlay()
 {

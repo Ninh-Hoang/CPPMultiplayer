@@ -2,26 +2,59 @@
 
 
 #include "LootBox.h"
+#include "SHealthComponent.h"
+#include "Net/UnrealNetwork.h"
 
 // Sets default values
 ALootBox::ALootBox()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-
+	PrimaryActorTick.bCanEverTick = false;
+	SetReplicates(true);
+	SetReplicateMovement(true);
 }
 
 // Called when the game starts or when spawned
 void ALootBox::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	if (HealthComponent) {
+		HealthComponent->OnHealthChanged.AddDynamic(this, &ALootBox::OnHealthChanged);
+	}
 }
 
-// Called every frame
-void ALootBox::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
+void ALootBox::InitializeComponent(USHealthComponent* HealthComp){
+	HealthComponent = HealthComp;
 }
+
+void ALootBox::OnHealthChanged(USHealthComponent* HealthComp, 
+	float Health, float HealthDelta, const class UDamageType* DamageType, 
+	class AController* InstigatedBy, AActor* DamageCauser){
+	if (Health <= 0) {
+		SpawnItem();
+		Destroy();	
+	}
+}
+
+
+void ALootBox::SpawnItem(){
+	ServerSpawnItem();
+}
+
+void ALootBox::ServerSpawnItem_Implementation(){
+	if (Item) {
+		FVector Forward = GetActorForwardVector();
+		FVector SpawnLocation = GetActorLocation(); 
+		FRotator SpawnRotation = GetActorRotation();
+		FActorSpawnParameters SpawnParams;
+		GetWorld()->SpawnActor<AActor>(Item, SpawnLocation, SpawnRotation, SpawnParams);
+
+	}
+}
+
+bool ALootBox::ServerSpawnItem_Validate(){
+	return true;
+}
+
 

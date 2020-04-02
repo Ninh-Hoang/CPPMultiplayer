@@ -11,6 +11,8 @@ class USpringArmComponent;
 class USceneComponent;
 class ASWeapon;
 class USHealthComponent;
+class UItem;
+class UInventoryComponent;
 
 UCLASS()
 class CPPMULTIPLAYER_API ABaseCharacter : public ACharacter
@@ -74,17 +76,20 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UCameraComponent* CameraComponent = nullptr;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	USpringArmComponent* SpringArmComponent = nullptr;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	USceneComponent* AzimuthComponent = nullptr;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	USHealthComponent* HealthComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	UInventoryComponent* Inventory;
 
 	void BeginCrouch();
 	void EndCrouch();
@@ -99,6 +104,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void InitializeComponents(UCameraComponent* CameraToSet,
 	USpringArmComponent* SpringArmToSet, USHealthComponent* HealthComp);
+
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	void UseItem(UItem* Item);
 
 	
 	

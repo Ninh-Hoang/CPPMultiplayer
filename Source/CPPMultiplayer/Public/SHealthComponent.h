@@ -20,6 +20,8 @@ public:
 	// Sets default values for this component's properties
 	USHealthComponent();
 
+	void SetDefaultHealth(float HealthToSet);
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;

@@ -15,6 +15,8 @@
 #include "CPPMultiplayer/CPPMultiplayer.h"
 #include "SHealthComponent.h"
 #include "Net/UnrealNetwork.h"
+#include "Item.h"
+#include "InventoryComponent.h"
 
 static int32 DebugAimDrawing = 0;
 FAutoConsoleVariableRef CVARDebugAimDrawing(TEXT("COOP.DebugAim"),
@@ -46,6 +48,9 @@ ABaseCharacter::ABaseCharacter(){
 	BaseTurnRate = 45;
 	IsAiming = false;
 	WeaponAttackSocketName = "WeaponSocket";
+
+	Inventory = CreateDefaultSubobject<UInventoryComponent>("Inventory");
+	Inventory->Capacity = 20;
 }
 
 // Called when the game starts or when spawned
@@ -178,6 +183,13 @@ void ABaseCharacter::InitializeComponents(UCameraComponent* CameraToSet, USpring
 	CameraComponent = CameraToSet;
 	SpringArmComponent = SpringArmToSet;
 	HealthComponent = HealthComp;
+}
+
+void ABaseCharacter::UseItem(UItem* Item){
+	if (Item) {
+		Item->Use(this);
+		Item->OnUse(this); //bp event
+	}
 }
 
 FVector ABaseCharacter::GetPawnViewLocation() const
