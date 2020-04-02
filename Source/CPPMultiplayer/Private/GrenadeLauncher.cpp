@@ -6,10 +6,10 @@
 
 
 void AGrenadeLauncher::Fire() {
-	if (Role < ROLE_Authority) {
-		ServerGrenadeFire();
-	}
+	ServerGrenadeFire();
+}
 
+void AGrenadeLauncher::ServerGrenadeFire_Implementation(){
 	FHitResult Hit;
 	AActor* MyOwner = GetOwner();
 	if (!MyOwner || !ProjectileClass) {
@@ -27,10 +27,6 @@ void AGrenadeLauncher::Fire() {
 		FActorSpawnParameters SpawnParams;
 		GetWorld()->SpawnActor<AActor>(ProjectileClass, MuzzleLocation, ShotRotation, SpawnParams);
 	}
-}
-
-void AGrenadeLauncher::ServerGrenadeFire_Implementation(){
-	Fire();
 }
 
 bool AGrenadeLauncher::ServerGrenadeFire_Validate() {

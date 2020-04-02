@@ -272,6 +272,7 @@ void ABaseCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 
 	DOREPLIFETIME(ABaseCharacter, CurrentWeapon);
 	DOREPLIFETIME(ABaseCharacter, bDied);
+	DOREPLIFETIME(ABaseCharacter, IsAiming);
 }
 
 
