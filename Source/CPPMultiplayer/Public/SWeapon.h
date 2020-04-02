@@ -100,7 +100,7 @@ protected:
 	void OnRep_HitScanTrace();
 
 	UFUNCTION(Server, Reliable, WithValidation)
-	void ServerFire();
+	virtual void ServerFire();
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void Initialize(UMeshComponent* MeshComponentToSet);

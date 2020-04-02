@@ -20,6 +20,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
 	TSubclassOf<AActor> ProjectileClass;
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerGrenadeFire();
 };
 
 

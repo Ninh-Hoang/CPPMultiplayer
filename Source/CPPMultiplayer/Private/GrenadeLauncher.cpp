@@ -2,9 +2,14 @@
 
 
 #include "GrenadeLauncher.h"
+#include "Net/UnrealNetwork.h"
 
 
 void AGrenadeLauncher::Fire() {
+	if (Role < ROLE_Authority) {
+		ServerGrenadeFire();
+	}
+
 	FHitResult Hit;
 	AActor* MyOwner = GetOwner();
 	if (!MyOwner || !ProjectileClass) {
@@ -23,5 +28,16 @@ void AGrenadeLauncher::Fire() {
 		GetWorld()->SpawnActor<AActor>(ProjectileClass, MuzzleLocation, ShotRotation, SpawnParams);
 	}
 }
+
+void AGrenadeLauncher::ServerGrenadeFire_Implementation(){
+	Fire();
+}
+
+bool AGrenadeLauncher::ServerGrenadeFire_Validate() {
+	return true;
+}
+
+
+
 
 

@@ -106,6 +106,7 @@ void ASWeapon::Fire()
 			HitScanTrace.TraceTo = TraceEndPoint;
 			HitScanTrace.SurfaceType = SurfaceType;
 			HitScanTrace.StructIncreasement++;
+			OnRep_HitScanTrace();
 		}
 
 		LastFireTime = GetWorld()->TimeSeconds;

@@ -90,6 +90,7 @@ void AExplosiveBarrel::OnHealthChanged(USHealthComponent* HealthComp, float Heal
 	class AController* InstigatedBy, AActor* DamageCauser){
 	if (Health <= 0 && bDied == false) {
 		bDied = true;
+		OnRep_Explode();
 		GetWorldTimerManager().SetTimer(ExplosionTimer, this, &AExplosiveBarrel::ExplodeBarrel, GetWorld()->DeltaTimeSeconds, false, ExplosionDelay);
 	}
 }
@@ -102,7 +103,7 @@ void AExplosiveBarrel::InitializeComponents(USHealthComponent* HealthComp, UStat
 
 void AExplosiveBarrel::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	DOREPLIFETIME_CONDITION(AExplosiveBarrel, bDied, COND_SkipOwner);
+	DOREPLIFETIME(AExplosiveBarrel, bDied);
 }
 
 
