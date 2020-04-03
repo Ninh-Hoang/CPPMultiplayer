@@ -13,6 +13,7 @@ class UStaticMesh;
 class UTexture2D;
 class UInventoryComponent;
 class ABaseCharacter;
+class AActor;
 
 UCLASS(Abstract, Blueprintable, BlueprintType, EditInlineNew, DefaultToInstanced)
 class CPPMULTIPLAYER_API UItem : public UObject
@@ -27,6 +28,9 @@ public:
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
     UStaticMesh* PickupMesh;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
+	TSubclassOf<AActor> SpawnActor;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Item")
     UTexture2D* Thumbnail;

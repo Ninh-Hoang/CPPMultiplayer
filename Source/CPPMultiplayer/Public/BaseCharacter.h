@@ -60,10 +60,10 @@ protected:
 	UPROPERTY(Replicated, BlueprintReadOnly, Category = "Player")
 	bool bDied;
 
-	UPROPERTY(Replicated)
+	UPROPERTY(Replicated, BlueprintReadWrite)
 	ASWeapon* CurrentWeapon;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Player")
+	UPROPERTY(BlueprintReadWrite, Category = "Player")
 	TSubclassOf<ASWeapon> StarterWeaponClass;
 
 	UPROPERTY(VisibleDefaultsOnly, Category = "Player")
@@ -108,6 +108,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void UseItem(UItem* Item);
 
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	void ChangeWeapon(TSubclassOf<ASWeapon> WeaponToChange);
 	
 	
 };

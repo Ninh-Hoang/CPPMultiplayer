@@ -196,6 +196,21 @@ void ABaseCharacter::UseItem(UItem* Item){
 	}
 }
 
+void ABaseCharacter::ChangeWeapon(TSubclassOf<ASWeapon> WeaponToChange){
+	if (CurrentWeapon) {
+		CurrentWeapon->Destroy();
+
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+		CurrentWeapon->Destroy();
+
+		CurrentWeapon = GetWorld()->SpawnActor<ASWeapon>(WeaponToChange, FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
+		CurrentWeapon->SetOwner(this);
+		CurrentWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, WeaponAttackSocketName);
+	}
+}
+
 FVector ABaseCharacter::GetPawnViewLocation() const
 {
 	if (CameraComponent) {
