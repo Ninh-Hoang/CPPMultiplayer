@@ -2,6 +2,7 @@
 
 
 #include "ConsumableItem.h"
+#include "InventoryComponent.h"
 
 UConsumableItem::UConsumableItem(){
 	AmountToHeal = 100;
@@ -10,5 +11,9 @@ UConsumableItem::UConsumableItem(){
 }
 
 void UConsumableItem::Use(ABaseCharacter* Character){
-	UE_LOG(LogTemp, Warning, TEXT("Consume Item"));
+	if (Character) {
+		if (OwningInventory) {
+			OwningInventory->RemoveItem(this);
+		}
+	}
 }

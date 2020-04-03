@@ -34,7 +34,6 @@ protected:
 
 	UFUNCTION()
 	void HandleTakeAnyDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
-
 public:	
 	UPROPERTY(BlueprintAssignable, Category = "Events")
 	FOnHealthChangedSingature OnHealthChanged;

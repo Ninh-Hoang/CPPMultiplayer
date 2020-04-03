@@ -110,6 +110,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void ChangeWeapon(TSubclassOf<ASWeapon> WeaponToChange);
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerChangeWeapon(TSubclassOf<ASWeapon> WeaponToChange);
 	
 	
 };

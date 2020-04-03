@@ -60,14 +60,7 @@ void ABaseCharacter::BeginPlay()
 	//only spawn weapon on server
 	if (Role == ROLE_Authority) {
 		//spawn default weapon
-		FActorSpawnParameters SpawnParams;
-		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
-		CurrentWeapon = GetWorld()->SpawnActor<ASWeapon>(StarterWeaponClass, FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
-		if (CurrentWeapon) {
-			CurrentWeapon->SetOwner(this);
-			CurrentWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, WeaponAttackSocketName);
-		}
+		ChangeWeapon(StarterWeaponClass);
 
 		if (HealthComponent) {
 			HealthComponent->OnHealthChanged.AddDynamic(this, &ABaseCharacter::OnHealthChanged);
@@ -197,7 +190,11 @@ void ABaseCharacter::UseItem(UItem* Item){
 }
 
 void ABaseCharacter::ChangeWeapon(TSubclassOf<ASWeapon> WeaponToChange){
-	if (StarterWeaponClass == WeaponToChange) {
+	ServerChangeWeapon(WeaponToChange);
+}
+
+void ABaseCharacter::ServerChangeWeapon_Implementation(TSubclassOf<ASWeapon> WeaponToChange){
+	if (CurrentWeapon && StarterWeaponClass == WeaponToChange) {
 		return;
 	}
 	else {
@@ -216,6 +213,10 @@ void ABaseCharacter::ChangeWeapon(TSubclassOf<ASWeapon> WeaponToChange){
 		CurrentWeapon->SetOwner(this);
 		CurrentWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, WeaponAttackSocketName);
 	}
+}
+
+bool ABaseCharacter::ServerChangeWeapon_Validate(TSubclassOf<ASWeapon> WeaponToChange){
+	return true;
 }
 
 FVector ABaseCharacter::GetPawnViewLocation() const
