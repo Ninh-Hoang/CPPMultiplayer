@@ -7,6 +7,7 @@
 #include "LootBox.generated.h"
 
 class USHealthComponent;
+class UItem;
 
 UCLASS()
 class CPPMULTIPLAYER_API ALootBox : public AActor

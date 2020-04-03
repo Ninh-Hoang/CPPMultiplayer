@@ -21,12 +21,16 @@ public:
 
 protected:
 	// Called when the game starts
+	
+
+public:	
+	
 	virtual void BeginPlay() override;
 
 	bool AddItem(UItem* Item);
+
 	bool RemoveItem(UItem* Item);
 
-public:	
 	UPROPERTY(EditDefaultsOnly, Instanced)
 	TArray<UItem*> DefaultItems;
 

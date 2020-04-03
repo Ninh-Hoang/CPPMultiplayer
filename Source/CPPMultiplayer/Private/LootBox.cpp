@@ -4,6 +4,7 @@
 #include "LootBox.h"
 #include "SHealthComponent.h"
 #include "Net/UnrealNetwork.h"
+#include "Item.h"
 
 // Sets default values
 ALootBox::ALootBox()

@@ -48,9 +48,6 @@ ABaseCharacter::ABaseCharacter(){
 	BaseTurnRate = 45;
 	IsAiming = false;
 	WeaponAttackSocketName = "WeaponSocket";
-
-	Inventory = CreateDefaultSubobject<UInventoryComponent>("Inventory");
-	Inventory->Capacity = 20;
 }
 
 // Called when the game starts or when spawned
@@ -74,6 +71,10 @@ void ABaseCharacter::BeginPlay()
 
 		if (HealthComponent) {
 			HealthComponent->OnHealthChanged.AddDynamic(this, &ABaseCharacter::OnHealthChanged);
+		}
+
+		if (Inventory) {
+			Inventory->Capacity = 20;
 		}
 	}
 }
@@ -179,10 +180,13 @@ void ABaseCharacter::LookRight(float AxisValue){
 	}
 }
 
-void ABaseCharacter::InitializeComponents(UCameraComponent* CameraToSet, USpringArmComponent* SpringArmToSet, USHealthComponent* HealthComp){
+void ABaseCharacter::InitializeComponents(UCameraComponent* CameraToSet, 
+	USpringArmComponent* SpringArmToSet, USHealthComponent* HealthComp, 
+	UInventoryComponent* InventoryComp){
 	CameraComponent = CameraToSet;
 	SpringArmComponent = SpringArmToSet;
 	HealthComponent = HealthComp;
+	Inventory = InventoryComp;
 }
 
 void ABaseCharacter::UseItem(UItem* Item){

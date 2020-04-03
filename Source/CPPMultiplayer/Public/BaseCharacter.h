@@ -103,7 +103,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void InitializeComponents(UCameraComponent* CameraToSet,
-	USpringArmComponent* SpringArmToSet, USHealthComponent* HealthComp);
+	USpringArmComponent* SpringArmToSet, USHealthComponent* HealthComp, UInventoryComponent* InventoryComp);
 
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void UseItem(UItem* Item);
