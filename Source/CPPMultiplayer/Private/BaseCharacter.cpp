@@ -197,15 +197,22 @@ void ABaseCharacter::UseItem(UItem* Item){
 }
 
 void ABaseCharacter::ChangeWeapon(TSubclassOf<ASWeapon> WeaponToChange){
+	if (StarterWeaponClass == WeaponToChange) {
+		return;
+	}
+	else {
+		StarterWeaponClass = WeaponToChange;
+	}
+
 	if (CurrentWeapon) {
 		CurrentWeapon->Destroy();
+	}
 
-		FActorSpawnParameters SpawnParams;
-		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	CurrentWeapon = GetWorld()->SpawnActor<ASWeapon>(WeaponToChange, FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
 
-		CurrentWeapon->Destroy();
-
-		CurrentWeapon = GetWorld()->SpawnActor<ASWeapon>(WeaponToChange, FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
+	if (CurrentWeapon) {
 		CurrentWeapon->SetOwner(this);
 		CurrentWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, WeaponAttackSocketName);
 	}
