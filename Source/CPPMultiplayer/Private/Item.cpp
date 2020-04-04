@@ -2,6 +2,7 @@
 
 
 #include "Item.h"
+#include "Net/UnrealNetwork.h"
 
 UItem::UItem(){
 }

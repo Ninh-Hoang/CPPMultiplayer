@@ -3,6 +3,7 @@
 
 #include "InventoryComponent.h"
 #include "Item.h"
+#include "Net/UnrealNetwork.h"
 
 // Sets default values for this component's properties
 UInventoryComponent::UInventoryComponent(){
@@ -10,6 +11,7 @@ UInventoryComponent::UInventoryComponent(){
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = false;
 	Capacity = 20;
+	SetIsReplicated(true);
 	// ...
 }
 
@@ -44,6 +46,11 @@ bool UInventoryComponent::RemoveItem(UItem* Item){
 		return true;
 	}
 	return false;
+}
+
+void UInventoryComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(UInventoryComponent, DefaultItems);
 }
 
 // Called every frame

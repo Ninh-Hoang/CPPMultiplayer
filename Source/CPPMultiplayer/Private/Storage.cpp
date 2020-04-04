@@ -2,26 +2,29 @@
 
 
 #include "Storage.h"
+#include "InventoryComponent.h"
+#include "Net/UnrealNetwork.h"
 
 // Sets default values
-AStorage::AStorage()
-{
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+AStorage::AStorage(){
+	SetReplicates(true);
+	SetReplicateMovement(true);
 	PrimaryActorTick.bCanEverTick = true;
-
 }
 
 // Called when the game starts or when spawned
 void AStorage::BeginPlay()
 {
 	Super::BeginPlay();
-	
-}
-
-// Called every frame
-void AStorage::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
+	if (Inventory) {
+		Inventory->Capacity = 20;
+	}
 
 }
+
+void AStorage::InitializeComponents(UInventoryComponent* InventoryComp){
+	Inventory = InventoryComp;
+}
+
+
 

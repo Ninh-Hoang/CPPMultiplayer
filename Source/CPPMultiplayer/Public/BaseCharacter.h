@@ -108,6 +108,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void UseItem(UItem* Item);
 
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerUseItem(UItem* Item);
+
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void ChangeWeapon(TSubclassOf<ASWeapon> WeaponToChange);
 

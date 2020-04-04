@@ -24,14 +24,7 @@ protected:
 	
 
 public:	
-	
-	virtual void BeginPlay() override;
-
-	bool AddItem(UItem* Item);
-
-	bool RemoveItem(UItem* Item);
-
-	UPROPERTY(EditDefaultsOnly, Instanced)
+	UPROPERTY(Replicated, EditDefaultsOnly, Instanced)
 	TArray<UItem*> DefaultItems;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Inventory")
@@ -42,4 +35,10 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Inventory")
 	TArray<UItem*> Items;
+
+	virtual void BeginPlay() override;
+
+	bool AddItem(UItem* Item);
+
+	bool RemoveItem(UItem* Item);
 };

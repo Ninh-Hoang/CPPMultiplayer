@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "Storage.generated.h"
 
+class UInventoryComponent;
+
 UCLASS()
 class CPPMULTIPLAYER_API AStorage : public AActor
 {
@@ -19,8 +21,10 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	UPROPERTY(BlueprintReadWrite, Category = "Inventory")
+	UInventoryComponent* Inventory;
 
+public:	
+	UFUNCTION(BlueprintCallable)
+	void InitializeComponents(UInventoryComponent* InventoryComp);
 };

@@ -60,15 +60,16 @@ void ABaseCharacter::BeginPlay()
 	//only spawn weapon on server
 	if (Role == ROLE_Authority) {
 		//spawn default weapon
-		ChangeWeapon(StarterWeaponClass);
 
 		if (HealthComponent) {
 			HealthComponent->OnHealthChanged.AddDynamic(this, &ABaseCharacter::OnHealthChanged);
 		}
+	}
 
-		if (Inventory) {
-			Inventory->Capacity = 20;
-		}
+	ChangeWeapon(StarterWeaponClass);
+
+	if (Inventory) {
+		Inventory->Capacity = 20;
 	}
 }
 
@@ -183,10 +184,18 @@ void ABaseCharacter::InitializeComponents(UCameraComponent* CameraToSet,
 }
 
 void ABaseCharacter::UseItem(UItem* Item){
+	ServerUseItem(Item);
+}
+
+void ABaseCharacter::ServerUseItem_Implementation(UItem* Item){
 	if (Item) {
 		Item->Use(this);
 		Item->OnUse(this); //bp event
 	}
+}
+
+bool ABaseCharacter::ServerUseItem_Validate(UItem* Item){
+	return true;
 }
 
 void ABaseCharacter::ChangeWeapon(TSubclassOf<ASWeapon> WeaponToChange){
