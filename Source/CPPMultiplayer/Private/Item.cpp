@@ -6,7 +6,3 @@
 
 UItem::UItem(){
 }
-
-void UItem::Use(ABaseCharacter* Character){
-
-}

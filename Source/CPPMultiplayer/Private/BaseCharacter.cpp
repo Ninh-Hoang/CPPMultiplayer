@@ -189,8 +189,8 @@ void ABaseCharacter::UseItem(UItem* Item){
 
 void ABaseCharacter::ServerUseItem_Implementation(UItem* Item){
 	if (Item) {
+		Item->OnUse(this);
 		Item->Use(this);
-		Item->OnUse(this); //bp event
 	}
 }
 
