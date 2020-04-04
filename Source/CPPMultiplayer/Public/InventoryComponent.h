@@ -24,7 +24,7 @@ protected:
 	
 
 public:	
-	UPROPERTY(Replicated, EditDefaultsOnly, Instanced)
+	UPROPERTY(EditDefaultsOnly, Instanced)
 	TArray<UItem*> DefaultItems;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Inventory")
@@ -33,10 +33,15 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Inventory")
 	FOnInventoryUpdated OnInventoryUpdated;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Inventory")
+	UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category = "Inventory")
 	TArray<UItem*> Items;
 
 	virtual void BeginPlay() override;
+
+	void SpawnDefaultItem();
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerSpawnDefaultItem();
 
 	bool AddItem(UItem* Item);
 
