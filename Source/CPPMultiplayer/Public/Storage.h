@@ -22,7 +22,10 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Inventory")
-	UInventoryComponent* Inventory;
+	UInventoryComponent* InventoryComponent;
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void SpawnDefaultItem();
 
 public:	
 	UFUNCTION(BlueprintCallable)

@@ -68,8 +68,8 @@ void ABaseCharacter::BeginPlay()
 
 	ChangeWeapon(StarterWeaponClass);
 
-	if (Inventory) {
-		Inventory->Capacity = 20;
+	if (InventoryComponent) {
+		InventoryComponent->Capacity = 20;
 	}
 }
 
@@ -180,7 +180,7 @@ void ABaseCharacter::InitializeComponents(UCameraComponent* CameraToSet,
 	CameraComponent = CameraToSet;
 	SpringArmComponent = SpringArmToSet;
 	HealthComponent = HealthComp;
-	Inventory = InventoryComp;
+	InventoryComponent = InventoryComp;
 }
 
 void ABaseCharacter::UseItem(UItem* Item){

@@ -89,7 +89,7 @@ public:
 	USHealthComponent* HealthComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-	UInventoryComponent* Inventory;
+	UInventoryComponent* InventoryComponent;
 
 	void BeginCrouch();
 	void EndCrouch();

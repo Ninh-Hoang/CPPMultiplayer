@@ -31,17 +31,9 @@ void UInventoryComponent::BeginPlay(){
 
 void UInventoryComponent::SpawnDefaultItem()
 {
-	ServerSpawnDefaultItem();
-}
-
-void UInventoryComponent::ServerSpawnDefaultItem_Implementation(){
 	for (UItem* Item : DefaultItems) {
 		AddItem(Item);
 	}
-}
-
-bool UInventoryComponent::ServerSpawnDefaultItem_Validate(){
-	return true;
 }
 
 bool UInventoryComponent::AddItem(UItem* Item) {

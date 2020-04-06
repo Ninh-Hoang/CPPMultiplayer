@@ -27,7 +27,7 @@ public:
 	UPROPERTY(EditDefaultsOnly, Instanced)
 	TArray<UItem*> DefaultItems;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Inventory")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite,Category = "Inventory")
 	int32 Capacity;
 
 	UPROPERTY(BlueprintAssignable, Category = "Inventory")
@@ -39,9 +39,6 @@ public:
 	virtual void BeginPlay() override;
 
 	void SpawnDefaultItem();
-
-	UFUNCTION(Server, Reliable, WithValidation)
-	void ServerSpawnDefaultItem();
 
 	bool AddItem(UItem* Item);
 

@@ -13,17 +13,24 @@ AStorage::AStorage(){
 }
 
 // Called when the game starts or when spawned
-void AStorage::BeginPlay()
-{
+void AStorage::BeginPlay(){
 	Super::BeginPlay();
-	if (Inventory) {
-		Inventory->Capacity = 20;
+	if (InventoryComponent) {
+		InventoryComponent->Capacity = 20;
 	}
 
 }
 
+void AStorage::SpawnDefaultItem_Implementation(){
+	InventoryComponent->SpawnDefaultItem();
+}
+
+bool AStorage::SpawnDefaultItem_Validate(){
+	return true;
+}
+
 void AStorage::InitializeComponents(UInventoryComponent* InventoryComp){
-	Inventory = InventoryComp;
+	InventoryComponent = InventoryComp;
 }
 
 
