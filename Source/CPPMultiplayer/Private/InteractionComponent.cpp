@@ -3,6 +3,7 @@
 
 #include "InteractionComponent.h"
 #include "BaseCharacter.h"
+#include "InteractionWidget.h"
 
 UInteractionComponent::UInteractionComponent(){
 	SetComponentTickEnabled(false);
@@ -21,11 +22,13 @@ UInteractionComponent::UInteractionComponent(){
 }
 
 void UInteractionComponent::SetInteractableNameText(const FText& NewNameText){
-
+	InteractableNameText = NewNameText;
+	RefreshWidget();
 }
 
 void UInteractionComponent::SetInteractableActionText(const FText& ActionText){
-
+	InteractableActionText = ActionText;
+	RefreshWidget();
 }
 
 void UInteractionComponent::Deactivate(){
@@ -108,5 +111,9 @@ float UInteractionComponent::GetInteractPercentage(){
 }
 
 void UInteractionComponent::RefreshWidget(){
-
+	if (!bHiddenInGame && GetOwner()->GetNetMode() != NM_DedicatedServer) {
+		if (UInteractionWidget* InteractionWidget = Cast<UInteractionWidget>(GetUserWidgetObject())) {
+			InteractionWidget->UpdateInteractionWidget(this);
+		}
+	}
 }
