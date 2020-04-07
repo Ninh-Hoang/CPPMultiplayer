@@ -17,6 +17,7 @@
 #include "Net/UnrealNetwork.h"
 #include "Item.h"
 #include "InventoryComponent.h"
+#include "InteractionComponent.h"
 
 static int32 DebugAimDrawing = 0;
 FAutoConsoleVariableRef CVARDebugAimDrawing(TEXT("COOP.DebugAim"),
@@ -40,13 +41,20 @@ ABaseCharacter::ABaseCharacter(){
 
 	SetReplicates(true);
 	SetReplicateMovement(true);
-
 	GetMovementComponent()->GetNavAgentPropertiesRef().bCanCrouch = true;
-
 	GetCapsuleComponent()->SetCollisionResponseToChannel(COLLISION_WEAPON, ECR_Ignore);
 
+	//movement
 	BaseTurnRate = 45;
+
+	//aiming
 	IsAiming = false;
+
+	//interaction
+	InteractionCheckFrequency = 0.;
+	InteractionCheckDistance = 1000.;
+
+	//item, weapon
 	WeaponAttackSocketName = "WeaponSocket";
 }
 
@@ -78,6 +86,12 @@ void ABaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	const bool bIsInteractingOnServer = (HasAuthority() && IsInteracting());
+
+	if ((!HasAuthority() || bIsInteractingOnServer) && GetWorld()->TimeSince(InteractionData.LastInteractionCheckTime) > InteractionCheckFrequency) {
+		UE_LOG(LogTemp, Warning, TEXT("Tracing"));
+		PerformInteractionCheck();
+	}
 }
 
 // Called to bind functionality to input
@@ -100,8 +114,12 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ABaseCharacter::StartFire);
 	PlayerInputComponent->BindAction("Fire", IE_Released, this, &ABaseCharacter::StopFire);
+
+	PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &ABaseCharacter::BeginInteract);
+	PlayerInputComponent->BindAction("Interact", IE_Released, this, &ABaseCharacter::EndInteract);
 }
 
+//directional movement system
 void ABaseCharacter::MoveForward(float AxisValue)
 {
 	//AddMovementInput(GetActorForwardVector() * AxisValue);
@@ -147,17 +165,6 @@ void ABaseCharacter::MoveRight(float AxisValue)
 	}*/
 }
 
-
-void ABaseCharacter::BeginCrouch()
-{
-	Crouch();
-}
-
-void ABaseCharacter::EndCrouch()
-{
-	UnCrouch();
-}	
-
 void ABaseCharacter::LookRight(float AxisValue){
 	/*if (ensure(AzimuthComponent)) {
 		FRotator CurrentRotation = AzimuthComponent->GetRelativeRotation();
@@ -174,6 +181,18 @@ void ABaseCharacter::LookRight(float AxisValue){
 	}
 }
 
+//crouching system
+void ABaseCharacter::BeginCrouch()
+{
+	Crouch();
+}
+
+void ABaseCharacter::EndCrouch()
+{
+	UnCrouch();
+}	
+
+//initialize components, read component from BP
 void ABaseCharacter::InitializeComponents(UCameraComponent* CameraToSet, 
 	USpringArmComponent* SpringArmToSet, USHealthComponent* HealthComp, 
 	UInventoryComponent* InventoryComp){
@@ -183,6 +202,188 @@ void ABaseCharacter::InitializeComponents(UCameraComponent* CameraToSet,
 	InventoryComponent = InventoryComp;
 }
 
+//aiming system
+void ABaseCharacter::Aim(){
+	if (Role < ROLE_Authority) {
+		ServerAim();
+	}
+	if (IsAiming) {
+		IsAiming = !IsAiming;
+		CharacterMovementComponent->bOrientRotationToMovement = true;
+		CharacterMovementComponent->bUseControllerDesiredRotation = false;
+		GetWorld()->GetTimerManager().ClearTimer(AimTimerHandler);
+
+	}
+	else {
+		CharacterMovementComponent->bOrientRotationToMovement = false;
+		CharacterMovementComponent->bUseControllerDesiredRotation = true;
+
+		GetWorld()->GetTimerManager().SetTimer(AimTimerHandler, 
+			this,
+			&ABaseCharacter::LookAtCursor, 
+			GetWorld()->GetDeltaSeconds(),
+			true);
+		IsAiming = !IsAiming;
+	}
+}
+
+void ABaseCharacter::LookAtCursor() {
+	APlayerController* PC = Cast<APlayerController>(GetController());
+	FVector MousePosition;
+	//PC->GetMousePosition(MousePosition);
+	FVector WorldLocation;
+	FVector WorldDirection;
+	PC->DeprojectMousePositionToWorld(WorldLocation, WorldDirection);
+	FVector ActorLocation = GetActorLocation();
+	FVector Intersection = FMath::LinePlaneIntersection(WorldLocation, WorldLocation + WorldDirection * 1000, ActorLocation, FVector::UpVector);
+	if (DebugAimDrawing > 0 && IsLocallyControlled()) {
+		DrawDebugSphere(GetWorld(), Intersection, 10, 12, FColor::Red, false, GetWorld()->GetDeltaSeconds(), 0, 1);
+		DrawDebugLine(GetWorld(), ActorLocation, Intersection, FColor::Red, false, GetWorld()->GetDeltaSeconds(), 0, 1);
+	}
+	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(ActorLocation, Intersection);
+	Controller->SetControlRotation(LookAtRotation);
+}
+
+void ABaseCharacter::ServerAim_Implementation(){
+	Aim();
+}
+
+bool ABaseCharacter::ServerAim_Validate(){
+	return true;
+}
+
+// Interaction system
+void ABaseCharacter::PerformInteractionCheck(){
+
+	if (GetController() == nullptr) {
+		return;
+	}
+
+	InteractionData.LastInteractionCheckTime = GetWorld()->GetTimeSeconds();
+
+	FVector EyesLocation;
+	FRotator EyesRotation;
+	GetController()->GetPlayerViewPoint(EyesLocation, EyesRotation); 
+
+	/*FVector TraceStart = EyesLocation;
+	FVector TraceEnd = (EyesRotation.Vector() * InteractionCheckDistance) + TraceStart ;*/
+
+	FVector TraceStart = GetActorLocation();
+	FVector TraceEnd = (GetActorRotation().Vector()* InteractionCheckDistance) + TraceStart;
+
+	FHitResult TraceHit; 
+	FCollisionQueryParams QueryParams;  
+	QueryParams.AddIgnoredActor(this);
+
+	if (GetWorld()->LineTraceSingleByChannel(TraceHit, TraceStart, TraceEnd, ECC_Visibility, QueryParams)) {
+		if (TraceHit.GetActor()) {
+			if (UInteractionComponent* InteractionComponent = Cast<UInteractionComponent>(TraceHit.GetActor()->GetComponentByClass(UInteractionComponent::StaticClass()))) {
+				float Distance = (TraceStart - TraceHit.ImpactPoint).Size();
+				if (InteractionComponent != GetInteractable() && Distance <= InteractionComponent->InteractionDistance) {
+					FoundNewInteractable(InteractionComponent);
+				}
+				else if(Distance > InteractionComponent->InteractionDistance && GetInteractable()){
+					CouldNotFindInteractable();
+				}
+				return;
+			}
+		}
+	}
+
+	CouldNotFindInteractable();
+}
+
+void ABaseCharacter::CouldNotFindInteractable(){
+	if (IsInteracting()) {
+		GetWorldTimerManager().ClearTimer(InteractTimerHandler);
+	}
+
+	if (UInteractionComponent* Interactable = GetInteractable()) {
+		Interactable->EndFocus(this);
+
+		if (InteractionData.bInteractionHeld) {
+			EndInteract();
+		}
+	}
+	InteractionData.ViewedInteractionComponent = nullptr;
+}
+
+void ABaseCharacter::FoundNewInteractable(UInteractionComponent* Interactable){
+	EndInteract(); 
+	if (UInteractionComponent* OldInteractable = GetInteractable()) {
+		OldInteractable->EndFocus(this);
+	}
+
+	InteractionData.ViewedInteractionComponent = Interactable;
+	Interactable->BeginFocus(this);
+}
+
+void ABaseCharacter::BeginInteract(){
+	if (!HasAuthority()) {
+		ServerBeginInteract();
+	}
+
+	InteractionData.bInteractionHeld = true;
+
+	if (UInteractionComponent* Interactable = GetInteractable()) {
+		Interactable->BeginInteract(this);
+
+		if (FMath::IsNearlyZero(Interactable->InteractionTime)) {
+			Interact();
+		}
+		else {
+			GetWorldTimerManager().SetTimer(InteractTimerHandler, this, 
+				&ABaseCharacter::Interact, Interactable->InteractionTime, false, 0.);
+		}
+	}
+}
+
+void ABaseCharacter::EndInteract(){
+	if (!HasAuthority()) {
+		ServerEndInteract();
+	}
+
+	InteractionData.bInteractionHeld = false;
+
+	GetWorldTimerManager().ClearTimer(InteractTimerHandler);
+
+	if (UInteractionComponent* Interactable = GetInteractable()) {
+		Interactable->EndInteract(this);
+	}
+}
+
+void ABaseCharacter::ServerBeginInteract_Implementation(){
+	BeginInteract();
+}
+
+bool ABaseCharacter::ServerBeginInteract_Validate(){
+	return true;
+}
+
+void ABaseCharacter::ServerEndInteract_Implementation(){
+	EndInteract();
+}
+
+bool ABaseCharacter::ServerEndInteract_Validate(){
+	return true;
+}
+
+void ABaseCharacter::Interact(){
+	GetWorldTimerManager().ClearTimer(InteractTimerHandler);
+
+	if (UInteractionComponent* Interactable = GetInteractable()) {
+		Interactable->Interact(this);
+	}
+}
+
+bool ABaseCharacter::IsInteracting() const{
+	return GetWorldTimerManager().IsTimerActive(InteractTimerHandler);
+}
+
+float ABaseCharacter::GetRemainingInteractionTime() const{
+	return GetWorldTimerManager().GetTimerRemaining(InteractTimerHandler);
+}
+//item using system
 void ABaseCharacter::UseItem(UItem* Item){
 	ServerUseItem(Item);
 }
@@ -228,63 +429,21 @@ bool ABaseCharacter::ServerChangeWeapon_Validate(TSubclassOf<ASWeapon> WeaponToC
 	return true;
 }
 
-FVector ABaseCharacter::GetPawnViewLocation() const
+//firing system
+void ABaseCharacter::StartFire(){
+	if (CurrentWeapon) {
+		CurrentWeapon->StartFire();
+	}
+}
+
+void ABaseCharacter::StopFire()
 {
-	if (CameraComponent) {
-		return CameraComponent->GetComponentLocation();
-	}
-	return Super::GetPawnViewLocation();
-}
-
-void ABaseCharacter::Aim(){
-	if (Role < ROLE_Authority) {
-		ServerAim();
-	}
-	if (IsAiming) {
-		IsAiming = !IsAiming;
-		CharacterMovementComponent->bOrientRotationToMovement = true;
-		CharacterMovementComponent->bUseControllerDesiredRotation = false;
-		GetWorld()->GetTimerManager().ClearTimer(AimTimerHandler);
-
-	}
-	else {
-		CharacterMovementComponent->bOrientRotationToMovement = false;
-		CharacterMovementComponent->bUseControllerDesiredRotation = true;
-
-		GetWorld()->GetTimerManager().SetTimer(AimTimerHandler, 
-			this,
-			&ABaseCharacter::LookAtCursor, 
-			GetWorld()->GetDeltaSeconds(),
-			true);
-		IsAiming = !IsAiming;
+	if (CurrentWeapon) {
+		CurrentWeapon->StopFire();
 	}
 }
 
-void ABaseCharacter::ServerAim_Implementation(){
-	Aim();
-}
-
-bool ABaseCharacter::ServerAim_Validate(){
-	return true;
-}
-
-void ABaseCharacter::LookAtCursor() {
-	APlayerController* PC = Cast<APlayerController>(GetController());
-	FVector MousePosition;
-	//PC->GetMousePosition(MousePosition);
-	FVector WorldLocation;
-	FVector WorldDirection;
-	PC->DeprojectMousePositionToWorld(WorldLocation, WorldDirection);
-	FVector ActorLocation = GetActorLocation();
-	FVector Intersection = FMath::LinePlaneIntersection(WorldLocation, WorldLocation + WorldDirection * 1000, ActorLocation, FVector::UpVector);
-	if (DebugAimDrawing > 0 && IsLocallyControlled()) {
-		DrawDebugSphere(GetWorld(), Intersection, 10, 12, FColor::Red, false, GetWorld()->GetDeltaSeconds(), 0, 1);
-		DrawDebugLine(GetWorld(), ActorLocation, Intersection, FColor::Red, false, GetWorld()->GetDeltaSeconds(), 0, 1);
-	}
-	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(ActorLocation, Intersection);
-	Controller->SetControlRotation(LookAtRotation);
-}
-
+//on health changed
 void ABaseCharacter::OnHealthChanged(USHealthComponent* HealthComp, 
 	float Health, float HealthDelta,
 	const class UDamageType* DamageType, 
@@ -302,19 +461,9 @@ void ABaseCharacter::OnHealthChanged(USHealthComponent* HealthComp,
 	}
 }
 
-void ABaseCharacter::StartFire(){
-	if (CurrentWeapon) {
-		CurrentWeapon->StartFire();
-	}
-}
 
-void ABaseCharacter::StopFire()
-{
-	if (CurrentWeapon) {
-		CurrentWeapon->StopFire();
-	}
-}
 
+//replication
 void ABaseCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
@@ -323,7 +472,14 @@ void ABaseCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 	DOREPLIFETIME(ABaseCharacter, IsAiming);
 }
 
-
+//unknown
+FVector ABaseCharacter::GetPawnViewLocation() const
+{
+	if (CameraComponent) {
+		return CameraComponent->GetComponentLocation();
+	}
+	return Super::GetPawnViewLocation();
+}
 
 
 

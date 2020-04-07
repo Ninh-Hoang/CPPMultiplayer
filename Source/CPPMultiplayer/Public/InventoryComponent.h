@@ -24,7 +24,7 @@ protected:
 	
 
 public:	
-	UPROPERTY(EditDefaultsOnly, Instanced)
+	UPROPERTY(Replicated, EditDefaultsOnly, Instanced)
 	TArray<UItem*> DefaultItems;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,Category = "Inventory")
@@ -38,7 +38,8 @@ public:
 
 	virtual void BeginPlay() override;
 
-	void SpawnDefaultItem();
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerSpawnDefaultItem();
 
 	bool AddItem(UItem* Item);
 

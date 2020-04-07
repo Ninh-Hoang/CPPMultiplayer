@@ -21,19 +21,19 @@ void UInventoryComponent::BeginPlay(){
 	Super::BeginPlay();
 
 	// ...
-
-	for (UItem* Item : DefaultItems) {
-		AddItem(Item);
+	if (GetOwnerRole() == ROLE_Authority) {
+		ServerSpawnDefaultItem();
 	}
-	//SpawnDefaultItem();
-	
 }
 
-void UInventoryComponent::SpawnDefaultItem()
-{
+void UInventoryComponent::ServerSpawnDefaultItem_Implementation(){
 	for (UItem* Item : DefaultItems) {
 		AddItem(Item);
 	}
+}
+
+bool UInventoryComponent::ServerSpawnDefaultItem_Validate(){
+	return true;
 }
 
 bool UInventoryComponent::AddItem(UItem* Item) {
@@ -59,7 +59,7 @@ bool UInventoryComponent::RemoveItem(UItem* Item){
 
 void UInventoryComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	//DOREPLIFETIME(UInventoryComponent, DefaultItems);
+	DOREPLIFETIME(UInventoryComponent, DefaultItems);
 	DOREPLIFETIME(UInventoryComponent, Items);
 }
 

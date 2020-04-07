@@ -24,8 +24,6 @@ protected:
 	UPROPERTY(BlueprintReadWrite, Category = "Inventory")
 	UInventoryComponent* InventoryComponent;
 
-	UFUNCTION(Server, Reliable, WithValidation)
-	void SpawnDefaultItem();
 
 public:	
 	UFUNCTION(BlueprintCallable)

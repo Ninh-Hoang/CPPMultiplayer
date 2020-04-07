@@ -13,77 +13,53 @@ class ASWeapon;
 class USHealthComponent;
 class UItem;
 class UInventoryComponent;
+class UInteractionComponent;
+
+USTRUCT()
+struct FInteractionData {
+	GENERATED_BODY()
+
+	FInteractionData() {
+		ViewedInteractionComponent = nullptr;
+		LastInteractionCheckTime = 0.;
+		bInteractionHeld = false;
+	}
+
+	UPROPERTY()
+	class UInteractionComponent* ViewedInteractionComponent;
+
+	UPROPERTY()
+	float LastInteractionCheckTime;
+
+	UPROPERTY()
+	bool bInteractionHeld; 
+
+};
 
 UCLASS()
 class CPPMULTIPLAYER_API ABaseCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
+//class components and initialization
 public:
 	// Sets default values for this character's properties
 	ABaseCharacter();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-	void MoveForward(float AxisValue);
-
-	void MoveRight(float AxisValue);
-
-	void LookRight(float AxisValue);
-
-	void StartFire();
-
-	void StopFire();
-
-	UFUNCTION()
-	void LookAtCursor();
-
-	UFUNCTION()
-	void OnHealthChanged(USHealthComponent* HealthComp, float Health, float HealthDelta,
-		const class UDamageType* DamageType, 
-		class AController* InstigatedBy, AActor* DamageCauser);
-
-
-	UPROPERTY(Replicated)
-	bool IsAiming;
-
-	FTimerHandle AimTimerHandler;
-
-	UCharacterMovementComponent* CharacterMovementComponent;
-	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
-	float BaseTurnRate;
-
-	//pawn die previously
-	UPROPERTY(Replicated, BlueprintReadOnly, Category = "Player")
-	bool bDied;
-
-	UPROPERTY(Replicated, BlueprintReadWrite)
-	ASWeapon* CurrentWeapon;
-
-	UPROPERTY(BlueprintReadWrite, Category = "Player")
-	TSubclassOf<ASWeapon> StarterWeaponClass;
-
-	UPROPERTY(VisibleDefaultsOnly, Category = "Player")
-	FName WeaponAttackSocketName;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
+	//setup play input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-	UCameraComponent* CameraComponent = nullptr;
+	//player owned components
+	UCharacterMovementComponent* CharacterMovementComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-	USpringArmComponent* SpringArmComponent = nullptr;
+	UCameraComponent* CameraComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-	USceneComponent* AzimuthComponent = nullptr;
+	USpringArmComponent* SpringArmComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	USceneComponent* AzimuthComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	USHealthComponent* HealthComponent;
@@ -91,20 +67,101 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UInventoryComponent* InventoryComponent;
 
-	void BeginCrouch();
-	void EndCrouch();
-
-	void Aim();
-
-	UFUNCTION(Server, Reliable, WithValidation)
-	void ServerAim();
-
-	virtual FVector GetPawnViewLocation() const override;
-
+	//initialize, read player components from BP
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void InitializeComponents(UCameraComponent* CameraToSet,
 	USpringArmComponent* SpringArmToSet, USHealthComponent* HealthComp, UInventoryComponent* InventoryComp);
 
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+	//call every tick
+	virtual void Tick(float DeltaTime) override;
+
+//movement control
+protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+	float BaseTurnRate;
+
+	void MoveForward(float AxisValue);
+	void MoveRight(float AxisValue);
+	void LookRight(float AxisValue);
+
+	//crouch
+	void BeginCrouch();
+	void EndCrouch();
+
+	//firing
+	void StartFire();
+	void StopFire();
+	
+//aiming
+public:
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerAim();
+
+protected:
+	UPROPERTY(Replicated)
+	bool IsAiming;
+	
+	FTimerHandle AimTimerHandler;
+
+	UFUNCTION()
+	void LookAtCursor();
+	void Aim();
+
+
+//health system
+protected:
+	//pawn die previously
+	UPROPERTY(Replicated, BlueprintReadOnly, Category = "Player")
+	bool bDied;
+
+	UFUNCTION()
+	void OnHealthChanged(USHealthComponent* HealthComp, float Health, float HealthDelta,
+		const class UDamageType* DamageType, 
+		class AController* InstigatedBy, AActor* DamageCauser);
+
+	
+
+//interaction system functions
+public:
+	bool IsInteracting() const;
+
+	float GetRemainingInteractionTime() const;
+
+protected:
+	FTimerHandle InteractTimerHandler;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Interaction")
+	float InteractionCheckFrequency;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Interaction")
+	float InteractionCheckDistance;
+
+	UPROPERTY()
+	FInteractionData InteractionData;
+
+	void PerformInteractionCheck();
+
+	void CouldNotFindInteractable();
+	void FoundNewInteractable(UInteractionComponent* Interactable);
+
+	void BeginInteract();
+	void EndInteract();
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerBeginInteract();
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerEndInteract();
+
+	void Interact();
+
+	FORCEINLINE UInteractionComponent* GetInteractable() const { return InteractionData.ViewedInteractionComponent; }
+
+//item using 
+public:
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void UseItem(UItem* Item);
 
@@ -116,6 +173,19 @@ public:
 
 	UFUNCTION(Server, Reliable, WithValidation)
 	void ServerChangeWeapon(TSubclassOf<ASWeapon> WeaponToChange);
+
+protected:
+	UPROPERTY(BlueprintReadWrite, Category = "Player")
+	TSubclassOf<ASWeapon> StarterWeaponClass;
+
+	UPROPERTY(Replicated, BlueprintReadWrite)
+	ASWeapon* CurrentWeapon;
 	
-	
+	UPROPERTY(VisibleDefaultsOnly, Category = "Player")
+	FName WeaponAttackSocketName;
+
+//wtf is this one for?
+protected:
+	virtual FVector GetPawnViewLocation() const override;
+
 };

@@ -21,14 +21,6 @@ void AStorage::BeginPlay(){
 
 }
 
-void AStorage::SpawnDefaultItem_Implementation(){
-	InventoryComponent->SpawnDefaultItem();
-}
-
-bool AStorage::SpawnDefaultItem_Validate(){
-	return true;
-}
-
 void AStorage::InitializeComponents(UInventoryComponent* InventoryComp){
 	InventoryComponent = InventoryComp;
 }
