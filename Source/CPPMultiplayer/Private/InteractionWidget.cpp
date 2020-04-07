@@ -9,6 +9,3 @@ void UInteractionWidget::UpdateInteractionWidget(UInteractionComponent* Interact
 	OnUpdateInteractionWidget();
 }
 
-void UInteractionWidget::OnUpdateInteractionWidget(){
-
-}

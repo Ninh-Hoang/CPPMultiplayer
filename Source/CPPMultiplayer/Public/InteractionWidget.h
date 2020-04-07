@@ -21,7 +21,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Interaction")
 	void UpdateInteractionWidget(UInteractionComponent* InteractionComponent);
 
-	UFUNCTION(BlueprintCallable, Category = "Interaction")
+	UFUNCTION(BlueprintImplementableEvent)
 	void OnUpdateInteractionWidget();
 
 	UPROPERTY(BlueprintReadOnly, Category = "Interaction", meta=(ExposeOnSpawn))

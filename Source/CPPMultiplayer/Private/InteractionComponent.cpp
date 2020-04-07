@@ -14,7 +14,7 @@ UInteractionComponent::UInteractionComponent(){
 	bAllowMultipleInteractors = true;
 
 	Space = EWidgetSpace::Screen;
-	DrawSize = FIntPoint(400, 100);
+	DrawSize = FIntPoint(200, 50);
 	bDrawAtDesiredSize = true;
 
 	SetActive(true);
@@ -48,14 +48,13 @@ bool UInteractionComponent::CanInteract(ABaseCharacter* Character) const{
 }
 
 void UInteractionComponent::BeginFocus(ABaseCharacter* Character){
-	if (!IsActive() || GetOwner() || !Character) {
+	if (!IsActive() || !GetOwner() || !Character) {
 		return;
 	}
 
 	OnBeginFocus.Broadcast(Character);
 
 	SetHiddenInGame(false);
-
 	if (!GetOwner()->HasAuthority()) {
 		for (auto& VisualComp : GetOwner()->GetComponentsByClass(UPrimitiveComponent::StaticClass())) {
 			if (UPrimitiveComponent* Prim = Cast<UPrimitiveComponent>(VisualComp)) {
@@ -63,6 +62,8 @@ void UInteractionComponent::BeginFocus(ABaseCharacter* Character){
 			}
 		}
 	}
+
+	RefreshWidget();
 }
 
 void UInteractionComponent::EndFocus(ABaseCharacter* Character){

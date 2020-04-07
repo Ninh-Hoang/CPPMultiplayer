@@ -88,8 +88,7 @@ void ABaseCharacter::Tick(float DeltaTime)
 
 	const bool bIsInteractingOnServer = (HasAuthority() && IsInteracting());
 
-	if ((!HasAuthority() || bIsInteractingOnServer) && GetWorld()->TimeSince(InteractionData.LastInteractionCheckTime) > InteractionCheckFrequency) {
-		//UE_LOG(LogTemp, Warning, TEXT("Tracing"));
+	if ((!HasAuthority() || !bIsInteractingOnServer) && GetWorld()->TimeSince(InteractionData.LastInteractionCheckTime) > InteractionCheckFrequency) {
 		PerformInteractionCheck();
 	}
 }
@@ -278,7 +277,6 @@ void ABaseCharacter::PerformInteractionCheck(){
 	if (GetWorld()->LineTraceSingleByChannel(TraceHit, TraceStart, TraceEnd, ECC_Visibility, QueryParams)) {
 		if (TraceHit.GetActor()) {
 			if (UInteractionComponent* InteractionComponent = Cast<UInteractionComponent>(TraceHit.GetActor()->GetComponentByClass(UInteractionComponent::StaticClass()))) {
-				UE_LOG(LogTemp, Warning, TEXT("Found"));
 				float Distance = (TraceStart - TraceHit.ImpactPoint).Size();
 				if (InteractionComponent != GetInteractable() && Distance <= InteractionComponent->InteractionDistance) {
 					FoundNewInteractable(InteractionComponent);
@@ -314,7 +312,6 @@ void ABaseCharacter::FoundNewInteractable(UInteractionComponent* Interactable){
 	if (UInteractionComponent* OldInteractable = GetInteractable()) {
 		OldInteractable->EndFocus(this);
 	}
-
 	InteractionData.ViewedInteractionComponent = Interactable;
 	Interactable->BeginFocus(this);
 }
