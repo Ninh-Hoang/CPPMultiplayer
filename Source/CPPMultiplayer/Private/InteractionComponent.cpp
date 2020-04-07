@@ -43,7 +43,7 @@ void UInteractionComponent::Deactivate(){
 }
 
 bool UInteractionComponent::CanInteract(ABaseCharacter* Character) const{
-	const bool bPlayerAlreadyInteracting = !bAllowMultipleInteractors && Interactors.Num() >= 1; 
+	const bool bPlayerAlreadyInteracting = !bAllowMultipleInteractors && Interactors.Num() >= 1;
 	return !bPlayerAlreadyInteracting && IsActive() && GetOwner() != nullptr && Character != nullptr;
 }
 
@@ -94,10 +94,8 @@ void UInteractionComponent::BeginInteract(ABaseCharacter* Character){
 }
 
 void UInteractionComponent::EndInteract(ABaseCharacter* Character){
-	if (CanInteract(Character)) {
 		Interactors.RemoveSingle(Character);
 		OnEndInteract.Broadcast(Character);
-	}
 }
 
 float UInteractionComponent::GetInteractPercentage(){

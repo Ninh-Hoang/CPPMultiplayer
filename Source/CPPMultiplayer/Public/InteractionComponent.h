@@ -66,12 +66,13 @@ protected:
 
 	virtual void Deactivate() override;
 
-	bool CanInteract(ABaseCharacter* Character) const;
-
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	TArray<ABaseCharacter*> Interactors;
 
 public:
+	
+	bool CanInteract(ABaseCharacter* Character) const;
+
 	void BeginFocus(ABaseCharacter* Character);
 	void EndFocus(ABaseCharacter* Character);
 

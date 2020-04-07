@@ -323,15 +323,14 @@ void ABaseCharacter::BeginInteract(){
 
 	InteractionData.bInteractionHeld = true;
 
-	if (UInteractionComponent* Interactable = GetInteractable()) {
+	if (UInteractionComponent* Interactable = GetInteractable() ) {
 		Interactable->BeginInteract(this);
-
 		if (FMath::IsNearlyZero(Interactable->InteractionTime)) {
 			Interact();
 		}
 		else {
 			GetWorldTimerManager().SetTimer(InteractTimerHandler, this, 
-				&ABaseCharacter::Interact, Interactable->InteractionTime, false, 0.);
+				&ABaseCharacter::Interact, Interactable->InteractionTime, false);
 		}
 	}
 }
