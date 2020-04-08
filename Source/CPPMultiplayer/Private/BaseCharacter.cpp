@@ -77,7 +77,7 @@ void ABaseCharacter::BeginPlay()
 	ChangeWeapon(StarterWeaponClass);
 
 	if (InventoryComponent) {
-		InventoryComponent->Capacity = 20;
+		//InventoryComponent->Capacity = 20;
 	}
 }
 

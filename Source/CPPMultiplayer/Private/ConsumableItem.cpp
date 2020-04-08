@@ -4,10 +4,11 @@
 #include "ConsumableItem.h"
 #include "InventoryComponent.h"
 
+#define LOCTEXT_NAMESPACE "FoodItem"
+
 UConsumableItem::UConsumableItem(){
 	AmountToHeal = 100;
-	ItemDisplayName = FText::FromString("Consumable Item");
-	UseActionText = FText::FromString("Consume");
+	UseActionText = LOCTEXT("ItemUseActionText", "Consume");
 }
 
 void UConsumableItem::Use(ABaseCharacter* Character){
@@ -17,3 +18,5 @@ void UConsumableItem::Use(ABaseCharacter* Character){
 		}
 	}
 }
+
+#undef LOCTEXT_NAMESPACE

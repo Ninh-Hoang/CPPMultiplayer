@@ -13,7 +13,18 @@ class UStaticMesh;
 class UTexture2D;
 class UInventoryComponent;
 class ABaseCharacter;
-class AActor;
+class UItemTooltip;
+
+UENUM()
+enum class EItemRarity : uint8 {
+    IR_Common UMETA(DisplayName = "Common"),
+    IR_Uncommon UMETA(DisplayName = "Uncommon"),
+    IR_Rare UMETA(DisplayName = "Rare"),
+    IR_VeryRare UMETA(DisplayName = "Very Rare"),
+    IR_SuperRare UMETA(DisplayName = "Super Rare")
+};
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnItemModified);
 
 UCLASS(Abstract, Blueprintable, BlueprintType, EditInlineNew, DefaultToInstanced)
 class CPPMULTIPLAYER_API UItem : public UObject
@@ -22,30 +33,75 @@ class CPPMULTIPLAYER_API UItem : public UObject
 	
 public:
     UItem();
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
+    FText ItemDisplayName;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Item")
+	UTexture2D* Thumbnail;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
+	UStaticMesh* PickupMesh;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
     FText UseActionText;
 
-    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
-    UStaticMesh* PickupMesh;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
+	EItemRarity Rarity;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item", meta = (MultiLine = true))
+	FText ItemDescription;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
-	TSubclassOf<AActor> SpawnActor;
+	bool bStackable;
 
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Item")
-    UTexture2D* Thumbnail;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item", meta = (ClampMin = 2, EditCondition = bStackable))
+	int32 MaxStackSize;
 
-    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
-    FText ItemDisplayName;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item", meta = (ClampMin = 0.0))
+	float Weight;
 
-    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item", meta= (MultiLine = true))
-    FText ItemDescription;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
+	TSubclassOf<UItemTooltip> ItemTooltip;
+
+    UPROPERTY(ReplicatedUsing=OnRep_Quantity, EditAnywhere, Category = "Item", meta = (UIMin = 1, EditCondition = bStackable))
+    int32 Quantity;
 
     UPROPERTY()
     UInventoryComponent* OwningInventory;
 
-    virtual void Use(ABaseCharacter* Character);
+    UPROPERTY()
+    int32 RepKey;
 
-    UFUNCTION(BlueprintImplementableEvent)
-    void OnUse(ABaseCharacter* Character);
+    UPROPERTY(BlueprintAssignable)
+    FOnItemModified OnItemModified;
+
+protected:
+    virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+    virtual bool IsSupportedForNetworking() const override;
+
+#if WITH_EDITOR
+    virtual void PostEditChangeProperty(struct FPropertyChangedEvent& PropertyChangedEvent) override;
+#endif
+
+public:
+	UFUNCTION(BlueprintPure, Category = "Item")
+	virtual bool ShouldShowInInventory() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	FORCEINLINE float GetStackWeight() const { return Weight * Quantity; }
+
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	void SetQuantity(const int32 NewQuantity);
+
+	virtual void Use(ABaseCharacter* Character);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnUse(ABaseCharacter* Character);
+
+	virtual void AddToInventory(UInventoryComponent* Inventory);
+
+	UFUNCTION()
+	void OnRep_Quantity();
+
+	void MarkDirtyForReplication();
 };

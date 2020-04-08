@@ -15,33 +15,39 @@ class CPPMULTIPLAYER_API UInventoryComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
-	// Sets default values for this component's properties
-	UInventoryComponent();
-
 protected:
-	// Called when the game starts
-	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Inventory", meta = (ClampMin = 0.0))
+	float WeightCapacity;
 
-public:	
-	UPROPERTY(Replicated, EditDefaultsOnly, Instanced)
-	TArray<UItem*> DefaultItems;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite,Category = "Inventory")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Inventory", meta = (ClampMin = 0))
 	int32 Capacity;
 
 	UPROPERTY(BlueprintAssignable, Category = "Inventory")
 	FOnInventoryUpdated OnInventoryUpdated;
 
-	UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category = "Inventory")
+	UPROPERTY(ReplicatedUsing = OnRep_Items, VisibleAnywhere, BlueprintReadOnly, Category = "Inventory")
 	TArray<UItem*> Items;
 
+protected:
 	virtual void BeginPlay() override;
+
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const;
+	virtual bool ReplicateSubobjects(class UActorChannel* Channel, class FOutBunch* Bunch, FReplicationFlags* RepFlags);
+
+public:
+	UInventoryComponent();
 
 	UFUNCTION(Server, Reliable, WithValidation)
 	void ServerSpawnDefaultItem();
-
+		
 	bool AddItem(UItem* Item);
 
 	bool RemoveItem(UItem* Item);
+
+private: 
+	UPROPERTY()
+	int32 ReplicatedItemsKey;	 
+
+	UFUNCTION()
+	void OnRep_Items();
 };

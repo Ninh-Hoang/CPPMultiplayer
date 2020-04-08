@@ -4,6 +4,7 @@
 #include "InventoryComponent.h"
 #include "Item.h"
 #include "Net/UnrealNetwork.h"
+#include "Engine/ActorChannel.h"
 
 // Sets default values for this component's properties
 UInventoryComponent::UInventoryComponent(){
@@ -15,21 +16,20 @@ UInventoryComponent::UInventoryComponent(){
 	// ...
 }
 
-
 // Called when the game starts
 void UInventoryComponent::BeginPlay(){
 	Super::BeginPlay();
 
 	// ...
-	if (GetOwnerRole() == ROLE_Authority) {
+	/*if (GetOwnerRole() == ROLE_Authority) {
 		ServerSpawnDefaultItem();
-	}
+	}*/
 }
 
 void UInventoryComponent::ServerSpawnDefaultItem_Implementation(){
-	for (UItem* Item : DefaultItems) {
+	/*for (UItem* Item : DefaultItems) {
 		AddItem(Item);
-	}
+	}*/
 }
 
 bool UInventoryComponent::ServerSpawnDefaultItem_Validate(){
@@ -57,11 +57,26 @@ bool UInventoryComponent::RemoveItem(UItem* Item){
 	return false;
 }
 
+void UInventoryComponent::OnRep_Items(){
+
+}
+
 void UInventoryComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	DOREPLIFETIME(UInventoryComponent, DefaultItems);
+
 	DOREPLIFETIME(UInventoryComponent, Items);
 }
 
-// Called every frame
+bool UInventoryComponent::ReplicateSubobjects(class UActorChannel* Channel, class FOutBunch* Bunch, FReplicationFlags* RepFlags){
+	bool bWroteSomething = Super::ReplicateSubobjects(Channel, Bunch, RepFlags); 
+
+	if (Channel->KeyNeedsToReplicate(0, ReplicatedItemsKey)) {
+		for (UItem* Item : Items) {
+			if (Channel->KeyNeedsToReplicate(Item->GetUniqueID(), Item->RepKey)) {
+				bWroteSomething	|= Channel->ReplicateSubobject(Item, *Bunch, *RepFlags);
+			}
+		}
+	}
+	return bWroteSomething;
+}
 

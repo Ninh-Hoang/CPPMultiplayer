@@ -81,7 +81,7 @@ void UInteractionComponent::EndFocus(ABaseCharacter* Character){
 }
 
 void UInteractionComponent::Interact(ABaseCharacter* Character){
-	if (CanInteract(Character)) {
+	if ((Character && CanInteract(Character)) || Interactors.Contains(Character)) {
 		OnInteract.Broadcast(Character);
 	}
 }

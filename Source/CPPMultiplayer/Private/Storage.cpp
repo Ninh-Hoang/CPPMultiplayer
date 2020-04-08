@@ -16,7 +16,7 @@ AStorage::AStorage(){
 void AStorage::BeginPlay(){
 	Super::BeginPlay();
 	if (InventoryComponent) {
-		InventoryComponent->Capacity = 20;
+		//InventoryComponent->Capacity = 20;
 	}
 
 }
