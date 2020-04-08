@@ -93,12 +93,15 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void SetQuantity(const int32 NewQuantity);
 
+	UFUNCTION(BlueprintPure, Category = "Item")
+	FORCEINLINE int32 GetQuantity() const { return Quantity; }
+
 	virtual void Use(ABaseCharacter* Character);
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnUse(ABaseCharacter* Character);
 
-	virtual void AddToInventory(UInventoryComponent* Inventory);
+	virtual void AddedToInventory(UInventoryComponent* Inventory);
 
 	UFUNCTION()
 	void OnRep_Quantity();

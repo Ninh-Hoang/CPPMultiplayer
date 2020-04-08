@@ -52,7 +52,7 @@ void UItem::SetQuantity(const int32 NewQuantity){
 	}
 }
 
-void UItem::AddToInventory(UInventoryComponent* Inventory){
+void UItem::AddedToInventory(UInventoryComponent* Inventory){
 
 }
 

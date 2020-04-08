@@ -10,10 +10,64 @@ class UItem;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnInventoryUpdated);
 
+UENUM(BlueprintType)
+enum class EItemAddResult : uint8 {
+	IAR_NoItemAdded UMETA(DisplayName = "No items added"),
+	IAR_SomeItemAdded UMETA(DisplayName = "Some items added"),
+	IAR_AllItemAdded UMETA(DisplayName = "All items added")
+};
+
+USTRUCT(BlueprintType)
+struct FItemAddResult {
+	GENERATED_BODY()
+
+public:
+
+	FItemAddResult() {};
+	FItemAddResult(int32 InItemQuanity) : AmountToGive(InItemQuanity), ActualAmountGiven(0) {};
+	FItemAddResult(int32 InItemQuanity, int32 InQuantityAdded) : AmountToGive(InItemQuanity), ActualAmountGiven(InQuantityAdded) {};
+
+	UPROPERTY(BlueprintReadOnly, Category = "Item Add Result")
+	int32 AmountToGive;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Item Add Result")
+	int32 ActualAmountGiven;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Item Add Result")
+	EItemAddResult Result;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Item Add Result")
+	FText ErrorText;
+
+	static FItemAddResult AddedNone(const int32 InItemQuanity, const FText& ErrorText) {
+		FItemAddResult AddedNonResult(InItemQuanity);
+		AddedNonResult.Result = EItemAddResult::IAR_NoItemAdded;
+		AddedNonResult.ErrorText = ErrorText;
+		return AddedNonResult;
+	}
+
+	static FItemAddResult AddedSome(const int32 InItemQuanity, const int32 ActualAmountGiven, const FText& ErrorText) {
+		FItemAddResult AddedSomeResult(InItemQuanity, ActualAmountGiven);
+		AddedSomeResult.Result = EItemAddResult::IAR_SomeItemAdded;
+		AddedSomeResult.ErrorText = ErrorText;
+
+		return AddedSomeResult;
+	}
+
+	static FItemAddResult AddedAll(const int32 InItemQuanity) {
+		FItemAddResult AddedAllResult(InItemQuanity);
+		AddedAllResult.Result = EItemAddResult::IAR_AllItemAdded;
+
+		return AddedAllResult;
+	}
+};
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class CPPMULTIPLAYER_API UInventoryComponent : public UActorComponent
 {
 	GENERATED_BODY()
+
+	friend class UItem;
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Inventory", meta = (ClampMin = 0.0))
@@ -22,14 +76,14 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Inventory", meta = (ClampMin = 0))
 	int32 Capacity;
 
-	UPROPERTY(BlueprintAssignable, Category = "Inventory")
-	FOnInventoryUpdated OnInventoryUpdated;
-
 	UPROPERTY(ReplicatedUsing = OnRep_Items, VisibleAnywhere, BlueprintReadOnly, Category = "Inventory")
 	TArray<UItem*> Items;
 
+	//delegate
+	UPROPERTY(BlueprintAssignable, Category = "Inventory")
+	FOnInventoryUpdated OnInventoryUpdated;
+
 protected:
-	virtual void BeginPlay() override;
 
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const;
 	virtual bool ReplicateSubobjects(class UActorChannel* Channel, class FOutBunch* Bunch, FReplicationFlags* RepFlags);
@@ -37,16 +91,36 @@ protected:
 public:
 	UInventoryComponent();
 
-	UFUNCTION(Server, Reliable, WithValidation)
-	void ServerSpawnDefaultItem();
-		
-	bool AddItem(UItem* Item);
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
+	FItemAddResult TryAddItem(UItem* Item);
 
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
+	FItemAddResult TryAddItemFromClass(TSubclassOf<UItem> ItemClass, const int32 Quantity);
+
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	bool RemoveItem(UItem* Item);
+
+	UFUNCTION(BlueprintPure, Category = "Inventory")
+	FORCEINLINE float  GetWeightCapacity() const { return WeightCapacity;};
+
+	UFUNCTION(BlueprintPure, Category = "Inventory")
+	FORCEINLINE int32 GetCapacity() const { return Capacity; };
+
+	UFUNCTION(BlueprintPure, Category = "Inventory")
+	FORCEINLINE TArray<UItem*> GetItems() const { return Items; };
+
+	UFUNCTION(Client, Reliable)
+	void ClientRefreshInventory();
 
 private: 
 	UPROPERTY()
-	int32 ReplicatedItemsKey;	 
+	int32 ReplicatedItemsKey;
+
+	//handle replication and ownership
+	UItem* AddItem(UItem* Item);
+
+	//non-BP internal function
+	FItemAddResult TryAddItem_Internal(UItem* Item);
 
 	UFUNCTION()
 	void OnRep_Items();

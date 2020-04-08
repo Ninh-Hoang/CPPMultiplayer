@@ -16,49 +16,48 @@ UInventoryComponent::UInventoryComponent(){
 	// ...
 }
 
-// Called when the game starts
-void UInventoryComponent::BeginPlay(){
-	Super::BeginPlay();
-
-	// ...
-	/*if (GetOwnerRole() == ROLE_Authority) {
-		ServerSpawnDefaultItem();
-	}*/
+FItemAddResult UInventoryComponent::TryAddItem(UItem* Item){
+	return TryAddItem_Internal(Item); 
 }
 
-void UInventoryComponent::ServerSpawnDefaultItem_Implementation(){
-	/*for (UItem* Item : DefaultItems) {
-		AddItem(Item);
-	}*/
-}
-
-bool UInventoryComponent::ServerSpawnDefaultItem_Validate(){
-	return true;
-}
-
-bool UInventoryComponent::AddItem(UItem* Item) {
-	if (Items.Num() >= Capacity || !Item) {
-		return false;
-	}
-	Item->OwningInventory = this;
-	Items.Add(Item);
-	OnInventoryUpdated.Broadcast();
-
-	return true;
+FItemAddResult UInventoryComponent::TryAddItemFromClass(TSubclassOf<UItem> ItemClass, const int32 Quantity){
+	UItem* Item = NewObject<UItem>(GetOwner(), ItemClass);
+	Item->SetQuantity(Quantity);
+	return TryAddItem_Internal(Item);
 }
 
 bool UInventoryComponent::RemoveItem(UItem* Item){
-	if (Item) {
-		Item->OwningInventory = NULL;
-		Items.RemoveSingle(Item);
-		OnInventoryUpdated.Broadcast();
-		return true;
+	if (GetOwner() && GetOwner()->HasAuthority() {
+
 	}
-	return false;
 }
 
-void UInventoryComponent::OnRep_Items(){
+void UInventoryComponent::ClientRefreshInventory_Implementation(){
 
+}
+
+UItem* UInventoryComponent::AddItem(UItem* Item){
+	if (GetOwner() && GetOwner()->HasAuthority()) {
+		UItem* NewItem = NewObject<UItem>(GetOwner(), Item->GetClass());
+		NewItem->SetQuantity(Item->GetQuantity());
+		NewItem->OwningInventory = this;
+		NewItem->AddedToInventory(this); 
+		Items.Add(Item);
+		NewItem->MarkDirtyForReplication();
+
+		return NewItem;
+	}
+
+	return nullptr;
+}
+
+FItemAddResult UInventoryComponent::TryAddItem_Internal(UItem* Item){
+	AddItem(Item);
+	return FItemAddResult::AddedAll(Item->Quantity);
+}
+
+void UInventoryComponent::OnRep_Items() {
+	OnInventoryUpdated.Broadcast();
 }
 
 void UInventoryComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
