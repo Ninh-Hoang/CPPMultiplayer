@@ -97,8 +97,23 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	FItemAddResult TryAddItemFromClass(TSubclassOf<UItem> ItemClass, const int32 Quantity);
 
+	int32 ConsumeItem(UItem* Item);
+	int32 ConsumeItem(UItem* Item, const int32 Quantity);
+
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	bool RemoveItem(UItem* Item);
+
+	UFUNCTION(BlueprintPure, Category = "Inventory")
+	bool HasItem(TSubclassOf<UItem> ItemClass, const int32 Quantity = 1) const;
+
+	UFUNCTION(BlueprintPure, Category = "Inventory")
+	UItem* FindItem(UItem* Item) const;
+
+	UFUNCTION(BlueprintPure, Category = "Inventory")
+	UItem* FindItemByClass(TSubclassOf<UItem> ItemClass) const;
+
+	UFUNCTION(BlueprintPure, Category = "Inventory")
+	TArray<UItem*> FindItemsByClass(TSubclassOf<UItem> ItemClass) const;
 
 	UFUNCTION(BlueprintPure, Category = "Inventory")
 	FORCEINLINE float  GetWeightCapacity() const { return WeightCapacity;};
@@ -108,6 +123,15 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "Inventory")
 	FORCEINLINE TArray<UItem*> GetItems() const { return Items; };
+
+	UFUNCTION(BlueprintPure, Category = "Inventory")
+	float GetCurrentWeight() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
+	void SetWeightCapacity(const float NewWeightCapacity);
+
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
+	void SetCapacity(const int32 NewCapacity);
 
 	UFUNCTION(Client, Reliable)
 	void ClientRefreshInventory();

@@ -2,6 +2,7 @@
 
 #include "Item.h"
 #include "Net/UnrealNetwork.h"
+#include "InventoryComponent.h"
 
 #define LOCTEXT_NAMESPACE "Item" 
 
@@ -61,7 +62,11 @@ void UItem::OnRep_Quantity() {
 }
 
 void UItem::MarkDirtyForReplication(){
+	++RepKey;
 
+	if (OwningInventory) {
+		++OwningInventory->ReplicatedItemsKey;
+	}
 }
 
 #undef LOCTEXT_NAMESPACE
