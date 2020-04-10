@@ -53,7 +53,7 @@ void UItem::Use(ABaseCharacter* Character){
 }
 
 void UItem::SetQuantity(const int32 NewQuantity){
-	if (NewQuantity > 0) {
+	if (NewQuantity != Quantity) {
 		Quantity = FMath::Clamp(NewQuantity, 0, bStackable ? MaxStackSize : 1);
 		MarkDirtyForReplication();
 	}

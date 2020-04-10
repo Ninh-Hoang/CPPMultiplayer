@@ -77,7 +77,7 @@ bool UInventoryComponent::HasItem(TSubclassOf<UItem> ItemClass, const int32 Quan
 UItem* UInventoryComponent::FindItem(UItem* Item) const{
 	if (Item) {
 		for (UItem* InvItem : Items) {
-			if (InvItem->GetClass() == Item->GetClass()) {
+			if (InvItem && InvItem->GetClass() == Item->GetClass()) {
 				return InvItem;
 			}
 		}
@@ -200,7 +200,6 @@ FItemAddResult UInventoryComponent::TryAddItem_Internal(UItem* Item) {
 					UE_LOG(LogTemp, Warning, TEXT("%i"), ActualAddAmount);
 
 					ExistingItem->SetQuantity(ExistingItem->GetQuantity() + ActualAddAmount);
-					//ExistingItem->MarkDirtyForReplication();
 
 					for (UItem* Item : Items) {
 						UE_LOG(LogTemp, Warning, TEXT("%s,%i"), *Item->ItemDisplayName.ToString(), Item->GetQuantity());
