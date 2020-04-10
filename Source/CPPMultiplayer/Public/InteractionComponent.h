@@ -22,7 +22,7 @@ class CPPMULTIPLAYER_API UInteractionComponent : public UWidgetComponent
 {
 	GENERATED_BODY()
 	
-protected:
+public:
 	//delegates
 	UPROPERTY(EditDefaultsOnly, BlueprintAssignable)
 	FOnBeginFocus OnBeginFocus;

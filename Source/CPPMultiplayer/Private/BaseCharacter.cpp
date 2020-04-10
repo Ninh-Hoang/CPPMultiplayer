@@ -77,7 +77,8 @@ void ABaseCharacter::BeginPlay()
 	ChangeWeapon(StarterWeaponClass);
 
 	if (InventoryComponent) {
-		//InventoryComponent->Capacity = 20;
+		InventoryComponent->SetCapacity(20);
+		InventoryComponent->SetWeightCapacity(30);
 	}
 }
 
@@ -321,6 +322,10 @@ void ABaseCharacter::BeginInteract(){
 		ServerBeginInteract();
 	}
 
+	if (HasAuthority()) {
+		PerformInteractionCheck();
+	}
+
 	InteractionData.bInteractionHeld = true;
 
 	if (UInteractionComponent* Interactable = GetInteractable() ) {
@@ -331,7 +336,7 @@ void ABaseCharacter::BeginInteract(){
 		else {
 			GetWorldTimerManager().SetTimer(InteractTimerHandler, this, 
 				&ABaseCharacter::Interact, Interactable->InteractionTime, false);
-		}
+		} 
 	}
 }
 
