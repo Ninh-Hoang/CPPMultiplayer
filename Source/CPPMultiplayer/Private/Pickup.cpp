@@ -45,7 +45,6 @@ void APickup::OnTakePickup(ABaseCharacter* Taker){
 	if (HasAuthority() && !IsPendingKill() && Item) {
 		if (UInventoryComponent* PlayerInventory = Taker->InventoryComponent) {
 			const FItemAddResult AddResult = PlayerInventory->TryAddItem(Item);
-			UE_LOG(LogTemp, Warning, TEXT("%i, %i"), AddResult.AmountToGive, Item->GetQuantity());
 			if (AddResult.ActualAmountGiven < Item->GetQuantity()) {
 				Item->SetQuantity(Item->GetQuantity() - AddResult.ActualAmountGiven);
 			}

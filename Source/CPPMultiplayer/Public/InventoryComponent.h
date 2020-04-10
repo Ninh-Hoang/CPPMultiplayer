@@ -24,8 +24,8 @@ struct FItemAddResult {
 public:
 
 	FItemAddResult() {};
-	FItemAddResult(int32 InItemQuanity) : AmountToGive(InItemQuanity), ActualAmountGiven(0) {};
-	FItemAddResult(int32 InItemQuanity, int32 InQuantityAdded) : AmountToGive(InItemQuanity), ActualAmountGiven(InQuantityAdded) {};
+	FItemAddResult(int32 InItemQuantity) : AmountToGive(InItemQuantity), ActualAmountGiven(0) {};
+	FItemAddResult(int32 InItemQuantity, int32 InQuantityAdded) : AmountToGive(InItemQuantity), ActualAmountGiven(InQuantityAdded) {};
 
 	UPROPERTY(BlueprintReadOnly, Category = "Item Add Result")
 	int32 AmountToGive;
@@ -39,23 +39,23 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Item Add Result")
 	FText ErrorText;
 
-	static FItemAddResult AddedNone(const int32 InItemQuanity, const FText& ErrorText) {
-		FItemAddResult AddedNonResult(InItemQuanity);
+	static FItemAddResult AddedNone(const int32 InItemQuantity, const FText& ErrorText) {
+		FItemAddResult AddedNonResult(InItemQuantity);
 		AddedNonResult.Result = EItemAddResult::IAR_NoItemAdded;
 		AddedNonResult.ErrorText = ErrorText;
 		return AddedNonResult;
 	}
 
-	static FItemAddResult AddedSome(const int32 InItemQuanity, const int32 ActualAmountGiven, const FText& ErrorText) {
-		FItemAddResult AddedSomeResult(InItemQuanity, ActualAmountGiven);
+	static FItemAddResult AddedSome(const int32 InItemQuantity, const int32 ActualAmountGiven, const FText& ErrorText) {
+		FItemAddResult AddedSomeResult(InItemQuantity, ActualAmountGiven);
 		AddedSomeResult.Result = EItemAddResult::IAR_SomeItemAdded;
 		AddedSomeResult.ErrorText = ErrorText;
 
 		return AddedSomeResult;
 	}
 
-	static FItemAddResult AddedAll(const int32 InItemQuanity) {
-		FItemAddResult AddedAllResult(InItemQuanity);
+	static FItemAddResult AddedAll(const int32 InItemQuantity) {
+		FItemAddResult AddedAllResult(InItemQuantity, InItemQuantity);
 		AddedAllResult.Result = EItemAddResult::IAR_AllItemAdded;
 
 		return AddedAllResult;

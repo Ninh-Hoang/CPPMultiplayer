@@ -76,7 +76,7 @@ bool UInventoryComponent::HasItem(TSubclassOf<UItem> ItemClass, const int32 Quan
 
 UItem* UInventoryComponent::FindItem(UItem* Item) const{
 	if (Item) {
-		for (auto& InvItem : Items) {
+		for (UItem* InvItem : Items) {
 			if (InvItem->GetClass() == Item->GetClass()) {
 				return InvItem;
 			}
@@ -189,7 +189,7 @@ FItemAddResult UInventoryComponent::TryAddItem_Internal(UItem* Item) {
 						}
 					}
 					else if (ActualAddAmount < AddAmount) {
-						ErrorText = FText::Format(LOCTEXT("InventoryTooMuchWeightText", "Could not entire stack of {ItemName} to Inventory."), Item->ItemDisplayName);
+						ErrorText = FText::Format(LOCTEXT("InventoryTooManyStacksText", "Could not entire stack of {ItemName} to Inventory."), Item->ItemDisplayName);
 					}
 
 					//if could not add any item
@@ -197,7 +197,14 @@ FItemAddResult UInventoryComponent::TryAddItem_Internal(UItem* Item) {
 						return FItemAddResult::AddedNone(AddAmount, LOCTEXT("InventoryErrorText", "Could not add any item to inventory"));
 					}
 
+					UE_LOG(LogTemp, Warning, TEXT("%i"), ActualAddAmount);
+
 					ExistingItem->SetQuantity(ExistingItem->GetQuantity() + ActualAddAmount);
+					//ExistingItem->MarkDirtyForReplication();
+
+					for (UItem* Item : Items) {
+						UE_LOG(LogTemp, Warning, TEXT("%s,%i"), *Item->ItemDisplayName.ToString(), Item->GetQuantity());
+					}
 
 					ensure(ExistingItem->GetQuantity() <= ExistingItem->MaxStackSize);
 

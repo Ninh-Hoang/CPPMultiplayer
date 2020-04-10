@@ -26,7 +26,8 @@ void UItem::PostEditChangeProperty(struct FPropertyChangedEvent& PropertyChanged
 		Quantity = FMath::Clamp(Quantity, 0, bStackable ? MaxStackSize : 1);
 	}
 	else  if (ChangedPropertyName == GET_MEMBER_NAME_CHECKED(UItem, bStackable)) {
-		if (bStackable) {
+		if (!bStackable) {
+			MaxStackSize = 1;
 			Quantity = 1;
 		}
 	}
