@@ -12,11 +12,12 @@ UConsumableItem::UConsumableItem(){
 }
 
 void UConsumableItem::Use(ABaseCharacter* Character){
-	if (Character) {
+	UE_LOG(LogTemp, Warning, TEXT("Consume item."))
+	/*if (Character) {
 		if (OwningInventory) {
 			OwningInventory->RemoveItem(this);
 		}
-	}
+	}*/
 }
 
 #undef LOCTEXT_NAMESPACE
