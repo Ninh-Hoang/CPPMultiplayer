@@ -147,7 +147,7 @@ UItem* UInventoryComponent::AddItem(UItem* Item){
 }
 
 FItemAddResult UInventoryComponent::TryAddItem_Internal(UItem* Item) {
-	if (GetOwner() && GetOwner()->HasAuthority()) {
+	if (GetOwner() && GetOwner()->HasAuthority() && Item) {
 		const int32 AddAmount = Item->GetQuantity();
 
 		//check if inventory capacity full
@@ -201,8 +201,13 @@ FItemAddResult UInventoryComponent::TryAddItem_Internal(UItem* Item) {
 
 					ExistingItem->SetQuantity(ExistingItem->GetQuantity() + ActualAddAmount);
 
-					for (UItem* Item : Items) {
-						UE_LOG(LogTemp, Warning, TEXT("%s,%i"), *Item->ItemDisplayName.ToString(), Item->GetQuantity());
+					if (GetOwner()->HasAuthority()) {
+						for (UItem* Item : Items) {
+							UE_LOG(LogTemp, Warning, TEXT("%s,%i"), *Item->ItemDisplayName.ToString(), Item->GetQuantity());
+						}
+					}
+					else {
+						UE_LOG(LogTemp, Warning, TEXT("Local %s,%i"), *Item->ItemDisplayName.ToString(), Item->GetQuantity());
 					}
 
 					ensure(ExistingItem->GetQuantity() <= ExistingItem->MaxStackSize);
@@ -234,7 +239,9 @@ FItemAddResult UInventoryComponent::TryAddItem_Internal(UItem* Item) {
 	}
 
 	//should not be called on client
-	check(false);
+	if (Item) {
+		check(false);
+	}
 	return FItemAddResult::AddedNone(-1, LOCTEXT("ErrorMessage", ""));
 }
 

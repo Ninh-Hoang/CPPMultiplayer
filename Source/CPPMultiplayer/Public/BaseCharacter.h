@@ -14,6 +14,7 @@ class USHealthComponent;
 class UItem;
 class UInventoryComponent;
 class UInteractionComponent;
+class APickup;
 
 USTRUCT()
 struct FInteractionData {
@@ -162,11 +163,20 @@ protected:
 
 //item using 
 public:
+	UPROPERTY(EditDefaultsOnly, Category = "Item")
+	TSubclassOf<APickup> PickupClass;
+
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void UseItem(UItem* Item);
 
 	UFUNCTION(Server, Reliable, WithValidation)
 	void ServerUseItem(UItem* Item);
+
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	void DropItem(UItem* Item, int32 Quantity);
+
+	UFUNCTION(Server, Reliable, WithValidation)
+		void ServerDropItem(UItem* Item, int32 Quantity);
 
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void ChangeWeapon(TSubclassOf<ASWeapon> WeaponToChange);

@@ -7,6 +7,7 @@
 #define LOCTEXT_NAMESPACE "Item" 
 
 void UItem::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const{
+
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(UItem, Quantity);
@@ -68,9 +69,12 @@ void UItem::OnRep_Quantity() {
 }
 
 void UItem::MarkDirtyForReplication(){
+	// Mark this object for replication
 	++RepKey;
 
-	if (OwningInventory) {
+	// Mark the array for replication
+	if (OwningInventory)
+	{
 		++OwningInventory->ReplicatedItemsKey;
 	}
 }

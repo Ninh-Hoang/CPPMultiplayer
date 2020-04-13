@@ -18,6 +18,7 @@
 #include "Item.h"
 #include "InventoryComponent.h"
 #include "InteractionComponent.h"
+#include "Pickup.h"
 
 static int32 DebugAimDrawing = 0;
 FAutoConsoleVariableRef CVARDebugAimDrawing(TEXT("COOP.DebugAim"),
@@ -385,19 +386,69 @@ bool ABaseCharacter::IsInteracting() const{
 float ABaseCharacter::GetRemainingInteractionTime() const{
 	return GetWorldTimerManager().GetTimerRemaining(InteractTimerHandler);
 }
+
 //item using system
 void ABaseCharacter::UseItem(UItem* Item){
-	ServerUseItem(Item);
-}
+	//if is client, run on server
+	if (Role < ROLE_Authority && Item) {
+		ServerUseItem(Item);
+	}
 
-void ABaseCharacter::ServerUseItem_Implementation(UItem* Item){
+	//if is server, check if the wanted item is in inventory, if not return
+	if (HasAuthority()) {
+		if (InventoryComponent && !InventoryComponent->FindItem(Item)) {
+			return;
+		} 
+	}
+	
 	if (Item) {
 		Item->OnUse(this);
 		Item->Use(this);
 	}
 }
 
+void ABaseCharacter::ServerUseItem_Implementation(UItem* Item){
+	UseItem(Item);
+}
+
 bool ABaseCharacter::ServerUseItem_Validate(UItem* Item){
+	return true;
+}
+
+void ABaseCharacter::DropItem(UItem* Item, int32 Quantity) {
+	//if is client, run on server 
+	if (Role < ROLE_Authority) {
+		ServerDropItem(Item, Quantity);
+		return;
+	}
+
+	if (HasAuthority()) {
+		const int32 ItemQuantity = Item->GetQuantity();
+		const int32 DroppedQuantity = InventoryComponent->ConsumeItem(Item, Quantity);
+
+		//spawn pickup
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+		SpawnParams.bNoFail = true;
+		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+
+		FVector SpawnLocation = GetActorLocation();
+		//SpawnLocation.Z -= GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
+
+		FTransform SpawnTransform(GetActorRotation(), SpawnLocation); 
+		
+		ensure(PickupClass);
+		APickup* Pickup = GetWorld()->SpawnActor<APickup>(PickupClass, SpawnTransform, SpawnParams);
+		Pickup->InitializePickup(Item->GetClass(), DroppedQuantity);
+
+	}
+}
+
+void ABaseCharacter::ServerDropItem_Implementation(UItem* Item, int32 Quantity){
+	DropItem(Item, Quantity);
+}
+
+bool ABaseCharacter::ServerDropItem_Validate(UItem* Item, int32 Quantity){
 	return true;
 }
 
