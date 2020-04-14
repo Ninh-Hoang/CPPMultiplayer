@@ -416,6 +416,9 @@ bool ABaseCharacter::ServerUseItem_Validate(UItem* Item){
 }
 
 void ABaseCharacter::DropItem(UItem* Item, int32 Quantity) {
+	if (Quantity <= 0) {
+		return;
+	}
 	//if is client, run on server 
 	if (Role < ROLE_Authority) {
 		ServerDropItem(Item, Quantity);
@@ -438,6 +441,7 @@ void ABaseCharacter::DropItem(UItem* Item, int32 Quantity) {
 		FTransform SpawnTransform(GetActorRotation(), SpawnLocation); 
 		
 		ensure(PickupClass);
+
 		APickup* Pickup = GetWorld()->SpawnActor<APickup>(PickupClass, SpawnTransform, SpawnParams);
 		Pickup->InitializePickup(Item->GetClass(), DroppedQuantity);
 

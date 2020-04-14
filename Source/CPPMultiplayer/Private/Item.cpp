@@ -36,11 +36,12 @@ void UItem::PostEditChangeProperty(struct FPropertyChangedEvent& PropertyChanged
 #endif
 
 UItem::UItem(){
+	bStackable = true;
+	Quantity = 1;
 	ItemDisplayName = LOCTEXT("ItemName", "Item");
 	UseActionText = LOCTEXT("ItemUseActionText", "Use");
 	Weight = 0.f;
-	bStackable = true;
-	Quantity = 1;
+	
 	MaxStackSize = 2;
 	RepKey = 0;
 }
@@ -56,6 +57,7 @@ void UItem::Use(ABaseCharacter* Character){
 void UItem::SetQuantity(const int32 NewQuantity){
 	if (NewQuantity != Quantity) {
 		Quantity = FMath::Clamp(NewQuantity, 0, bStackable ? MaxStackSize : 1);
+		//UE_LOG(LogTemp, Warning, TEXT("%i"), NewQuantity);
 		MarkDirtyForReplication();
 	}
 }

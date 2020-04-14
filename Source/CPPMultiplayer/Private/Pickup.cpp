@@ -10,6 +10,7 @@
 #include "InventoryComponent.h"
 #include "UObject/UObjectGlobals.h"
 #include "Net/UnrealNetwork.h"
+#include "Kismet/KismetMathLibrary.h"
 
 // Sets default values
 APickup::APickup(){
@@ -30,11 +31,23 @@ APickup::APickup(){
 }
 
 void APickup::InitializePickup(const TSubclassOf<UItem> ItemClass, const int32 Quantity){
-	if (HasAuthority() && ItemClass && Quantity > 0) {
+	if (Role == ROLE_Authority && ItemClass && Quantity > 0) {
 		Item = NewObject<UItem>(this, ItemClass);
 		Item->SetQuantity(Quantity);
 		OnRep_Item();
 	}
+}
+
+void APickup::OnRep_Item() {
+	if (Item) {
+		PickupMesh->SetStaticMesh(Item->PickupMesh);
+
+		InteractionComponent->InteractableNameText = Item->ItemDisplayName;
+
+		Item->OnItemModified.AddDynamic(this, &APickup::OnItemModified);
+	}
+
+	InteractionComponent->RefreshWidget();
 }
 
 void APickup::OnTakePickup(ABaseCharacter* Taker){
@@ -55,17 +68,7 @@ void APickup::OnTakePickup(ABaseCharacter* Taker){
 	}
 }
 
-void APickup::OnRep_Item(){
-	if (Item) {
-		PickupMesh->SetStaticMesh(Item->PickupMesh);
 
-		InteractionComponent->InteractableNameText = Item->ItemDisplayName;
-
-		Item->OnItemModified.AddDynamic(this, &APickup::OnItemModified);
-	}
-
-	InteractionComponent->RefreshWidget();
-}
 
 void APickup::OnItemModified(){
 	if (InteractionComponent) {
@@ -77,16 +80,12 @@ void APickup::OnItemModified(){
 void APickup::BeginPlay(){
 	Super::BeginPlay();
 	
-	if (HasAuthority() && ItemTemplate && bNetStartup) {
+	if (Role == ROLE_Authority && ItemTemplate && bNetStartup) {
 		InitializePickup(ItemTemplate->GetClass(), ItemTemplate->GetQuantity());
 	}
 
-	if (bNetStartup) {
+	if (!bNetStartup) {
 		AlignWithGround();
-	}
-
-	if (Item) {
-		Item->MarkDirtyForReplication();
 	}
 }
 
@@ -96,11 +95,11 @@ void APickup::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeP
 	DOREPLIFETIME(APickup, Item);
 }
 
-bool APickup::ReplicateSubobjects(UActorChannel *Channel, FOutBunch *Bunch, FReplicationFlags *RepFlag){
-	bool bWroteSomething = Super::ReplicateSubobjects(Channel, Bunch, RepFlag);
+bool APickup::ReplicateSubobjects(UActorChannel *Channel, FOutBunch *Bunch, FReplicationFlags *RepFlags){
+	bool bWroteSomething = Super::ReplicateSubobjects(Channel, Bunch, RepFlags);
 
-	if (Item && Channel->KeyNeedsToReplicate(Item->GetUniqueID(), Item->RepKey)) {
-		bWroteSomething |= Channel->ReplicateSubobject(Item, *Bunch, *RepFlag);
+	if (Item){
+		bWroteSomething |= Channel->ReplicateSubobject(Item, *Bunch, *RepFlags);
 	}
 
 	return bWroteSomething;

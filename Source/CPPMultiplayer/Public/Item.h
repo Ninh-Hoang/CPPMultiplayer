@@ -6,6 +6,7 @@
 #include "UObject/NoExportTypes.h"
 #include "Item.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnItemModified);
 /**
  * 
  */
@@ -24,7 +25,7 @@ enum class EItemRarity : uint8 {
     IR_SuperRare UMETA(DisplayName = "Super Rare")
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnItemModified);
+
 
 UCLASS(Abstract, Blueprintable, BlueprintType, EditInlineNew, DefaultToInstanced)
 class CPPMULTIPLAYER_API UItem : public UObject

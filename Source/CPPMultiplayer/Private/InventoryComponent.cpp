@@ -128,16 +128,16 @@ void UInventoryComponent::SetCapacity(const int32 NewCapacity){
 
 
 void UInventoryComponent::ClientRefreshInventory_Implementation(){
-
+	OnInventoryUpdated.Broadcast();
 }
 
 UItem* UInventoryComponent::AddItem(UItem* Item){
-	if (GetOwner() && GetOwner()->HasAuthority()) {
+	if (GetOwner()->Role == ROLE_Authority) {
 		UItem* NewItem = NewObject<UItem>(GetOwner(), Item->GetClass());
 		NewItem->SetQuantity(Item->GetQuantity());
 		NewItem->OwningInventory = this;
 		NewItem->AddedToInventory(this); 
-		Items.Add(Item);
+		Items.Add(NewItem);
 		NewItem->MarkDirtyForReplication();
 
 		return NewItem;
@@ -197,18 +197,7 @@ FItemAddResult UInventoryComponent::TryAddItem_Internal(UItem* Item) {
 						return FItemAddResult::AddedNone(AddAmount, LOCTEXT("InventoryErrorText", "Could not add any item to inventory"));
 					}
 
-					UE_LOG(LogTemp, Warning, TEXT("%i"), ActualAddAmount);
-
 					ExistingItem->SetQuantity(ExistingItem->GetQuantity() + ActualAddAmount);
-
-					if (GetOwner()->HasAuthority()) {
-						for (UItem* Item : Items) {
-							UE_LOG(LogTemp, Warning, TEXT("%s,%i"), *Item->ItemDisplayName.ToString(), Item->GetQuantity());
-						}
-					}
-					else {
-						UE_LOG(LogTemp, Warning, TEXT("Local %s,%i"), *Item->ItemDisplayName.ToString(), Item->GetQuantity());
-					}
 
 					ensure(ExistingItem->GetQuantity() <= ExistingItem->MaxStackSize);
 
