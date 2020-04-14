@@ -9,11 +9,40 @@
 /**
  * 
  */
+
+class FText;
+class ABaseCharacter;
+class UInventoryComponent;
+
 UCLASS()
 class CPPMULTIPLAYER_API ABasePlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
+public:
 	ABasePlayerController();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void ShowIngameUI();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void ShowNotification(const FText& Message);
+
+	UFUNCTION(Client, Reliable, BlueprintCallable)
+	void ClientShowNotification(const FText& Message);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void ShowDeathScreen(ABaseCharacter* Killer);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void ShowLootMenu(const UInventoryComponent* LootSource);
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void HideLootMenu();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnHitPlayer();
+
+	
 
 };
