@@ -19,6 +19,7 @@
 #include "InventoryComponent.h"
 #include "InteractionComponent.h"
 #include "Pickup.h"
+#include "BasePlayerController.h"
 
 static int32 DebugAimDrawing = 0;
 FAutoConsoleVariableRef CVARDebugAimDrawing(TEXT("COOP.DebugAim"),
@@ -92,6 +93,13 @@ void ABaseCharacter::Tick(float DeltaTime)
 
 	if ((!HasAuthority() || !bIsInteractingOnServer) && GetWorld()->TimeSince(InteractionData.LastInteractionCheckTime) > InteractionCheckFrequency) {
 		PerformInteractionCheck();
+	}
+}
+
+void ABaseCharacter::Restart(){
+	Super::Restart();
+	if (ABasePlayerController* PC = Cast<ABasePlayerController>(GetController())) {
+		PC->ShowIngameUI();
 	}
 }
 

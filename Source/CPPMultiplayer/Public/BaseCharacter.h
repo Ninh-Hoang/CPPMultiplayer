@@ -80,6 +80,8 @@ protected:
 	//call every tick
 	virtual void Tick(float DeltaTime) override;
 
+	virtual void Restart() override;
+
 //movement control
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
