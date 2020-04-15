@@ -508,6 +508,90 @@ void ABaseCharacter::StopFire()
 	}
 }
 
+
+bool ABaseCharacter::IsLooting() const{
+	return LootSource != nullptr;
+}
+
+void ABaseCharacter::LootItem(UItem* ItemToGive){
+	if (Role < ROLE_Authority) {
+		if (InventoryComponent && LootSource && ItemToGive && LootSource->HasItem(ItemToGive->GetClass(), ItemToGive->GetQuantity())) {
+			const FItemAddResult AddResult = InventoryComponent->TryAddItem(ItemToGive);
+
+			if (AddResult.ActualAmountGiven > 0) {
+				LootSource->ConsumeItem(ItemToGive, AddResult.ActualAmountGiven);
+			}
+			else {
+				if(ABasePlayerController* PC = Cast<ABasePlayerController>(GetController())) {
+					PC->ShowNotification(AddResult.ErrorText);
+				}
+			}
+		}
+	}
+	else {
+		ServerLootItem(ItemToGive);
+	}
+}
+
+void ABaseCharacter::SetLootSource(UInventoryComponent* NewLootSource) {
+	if (NewLootSource && NewLootSource->GetOwner()) {
+		NewLootSource->GetOwner()->OnDestroyed.AddUniqueDynamic(this, &ABaseCharacter::OnLootSourceOwnerDestroyed);
+	}
+
+	if (HasAuthority()) {
+		if (NewLootSource) {
+			if (ABaseCharacter* Character = Cast<ABaseCharacter>(NewLootSource->GetOwner())) {
+				Character->SetLifeSpan(120.f);
+			}
+		}
+		LootSource = NewLootSource;
+	}
+	else {
+		ServerSetLootSource(NewLootSource);
+	}
+}
+
+void ABaseCharacter::ServerLootItem_Implementation(UItem* ItemToLoot){
+	LootItem(ItemToLoot);
+}
+
+bool ABaseCharacter::ServerLootItem_Validate(UItem* ItemToLoot){
+	return true;
+}
+
+void ABaseCharacter::BeginLootingPlayer(ABaseCharacter* Character){
+	if (Character) {
+		Character->SetLootSource(InventoryComponent);
+	}
+}
+
+void ABaseCharacter::OnLootSourceOwnerDestroyed(AActor* DestroyedActor){
+	if (HasAuthority() && LootSource && DestroyedActor == LootSource->GetOwner()) {
+		ServerSetLootSource(nullptr);
+	}
+}
+
+void ABaseCharacter::OnRep_LootSource() {
+	if (ABasePlayerController* PC = Cast<ABasePlayerController>(GetController())) {
+		if (PC->IsLocalController()) {
+			if (LootSource) {
+				PC->ShowLootMenu(LootSource);
+			}
+			else {
+				PC->HideLootMenu();
+			}
+		}
+	}
+}
+
+void ABaseCharacter::ServerSetLootSource_Implementation(UInventoryComponent* NewLootSource){
+	SetLootSource(NewLootSource);
+}
+
+bool ABaseCharacter::ServerSetLootSource_Validate(UInventoryComponent* NewLootSource){
+	return true;
+}
+
 //on health changed
 void ABaseCharacter::OnHealthChanged(USHealthComponent* HealthComp, 
 	float Health, float HealthDelta,
@@ -521,12 +605,8 @@ void ABaseCharacter::OnHealthChanged(USHealthComponent* HealthComp,
 		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 		//DetachFromControllerPendingDestroy();
-
-		SetLifeSpan(5.0);
 	}
 }
-
-
 
 //replication
 void ABaseCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
@@ -535,6 +615,7 @@ void ABaseCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 	DOREPLIFETIME(ABaseCharacter, CurrentWeapon);
 	DOREPLIFETIME(ABaseCharacter, bDied);
 	DOREPLIFETIME(ABaseCharacter, IsAiming);
+	DOREPLIFETIME(ABaseCharacter, LootSource);
 }
 
 //unknown

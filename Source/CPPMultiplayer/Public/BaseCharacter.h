@@ -145,7 +145,6 @@ protected:
 
 	UPROPERTY()
 	FInteractionData InteractionData;
-
 	void PerformInteractionCheck();
 
 	void CouldNotFindInteractable();
@@ -170,7 +169,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void UseItem(UItem* Item);
-
+	
 	UFUNCTION(Server, Reliable, WithValidation)
 	void ServerUseItem(UItem* Item);
 
@@ -195,6 +194,38 @@ protected:
 	
 	UPROPERTY(VisibleDefaultsOnly, Category = "Player")
 	FName WeaponAttackSocketName;
+
+//looting
+public:
+	UFUNCTION(BlueprintPure, Category = "Looting")
+	bool IsLooting() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Looting")
+	void LootItem(UItem* ItemToGive);
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerLootItem(UItem* ItemToLoot);
+
+	UFUNCTION(BlueprintCallable)
+	void SetLootSource(UInventoryComponent* NewLootSource);
+
+protected:
+	UPROPERTY(ReplicatedUsing = OnRep_LootSource, BlueprintReadOnly)
+	UInventoryComponent* LootSource;
+
+	UFUNCTION()
+	void BeginLootingPlayer(ABaseCharacter* Character);
+
+	UFUNCTION(Server, Reliable, WithValidation, BlueprintCallable)
+	void ServerSetLootSource(UInventoryComponent* NewLootSource);
+
+	UFUNCTION()
+	void OnLootSourceOwnerDestroyed(AActor* DestroyedActor);
+
+	UFUNCTION()
+	void OnRep_LootSource();
+
+	
 
 //wtf is this one for?
 protected:

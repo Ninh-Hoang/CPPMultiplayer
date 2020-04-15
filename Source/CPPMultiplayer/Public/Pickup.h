@@ -28,8 +28,6 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void AlignWithGround();
 
-	
-
 protected:
 
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, ReplicatedUsing = OnRep_Item)

@@ -35,6 +35,7 @@ void APickup::InitializePickup(const TSubclassOf<UItem> ItemClass, const int32 Q
 		Item = NewObject<UItem>(this, ItemClass);
 		Item->SetQuantity(Quantity);
 		OnRep_Item();
+		Item->MarkDirtyForReplication();
 	}
 }
 
