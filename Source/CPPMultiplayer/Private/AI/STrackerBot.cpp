@@ -7,6 +7,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Character.h"
 #include "NavigationSystem.h"
+#include "SHealthComponent.h"
 
 // Sets default values
 ASTrackerBot::ASTrackerBot()
@@ -18,21 +19,33 @@ ASTrackerBot::ASTrackerBot()
 	MeshComp->SetCanEverAffectNavigation(false);
 	MeshComp->SetSimulatePhysics(true);
 	SetRootComponent(MeshComp);
-
 	MovementForce = 1000;
-
 	RequiredDistanceToTarget = 100;
-
 	bUseVelocityChange = false;
+
+	HealthComp = CreateDefaultSubobject<USHealthComponent>(TEXT("HealthComp"));
+	HealthComp->OnHealthChanged.AddDynamic(this, &ASTrackerBot::HandleTakeDamage);
 
 }
 
 // Called when the game starts or when spawned
-void ASTrackerBot::BeginPlay()
-{
+void ASTrackerBot::BeginPlay(){
 	Super::BeginPlay();
 	
 	NextPathPoint = GetNextPathPoint();
+}
+
+void ASTrackerBot::HandleTakeDamage(USHealthComponent* HealthComponent,
+	float Health, float HealthDelta,
+	const class UDamageType* DamageType,
+	class AController* InstigatedBy, AActor* DamageCauser) {
+
+	if (MatInst == nullptr) {
+		MatInst = MeshComp->CreateAndSetMaterialInstanceDynamicFromMaterial(0, MeshComp->GetMaterial(0));
+	}
+	if (MatInst) {
+		MatInst->SetScalarParameterValue("LastTimeDamageTaken", GetWorld()->TimeSeconds);
+	}
 }
 
 FVector ASTrackerBot::GetNextPathPoint(){

@@ -6,6 +6,8 @@
 #include "GameFramework/Pawn.h"
 #include "STrackerBot.generated.h"
 
+class USHealthComponent;
+
 UCLASS()
 class CPPMULTIPLAYER_API ASTrackerBot : public APawn
 {
@@ -23,6 +25,15 @@ protected:
 	UPROPERTY(VisibleDefaultsOnly, Category = "Component")
 	UStaticMeshComponent* MeshComp;
 
+	UPROPERTY(VisibleDefaultsOnly, Category = "Component")
+	USHealthComponent* HealthComp;
+
+	UFUNCTION()
+		void HandleTakeDamage(USHealthComponent* HealthComponent,
+			float Health, float HealthDelta,
+			const class UDamageType* DamageType,
+			class AController* InstigatedBy, AActor* DamageCauser);
+
 	FVector GetNextPathPoint();
 
 	//next point in navigation
@@ -36,6 +47,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "TrackerBot")
 	bool bUseVelocityChange;
+
+	//dynamic material to pulse on damage
+	UMaterialInstanceDynamic* MatInst;
 
 public:	
 	// Called every frame
