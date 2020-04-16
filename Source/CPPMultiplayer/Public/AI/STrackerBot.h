@@ -7,6 +7,7 @@
 #include "STrackerBot.generated.h"
 
 class USHealthComponent;
+class USphereComponent;
 
 UCLASS()
 class CPPMULTIPLAYER_API ASTrackerBot : public APawn
@@ -24,6 +25,9 @@ protected:
 	//components
 	UPROPERTY(VisibleDefaultsOnly, Category = "Component")
 	UStaticMeshComponent* MeshComp;
+
+	UPROPERTY(VisibleDefaultsOnly, Category = "Component")
+	USphereComponent* SphereComp;
 
 	UPROPERTY(VisibleDefaultsOnly, Category = "Component")
 	USHealthComponent* HealthComp;
@@ -48,11 +52,39 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "TrackerBot")
 	bool bUseVelocityChange;
 
+	UPROPERTY(EditDefaultsOnly, Category = "TrackerBot")
+	float ExplosionRadius;
+
+	UPROPERTY(EditDefaultsOnly, Category = "TrackerBot")
+	float ExplosionDamage;
+
+	UPROPERTY(EditDefaultsOnly, Category = "TrackerBot")
+	float SelfDamageFrequency;
+
+	UPROPERTY(EditDefaultsOnly, Category = "TrackerBot")
+	float StartExplodingRange;
+
 	//dynamic material to pulse on damage
 	UMaterialInstanceDynamic* MatInst;
+
+	void SelfDestruct();
+
+	UPROPERTY(EditDefaultsOnly, Category = "TrackerBot")
+	UParticleSystem* ExplosionEffect;
+
+	bool bExploded;
+
+	bool bStartSelfDestruct;
+
+	FTimerHandle TimerHandel_SelfDamage;
+
+	UFUNCTION()
+	void DamageSelf();
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 
 };

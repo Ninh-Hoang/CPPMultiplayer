@@ -8,6 +8,8 @@
 #include "GameFramework/Character.h"
 #include "NavigationSystem.h"
 #include "SHealthComponent.h"
+#include "BaseCharacter.h"
+#include <Components/SphereComponent.h>
 
 // Sets default values
 ASTrackerBot::ASTrackerBot()
@@ -23,9 +25,23 @@ ASTrackerBot::ASTrackerBot()
 	RequiredDistanceToTarget = 100;
 	bUseVelocityChange = false;
 
+	
+
 	HealthComp = CreateDefaultSubobject<USHealthComponent>(TEXT("HealthComp"));
 	HealthComp->OnHealthChanged.AddDynamic(this, &ASTrackerBot::HandleTakeDamage);
 
+	ExplosionDamage = 100;
+	ExplosionRadius = 200;
+
+	SelfDamageFrequency = 5;
+	StartExplodingRange = 200; 
+
+	SphereComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
+	SphereComp->SetSphereRadius(StartExplodingRange);
+	SphereComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	SphereComp->SetCollisionResponseToAllChannels(ECR_Ignore);
+	SphereComp->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+	SphereComp->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
@@ -46,6 +62,10 @@ void ASTrackerBot::HandleTakeDamage(USHealthComponent* HealthComponent,
 	if (MatInst) {
 		MatInst->SetScalarParameterValue("LastTimeDamageTaken", GetWorld()->TimeSeconds);
 	}
+
+	if (Health <= 0.0f) {
+		SelfDestruct();
+	}
 }
 
 FVector ASTrackerBot::GetNextPathPoint(){
@@ -58,6 +78,27 @@ FVector ASTrackerBot::GetNextPathPoint(){
 	}
 
 	return GetActorLocation();
+}
+
+void ASTrackerBot::SelfDestruct(){
+	if(bExploded){
+		return;
+	}
+
+	bExploded = true;
+
+	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionEffect, GetActorLocation());
+
+	TArray<AActor*> IgnoreActors;
+	IgnoreActors.Add(this);
+
+	UGameplayStatics::ApplyRadialDamage(this, ExplosionDamage, GetActorLocation(), ExplosionRadius, nullptr, IgnoreActors, this, GetInstigatorController(), true);
+
+	Destroy();
+}
+
+void ASTrackerBot::DamageSelf(){
+	UGameplayStatics::ApplyDamage(this, 20, GetInstigatorController(), this, nullptr);
 }
 
 // Called every frame
@@ -78,6 +119,16 @@ void ASTrackerBot::Tick(float DeltaTime)
 		ForceDirection *= MovementForce;
 
 		MeshComp->AddForce(ForceDirection, NAME_None, bUseVelocityChange);
+	}
+}
+
+void ASTrackerBot::NotifyActorBeginOverlap(AActor* OtherActor){
+	if (!bStartSelfDestruct) {
+		//if overlapped with player
+		if (ABaseCharacter* Character = Cast<ABaseCharacter>(OtherActor)) {
+			GetWorldTimerManager().SetTimer(TimerHandel_SelfDamage, this, &ASTrackerBot::DamageSelf, 1 / SelfDamageFrequency, true, 0.0f);
+			bStartSelfDestruct = true;
+		}
 	}
 }
 
