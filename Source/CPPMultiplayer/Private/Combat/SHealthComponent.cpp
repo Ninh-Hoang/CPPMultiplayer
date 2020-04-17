@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "SHealthComponent.h"
+#include "Combat/SHealthComponent.h"
 #include "Math/UnrealMathUtility.h"
 #include "Net/UnrealNetwork.h"
 
@@ -35,6 +35,11 @@ void USHealthComponent::BeginPlay()
 	}
 
 	Health = DefaultHealth;
+}
+
+void USHealthComponent::OnRep_Health(float OldHealth){
+	float Damage = OldHealth - Health;
+	OnHealthChanged.Broadcast(this, Health, Damage, nullptr, nullptr, nullptr);
 }
 
 void USHealthComponent::HandleTakeAnyDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser){

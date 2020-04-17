@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "ConsumableItem.h"
-#include "InventoryComponent.h"
+#include "Item/ConsumableItem.h"
+#include "Item/InventoryComponent.h"
 
 #define LOCTEXT_NAMESPACE "FoodItem"
 

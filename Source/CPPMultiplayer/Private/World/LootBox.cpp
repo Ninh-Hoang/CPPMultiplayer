@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "LootBox.h"
-#include "SHealthComponent.h"
+#include "World/LootBox.h"
+#include "Combat/SHealthComponent.h"
 #include "Net/UnrealNetwork.h"
-#include "Item.h"
+#include "Item/Item.h"
 
 // Sets default values
 ALootBox::ALootBox()

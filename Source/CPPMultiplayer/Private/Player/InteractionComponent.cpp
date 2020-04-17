@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "InteractionComponent.h"
-#include "BaseCharacter.h"
-#include "InteractionWidget.h"
+#include "Player/InteractionComponent.h"
+#include "Player/BaseCharacter.h"
+#include "Widget/InteractionWidget.h"
 
 UInteractionComponent::UInteractionComponent(){
 	SetComponentTickEnabled(false);

@@ -1,14 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "LootableActor.h"
+#include "World/LootableActor.h"
 #include "Components/StaticMeshComponent.h"
-#include "ItemSpawn.h"
-#include "Item.h"
-#include "InventoryComponent.h"
-#include "InteractionComponent.h"
+#include "World/ItemSpawn.h"
+#include "Item/Item.h"
+#include "Item/InventoryComponent.h"
+#include "Player/InteractionComponent.h"
 #include "Engine/DataTable.h"
-#include "BaseCharacter.h"
+#include "Player/BaseCharacter.h"
 
 #define LOCTEXT_NAMESPACE "LootableActor"
 // Sets default values

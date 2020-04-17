@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "ItemSpawn.h"
-#include "Pickup.h"
-#include "Item.h"
+#include "World/ItemSpawn.h"
+#include "World/Pickup.h"
+#include "Item/Item.h"
 
 AItemSpawn::AItemSpawn(){
 	PrimaryActorTick.bCanEverTick = false;

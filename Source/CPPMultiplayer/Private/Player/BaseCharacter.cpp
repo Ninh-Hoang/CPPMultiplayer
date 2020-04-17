@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BaseCharacter.h"
+#include "Player/BaseCharacter.h"
 #include "Components/InputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -10,16 +10,16 @@
 #include "Math/Rotator.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "DrawDebugHelpers.h"
-#include "SWeapon.h"
+#include "Item/SWeapon.h"
 #include "Components/CapsuleComponent.h"
 #include "CPPMultiplayer/CPPMultiplayer.h"
-#include "SHealthComponent.h"
+#include "Combat/SHealthComponent.h"
 #include "Net/UnrealNetwork.h"
-#include "Item.h"
-#include "InventoryComponent.h"
-#include "InteractionComponent.h"
-#include "Pickup.h"
-#include "BasePlayerController.h"
+#include "Item/Item.h"
+#include "Item/InventoryComponent.h"
+#include "Player/InteractionComponent.h"
+#include "World/Pickup.h"
+#include "Player/BasePlayerController.h"
 
 static int32 DebugAimDrawing = 0;
 FAutoConsoleVariableRef CVARDebugAimDrawing(TEXT("COOP.DebugAim"),

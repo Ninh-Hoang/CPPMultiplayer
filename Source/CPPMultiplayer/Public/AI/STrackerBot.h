@@ -72,6 +72,7 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "TrackerBot")
 	UParticleSystem* ExplosionEffect;
 
+	UPROPERTY(ReplicatedUsing=OnRep_Explode, BlueprintReadOnly, Category = "TrackerBot")
 	bool bExploded;
 
 	bool bStartSelfDestruct;
@@ -80,6 +81,11 @@ protected:
 
 	UFUNCTION()
 	void DamageSelf();
+
+	void PlayEffect();
+
+	UFUNCTION()
+	void OnRep_Explode();
 
 public:	
 	// Called every frame

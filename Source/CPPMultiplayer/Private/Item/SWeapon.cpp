@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "SWeapon.h"
+#include "Item/SWeapon.h"
 #include "Engine/World.h"
 #include "DrawDebugHelpers.h"
 #include "Components/ActorComponent.h"

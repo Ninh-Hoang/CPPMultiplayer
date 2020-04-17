@@ -1,13 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Pickup.h"
+#include "World/Pickup.h"
 #include "Engine/ActorChannel.h"
-#include "Item.h"
+#include "Item/Item.h"
 #include "Components/StaticMeshComponent.h"
-#include "InteractionComponent.h"
-#include "BaseCharacter.h"
-#include "InventoryComponent.h"
+#include "Player/InteractionComponent.h"
+#include "Player/BaseCharacter.h"
+#include "Item/InventoryComponent.h"
 #include "UObject/UObjectGlobals.h"
 #include "Net/UnrealNetwork.h"
 #include "Kismet/KismetMathLibrary.h"

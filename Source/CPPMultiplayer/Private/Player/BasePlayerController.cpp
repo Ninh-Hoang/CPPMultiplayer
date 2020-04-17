@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BasePlayerController.h"
+#include "Player/BasePlayerController.h"
 
 ABasePlayerController::ABasePlayerController(){
 	bReplicates = true;
@@ -11,4 +11,3 @@ ABasePlayerController::ABasePlayerController(){
 void ABasePlayerController::ClientShowNotification_Implementation(const FText& Message){
 	ShowNotification(Message);
 }
-

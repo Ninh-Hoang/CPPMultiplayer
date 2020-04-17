@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "ExplosiveBarrel.h"
-#include "SHealthComponent.h"
+#include "World/ExplosiveBarrel.h"
+#include "Combat/SHealthComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Materials/Material.h"
 #include "Kismet/GameplayStatics.h"
@@ -90,7 +90,7 @@ void AExplosiveBarrel::OnHealthChanged(USHealthComponent* HealthComp, float Heal
 	class AController* InstigatedBy, AActor* DamageCauser){
 	if (Health <= 0 && bDied == false) {
 		bDied = true;
-		OnRep_Explode();
+		//OnRep_Explode();
 		GetWorldTimerManager().SetTimer(ExplosionTimer, this, &AExplosiveBarrel::ExplodeBarrel, GetWorld()->DeltaTimeSeconds, false, ExplosionDelay);
 	}
 }
