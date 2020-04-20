@@ -3,3 +3,17 @@
 
 #include "Framework/SGameMode.h"
 
+void ASGameMode::StartWave()
+{
+
+}
+
+void ASGameMode::EndWave()
+{
+
+}
+
+void ASGameMode::PrepareForNewWave()
+{
+
+}

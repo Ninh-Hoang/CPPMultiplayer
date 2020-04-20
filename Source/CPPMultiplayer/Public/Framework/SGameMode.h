@@ -18,4 +18,10 @@ protected:
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "GameMode")
 	void SpawnNewBot();
+
+	void StartWave();
+
+	void EndWave();
+
+	void PrepareForNewWave();
 };
