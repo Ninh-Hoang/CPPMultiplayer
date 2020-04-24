@@ -41,5 +41,7 @@ protected:
 public:	
 	UPROPERTY(BlueprintAssignable, Category = "Events")
 	FOnHealthChangedSingature OnHealthChanged;
+
+	float GetHealth() const;
 		
 };

@@ -514,7 +514,7 @@ bool ABaseCharacter::IsLooting() const{
 }
 
 void ABaseCharacter::LootItem(UItem* ItemToGive){
-	if (Role < ROLE_Authority) {
+	if (GetLocalRole() < ROLE_Authority) {
 		if (InventoryComponent && LootSource && ItemToGive && LootSource->HasItem(ItemToGive->GetClass(), ItemToGive->GetQuantity())) {
 			const FItemAddResult AddResult = InventoryComponent->TryAddItem(ItemToGive);
 
