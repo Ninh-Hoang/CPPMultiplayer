@@ -62,12 +62,10 @@ void AExplosiveBarrel::PlayBarrelEffect(){
 	}
 }
 
-void AExplosiveBarrel::ExplodeBarrel(){
-	//PlayBarrelEffect();
-
-	/*if (ExplosionEffect) {
-		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionEffect, GetActorLocation(), GetActorRotation());
-	}*/
+void AExplosiveBarrel::ExplodeBarrel() {
+	if (Role == ROLE_Authority) {
+		PlayBarrelEffect();
+	}
 
 	FVector BoostVector = FVector::UpVector * ExplosionImpluse;
 	BarrelMesh->AddImpulse(BoostVector, NAME_None, true);

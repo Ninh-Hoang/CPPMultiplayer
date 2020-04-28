@@ -91,7 +91,7 @@ void ABaseCharacter::Tick(float DeltaTime)
 
 	const bool bIsInteractingOnServer = (HasAuthority() && IsInteracting());
 
-	if ((!HasAuthority() || !bIsInteractingOnServer) && GetWorld()->TimeSince(InteractionData.LastInteractionCheckTime) > InteractionCheckFrequency) {
+	if (/*!HasAuthority() ||*/ !bIsInteractingOnServer && GetWorld()->TimeSince(InteractionData.LastInteractionCheckTime) > InteractionCheckFrequency) {
 		PerformInteractionCheck();
 	}
 }
