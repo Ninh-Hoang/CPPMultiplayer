@@ -9,6 +9,8 @@
 /**
  * 
  */
+enum class EWaveState : uint8;
+
 UCLASS()
 class CPPMULTIPLAYER_API ASGameMode : public AGameModeBase
 {
@@ -46,6 +48,11 @@ protected:
 
 	void CheckWaveState();
 
+	void CheckAnyPlayerAlive();
+
+	void GameOver();
+
+	void SetWaveState(EWaveState NewState);
 public:
 	virtual void StartPlay() override;
 

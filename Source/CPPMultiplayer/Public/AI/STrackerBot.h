@@ -33,10 +33,10 @@ protected:
 	USHealthComponent* HealthComp;
 
 	UFUNCTION()
-		void HandleTakeDamage(USHealthComponent* HealthComponent,
-			float Health, float HealthDelta,
-			const class UDamageType* DamageType,
-			class AController* InstigatedBy, AActor* DamageCauser);
+	void HandleTakeDamage(USHealthComponent* HealthComponent,
+		float Health, float HealthDelta,
+		const class UDamageType* DamageType,
+		class AController* InstigatedBy, AActor* DamageCauser);
 
 	FVector GetNextPathPoint();
 
@@ -72,7 +72,7 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "TrackerBot")
 	UParticleSystem* ExplosionEffect;
 
-	UPROPERTY(ReplicatedUsing=OnRep_Explode, BlueprintReadOnly, Category = "TrackerBot")
+	UPROPERTY(ReplicatedUsing = OnRep_Explode, BlueprintReadOnly, Category = "TrackerBot")
 	bool bExploded;
 
 	bool bStartSelfDestruct;

@@ -20,6 +20,8 @@ ASTrackerBot::ASTrackerBot()
 	SetReplicates(true);
 	SetReplicateMovement(true);
 
+	bExploded = false;
+
 	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
 	MeshComp->SetCanEverAffectNavigation(false);
 	MeshComp->SetSimulatePhysics(true);
@@ -45,7 +47,7 @@ ASTrackerBot::ASTrackerBot()
 	SphereComp->SetCollisionResponseToAllChannels(ECR_Ignore);
 	SphereComp->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
 	SphereComp->SetupAttachment(RootComponent);
-	bExploded = false;
+	
 }
 
 // Called when the game starts or when spawned
@@ -103,7 +105,7 @@ void ASTrackerBot::HandleTakeDamage(USHealthComponent* HealthComponent,
 		MatInst->SetScalarParameterValue("LastTimeDamageTaken", GetWorld()->TimeSeconds);
 	}
 
-	if (Health <= 0.0f) {
+	if (Health <= 0.0f && !bExploded) {
 		SelfDestruct();
 	}
 }
@@ -115,6 +117,7 @@ void ASTrackerBot::SelfDestruct(){
 		}
 
 		bExploded = true;
+		OnRep_Explode();
 
 		TArray<AActor*> IgnoreActors;
 		IgnoreActors.Add(this);
@@ -123,8 +126,8 @@ void ASTrackerBot::SelfDestruct(){
 
 		Destroy();
 	}
-}
-
+}	
+ 
 void ASTrackerBot::DamageSelf(){
 	UGameplayStatics::ApplyDamage(this, 20, GetInstigatorController(), this, nullptr);
 }

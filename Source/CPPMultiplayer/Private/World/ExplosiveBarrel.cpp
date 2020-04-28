@@ -63,11 +63,11 @@ void AExplosiveBarrel::PlayBarrelEffect(){
 }
 
 void AExplosiveBarrel::ExplodeBarrel(){
-	PlayBarrelEffect();
+	//PlayBarrelEffect();
 
-	if (ExplosionEffect) {
+	/*if (ExplosionEffect) {
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionEffect, GetActorLocation(), GetActorRotation());
-	}
+	}*/
 
 	FVector BoostVector = FVector::UpVector * ExplosionImpluse;
 	BarrelMesh->AddImpulse(BoostVector, NAME_None, true);
@@ -82,6 +82,7 @@ void AExplosiveBarrel::ExplodeBarrel(){
 }
 
 void AExplosiveBarrel::OnRep_Explode(){
+	UE_LOG(LogTemp, Warning, TEXT("Explode"));
 	PlayBarrelEffect();
 }
 
