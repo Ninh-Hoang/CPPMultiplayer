@@ -114,6 +114,9 @@ protected:
 	void LookAtCursor();
 	void Aim();
 
+	UFUNCTION()
+	void LookAtLocation(FVector LookAtLocation);
+
 
 //health system
 protected:
@@ -186,7 +189,7 @@ public:
 	void ServerChangeWeapon(TSubclassOf<ASWeapon> WeaponToChange);
 
 protected:
-	UPROPERTY(BlueprintReadWrite, Category = "Player")
+	UPROPERTY(EditDefaultsOnly, Category = "Player")
 	TSubclassOf<ASWeapon> StarterWeaponClass;
 
 	UPROPERTY(Replicated, BlueprintReadWrite)

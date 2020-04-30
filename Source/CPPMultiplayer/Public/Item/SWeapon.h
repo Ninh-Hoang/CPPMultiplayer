@@ -37,9 +37,10 @@ public:
 	ASWeapon();
 
 public:
-
+	UFUNCTION(BlueprintCallable)
 	void StartFire();
 
+	UFUNCTION(BlueprintCallable)
 	void StopFire();
 
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
@@ -57,6 +58,17 @@ protected:
 
 	//derived from RateOfFire
 	float TimeBetweenShot;
+
+	UPROPERTY(EditDefaultsOnly)
+	float ThreatValue;
+
+	UPROPERTY(EditDefaultsOnly)
+	float FirstShotDelay;
+
+	UPROPERTY(EditDefaultsOnly)
+	float FireRotationSpeed; 
+
+	float OwnerRotationSpeed;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
 	TSubclassOf<UDamageType> DamageType;
@@ -107,4 +119,6 @@ protected:
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	void Debug();
+
+	void ThreatTrace();
 };

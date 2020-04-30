@@ -13,6 +13,9 @@
 #include "CPPMultiplayer/CPPMultiplayer.h"
 #include "TimerManager.h"
 #include "Net/UnrealNetwork.h"
+#include "AI/BaseAI.h"
+#include <Kismet/KismetSystemLibrary.h>
+#include <GameFramework/CharacterMovementComponent.h>
 
 static int32 DebugWeaponDrawing = 0;
 FAutoConsoleVariableRef CVARDebugWeaponDrawing(
@@ -31,8 +34,11 @@ ASWeapon::ASWeapon()
 
 	SetReplicates(true);
 
-	NetUpdateFrequency = 66.0f;
-	MinNetUpdateFrequency = 33.0f;
+	ThreatValue = 70;
+
+	FireRotationSpeed = 50;
+
+	FirstShotDelay = 0.0f;
 }
 
 // Called when the game starts or when spawned
@@ -66,7 +72,7 @@ void ASWeapon::Fire()
 	else {
 		FVector ShotPosition = GetActorLocation(); ;
 		FVector ShotDirection = MyOwner->GetActorRotation().Vector();
-		FVector TraceEnd = ShotPosition + (ShotDirection * 10000);
+		FVector TraceEnd = ShotPosition + (ShotDirection * 1000);
 		FCollisionQueryParams QueryParams;
 		QueryParams.AddIgnoredActor(MyOwner);
 		QueryParams.AddIgnoredActor(this);
@@ -96,6 +102,8 @@ void ASWeapon::Fire()
 			TraceEndPoint = Hit.ImpactPoint;
 		}
 
+		ThreatTrace();
+
 		if (DebugWeaponDrawing > 0) {
 			DrawDebugLine(GetWorld(), ShotPosition, TraceEndPoint, FColor::Red, false, 1, 0, 1);
 		}
@@ -120,17 +128,64 @@ void ASWeapon::OnRep_HitScanTrace(){
 }
 
 void ASWeapon::StartFire(){
+	if (UCharacterMovementComponent* OwnerMovementComp = GetOwner()->FindComponentByClass<UCharacterMovementComponent>()) {
+		OwnerRotationSpeed = OwnerMovementComp->RotationRate.Yaw;
+		OwnerMovementComp->RotationRate = FRotator(0, FireRotationSpeed, 0);
+	}
+
 	float FirstDelay = FMath::Max<float>(LastFireTime + TimeBetweenShot - GetWorld()->TimeSeconds, 0);
+
+	if (FirstShotDelay > 0) {
+		FirstDelay = FMath::Max<float>(FirstDelay, FirstShotDelay);
+	}
 
 	GetWorldTimerManager().SetTimer(TimerHandle_TimeBetweenShot, this, &ASWeapon::Fire, TimeBetweenShot, true, FirstDelay);
 }
 
 void ASWeapon::StopFire(){
 	GetWorldTimerManager().ClearTimer(TimerHandle_TimeBetweenShot);
+
+	if (UCharacterMovementComponent* OwnerMovementComp = GetOwner()->FindComponentByClass<UCharacterMovementComponent>()) {
+		OwnerMovementComp->RotationRate = FRotator(0, OwnerRotationSpeed, 0);
+	}
 }
 
 void ASWeapon::Debug(){
 	UE_LOG(LogTemp, Warning, TEXT("Working"));
+}
+
+void ASWeapon::ThreatTrace(){
+	TArray<FHitResult> HitResults;
+	FVector MuzzleLocation = MeshComponent->GetSocketLocation(MuzzleSocketName);
+	FCollisionShape CollisionSphere = FCollisionShape::MakeSphere(ThreatValue);
+	AActor* MyOwner = GetOwner();
+	FVector ShotPosition = GetActorLocation(); ;
+	FVector ShotDirection = MyOwner->GetActorRotation().Vector();
+	FVector TraceEnd = ShotPosition + (ShotDirection * 1000);
+
+	FCollisionQueryParams QueryParams;
+	QueryParams.AddIgnoredActor(MyOwner);
+	QueryParams.AddIgnoredActor(this);
+	QueryParams.bTraceComplex = false;
+
+	TArray<AActor*> IngnoredActors;
+	IngnoredActors.Add(this);
+
+	if (GetWorld()->SweepMultiByChannel(HitResults,
+		MuzzleLocation, TraceEnd, FQuat::FQuat(),
+		ECC_PhysicsBody, CollisionSphere, QueryParams)) {
+	/*if(UKismetSystemLibrary::SphereTraceMulti(GetWorld(), 
+		MuzzleLocation, TraceEnd, ThreatValue, 
+		ETraceTypeQuery::TraceTypeQuery2, true, 
+		IngnoredActors, EDrawDebugTrace::ForDuration, 
+		HitResults, true, FLinearColor::Blue, FLinearColor::Green, 2.0f)){ */
+		for (FHitResult Hit : HitResults) {
+			if (ABaseAI* AIPawn = Cast<ABaseAI>(Hit.Actor)) {
+				//UE_LOG(LogTemp, Warning, TEXT("Hit Actor: %s"), *Hit.Actor->GetName());
+				AIPawn->Threaten();
+			}
+		}
+	}
 }
 
 void ASWeapon::ServerFire_Implementation(){

@@ -236,6 +236,12 @@ void ABaseCharacter::Aim(){
 	}
 }
 
+void ABaseCharacter::LookAtLocation(FVector LookAtLocation){
+	FVector ActorLocation = GetActorLocation();
+	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(ActorLocation, LookAtLocation);
+	Controller->SetControlRotation(LookAtRotation);
+}
+
 void ABaseCharacter::LookAtCursor() {
 	APlayerController* PC = Cast<APlayerController>(GetController());
 	FVector MousePosition;
@@ -249,8 +255,7 @@ void ABaseCharacter::LookAtCursor() {
 		DrawDebugSphere(GetWorld(), Intersection, 10, 12, FColor::Red, false, GetWorld()->GetDeltaSeconds(), 0, 1);
 		DrawDebugLine(GetWorld(), ActorLocation, Intersection, FColor::Red, false, GetWorld()->GetDeltaSeconds(), 0, 1);
 	}
-	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(ActorLocation, Intersection);
-	Controller->SetControlRotation(LookAtRotation);
+	LookAtLocation(Intersection);
 }
 
 void ABaseCharacter::ServerAim_Implementation(){
