@@ -21,6 +21,9 @@
 #include "World/Pickup.h"
 #include "Player/BasePlayerController.h"
 #include "Weapon/MeleeWeapon.h"
+#include "Weapon/Equipment.h"
+#include "Weapon/RangeWeapon.h"
+#include "Weapon/TracerRangeWeapon.h"
 
 
 static int32 DebugAimDrawing = 0;
@@ -64,7 +67,8 @@ ABaseCharacter::ABaseCharacter(){
 	BaseTurnRate = 45;
 
 	//aiming
-	IsAiming = false;
+	bIsAiming = false;
+	bIsAttacking = false;
 
 	//interaction
 	InteractionCheckFrequency = 0.;
@@ -83,7 +87,7 @@ void ABaseCharacter::BeginPlay()
 	CharacterMovementComponent = GetCharacterMovement();
 
 	//only spawn weapon on server
-	if (Role == ROLE_Authority) {
+	if (HasAuthority()) {
 		//spawn default weapon
 
 		if (HealthComponent) {
@@ -91,7 +95,9 @@ void ABaseCharacter::BeginPlay()
 		}
 	}
 
-	ChangeWeapon(StarterWeaponClass);
+	//ChangeWeapon(StarterWeaponClass);
+	EquipItem(StartingWeapon);
+	CurrentWeapon->EquipWeapon();
 
 	if (InventoryComponent) {
 		InventoryComponent->SetCapacity(20);
@@ -229,15 +235,17 @@ void ABaseCharacter::InitializeComponents(UCameraComponent* CameraToSet,
 
 //aiming system
 void ABaseCharacter::Aim(){
-	if (Role < ROLE_Authority) {
+	if (!HasAuthority()) {
 		ServerAim();
 	}
-	if (IsAiming) {
-		IsAiming = !IsAiming;
+	if (bIsAiming) {
+		bIsAiming = !bIsAiming;
 		CharacterMovementComponent->bOrientRotationToMovement = true;
 		CharacterMovementComponent->bUseControllerDesiredRotation = false;
 		GetWorld()->GetTimerManager().ClearTimer(AimTimerHandler);
-
+		if (ARangeWeapon* RangeEquipment = Cast<ARangeWeapon>(CurrentWeapon)) {
+			RangeEquipment->OnStopAiming();
+		}
 	}
 	else {
 		CharacterMovementComponent->bOrientRotationToMovement = false;
@@ -248,7 +256,10 @@ void ABaseCharacter::Aim(){
 			&ABaseCharacter::LookAtCursor, 
 			GetWorld()->GetDeltaSeconds(),
 			true);
-		IsAiming = !IsAiming;
+		bIsAiming = !bIsAiming;
+		if (ARangeWeapon* RangeEquipment = Cast<ARangeWeapon>(CurrentWeapon)) {
+			RangeEquipment->OnStartAiming();
+		}
 	}
 }
 
@@ -428,7 +439,7 @@ float ABaseCharacter::GetRemainingInteractionTime() const{
 //item using system
 void ABaseCharacter::UseItem(UItem* Item){
 	//if is client, run on server
-	if (Role < ROLE_Authority && Item) {
+	if (HasAuthority() && Item) {
 		ServerUseItem(Item);
 	}
 
@@ -458,7 +469,7 @@ void ABaseCharacter::DropItem(UItem* Item, int32 Quantity) {
 		return;
 	}
 	//if is client, run on server 
-	if (Role < ROLE_Authority) {
+	if (!HasAuthority()) {
 		ServerDropItem(Item, Quantity);
 		return;
 	}
@@ -498,8 +509,32 @@ void ABaseCharacter::ChangeWeapon(TSubclassOf<AWeaponActor> WeaponToChange){
 	ServerChangeWeapon(WeaponToChange);
 }
 
+void ABaseCharacter::EquipItem(TSubclassOf<AEquipment> EquipmentClass){
+	if (!EquipmentClass) {
+		return;
+	}
+	if (!HasAuthority()) {
+		ServerEquipItem(EquipmentClass);
+	}
+	else {
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+		AEquipment* Equipment = GetWorld()->SpawnActor<AEquipment>(EquipmentClass, FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
+		Equipment->Equip(this);
+		CurrentWeapon = Cast<ATracerRangeWeapon>(Equipment);
+	}
+}
+
+void ABaseCharacter::ServerEquipItem_Implementation(TSubclassOf<AEquipment> EquipmentClass){
+	EquipItem(EquipmentClass);
+}
+
+bool ABaseCharacter::ServerEquipItem_Validate(TSubclassOf<AEquipment> WeaponToChange){
+	return true;
+}
+
 void ABaseCharacter::ServerChangeWeapon_Implementation(TSubclassOf<AWeaponActor> WeaponToChange){
-	if (CurrentWeapon && StarterWeaponClass == WeaponToChange) {
+	/*if (CurrentWeapon && StarterWeaponClass == WeaponToChange) {
 		return;
 	}
 	else {
@@ -513,13 +548,11 @@ void ABaseCharacter::ServerChangeWeapon_Implementation(TSubclassOf<AWeaponActor>
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	CurrentWeapon = GetWorld()->SpawnActor<AWeaponActor>(WeaponToChange, FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
-	//CurrentMeleeWeapon = GetWorld()->SpawnActor<AMeleeWeapon>(StarterMeeleeWeaponClass, FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
 
 	if (CurrentWeapon) {
 		CurrentWeapon->SetOwner(this);
 		CurrentWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, WeaponAttackSocketName);
-		//CurrentMeleeWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, MeeleeWeaponAttachSocketName);
-	}
+	}*/
 }
 
 bool ABaseCharacter::ServerChangeWeapon_Validate(TSubclassOf<AWeaponActor> WeaponToChange){
@@ -530,6 +563,7 @@ bool ABaseCharacter::ServerChangeWeapon_Validate(TSubclassOf<AWeaponActor> Weapo
 void ABaseCharacter::StartFire(){
 	if (CurrentWeapon) {
 		CurrentWeapon->StartFire();
+		bIsAttacking = true;
 	}
 }
 
@@ -537,6 +571,7 @@ void ABaseCharacter::StopFire()
 {
 	if (CurrentWeapon) {
 		CurrentWeapon->StopFire();
+		bIsAttacking = false;
 	}
 }
 
@@ -646,7 +681,7 @@ void ABaseCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 
 	DOREPLIFETIME(ABaseCharacter, CurrentWeapon);
 	DOREPLIFETIME(ABaseCharacter, bDied);
-	DOREPLIFETIME(ABaseCharacter, IsAiming);
+	DOREPLIFETIME(ABaseCharacter, bIsAiming);
 	DOREPLIFETIME(ABaseCharacter, LootSource);
 }
 

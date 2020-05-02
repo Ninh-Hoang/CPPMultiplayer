@@ -81,7 +81,7 @@ void APickup::OnItemModified(){
 void APickup::BeginPlay(){
 	Super::BeginPlay();
 	
-	if (Role == ROLE_Authority && ItemTemplate && bNetStartup) {
+	if (HasAuthority() && ItemTemplate && bNetStartup) {
 		InitializePickup(ItemTemplate->GetClass(), ItemTemplate->GetQuantity());
 	}
 

@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "Weapon/Equipment.h"
 #include "WeaponActor.generated.h"
 
 class UDamageType;
@@ -13,7 +13,7 @@ class UMeshComponent;
 
 //contain weapon of LineTrace
 USTRUCT()
-struct FHitScanTrace {
+struct FHitScanTrac {
 	GENERATED_BODY()
 
 public:
@@ -28,7 +28,7 @@ public:
 };
 
 UCLASS()
-class ART_API AWeaponActor : public AActor
+class ART_API AWeaponActor : public AEquipment
 {
 	GENERATED_BODY()
 
@@ -101,7 +101,7 @@ protected:
 	UMeshComponent* MeshComponent;
 	
 	UPROPERTY(ReplicatedUsing=OnRep_HitScanTrace)
-	FHitScanTrace HitScanTrace;
+	FHitScanTrac HitScanTrace;
 
 	virtual void BeginPlay() override;
 		

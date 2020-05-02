@@ -15,6 +15,7 @@ class UItem;
 class UInventoryComponent;
 class UInteractionComponent;
 class APickup;
+class AEquipment;
 
 USTRUCT()
 struct FInteractionData {
@@ -104,10 +105,12 @@ public:
 	UFUNCTION(Server, Reliable, WithValidation)
 	void ServerAim();
 
-protected:
+public:
 	UPROPERTY(Replicated)
-	bool IsAiming;
-	
+	bool bIsAiming;
+
+	bool bIsAttacking;
+protected:
 	FTimerHandle AimTimerHandler;
 
 	UFUNCTION()
@@ -180,7 +183,7 @@ public:
 	void DropItem(UItem* Item, int32 Quantity);
 
 	UFUNCTION(Server, Reliable, WithValidation)
-		void ServerDropItem(UItem* Item, int32 Quantity);
+	void ServerDropItem(UItem* Item, int32 Quantity);
 
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void ChangeWeapon(TSubclassOf<AWeaponActor> WeaponToChange);
@@ -188,18 +191,30 @@ public:
 	UFUNCTION(Server, Reliable, WithValidation)
 	void ServerChangeWeapon(TSubclassOf<AWeaponActor> WeaponToChange);
 
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	void EquipItem(TSubclassOf<AEquipment> EquipmentClass);
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerEquipItem(TSubclassOf<AEquipment> EquipmentClass);
+
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Player")
 	TSubclassOf<AWeaponActor> StarterWeaponClass;
 
-	UPROPERTY(Replicated, BlueprintReadWrite)
-	AWeaponActor* CurrentWeapon;
-
 	UPROPERTY(EditDefaultsOnly, Category = "Player")
-	TSubclassOf<class AMeleeWeapon> StarterMeeleeWeaponClass;
+	TSubclassOf<AEquipment> StartingWeapon;
 
 	UPROPERTY(Replicated, BlueprintReadWrite)
-	class AMeleeWeapon* CurrentMeleeWeapon;
+	AEquipment* RestingWeapon;
+
+	UPROPERTY(Replicated, BlueprintReadWrite)
+	AEquipment* PelvisEquipment;
+
+	UPROPERTY(Replicated, BlueprintReadWrite)
+	AEquipment* ShieldEquipment;
+
+	UPROPERTY(Replicated, BlueprintReadWrite)
+	class ATracerRangeWeapon* CurrentWeapon;
 	
 	UPROPERTY(VisibleDefaultsOnly, Category = "Player")
 	FName WeaponAttackSocketName;

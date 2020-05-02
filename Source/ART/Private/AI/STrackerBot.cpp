@@ -145,7 +145,7 @@ void ASTrackerBot::NotifyActorBeginOverlap(AActor* OtherActor){
 	if (!bStartSelfDestruct && !bExploded) {
 		//if overlapped with player
 		if (ABaseCharacter* Character = Cast<ABaseCharacter>(OtherActor)) {
-			if (Role == ROLE_Authority) {
+			if (HasAuthority()) {
 				GetWorldTimerManager().SetTimer(TimerHandel_SelfDamage, this, &ASTrackerBot::DamageSelf, 1 / SelfDamageFrequency, true, 0.0f);
 			}
 			bStartSelfDestruct = true;

@@ -63,7 +63,7 @@ void AExplosiveBarrel::PlayBarrelEffect(){
 }
 
 void AExplosiveBarrel::ExplodeBarrel() {
-	if (Role == ROLE_Authority) {
+	if (HasAuthority()) {
 		PlayBarrelEffect();
 	}
 
