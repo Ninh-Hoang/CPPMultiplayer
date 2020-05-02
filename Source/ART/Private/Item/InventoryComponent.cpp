@@ -228,9 +228,9 @@ FItemAddResult UInventoryComponent::TryAddItem_Internal(UItem* Item) {
 	}
 
 	//should not be called on client
-	if (Item) {
+	/*if (Item) {
 		check(false);
-	}
+	}*/
 	return FItemAddResult::AddedNone(-1, LOCTEXT("ErrorMessage", ""));
 }
 

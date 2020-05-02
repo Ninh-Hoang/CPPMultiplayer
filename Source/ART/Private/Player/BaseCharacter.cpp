@@ -48,6 +48,18 @@ ABaseCharacter::ABaseCharacter(){
 	GetMovementComponent()->GetNavAgentPropertiesRef().bCanCrouch = true;
 	GetCapsuleComponent()->SetCollisionResponseToChannel(COLLISION_WEAPON, ECR_Ignore);
 
+	AzimuthComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Azimuth"));
+	AzimuthComponent->SetupAttachment(RootComponent);
+
+	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
+	SpringArmComponent->SetupAttachment(AzimuthComponent);
+
+	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+	CameraComponent->SetupAttachment(SpringArmComponent);
+
+	HealthComponent = CreateDefaultSubobject<USHealthComponent>(TEXT("Health Component"));
+	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory Component"));
+
 	//movement
 	BaseTurnRate = 45;
 
@@ -186,10 +198,11 @@ void ABaseCharacter::LookRight(float AxisValue){
 	}*/
 	//AddControllerYawInput(AxisValue * BaseTurnRate* GetWorld()->GetDeltaSeconds());
 
-	if (ensure(SpringArmComponent)) {
+	if (ensure(AzimuthComponent)) {
 		//FRotator SpringArmRotation = SpringArmComponent->GetRelativeRotation();
 		//SpringArmRotation = FRotator(SpringArmRotation.Pitch, SpringArmRotation.Roll+ AxisValue, SpringArmRotation.Yaw);
-		SpringArmComponent->AddRelativeRotation(FRotator(0, 0, AxisValue));
+		//AzimuthComponent->AddRelativeRotation(FRotator(0, AxisValue, 0));
+		AzimuthComponent->AddLocalRotation(FRotator(0, AxisValue, 0));
 	}
 }
 
@@ -500,12 +513,12 @@ void ABaseCharacter::ServerChangeWeapon_Implementation(TSubclassOf<AWeaponActor>
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	CurrentWeapon = GetWorld()->SpawnActor<AWeaponActor>(WeaponToChange, FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
-	CurrentMeleeWeapon = GetWorld()->SpawnActor<AMeleeWeapon>(StarterMeeleeWeaponClass, FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
+	//CurrentMeleeWeapon = GetWorld()->SpawnActor<AMeleeWeapon>(StarterMeeleeWeaponClass, FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
 
 	if (CurrentWeapon) {
 		CurrentWeapon->SetOwner(this);
 		CurrentWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, WeaponAttackSocketName);
-		CurrentMeleeWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, MeeleeWeaponAttachSocketName);
+		//CurrentMeleeWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, MeeleeWeaponAttachSocketName);
 	}
 }
 
