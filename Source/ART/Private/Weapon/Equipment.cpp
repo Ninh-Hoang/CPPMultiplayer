@@ -3,6 +3,7 @@
 
 #include "Weapon/Equipment.h"
 #include "Player/BaseCharacter.h"
+#include "Net/UnrealNetwork.h"
 
 // Sets default values
 AEquipment::AEquipment()
@@ -39,5 +40,11 @@ void AEquipment::Equip(ABaseCharacter* CharacterToEquip){
 
 void AEquipment::UnEquip(){
 
+}
+
+//replication
+void AEquipment::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(AEquipment, OwningCharacter);
 }
 

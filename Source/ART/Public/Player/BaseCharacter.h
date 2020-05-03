@@ -16,6 +16,7 @@ class UInventoryComponent;
 class UInteractionComponent;
 class APickup;
 class AEquipment;
+class AWeapon;
 
 USTRUCT()
 struct FInteractionData {
@@ -69,11 +70,6 @@ public:
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Components")
 	UInventoryComponent* InventoryComponent;
 
-	//initialize, read player components from BP
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-	void InitializeComponents(UCameraComponent* CameraToSet,
-	USpringArmComponent* SpringArmToSet, USHealthComponent* HealthComp, UInventoryComponent* InventoryComp);
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -97,8 +93,14 @@ protected:
 	void EndCrouch();
 
 	//firing
-	void StartFire();
-	void StopFire();
+	void StartMouseOne();
+	void StopMouseOne();
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerStartMouseOne();
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerStopMouseOne();
 	
 //aiming
 public:
@@ -109,6 +111,7 @@ public:
 	UPROPERTY(Replicated)
 	bool bIsAiming;
 
+	UPROPERTY(Replicated)
 	bool bIsAttacking;
 protected:
 	FTimerHandle AimTimerHandler;
@@ -185,13 +188,9 @@ public:
 	UFUNCTION(Server, Reliable, WithValidation)
 	void ServerDropItem(UItem* Item, int32 Quantity);
 
-	UFUNCTION(BlueprintCallable, Category = "Item")
-	void ChangeWeapon(TSubclassOf<AWeaponActor> WeaponToChange);
-
-	UFUNCTION(Server, Reliable, WithValidation)
-	void ServerChangeWeapon(TSubclassOf<AWeaponActor> WeaponToChange);
-
-	UFUNCTION(BlueprintCallable, Category = "Item")
+//equipment equipping
+public:
+	UFUNCTION(BlueprintCallable, Category = "Equipment")
 	void EquipItem(TSubclassOf<AEquipment> EquipmentClass);
 
 	UFUNCTION(Server, Reliable, WithValidation)
@@ -199,28 +198,25 @@ public:
 
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Player")
-	TSubclassOf<AWeaponActor> StarterWeaponClass;
+	TSubclassOf<AEquipment> StartingEquipmentClass;
 
+	UPROPERTY(Replicated, BlueprintReadWrite)
+	AEquipment* CurrentEquipment;
+
+//Weapon equipping
+public:
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	void EquipWeapon(AEquipment* Equipment);
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerEquipWeapon(AEquipment* Equipment);
+
+protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Player")
-	TSubclassOf<AEquipment> StartingWeapon;
+	TSubclassOf<AWeapon> StartingWeaponClass;
 
 	UPROPERTY(Replicated, BlueprintReadWrite)
-	AEquipment* RestingWeapon;
-
-	UPROPERTY(Replicated, BlueprintReadWrite)
-	AEquipment* PelvisEquipment;
-
-	UPROPERTY(Replicated, BlueprintReadWrite)
-	AEquipment* ShieldEquipment;
-
-	UPROPERTY(Replicated, BlueprintReadWrite)
-	class ATracerRangeWeapon* CurrentWeapon;
-	
-	UPROPERTY(VisibleDefaultsOnly, Category = "Player")
-	FName WeaponAttackSocketName;
-
-	UPROPERTY(VisibleDefaultsOnly, Category = "Player")
-	FName MeeleeWeaponAttachSocketName;
+	AWeapon* CurrentWeapon;
 
 //looting
 public:
@@ -251,11 +247,4 @@ protected:
 
 	UFUNCTION()
 	void OnRep_LootSource();
-
-	
-
-//wtf is this one for?
-protected:
-	virtual FVector GetPawnViewLocation() const override;
-
 };

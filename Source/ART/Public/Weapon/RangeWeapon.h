@@ -78,22 +78,28 @@ protected:
 
 	virtual void BeginPlay() override;
 
+	//firing 
 	virtual void Fire();
 
 	UFUNCTION(Server, Reliable, WithValidation)
 	virtual void ServerFire();
 
+	//muzzle effect
 	virtual void PlayMuzzleEffect();
 
-public:
-	UFUNCTION(BlueprintCallable)
-	virtual void StartFire();
+	//chain of functions from player input
+	virtual void StartMouseOne() override;
+	virtual void StopMouseOne() override;
 
-	UFUNCTION(BlueprintCallable)
+	virtual void StartFire();
 	virtual void StopFire();
 
-	virtual void OnStartAiming();
+	virtual void StartMouseTwo() override;
+	virtual void StopMouseTwo() override;
 
-	virtual void OnStopAiming();
-	
+	virtual void OffsetCharacterSpeedWhileFiring();
+	virtual void OffSetCharacterSpeedWhileAiming();
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerChangeCharacterMovement(float MovementSpeed, float RotationRate);
 };

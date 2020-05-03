@@ -25,6 +25,18 @@ void AWeapon::UnEquipWeapon(){
 	AttachToComponent(OwningCharacter->GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, SocketName);
 }
 
-void AWeapon::ThreatTrace(){
-
+void AWeapon::StartMouseOne(){
 }
+
+void AWeapon::StopMouseOne(){
+}
+
+void AWeapon::StartMouseTwo(){
+}
+
+void AWeapon::StopMouseTwo(){
+}
+
+void AWeapon::ThreatTrace(){
+}
+

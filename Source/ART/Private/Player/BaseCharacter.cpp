@@ -24,6 +24,7 @@
 #include "Weapon/Equipment.h"
 #include "Weapon/RangeWeapon.h"
 #include "Weapon/TracerRangeWeapon.h"
+#include <Kismet/GameplayStatics.h>
 
 
 static int32 DebugAimDrawing = 0;
@@ -37,14 +38,6 @@ ABaseCharacter::ABaseCharacter(){
 
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
-	//create default subobject canceled, is using Custom Component for BP instead
-	/*SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
-	SpringArmComponent->SetupAttachment(RootComponent);
-	SpringArmComponent->bUsePawnControlRotation = true;
-
-	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
-	CameraComponent->SetupAttachment(SpringArmComponent);*/
 
 	SetReplicates(true);
 	SetReplicateMovement(true);
@@ -73,10 +66,6 @@ ABaseCharacter::ABaseCharacter(){
 	//interaction
 	InteractionCheckFrequency = 0.;
 	InteractionCheckDistance = 1000.;
-
-	//item, weapon
-	WeaponAttackSocketName = "WeaponSocket";
-	MeeleeWeaponAttachSocketName = "ShieldSocket";
 }
 
 // Called when the game starts or when spawned
@@ -93,11 +82,13 @@ void ABaseCharacter::BeginPlay()
 		if (HealthComponent) {
 			HealthComponent->OnHealthChanged.AddDynamic(this, &ABaseCharacter::OnHealthChanged);
 		}
+		//EquipItem(StartingEquipmentClass);
+		//EquipWeapon(CurrentEquipment);
 	}
-
+	//EquipItem(StartingEquipmentClass);
 	//ChangeWeapon(StarterWeaponClass);
-	EquipItem(StartingWeapon);
-	CurrentWeapon->EquipWeapon();
+	//EquipItem(StartingEquipmentClass);
+	//EquipWeapon(CurrentEquipment);
 
 	if (InventoryComponent) {
 		InventoryComponent->SetCapacity(20);
@@ -142,8 +133,8 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	PlayerInputComponent->BindAction("Aim", IE_Pressed, this, &ABaseCharacter::Aim);
 	PlayerInputComponent->BindAction("Aim", IE_Released, this, &ABaseCharacter::Aim);
 
-	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ABaseCharacter::StartFire);
-	PlayerInputComponent->BindAction("Fire", IE_Released, this, &ABaseCharacter::StopFire);
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ABaseCharacter::StartMouseOne);
+	PlayerInputComponent->BindAction("Fire", IE_Released, this, &ABaseCharacter::StopMouseOne);
 
 	PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &ABaseCharacter::BeginInteract);
 	PlayerInputComponent->BindAction("Interact", IE_Released, this, &ABaseCharacter::EndInteract);
@@ -223,15 +214,6 @@ void ABaseCharacter::EndCrouch()
 	UnCrouch();
 }	
 
-//initialize components, read component from BP
-void ABaseCharacter::InitializeComponents(UCameraComponent* CameraToSet, 
-	USpringArmComponent* SpringArmToSet, USHealthComponent* HealthComp, 
-	UInventoryComponent* InventoryComp){
-	CameraComponent = CameraToSet;
-	SpringArmComponent = SpringArmToSet;
-	HealthComponent = HealthComp;
-	InventoryComponent = InventoryComp;
-}
 
 //aiming system
 void ABaseCharacter::Aim(){
@@ -243,8 +225,8 @@ void ABaseCharacter::Aim(){
 		CharacterMovementComponent->bOrientRotationToMovement = true;
 		CharacterMovementComponent->bUseControllerDesiredRotation = false;
 		GetWorld()->GetTimerManager().ClearTimer(AimTimerHandler);
-		if (ARangeWeapon* RangeEquipment = Cast<ARangeWeapon>(CurrentWeapon)) {
-			RangeEquipment->OnStopAiming();
+		if (CurrentWeapon) {
+			CurrentWeapon->StopMouseTwo();
 		}
 	}
 	else {
@@ -257,8 +239,8 @@ void ABaseCharacter::Aim(){
 			GetWorld()->GetDeltaSeconds(),
 			true);
 		bIsAiming = !bIsAiming;
-		if (ARangeWeapon* RangeEquipment = Cast<ARangeWeapon>(CurrentWeapon)) {
-			RangeEquipment->OnStartAiming();
+		if (CurrentWeapon) {
+			CurrentWeapon->StartMouseTwo();
 		}
 	}
 }
@@ -505,10 +487,7 @@ bool ABaseCharacter::ServerDropItem_Validate(UItem* Item, int32 Quantity){
 	return true;
 }
 
-void ABaseCharacter::ChangeWeapon(TSubclassOf<AWeaponActor> WeaponToChange){
-	ServerChangeWeapon(WeaponToChange);
-}
-
+//equipment equipping
 void ABaseCharacter::EquipItem(TSubclassOf<AEquipment> EquipmentClass){
 	if (!EquipmentClass) {
 		return;
@@ -520,8 +499,14 @@ void ABaseCharacter::EquipItem(TSubclassOf<AEquipment> EquipmentClass){
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 		AEquipment* Equipment = GetWorld()->SpawnActor<AEquipment>(EquipmentClass, FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
+		/*AEquipment* Equipment = GetWorld()->SpawnActorDeferred<AEquipment>(EquipmentClass, FTransform::Identity, this, this, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
+		Equipment->SetOwner(this);
+		Equipment->OwningCharacter = this;
+		UGameplayStatics::FinishSpawningActor(Equipment, FTransform::Identity);*/
+
 		Equipment->Equip(this);
-		CurrentWeapon = Cast<ATracerRangeWeapon>(Equipment);
+
+		CurrentEquipment = Equipment;
 	}
 }
 
@@ -533,49 +518,64 @@ bool ABaseCharacter::ServerEquipItem_Validate(TSubclassOf<AEquipment> WeaponToCh
 	return true;
 }
 
-void ABaseCharacter::ServerChangeWeapon_Implementation(TSubclassOf<AWeaponActor> WeaponToChange){
-	/*if (CurrentWeapon && StarterWeaponClass == WeaponToChange) {
+//weapon equipping
+void ABaseCharacter::EquipWeapon(AEquipment* Equipment){
+	if (!Equipment) {
 		return;
 	}
+	if (!HasAuthority()) {
+		ServerEquipWeapon(Equipment);
+	}
 	else {
-		StarterWeaponClass = WeaponToChange;
+		if (AWeapon* Weapon = Cast<AWeapon>(Equipment)) {
+			Weapon->EquipWeapon();
+			CurrentWeapon = Weapon;
+		}
+
 	}
-
-	if (CurrentWeapon) {
-		CurrentWeapon->Destroy();
-	}
-
-	FActorSpawnParameters SpawnParams;
-	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-	CurrentWeapon = GetWorld()->SpawnActor<AWeaponActor>(WeaponToChange, FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
-
-	if (CurrentWeapon) {
-		CurrentWeapon->SetOwner(this);
-		CurrentWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, WeaponAttackSocketName);
-	}*/
 }
 
-bool ABaseCharacter::ServerChangeWeapon_Validate(TSubclassOf<AWeaponActor> WeaponToChange){
+void ABaseCharacter::ServerEquipWeapon_Implementation(AEquipment* Equipment){
+	EquipWeapon(Equipment);
+}
+
+bool ABaseCharacter::ServerEquipWeapon_Validate(AEquipment* Equipment){
 	return true;
 }
 
-//firing system
-void ABaseCharacter::StartFire(){
+//mouse one system
+void ABaseCharacter::StartMouseOne(){
 	if (CurrentWeapon) {
-		CurrentWeapon->StartFire();
 		bIsAttacking = true;
+		CurrentWeapon->StartMouseOne();
 	}
 }
 
-void ABaseCharacter::StopFire()
-{
+void ABaseCharacter::StopMouseOne(){
 	if (CurrentWeapon) {
-		CurrentWeapon->StopFire();
 		bIsAttacking = false;
+		CurrentWeapon->StopMouseOne();
 	}
 }
 
+void ABaseCharacter::ServerStartMouseOne_Implementation() {
+	StartMouseOne();
+}
 
+bool ABaseCharacter::ServerStartMouseOne_Validate() {
+	return true;
+}
+
+void ABaseCharacter::ServerStopMouseOne_Implementation(){
+	StopMouseOne();
+}
+
+bool ABaseCharacter::ServerStopMouseOne_Validate()
+{
+	return true;
+}
+
+//item looting
 bool ABaseCharacter::IsLooting() const{
 	return LootSource != nullptr;
 }
@@ -680,19 +680,13 @@ void ABaseCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(ABaseCharacter, CurrentWeapon);
+	DOREPLIFETIME(ABaseCharacter, CurrentEquipment);
 	DOREPLIFETIME(ABaseCharacter, bDied);
-	DOREPLIFETIME(ABaseCharacter, bIsAiming);
+	//DOREPLIFETIME(ABaseCharacter, bIsAiming);
+	DOREPLIFETIME(ABaseCharacter, bIsAttacking);
 	DOREPLIFETIME(ABaseCharacter, LootSource);
 }
 
-//unknown
-FVector ABaseCharacter::GetPawnViewLocation() const
-{
-	if (CameraComponent) {
-		return CameraComponent->GetComponentLocation();
-	}
-	return Super::GetPawnViewLocation();
-}
 
 
 

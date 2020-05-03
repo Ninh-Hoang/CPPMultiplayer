@@ -26,6 +26,7 @@ public:
 	UPROPERTY(VisibleDefaultsOnly, Category = "Equipment")
 	class UStaticMeshComponent* StaticMeshComponent;
 
+	UPROPERTY(Replicated, BlueprintReadOnly, Category = "Equipment")
 	class ABaseCharacter* OwningCharacter;
 
 protected:
