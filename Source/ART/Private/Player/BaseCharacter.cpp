@@ -25,6 +25,7 @@
 #include "Weapon/RangeWeapon.h"
 #include "Weapon/TracerRangeWeapon.h"
 #include <Kismet/GameplayStatics.h>
+#include <../../Runtime/GameplayAbilities/Source/GameplayAbilities/Public/AbilitySystemComponent.h>
 
 
 static int32 DebugAimDrawing = 0;
@@ -38,10 +39,10 @@ ABaseCharacter::ABaseCharacter(){
 
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
 	SetReplicates(true);
 	SetReplicateMovement(true);
 	GetMovementComponent()->GetNavAgentPropertiesRef().bCanCrouch = true;
+	GetMovementComponent()->SetJumpAllowed(false);
 	GetCapsuleComponent()->SetCollisionResponseToChannel(COLLISION_WEAPON, ECR_Ignore);
 
 	AzimuthComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Azimuth"));
@@ -55,6 +56,8 @@ ABaseCharacter::ABaseCharacter(){
 
 	HealthComponent = CreateDefaultSubobject<USHealthComponent>(TEXT("Health Component"));
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory Component"));
+
+	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("Ability System Component"));
 
 	//movement
 	BaseTurnRate = 45;
@@ -128,7 +131,7 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	PlayerInputComponent->BindAction("Crouch", IE_Pressed,this, &ABaseCharacter::BeginCrouch);
 	PlayerInputComponent->BindAction("Crouch", IE_Released,this, &ABaseCharacter::EndCrouch);
 
-	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ABaseCharacter::Jump);
+	PlayerInputComponent->BindAction("Roll", IE_Pressed, this, &ABaseCharacter::SpaceBar);
 
 	PlayerInputComponent->BindAction("Aim", IE_Pressed, this, &ABaseCharacter::Aim);
 	PlayerInputComponent->BindAction("Aim", IE_Released, this, &ABaseCharacter::Aim);
@@ -558,21 +561,17 @@ void ABaseCharacter::StopMouseOne(){
 	}
 }
 
-void ABaseCharacter::ServerStartMouseOne_Implementation() {
-	StartMouseOne();
-}
-
-bool ABaseCharacter::ServerStartMouseOne_Validate() {
-	return true;
-}
-
-void ABaseCharacter::ServerStopMouseOne_Implementation(){
-	StopMouseOne();
-}
-
-bool ABaseCharacter::ServerStopMouseOne_Validate()
-{
-	return true;
+void ABaseCharacter::SpaceBar(){
+	if (!GetMovementComponent()->IsFalling()) {
+		if (!RollAnimation) {
+			return;
+		}
+		StopMouseOne();
+		if(GetMovementComponent()->GetLastInputVector().Equals(FVector::ZeroVector, 0.01)){
+			PlayAnimMontage(RollAnimation, 1., NAME_None);
+		}
+		PlayAnimMontage(RollAnimation, 1., NAME_None);
+	}
 }
 
 //item looting

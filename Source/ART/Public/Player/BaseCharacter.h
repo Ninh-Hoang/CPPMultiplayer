@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include <../../Runtime/GameplayAbilities/Source/GameplayAbilities/Public/AbilitySystemInterface.h>
 #include "BaseCharacter.generated.h"
 
 class UCameraComponent;
@@ -17,6 +18,7 @@ class UInteractionComponent;
 class APickup;
 class AEquipment;
 class AWeapon;
+class UAnimMontage;
 
 USTRUCT()
 struct FInteractionData {
@@ -40,7 +42,7 @@ struct FInteractionData {
 };
 
 UCLASS()
-class ART_API ABaseCharacter : public ACharacter
+class ART_API ABaseCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -48,9 +50,6 @@ class ART_API ABaseCharacter : public ACharacter
 public:
 	// Sets default values for this character's properties
 	ABaseCharacter();
-
-	//setup play input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	//player owned components
 	UCharacterMovementComponent* CharacterMovementComponent;
@@ -69,6 +68,13 @@ public:
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Components")
 	UInventoryComponent* InventoryComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	class UAbilitySystemComponent* AbilitySystemComponent;
+
+	//setup play input
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const { return AbilitySystemComponent; }
 
 protected:
 	// Called when the game starts or when spawned
@@ -96,11 +102,13 @@ protected:
 	void StartMouseOne();
 	void StopMouseOne();
 
-	UFUNCTION(Server, Reliable, WithValidation)
-	void ServerStartMouseOne();
+	//roll
+	UFUNCTION(BlueprintCallable, Category = "Player")
+	void SpaceBar();
 
-	UFUNCTION(Server, Reliable, WithValidation)
-	void ServerStopMouseOne();
+
+	UPROPERTY(EditDefaultsOnly, Category = "Player")
+	UAnimMontage* RollAnimation;
 	
 //aiming
 public:
@@ -113,6 +121,10 @@ public:
 
 	UPROPERTY(Replicated)
 	bool bIsAttacking;
+
+	UPROPERTY(Replicated)
+	bool bIsRolling;
+
 protected:
 	FTimerHandle AimTimerHandler;
 

@@ -18,7 +18,7 @@ ARangeWeapon::ARangeWeapon(){
 	FiringMovementSpeed = 100.f;
 	MuzzleSocketName = "MuzzleSocket";
 	OwnerRotationSpeed = 360.f;
-	OwnerMovementSpeed = 400.f;
+	OwnerMovementSpeed = 200.f;
 }
 
 void ARangeWeapon::BeginPlay(){
