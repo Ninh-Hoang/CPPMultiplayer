@@ -17,10 +17,13 @@ public class ART : ModuleRules
 			"OnlineSubsystem",
 			"OnlineSubsystemSteam",
 			"GameplayAbilities",
-			"GameplayTags"});
+			"GameplayTags",
+			"HeadMountedDisplay" });
 
-        PrivateDependencyModuleNames.AddRange(new string[] { 
-			"GameplayAbilities",
+        PrivateDependencyModuleNames.AddRange(new string[] {
+            "Slate",
+            "SlateCore",
+            "GameplayAbilities",
 			"GameplayAbilitiesEditor",	
 			"GameplayTags",
 			"GameplayTagsEditor",
