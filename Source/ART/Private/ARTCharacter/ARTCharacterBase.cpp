@@ -16,6 +16,9 @@
 #include "ARTCharacter/ARTCharacterAttributeSet.h"
 #include "Ability/ARTGameplayAbility.h"
 #include "Player/BasePlayerController.h"
+#include <DrawDebugHelpers.h>
+#include <Engine/World.h>
+#include <TimerManager.h>
 
 // Sets default values
 AARTCharacterBase::AARTCharacterBase(const class FObjectInitializer& ObjectInitializer) :
@@ -178,11 +181,14 @@ void AARTCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	PlayerInputComponent->BindAxis("MoveForward", this, &AARTCharacterBase::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AARTCharacterBase::MoveRight);
 
-	PlayerInputComponent->BindAxis("LookUp", this, &AARTCharacterBase::AddControllerPitchInput);
+	//PlayerInputComponent->BindAxis("LookUp", this, &AARTCharacterBase::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("LookRight", this, &AARTCharacterBase::LookRight);
 
 	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &AARTCharacterBase::BeginCrouch);
 	PlayerInputComponent->BindAction("Crouch", IE_Released, this, &AARTCharacterBase::EndCrouch);
+
+	//PlayerInputComponent->BindAction("Aim", IE_Pressed, this, &AARTCharacterBase::StartAim);
+	//PlayerInputComponent->BindAction("Aim", IE_Released, this, &AARTCharacterBase::StopAim);
 
 	BindASCInput();
 	//AbilitySystem->BindAbilityActivationToInputComponent(PlayerInputComponent, FGameplayAbilityInputBinds("ConfirmInput", "CancelInput", "AbilityInput"));
@@ -214,6 +220,35 @@ void AARTCharacterBase::LookRight(float AxisValue)
 	}
 }
 
+void AARTCharacterBase::StartAim()
+{
+	GetWorld()->GetTimerManager().SetTimer(AimTimerHandler,
+		this,
+		&AARTCharacterBase::LookAtCursor,
+		GetWorld()->GetDeltaSeconds(),
+		true);
+}
+
+void AARTCharacterBase::StopAim()
+{
+	GetWorld()->GetTimerManager().ClearTimer(AimTimerHandler);
+}
+
+void AARTCharacterBase::LookAtCursor()
+{
+	APlayerController* PC = Cast<APlayerController>(GetController());
+	FVector MousePosition;
+	//PC->GetMousePosition(MousePosition);
+	FVector WorldLocation;
+	FVector WorldDirection;
+	PC->DeprojectMousePositionToWorld(WorldLocation, WorldDirection);
+	FVector ActorLocation = GetActorLocation();
+	FVector Intersection = FMath::LinePlaneIntersection(WorldLocation, WorldLocation + WorldDirection * 1000, ActorLocation, FVector::UpVector);
+
+	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), Intersection);
+	Controller->SetControlRotation(LookAtRotation);
+}
+
 void AARTCharacterBase::BeginCrouch()
 {
 	Crouch();
@@ -222,6 +257,36 @@ void AARTCharacterBase::BeginCrouch()
 void AARTCharacterBase::EndCrouch()
 {
 	UnCrouch();
+}
+
+float AARTCharacterBase::GetShield() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetShield();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetMaxShield() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetMaxShield();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetShieldRegen() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetShieldRegen();
+	}
+
+	return 0.0f;
 }
 
 float AARTCharacterBase::GetHealth() const
@@ -292,6 +357,14 @@ float AARTCharacterBase::GetMoveSpeed() const
 	}
 
 	return 0.0f;
+}
+
+void AARTCharacterBase::SetShield(float Shield)
+{
+	if (AttributeSetBase)
+	{
+		AttributeSetBase->SetHealth(Shield);
+	}
 }
 
 void AARTCharacterBase::SetHealth(float Health)
@@ -380,4 +453,12 @@ void AARTCharacterBase::Restart()
 	}
 }
 
+bool AARTCharacterBase::IsAlive() const {
+	return GetHealth() > 0.0f;
+}
+
+/* Called every frame */ 
+void Tick(float DeltaTime) {
+
+}
 

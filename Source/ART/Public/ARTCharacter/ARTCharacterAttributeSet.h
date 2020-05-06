@@ -28,9 +28,34 @@ public:
 
 	// AttributeSet Overrides
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
+	//shield
+	UPROPERTY(BlueprintReadOnly, Category = "Shield", ReplicatedUsing = OnRep_Shield)
+	FGameplayAttributeData Shield;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, Shield)
+
+	UFUNCTION()
+	void OnRep_Shield() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, Shield); }
+
+	//max shield
+	UPROPERTY(BlueprintReadOnly, Category = "Shield", ReplicatedUsing = OnRep_MaxShield)
+	FGameplayAttributeData MaxShield;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, MaxShield)
+
+	UFUNCTION()
+	void OnRep_MaxShield() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, MaxShield); }
+
+	//shieldregen
+	UPROPERTY(BlueprintReadOnly, Category = "Shield", ReplicatedUsing = OnRep_ShieldRegen)
+	FGameplayAttributeData ShieldRegen;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, ShieldRegen)
+
+	UFUNCTION()
+	void OnRep_ShieldRegen() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, ShieldRegen); }
 
 	//Health
 	UPROPERTY(BlueprintReadOnly, Category = "Health", ReplicatedUsing = OnRep_Health)
@@ -85,6 +110,12 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "MoveSpeed", ReplicatedUsing = OnRep_Stamina)
 	FGameplayAttributeData MoveSpeed;
 	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, MoveSpeed)
+
+	// Damage is a meta attribute used by the DamageExecution to calculate final damage, which then turns into -Health
+	// Temporary value that only exists on the Server. Not replicated.
+	UPROPERTY(BlueprintReadOnly, Category = "Damage", meta = (HideFromLevelInfos))
+	FGameplayAttributeData Damage;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, Damage)
 
 	UFUNCTION()
 	void OnRep_MoveSpeed() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, MoveSpeed); }

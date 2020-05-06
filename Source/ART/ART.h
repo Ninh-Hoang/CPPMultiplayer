@@ -46,8 +46,12 @@ enum class EARTAbilityInputID : uint8
 	Ability4		UMETA(DisplayName = "Ability4"),
 	// 7 R
 	Ability5		UMETA(DisplayName = "Ability5"),
-	// 8 Sprint
+	// 9 Fire
+	Fire			UMETA(DisplayName = "Fire"),
+	// 10 Aim
+	Aim				UMETA(DisplayName = "Aim"),
+	// 11 Sprint
 	Sprint			UMETA(DisplayName = "Sprint"),
-	// 9 Jump
+	// 12 Jump
 	Jump			UMETA(DisplayName = "Jump")
 };

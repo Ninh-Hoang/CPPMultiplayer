@@ -80,11 +80,18 @@ protected:
 	void MoveRight(float AxisValue);
 	void LookRight(float AxisValue);
 
+	//Aim
+	FTimerHandle AimTimerHandler;
+	void StartAim();
+	void StopAim();
+	void LookAtCursor();
+
 	//crouch
 	void BeginCrouch();
 	void EndCrouch();	
 
 	//ONLY USE THIS FOR RE/SPAWNING
+	virtual void SetShield(float Shield);
 	virtual void SetHealth(float Health);
 	virtual void SetStamina(float Stamina);
 
@@ -98,6 +105,15 @@ protected:
 	virtual void Restart() override;
 
 public:	
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetShield() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetMaxShield() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetShieldRegen() const;
+
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
 	float GetHealth() const;
 
@@ -119,6 +135,9 @@ public:
 	// Gets the Current value of MoveSpeed
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
 	float GetMoveSpeed() const;
+
+	bool IsAlive() const;
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 

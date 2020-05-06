@@ -27,7 +27,8 @@ public class ART : ModuleRules
 			"GameplayAbilitiesEditor",	
 			"GameplayTags",
 			"GameplayTagsEditor",
-			"GameplayTasks"});
+			"GameplayTasks",
+			"Paper2D"});
 
 
 		// Uncomment if you are using Slate UI
