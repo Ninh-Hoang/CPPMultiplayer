@@ -15,6 +15,7 @@
 #include <GameFramework/PlayerState.h>
 #include "ARTCharacter/ARTCharacterAttributeSet.h"
 #include "Ability/ARTGameplayAbility.h"
+#include "Player/BasePlayerController.h"
 
 // Sets default values
 AARTCharacterBase::AARTCharacterBase(const class FObjectInitializer& ObjectInitializer) :
@@ -66,7 +67,7 @@ void AARTCharacterBase::PossessedBy(AController* NewController)
 
 		InitializeAttributes();
 
-		//AddStartupEffects();
+		AddStartupEffects();
 
 		AddCharacterAbilities();
 
@@ -138,6 +139,28 @@ void AARTCharacterBase::InitializeAttributes()
 	{
 		FActiveGameplayEffectHandle ActiveGEHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(), AbilitySystemComponent);
 	}
+}
+
+void AARTCharacterBase::AddStartupEffects()
+{
+	if (GetLocalRole() != ROLE_Authority || !AbilitySystemComponent || AbilitySystemComponent->StartupEffectsApplied)
+	{
+		return;
+	}
+
+	FGameplayEffectContextHandle EffectContext = AbilitySystemComponent->MakeEffectContext();
+	EffectContext.AddSourceObject(this);
+
+	for (TSubclassOf<UGameplayEffect> GameplayEffect : StartupEffects)
+	{
+		FGameplayEffectSpecHandle NewHandle = AbilitySystemComponent->MakeOutgoingSpec(GameplayEffect, GetCharacterLevel(), EffectContext);
+		if (NewHandle.IsValid())
+		{
+			FActiveGameplayEffectHandle ActiveGEHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(), AbilitySystemComponent);
+		}
+	}
+
+	AbilitySystemComponent->StartupEffectsApplied = true;
 }
 
 // Called when the game starts or when spawned
@@ -221,6 +244,16 @@ float AARTCharacterBase::GetMaxHealth() const
 	return 0.0f;
 }
 
+float AARTCharacterBase::GetHealthRegen() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetHealthRegen();
+	}
+
+	return 0.0f;
+}
+
 float AARTCharacterBase::GetStamina() const
 {
 	if (AttributeSetBase)
@@ -236,6 +269,16 @@ float AARTCharacterBase::GetMaxStamina() const
 	if (AttributeSetBase)
 	{
 		return AttributeSetBase->GetMaxStamina();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetStaminaRegen() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetStaminaRegen();
 	}
 
 	return 0.0f;
@@ -329,5 +372,12 @@ void AARTCharacterBase::BindASCInput()
 	}
 }
 
+void AARTCharacterBase::Restart()
+{
+	Super::Restart();
+	if (ABasePlayerController* PC = Cast<ABasePlayerController>(GetController())) {
+		PC->ShowIngameUI();
+	}
+}
 
 

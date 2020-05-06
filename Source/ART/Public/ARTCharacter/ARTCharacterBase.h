@@ -46,6 +46,10 @@ protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASDocumentation|Abilities")
 	TArray<TSubclassOf<class UARTGameplayAbility>> CharacterAbilities;
 
+	// These effects are only applied one time on startup, Health regen, stamina regen...etc
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASDocumentation|Abilities")
+	TArray<TSubclassOf<class UGameplayEffect>> StartupEffects;
+
 	// Default attributes for a character for initializing on spawn/respawn.
 	// This is an instant GE that overrides the values for attributes that get reset on spawn/respawn.
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASDocumentation|Abilities")
@@ -65,6 +69,8 @@ protected:
 	// so that we don't have to wait. The Server's replication to the Client won't matter since
 	// the values should be the same.
 	virtual void InitializeAttributes();
+
+	virtual void AddStartupEffects();
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -89,6 +95,8 @@ protected:
 	bool ASCInputBound = false;
 	void BindASCInput();
 
+	virtual void Restart() override;
+
 public:	
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
 	float GetHealth() const;
@@ -97,10 +105,16 @@ public:
 	float GetMaxHealth() const;
 
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
+	float GetHealthRegen() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
 	float GetStamina() const;
 
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
 	float GetMaxStamina() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
+	float GetStaminaRegen() const;
 
 	// Gets the Current value of MoveSpeed
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
