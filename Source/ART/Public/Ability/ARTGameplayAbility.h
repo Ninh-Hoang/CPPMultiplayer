@@ -52,5 +52,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability")
 	bool ActivateAbilityOnGranted = false;
 
+	// Map of gameplay tags to gameplay effect containers
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GameplayEffects")
+	//TMap<FGameplayTag, FASGameplayEffectContainer> EffectContainerMap;
+
 	virtual void OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec) override;
 };

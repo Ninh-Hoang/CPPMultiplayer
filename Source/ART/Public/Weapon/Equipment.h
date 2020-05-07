@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "Equipment.generated.h"
 
+class AARTCharacterBase;
+
 UENUM()
 enum class EEquipmentSlot: uint8 {
 	ES_WeaponRest UMETA(DisplayName = "WeaponRestSocket"),
@@ -27,7 +29,7 @@ public:
 	class UStaticMeshComponent* StaticMeshComponent;
 
 	UPROPERTY(Replicated, BlueprintReadOnly, Category = "Equipment")
-	class ABaseCharacter* OwningCharacter;
+	class AARTCharacterBase* OwningCharacter;
 
 protected:
 	// Called when the game starts or when spawned
@@ -38,7 +40,7 @@ protected:
 
 public:	
 
-	virtual void Equip(class ABaseCharacter* CharacterToEquip);
+	virtual void Equip(class AARTCharacterBase* CharacterToEquip);
 	virtual void UnEquip();
 
 };

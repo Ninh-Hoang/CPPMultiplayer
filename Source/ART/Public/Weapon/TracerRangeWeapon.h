@@ -4,11 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "Weapon/RangeWeapon.h"
+#include "AbilitySystemInterface.h"
 #include "TracerRangeWeapon.generated.h"
 
 /**
  * 
  */
+class AGATA_LineTrace;
+class UARTAbilitySystemComponent;
+
 USTRUCT()
 struct FHitScanTrace {
 	GENERATED_BODY()
@@ -24,12 +28,21 @@ public:
 		uint8 StructIncreasement;
 };
 
-UCLASS()
+UCLASS(Blueprintable, BlueprintType)
 class ART_API ATracerRangeWeapon : public ARangeWeapon
 {
 	GENERATED_BODY()
 public:
 	ATracerRangeWeapon();
+
+	~ATracerRangeWeapon();
+
+	UPROPERTY()
+	AGATA_LineTrace* LineTraceTargetActor;
+
+	// Getter for LineTraceTargetActor. Spawns it if it doesn't exist yet.
+	UFUNCTION(BlueprintCallable, Category = "GASShooter|Targeting")
+	AGATA_LineTrace* GetLineTraceTargetActor();
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")

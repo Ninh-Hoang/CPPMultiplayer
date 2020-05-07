@@ -10,6 +10,9 @@
 #include <DrawDebugHelpers.h>
 #include <Particles/ParticleSystemComponent.h>
 #include "Net/UnrealNetwork.h"
+#include "Ability/ARTAbilitySystemComponent.h"
+#include "ARTCharacter/ARTCharacterBase.h"
+#include "Ability/GATA_LineTrace.h"
 
 static int32 DebugWeaponFiring = 0;
 FAutoConsoleVariableRef CVARDebugWeaponFiring(
@@ -19,7 +22,27 @@ FAutoConsoleVariableRef CVARDebugWeaponFiring(
 	ECVF_Cheat);
 
 ATracerRangeWeapon::ATracerRangeWeapon(){
-	TracerTargetName = "Target";
+	TracerTargetName = "Target";	
+}
+
+ATracerRangeWeapon::~ATracerRangeWeapon()
+{
+	if (IsValid(LineTraceTargetActor) && GetWorld() && !GetWorld()->bIsTearingDown)
+	{
+		LineTraceTargetActor->Destroy();
+	}
+}
+
+AGATA_LineTrace* ATracerRangeWeapon::GetLineTraceTargetActor()
+{
+	if (LineTraceTargetActor)
+	{
+		return LineTraceTargetActor;
+	}
+
+	LineTraceTargetActor = GetWorld()->SpawnActor<AGATA_LineTrace>();
+	LineTraceTargetActor->SetOwner(this);
+	return LineTraceTargetActor;
 }
 
 void ATracerRangeWeapon::BeginPlay(){

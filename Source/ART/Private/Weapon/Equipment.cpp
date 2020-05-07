@@ -4,6 +4,7 @@
 #include "Weapon/Equipment.h"
 #include "Player/BaseCharacter.h"
 #include "Net/UnrealNetwork.h"
+#include "ARTCharacter/ARTCharacterBase.h"
 
 // Sets default values
 AEquipment::AEquipment()
@@ -23,7 +24,7 @@ void AEquipment::BeginPlay()
 	Super::BeginPlay();
 }
 
-void AEquipment::Equip(ABaseCharacter* CharacterToEquip){
+void AEquipment::Equip(AARTCharacterBase* CharacterToEquip){
 	//stupid conversion from enum to FName, holy shit
 	/*const TEnumAsByte<EEquipmentSlot> Enum = EquipmentSlot;
 	FString Enum = UEnum::GetValueAsString(Enum.GetValue());
@@ -45,6 +46,6 @@ void AEquipment::UnEquip(){
 //replication
 void AEquipment::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	DOREPLIFETIME(AEquipment, OwningCharacter);
+	DOREPLIFETIME_CONDITION(AEquipment, OwningCharacter, COND_OwnerOnly);
 }
 

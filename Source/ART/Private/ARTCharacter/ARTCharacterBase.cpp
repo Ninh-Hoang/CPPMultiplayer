@@ -19,6 +19,8 @@
 #include <DrawDebugHelpers.h>
 #include <Engine/World.h>
 #include <TimerManager.h>
+#include "Net/UnrealNetwork.h"
+#include "Weapon/Weapon.h"
 
 // Sets default values
 AARTCharacterBase::AARTCharacterBase(const class FObjectInitializer& ObjectInitializer) :
@@ -42,6 +44,8 @@ AARTCharacterBase::AARTCharacterBase(const class FObjectInitializer& ObjectIniti
 	CameraComponent->SetupAttachment(SpringArmComponent);
 
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory Component"));
+
+	WeaponAbilityTag = FGameplayTag::RequestGameplayTag(FName("Ability.Weapon"));
 }
 
 UAbilitySystemComponent* AARTCharacterBase::GetAbilitySystemComponent() const
@@ -91,6 +95,111 @@ void AARTCharacterBase::PossessedBy(AController* NewController)
 		SetStamina(GetMaxStamina());
 	}
 }
+
+void AARTCharacterBase::OnRep_CurrentWeapon(AWeapon* LastWeapon)
+{
+	bChangedWeaponLocally = false;
+	SetCurrentWeapon(CurrentWeapon, LastWeapon);
+}
+
+AWeapon* AARTCharacterBase::GetCurrentWeapon() const
+{
+	return CurrentWeapon;
+}
+
+
+void AARTCharacterBase::SetCurrentWeapon(AWeapon* NewWeapon, AWeapon* LastWeapon)
+{
+	if (NewWeapon == LastWeapon)
+	{
+		return;
+	}
+	// Cancel active weapon abilities
+	if (AbilitySystemComponent)
+	{
+		FGameplayTagContainer AbilityTagsToCancel = FGameplayTagContainer(WeaponAbilityTag);
+		AbilitySystemComponent->CancelAbilities(&AbilityTagsToCancel);
+	}
+	UnEquipWeapon(LastWeapon);
+
+	if (NewWeapon) {
+		if (AbilitySystemComponent)
+		{
+			// Clear out potential NoWeaponTag
+			AbilitySystemComponent->RemoveLooseGameplayTag(CurrentWeaponTag);
+		}
+
+		// Weapons coming from OnRep_CurrentWeapon won't have the owner set
+		CurrentWeapon = NewWeapon;
+		CurrentWeapon->SetOwningCharacter(this);
+		CurrentWeapon->EquipWeapon();
+		CurrentWeaponTag = CurrentWeapon->WeaponTag;
+
+		if (AbilitySystemComponent)
+		{
+			AbilitySystemComponent->AddLooseGameplayTag(CurrentWeaponTag);
+		}
+
+		UAnimMontage* EquipMontage = CurrentWeapon->GetEquipMontage();
+
+		if (EquipMontage && GetMesh())
+		{
+			GetMesh()->GetAnimInstance()->Montage_Play(EquipMontage);
+		}
+	}
+	else {
+		UnEquipCurrentWeapon();
+	}
+}
+
+void AARTCharacterBase::UnEquipWeapon(AWeapon* WeaponToUnEquip)
+{
+	WeaponToUnEquip->UnEquip();
+}
+
+void AARTCharacterBase::UnEquipCurrentWeapon()
+{
+	if (AbilitySystemComponent)
+	{
+		AbilitySystemComponent->RemoveLooseGameplayTag(CurrentWeaponTag);
+		CurrentWeaponTag = NoWeaponTag;
+		AbilitySystemComponent->AddLooseGameplayTag(CurrentWeaponTag);
+	}
+
+	UnEquipWeapon(CurrentWeapon);
+	CurrentWeapon = nullptr;
+}
+
+void AARTCharacterBase::SpawnDefaultInventory()
+{
+	if (!HasAuthority())
+	{
+		return;
+	}
+
+	int32 NumWeaponClasses = DefaultInventoryWeaponClasses.Num();
+	for (int32 i = 0; i < NumWeaponClasses; i++)
+	{
+		if (!DefaultInventoryWeaponClasses[i])
+		{
+			// An empty item was added to the Array in blueprint
+			continue;
+		}
+
+		AWeapon* NewWeapon = GetWorld()->SpawnActorDeferred<AWeapon>(DefaultInventoryWeaponClasses[i],
+			FTransform::Identity, this, this, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
+
+		NewWeapon->SetOwningCharacter(this);
+
+		NewWeapon->FinishSpawning(FTransform::Identity);
+
+		bool bEquipFirstWeapon = i == 0;
+
+		NewWeapon->EquipWeapon();
+		NewWeapon->AddAbilities();
+	}
+}
+
 
 int32 AARTCharacterBase::GetAbilityLevel(EARTAbilityInputID AbilityID) const
 {
@@ -170,7 +279,7 @@ void AARTCharacterBase::AddStartupEffects()
 void AARTCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	SpawnDefaultInventory();
 }
 
 // Called to bind functionality to input
@@ -460,5 +569,12 @@ bool AARTCharacterBase::IsAlive() const {
 /* Called every frame */ 
 void Tick(float DeltaTime) {
 
+}
+
+void AARTCharacterBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME_CONDITION(AARTCharacterBase, CurrentWeapon, COND_SimulatedOnly);
 }
 

@@ -28,11 +28,11 @@
 #include <../../Runtime/GameplayAbilities/Source/GameplayAbilities/Public/AbilitySystemComponent.h>
 
 
-static int32 DebugAimDrawing = 0;
+/*static int32 DebugAimDrawing = 0;
 FAutoConsoleVariableRef CVARDebugAimDrawing(TEXT("COOP.DebugAim"),
 	DebugAimDrawing,
 	TEXT("Draw Debug For Aim"),
-	ECVF_Cheat);
+	ECVF_Cheat);*/
 
 // Sets default values
 ABaseCharacter::ABaseCharacter(){
@@ -58,7 +58,7 @@ ABaseCharacter::ABaseCharacter(){
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory Component"));
 
 	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("Ability System Component"));
-
+	
 	//movement
 	BaseTurnRate = 45;
 
@@ -255,7 +255,7 @@ void ABaseCharacter::LookAtLocation(FVector LookAtLocation){
 }
 
 void ABaseCharacter::LookAtCursor() {
-	APlayerController* PC = Cast<APlayerController>(GetController());
+	/*APlayerController* PC = Cast<APlayerController>(GetController());
 	FVector MousePosition;
 	//PC->GetMousePosition(MousePosition);
 	FVector WorldLocation;
@@ -276,7 +276,7 @@ void ABaseCharacter::LookAtCursor() {
 			DrawDebugLine(GetWorld(), ActorLocation, Intersection, FColor::Red, false, GetWorld()->GetDeltaSeconds(), 0, 2);
 		}
 	}
-	LookAtLocation(Intersection);
+	LookAtLocation(Intersection);*/
 }
 
 void ABaseCharacter::ServerAim_Implementation(){
@@ -507,8 +507,7 @@ void ABaseCharacter::EquipItem(TSubclassOf<AEquipment> EquipmentClass){
 		Equipment->OwningCharacter = this;
 		UGameplayStatics::FinishSpawningActor(Equipment, FTransform::Identity);*/
 
-		Equipment->Equip(this);
-
+		//Equipment->Equip(this);
 		CurrentEquipment = Equipment;
 	}
 }

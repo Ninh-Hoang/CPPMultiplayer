@@ -6,7 +6,10 @@
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
 #include "ART/ART.h"
+#include "GameplayEffectTypes.h"
 #include "ARTCharacterBase.generated.h"
+
+class AWeapon;
 
 UCLASS()
 class ART_API AARTCharacterBase : public ACharacter, public IAbilitySystemInterface
@@ -29,6 +32,11 @@ public:
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Components")
 	class UInventoryComponent* InventoryComponent;
 
+	FGameplayTag CurrentWeaponTag;
+
+	UFUNCTION(BlueprintCallable, Category = "GASShooter|Inventory")
+	AWeapon* GetCurrentWeapon() const;
+
 	// Implement IAbilitySystemInterface
 	class UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
@@ -37,6 +45,36 @@ public:
 
 protected:
 
+	//WEAPON STUFFS
+	bool bChangedWeaponLocally;
+
+	UPROPERTY(ReplicatedUsing = OnRep_CurrentWeapon)
+	AWeapon* CurrentWeapon;
+
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "GASShooter|Inventory")
+	TArray<TSubclassOf<AWeapon>> DefaultInventoryWeaponClasses;
+
+	UFUNCTION()
+	void OnRep_CurrentWeapon(AWeapon* LastWeapon);
+
+	void SetCurrentWeapon(AWeapon* NewWeapon, AWeapon* LastWeapon);
+
+	// Unequips the specified weapon. Used when OnRep_CurrentWeapon fires.
+	void UnEquipWeapon(AWeapon* WeaponToUnEquip);
+
+	void UnEquipCurrentWeapon();
+
+	// Server spawns default inventory
+	void SpawnDefaultInventory();
+
+
+	// Cache tags
+	FGameplayTag NoWeaponTag;
+	FGameplayTag WeaponChangingDelayReplicationTag;
+	FGameplayTag WeaponAmmoTypeNoneTag;
+	FGameplayTag WeaponAbilityTag;
+
+	//ABILITY SYSTEM STUFFS
 	UPROPERTY()
 	class UARTAbilitySystemComponent* AbilitySystemComponent;
 
