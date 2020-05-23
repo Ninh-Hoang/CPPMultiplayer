@@ -7,6 +7,7 @@
 #include "Equipment.generated.h"
 
 class AARTCharacterBase;
+class USkeletalMeshComponent;
 
 UENUM()
 enum class EEquipmentSlot: uint8 {
@@ -26,7 +27,7 @@ public:
 	AEquipment();
 
 	UPROPERTY(VisibleDefaultsOnly, Category = "Equipment")
-	class UStaticMeshComponent* StaticMeshComponent;
+	USkeletalMeshComponent* SkeletalMeshComponent;
 
 	UPROPERTY(Replicated, BlueprintReadOnly, Category = "Equipment")
 	class AARTCharacterBase* OwningCharacter;
@@ -42,5 +43,9 @@ public:
 
 	virtual void Equip(class AARTCharacterBase* CharacterToEquip);
 	virtual void UnEquip();
+
+	UFUNCTION(BlueprintCallable, BlueprintPure , Category = "Equipment")
+	USkeletalMeshComponent* GetEquipmentMesh();
+
 
 };

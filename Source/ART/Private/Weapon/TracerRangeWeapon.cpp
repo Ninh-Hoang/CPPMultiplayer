@@ -118,7 +118,7 @@ void ATracerRangeWeapon::OnRep_HitScanTrace(){
 
 void ATracerRangeWeapon::ThreatTrace(){
 	TArray<FHitResult> HitResults;
-	FVector MuzzleLocation = StaticMeshComponent->GetSocketLocation(MuzzleSocketName);
+	FVector MuzzleLocation = SkeletalMeshComponent->GetSocketLocation(MuzzleSocketName);
 	FCollisionShape CollisionSphere = FCollisionShape::MakeSphere(ThreatValue);
 	AActor* MyOwner = GetOwner();
 	FVector ShotPosition = GetActorLocation(); ;
@@ -152,7 +152,7 @@ void ATracerRangeWeapon::ThreatTrace(){
 
 void ATracerRangeWeapon::PlayFireEffect(FVector TraceEndPoint){
 	if (TracerEffect) {
-		FVector MuzzleLocation = StaticMeshComponent->GetSocketLocation(MuzzleSocketName);
+		FVector MuzzleLocation = SkeletalMeshComponent->GetSocketLocation(MuzzleSocketName);
 		UParticleSystemComponent* TracerComp = UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), TracerEffect, MuzzleLocation);
 		if (TracerComp) {
 			TracerComp->SetVectorParameter(TracerTargetName, TraceEndPoint);
@@ -181,7 +181,7 @@ void ATracerRangeWeapon::PlayImpactEffect(EPhysicalSurface SurfaceType, FVector 
 	}
 
 	if (SelectedEffect) {
-		FVector MuzzleLocation = StaticMeshComponent->GetSocketLocation(MuzzleSocketName);
+		FVector MuzzleLocation = SkeletalMeshComponent->GetSocketLocation(MuzzleSocketName);
 		FVector ShotDirection = ImpactPoint - MuzzleLocation;
 		ShotDirection.Normalize();
 

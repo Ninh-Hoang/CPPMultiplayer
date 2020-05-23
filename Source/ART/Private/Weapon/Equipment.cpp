@@ -5,6 +5,7 @@
 #include "Player/BaseCharacter.h"
 #include "Net/UnrealNetwork.h"
 #include "ARTCharacter/ARTCharacterBase.h"
+#include <Components/SkeletalMeshComponent.h>
 
 // Sets default values
 AEquipment::AEquipment()
@@ -12,9 +13,9 @@ AEquipment::AEquipment()
 	PrimaryActorTick.bCanEverTick = false;
 	SetReplicates(true);
 
-	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Azimuth"));
-	SetRootComponent(StaticMeshComponent);
-	StaticMeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	SkeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Azimuth"));
+	SetRootComponent(SkeletalMeshComponent);
+	SkeletalMeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	EquipmentSlot = EEquipmentSlot::ES_Shield;
 }
 
@@ -41,6 +42,11 @@ void AEquipment::Equip(AARTCharacterBase* CharacterToEquip){
 
 void AEquipment::UnEquip(){
 
+}
+
+USkeletalMeshComponent* AEquipment::GetEquipmentMesh()
+{
+	return SkeletalMeshComponent;
 }
 
 //replication

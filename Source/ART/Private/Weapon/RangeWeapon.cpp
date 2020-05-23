@@ -138,7 +138,7 @@ void ARangeWeapon::Fire(){
 
 void ARangeWeapon::PlayMuzzleEffect(){
 	if (MuzzleEffect) {
-		UGameplayStatics::SpawnEmitterAttached(MuzzleEffect, StaticMeshComponent, MuzzleSocketName);
+		UGameplayStatics::SpawnEmitterAttached(MuzzleEffect, SkeletalMeshComponent, MuzzleSocketName);
 	}
 }
 
