@@ -308,12 +308,12 @@ void AARTCharacterBase::AddStartupEffects()
 void AARTCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
-	SpawnDefaultInventory();
+	/*SpawnDefaultInventory();
 
 	if (GetLocalRole() == ROLE_AutonomousProxy)
 	{
 		ServerSyncCurrentWeapon();
-	}
+	}*/
 }
 
 // Called to bind functionality to input
@@ -330,11 +330,7 @@ void AARTCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &AARTCharacterBase::BeginCrouch);
 	PlayerInputComponent->BindAction("Crouch", IE_Released, this, &AARTCharacterBase::EndCrouch);
 
-	//PlayerInputComponent->BindAction("Aim", IE_Pressed, this, &AARTCharacterBase::StartAim);
-	//PlayerInputComponent->BindAction("Aim", IE_Released, this, &AARTCharacterBase::StopAim);
-
 	BindASCInput();
-	//AbilitySystem->BindAbilityActivationToInputComponent(PlayerInputComponent, FGameplayAbilityInputBinds("ConfirmInput", "CancelInput", "AbilityInput"));
 }
 
 void AARTCharacterBase::MoveForward(float AxisValue)
@@ -356,40 +352,8 @@ void AARTCharacterBase::MoveRight(float AxisValue)
 void AARTCharacterBase::LookRight(float AxisValue)
 {
 	if (ensure(AzimuthComponent)) {
-		//FRotator SpringArmRotation = SpringArmComponent->GetRelativeRotation();
-		//SpringArmRotation = FRotator(SpringArmRotation.Pitch, SpringArmRotation.Roll+ AxisValue, SpringArmRotation.Yaw);
-		//AzimuthComponent->AddRelativeRotation(FRotator(0, AxisValue, 0));
 		AzimuthComponent->AddLocalRotation(FRotator(0, AxisValue, 0));
 	}
-}
-
-void AARTCharacterBase::StartAim()
-{
-	GetWorld()->GetTimerManager().SetTimer(AimTimerHandler,
-		this,
-		&AARTCharacterBase::LookAtCursor,
-		GetWorld()->GetDeltaSeconds(),
-		true);
-}
-
-void AARTCharacterBase::StopAim()
-{
-	GetWorld()->GetTimerManager().ClearTimer(AimTimerHandler);
-}
-
-void AARTCharacterBase::LookAtCursor()
-{
-	APlayerController* PC = Cast<APlayerController>(GetController());
-	FVector MousePosition;
-	//PC->GetMousePosition(MousePosition);
-	FVector WorldLocation;
-	FVector WorldDirection;
-	PC->DeprojectMousePositionToWorld(WorldLocation, WorldDirection);
-	FVector ActorLocation = GetActorLocation();
-	FVector Intersection = FMath::LinePlaneIntersection(WorldLocation, WorldLocation + WorldDirection * 1000, ActorLocation, FVector::UpVector);
-
-	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), Intersection);
-	Controller->SetControlRotation(LookAtRotation);
 }
 
 void AARTCharacterBase::BeginCrouch()

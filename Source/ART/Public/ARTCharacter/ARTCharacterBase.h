@@ -132,12 +132,6 @@ protected:
 	void MoveRight(float AxisValue);
 	void LookRight(float AxisValue);
 
-	//Aim
-	FTimerHandle AimTimerHandler;
-	void StartAim();
-	void StopAim();
-	void LookAtCursor();
-
 	//crouch
 	void BeginCrouch();
 	void EndCrouch();	
