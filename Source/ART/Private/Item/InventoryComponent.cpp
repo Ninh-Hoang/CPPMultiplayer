@@ -46,6 +46,7 @@ int32 UInventoryComponent::ConsumeItem(UItem* Item, const int32 Quantity){
 
 		if (Item->GetQuantity() <= 0) {
 			RemoveItem(Item);
+			ClientRefreshInventory();
 		}
 		else {
 			ClientRefreshInventory();

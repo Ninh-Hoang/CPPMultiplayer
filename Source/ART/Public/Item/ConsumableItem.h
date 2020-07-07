@@ -10,7 +10,7 @@
  * 
  */
 
-class ABaseCharacter;
+class AARTSurvivor;
 
 UCLASS()
 class ART_API UConsumableItem : public UItem
@@ -24,5 +24,5 @@ public:
 	float AmountToHeal;
 
 protected:
-	virtual void Use(ABaseCharacter* Character) override;
+	virtual void Use(AARTSurvivor* Character) override;
 };

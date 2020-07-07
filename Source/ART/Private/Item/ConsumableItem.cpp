@@ -11,7 +11,7 @@ UConsumableItem::UConsumableItem(){
 	UseActionText = LOCTEXT("ItemUseActionText", "Consume");
 }
 
-void UConsumableItem::Use(ABaseCharacter* Character){
+void UConsumableItem::Use(AARTSurvivor* Character){
 	UE_LOG(LogTemp, Warning, TEXT("Consume item."))
 	/*if (Character) {
 		if (OwningInventory) {

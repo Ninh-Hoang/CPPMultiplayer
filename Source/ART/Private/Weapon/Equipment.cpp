@@ -4,8 +4,8 @@
 #include "Weapon/Equipment.h"
 #include "Player/BaseCharacter.h"
 #include "Net/UnrealNetwork.h"
-#include "ARTCharacter/ARTCharacterBase.h"
 #include <Components/SkeletalMeshComponent.h>
+#include "ARTCharacter/ARTSurvivor.h"
 
 // Sets default values
 AEquipment::AEquipment()
@@ -25,7 +25,7 @@ void AEquipment::BeginPlay()
 	Super::BeginPlay();
 }
 
-void AEquipment::Equip(AARTCharacterBase* CharacterToEquip){
+void AEquipment::Equip(AARTSurvivor* CharacterToEquip){
 	//stupid conversion from enum to FName, holy shit
 	/*const TEnumAsByte<EEquipmentSlot> Enum = EquipmentSlot;
 	FString Enum = UEnum::GetValueAsString(Enum.GetValue());

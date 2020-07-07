@@ -13,7 +13,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnItemModified);
 class UStaticMesh;
 class UTexture2D;
 class UInventoryComponent;
-class ABaseCharacter;
+class AARTSurvivor;
 class UItemTooltip;
 
 UENUM()
@@ -97,10 +97,10 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Item")
 	FORCEINLINE int32 GetQuantity() const { return Quantity; }
 
-	virtual void Use(ABaseCharacter* Character);
+	virtual void Use(AARTSurvivor* Character);
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void OnUse(ABaseCharacter* Character);
+	void OnUse(AARTSurvivor* Character);
 
 	virtual void AddedToInventory(UInventoryComponent* Inventory);
 

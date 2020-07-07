@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Equipment.generated.h"
 
-class AARTCharacterBase;
+class AARTSurvivor;
 class USkeletalMeshComponent;
 
 UENUM()
@@ -41,7 +41,7 @@ protected:
 
 public:	
 
-	virtual void Equip(class AARTCharacterBase* CharacterToEquip);
+	virtual void Equip(class AARTSurvivor* CharacterToEquip);
 	virtual void UnEquip();
 
 	UFUNCTION(BlueprintCallable, BlueprintPure , Category = "Equipment")

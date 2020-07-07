@@ -50,7 +50,7 @@ bool UItem::ShouldShowInInventory() const{
 	return true;
 }
 
-void UItem::Use(ABaseCharacter* Character){
+void UItem::Use(AARTSurvivor* Character){
 
 }
 

@@ -44,8 +44,6 @@ AARTCharacterBase::AARTCharacterBase(const class FObjectInitializer& ObjectIniti
 	CameraComponent->SetupAttachment(SpringArmComponent);
 
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory Component"));
-
-	WeaponAbilityTag = FGameplayTag::RequestGameplayTag(FName("Ability.Weapon"));
 }
 
 UAbilitySystemComponent* AARTCharacterBase::GetAbilitySystemComponent() const
@@ -93,139 +91,6 @@ void AARTCharacterBase::PossessedBy(AController* NewController)
 		// Set Health/Mana/Stamina to their max. This is only necessary for *Respawn*.
 		SetHealth(GetMaxHealth());
 		SetStamina(GetMaxStamina());
-	}
-}
-
-void AARTCharacterBase::OnRep_CurrentWeapon(AWeapon* LastWeapon)
-{
-	UE_LOG(LogTemp, Warning, TEXT("Repped"));
-	bChangedWeaponLocally = false;
-	SetCurrentWeapon(CurrentWeapon, LastWeapon);
-}
-
-AWeapon* AARTCharacterBase::GetCurrentWeapon() const
-{
-	return CurrentWeapon;
-}
-
-
-void AARTCharacterBase::SetCurrentWeapon(AWeapon* NewWeapon, AWeapon* LastWeapon)
-{
-	if (NewWeapon == LastWeapon)
-	{
-		return;
-	}
-	// Cancel active weapon abilities
-	if (AbilitySystemComponent)
-	{
-		FGameplayTagContainer AbilityTagsToCancel = FGameplayTagContainer(WeaponAbilityTag);
-		AbilitySystemComponent->CancelAbilities(&AbilityTagsToCancel);
-	}
-	if (LastWeapon) {
-		UnEquipWeapon(LastWeapon);
-	}
-
-	if (NewWeapon) {
-		if (AbilitySystemComponent)
-		{
-			// Clear out potential NoWeaponTag
-			AbilitySystemComponent->RemoveLooseGameplayTag(CurrentWeaponTag);
-		}
-
-		// Weapons coming from OnRep_CurrentWeapon won't have the owner set
-		CurrentWeapon = NewWeapon;
-		CurrentWeapon->SetOwningCharacter(this);
-		CurrentWeapon->EquipWeapon();
-		CurrentWeaponTag = CurrentWeapon->WeaponTag;
-
-		ClientSyncCurrentWeapon(CurrentWeapon);
-
-		if (AbilitySystemComponent)
-		{
-			AbilitySystemComponent->AddLooseGameplayTag(CurrentWeaponTag);
-		}
-
-		UAnimMontage* EquipMontage = CurrentWeapon->GetEquipMontage();
-
-		if (EquipMontage && GetMesh())
-		{
-			GetMesh()->GetAnimInstance()->Montage_Play(EquipMontage);
-		}
-	}
-	else {
-		UnEquipCurrentWeapon();
-	}
-}
-
-void AARTCharacterBase::ServerSyncCurrentWeapon_Implementation()
-{
-	ClientSyncCurrentWeapon(CurrentWeapon);
-}
-
-bool AARTCharacterBase::ServerSyncCurrentWeapon_Validate()
-{
-	return true;
-}
-
-void AARTCharacterBase::ClientSyncCurrentWeapon_Implementation(AWeapon* InWeapon)
-{
-	AWeapon* LastWeapon = CurrentWeapon;
-	CurrentWeapon = InWeapon;
-	OnRep_CurrentWeapon(LastWeapon);
-}
-
-bool AARTCharacterBase::ClientSyncCurrentWeapon_Validate(AWeapon* InWeapon)
-{
-	return true;
-}
-
-void AARTCharacterBase::UnEquipWeapon(AWeapon* WeaponToUnEquip)
-{
-	WeaponToUnEquip->UnEquip();
-}
-
-void AARTCharacterBase::UnEquipCurrentWeapon()
-{
-	if (AbilitySystemComponent)
-	{
-		AbilitySystemComponent->RemoveLooseGameplayTag(CurrentWeaponTag);
-		CurrentWeaponTag = NoWeaponTag;
-		AbilitySystemComponent->AddLooseGameplayTag(CurrentWeaponTag);
-	}
-
-	UnEquipWeapon(CurrentWeapon);
-	CurrentWeapon = nullptr;
-}
-
-void AARTCharacterBase::SpawnDefaultInventory()
-{
-	if (!HasAuthority())
-	{
-		return;
-	}
-
-	int32 NumWeaponClasses = DefaultInventoryWeaponClasses.Num();
-	for (int32 i = 0; i < NumWeaponClasses; i++)
-	{
-		if (!DefaultInventoryWeaponClasses[i])
-		{ 
-			// An empty item was added to the Array in blueprint
-			continue;
-		}
-
-		AWeapon* NewWeapon = GetWorld()->SpawnActorDeferred<AWeapon>(DefaultInventoryWeaponClasses[i],
-			FTransform::Identity, this, this, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
-
-		NewWeapon->SetOwningCharacter(this);
-
-		NewWeapon->FinishSpawning(FTransform::Identity);
-
-		bool bEquipFirstWeapon = i == 0;
-
-		NewWeapon->EquipWeapon();
-		NewWeapon->AddAbilities();
-
-		CurrentWeapon = NewWeapon;
 	}
 }
 
@@ -569,10 +434,4 @@ void Tick(float DeltaTime) {
 
 }
 
-void AARTCharacterBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
-{
-	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-
-	DOREPLIFETIME_CONDITION(AARTCharacterBase, CurrentWeapon, COND_SimulatedOnly);
-}
 

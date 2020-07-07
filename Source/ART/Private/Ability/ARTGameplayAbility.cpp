@@ -6,6 +6,7 @@
 #include "ARTCharacter/ARTCharacterBase.h"
 #include "Ability/ARTAbilitySystemComponent.h"
 #include "Blueprint/ARTTargetType.h"
+#include "ARTCharacter/ARTSurvivor.h"
 
 UARTGameplayAbility::UARTGameplayAbility()
 {
@@ -154,7 +155,7 @@ bool UARTGameplayAbility::CanActivateAbility(const FGameplayAbilitySpecHandle Ha
 	if (bSourceObjectMustEqualCurrentWeaponToActivate)
 	{
 		//AARTHeroCharacter* Hero = Cast<AARTHeroCharacter>(ActorInfo->AvatarActor);
-		AARTCharacterBase* Hero = Cast<AARTCharacterBase>(ActorInfo->AvatarActor);
+		AARTSurvivor* Hero = Cast<AARTSurvivor>(ActorInfo->AvatarActor);
 
 		if (Hero && Hero->GetCurrentWeapon() && (UObject*)Hero->GetCurrentWeapon() == GetSourceObject(Handle, ActorInfo))
 		{

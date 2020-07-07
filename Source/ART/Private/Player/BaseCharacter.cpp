@@ -424,7 +424,7 @@ float ABaseCharacter::GetRemainingInteractionTime() const{
 //item using system
 void ABaseCharacter::UseItem(UItem* Item){
 	//if is client, run on server
-	if (HasAuthority() && Item) {
+	if (!HasAuthority() && Item) {
 		ServerUseItem(Item);
 	}
 
@@ -436,8 +436,8 @@ void ABaseCharacter::UseItem(UItem* Item){
 	}
 	
 	if (Item) {
-		Item->OnUse(this);
-		Item->Use(this);
+		//Item->OnUse(this);
+		//Item->Use(this);
 	}
 }
 
