@@ -98,6 +98,7 @@ void AARTCharacterBase::PossessedBy(AController* NewController)
 
 void AARTCharacterBase::OnRep_CurrentWeapon(AWeapon* LastWeapon)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Repped"));
 	bChangedWeaponLocally = false;
 	SetCurrentWeapon(CurrentWeapon, LastWeapon);
 }
@@ -120,7 +121,9 @@ void AARTCharacterBase::SetCurrentWeapon(AWeapon* NewWeapon, AWeapon* LastWeapon
 		FGameplayTagContainer AbilityTagsToCancel = FGameplayTagContainer(WeaponAbilityTag);
 		AbilitySystemComponent->CancelAbilities(&AbilityTagsToCancel);
 	}
-	UnEquipWeapon(LastWeapon);
+	if (LastWeapon) {
+		UnEquipWeapon(LastWeapon);
+	}
 
 	if (NewWeapon) {
 		if (AbilitySystemComponent)
@@ -134,6 +137,8 @@ void AARTCharacterBase::SetCurrentWeapon(AWeapon* NewWeapon, AWeapon* LastWeapon
 		CurrentWeapon->SetOwningCharacter(this);
 		CurrentWeapon->EquipWeapon();
 		CurrentWeaponTag = CurrentWeapon->WeaponTag;
+
+		ClientSyncCurrentWeapon(CurrentWeapon);
 
 		if (AbilitySystemComponent)
 		{
@@ -150,6 +155,28 @@ void AARTCharacterBase::SetCurrentWeapon(AWeapon* NewWeapon, AWeapon* LastWeapon
 	else {
 		UnEquipCurrentWeapon();
 	}
+}
+
+void AARTCharacterBase::ServerSyncCurrentWeapon_Implementation()
+{
+	ClientSyncCurrentWeapon(CurrentWeapon);
+}
+
+bool AARTCharacterBase::ServerSyncCurrentWeapon_Validate()
+{
+	return true;
+}
+
+void AARTCharacterBase::ClientSyncCurrentWeapon_Implementation(AWeapon* InWeapon)
+{
+	AWeapon* LastWeapon = CurrentWeapon;
+	CurrentWeapon = InWeapon;
+	OnRep_CurrentWeapon(LastWeapon);
+}
+
+bool AARTCharacterBase::ClientSyncCurrentWeapon_Validate(AWeapon* InWeapon)
+{
+	return true;
 }
 
 void AARTCharacterBase::UnEquipWeapon(AWeapon* WeaponToUnEquip)
@@ -181,7 +208,7 @@ void AARTCharacterBase::SpawnDefaultInventory()
 	for (int32 i = 0; i < NumWeaponClasses; i++)
 	{
 		if (!DefaultInventoryWeaponClasses[i])
-		{
+		{ 
 			// An empty item was added to the Array in blueprint
 			continue;
 		}
@@ -197,6 +224,8 @@ void AARTCharacterBase::SpawnDefaultInventory()
 
 		NewWeapon->EquipWeapon();
 		NewWeapon->AddAbilities();
+
+		CurrentWeapon = NewWeapon;
 	}
 }
 
@@ -280,6 +309,11 @@ void AARTCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
 	SpawnDefaultInventory();
+
+	if (GetLocalRole() == ROLE_AutonomousProxy)
+	{
+		ServerSyncCurrentWeapon();
+	}
 }
 
 // Called to bind functionality to input

@@ -10,6 +10,7 @@ AGATA_LineTrace::AGATA_LineTrace()
 }
 
 void AGATA_LineTrace::Configure(
+	AActor* InReferenceActor,
 	const FGameplayAbilityTargetingLocationInfo& InStartLocation,
 	FGameplayTag InAimingTag,
 	FGameplayTag InAimingRemovalTag,
@@ -22,6 +23,7 @@ void AGATA_LineTrace::Configure(
 	bool bInUsePersistentHitResults,
 	bool bInDebug,
 	bool bInTraceAffectsAimPitch,
+	bool bInTraceWithPawnOrientation,
 	bool bInTraceFromPlayerViewPoint,
 	bool bInUseAimingSpreadMod,
 	float InMaxRange,
@@ -32,6 +34,7 @@ void AGATA_LineTrace::Configure(
 	int32 InMaxHitResultsPerTrace,
 	int32 InNumberOfTraces)
 {
+	ReferenceActor = InReferenceActor;
 	StartLocation = InStartLocation;
 	AimingTag = InAimingTag;
 	AimingRemovalTag = InAimingRemovalTag;
@@ -44,6 +47,7 @@ void AGATA_LineTrace::Configure(
 	bUsePersistentHitResults = bInUsePersistentHitResults;
 	bDebug = bInDebug;
 	bTraceAffectsAimPitch = bInTraceAffectsAimPitch;
+	bTraceWithPawnOrientation = bInTraceWithPawnOrientation;
 	bTraceFromPlayerViewPoint = bInTraceFromPlayerViewPoint;
 	bUseAimingSpreadMod = bInUseAimingSpreadMod;
 	MaxRange = InMaxRange;

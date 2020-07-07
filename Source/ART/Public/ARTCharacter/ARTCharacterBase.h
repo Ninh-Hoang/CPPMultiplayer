@@ -59,6 +59,20 @@ protected:
 
 	void SetCurrentWeapon(AWeapon* NewWeapon, AWeapon* LastWeapon);
 
+	// The CurrentWeapon is only automatically replicated to simulated clients.
+	// The autonomous client can use this to request the proper CurrentWeapon from the server when it knows it may be
+	// out of sync with it from predictive client-side changes.
+	UFUNCTION(Server, WithValidation, Reliable)
+	void ServerSyncCurrentWeapon();
+
+	// The CurrentWeapon is only automatically replicated to simulated clients.
+	// Use this function to manually sync the autonomous client's CurrentWeapon when we're ready to.
+	// This allows us to predict weapon changes (changing weapons fast multiple times in a row so that the server doesn't
+	// replicate and clobber our CurrentWeapon).
+	UFUNCTION(Client, WithValidation, Reliable)
+	void ClientSyncCurrentWeapon(AWeapon* InWeapon);
+
+
 	// Unequips the specified weapon. Used when OnRep_CurrentWeapon fires.
 	void UnEquipWeapon(AWeapon* WeaponToUnEquip);
 

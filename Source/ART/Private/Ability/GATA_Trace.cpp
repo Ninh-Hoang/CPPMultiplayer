@@ -236,8 +236,16 @@ void AGATA_Trace::AimWithPlayerController(const AActor* InSourceActor, FCollisio
 	const bool bUseTraceResult = HitResults.Num() > 0 && (FVector::DistSquared(TraceStart, HitResults[0].Location) <= (MaxRange * MaxRange));
 
 	const FVector AdjustedEnd = (bUseTraceResult) ? HitResults[0].Location : ViewEnd;
+	
+	FVector AdjustedAimDir;
 
-	FVector AdjustedAimDir = (AdjustedEnd - TraceStart).GetSafeNormal();
+	if (bTraceWithPawnOrientation && MasterPC) {
+		AdjustedAimDir = MasterPC->GetControlRotation().Vector();
+	}
+	else {
+		AdjustedAimDir = (AdjustedEnd - TraceStart).GetSafeNormal();
+	}
+
 	if (AdjustedAimDir.IsZero())
 	{
 		AdjustedAimDir = ViewDir;

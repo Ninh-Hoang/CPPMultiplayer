@@ -51,6 +51,9 @@ public:
 	FGameplayTag AimingRemovalTag;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (ExposeOnSpawn = true), Category = "Trace")
+	AActor* ReferenceActor;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (ExposeOnSpawn = true), Category = "Trace")
 	float MaxRange;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, config, meta = (ExposeOnSpawn = true), Category = "Trace")
@@ -74,6 +77,9 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (ExposeOnSpawn = true), Category = "Trace")
 	bool bTraceFromPlayerViewPoint;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (ExposeOnSpawn = true), Category = "Trace")
+	bool bTraceWithPawnOrientation;
 
 	// HitResults will persist until Confirmation/Cancellation or until a new HitResult takes its place
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (ExposeOnSpawn = true), Category = "Trace")

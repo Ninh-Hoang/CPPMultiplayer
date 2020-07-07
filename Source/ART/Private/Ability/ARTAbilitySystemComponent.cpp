@@ -129,6 +129,7 @@ bool UARTAbilitySystemComponent::BatchRPCTryActivateAbility(FGameplayAbilitySpec
 	if (InAbilityHandle.IsValid())
 	{
 		FScopedServerAbilityRPCBatcher GSAbilityRPCBatcher(this, InAbilityHandle);
+
 		AbilityActivated = TryActivateAbility(InAbilityHandle, true);
 
 		if (EndAbilityImmediately)
@@ -140,10 +141,8 @@ bool UARTAbilitySystemComponent::BatchRPCTryActivateAbility(FGameplayAbilitySpec
 				GSAbility->ExternalEndAbility();
 			}
 		}
-
 		return AbilityActivated;
 	}
-
 	return AbilityActivated;
 }
 

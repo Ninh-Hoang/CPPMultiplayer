@@ -155,6 +155,7 @@ bool UARTGameplayAbility::CanActivateAbility(const FGameplayAbilitySpecHandle Ha
 	{
 		//AARTHeroCharacter* Hero = Cast<AARTHeroCharacter>(ActorInfo->AvatarActor);
 		AARTCharacterBase* Hero = Cast<AARTCharacterBase>(ActorInfo->AvatarActor);
+
 		if (Hero && Hero->GetCurrentWeapon() && (UObject*)Hero->GetCurrentWeapon() == GetSourceObject(Handle, ActorInfo))
 		{
 			return Super::CanActivateAbility(Handle, ActorInfo, SourceTAART, TargetTAART, OptionalRelevantTAART);
