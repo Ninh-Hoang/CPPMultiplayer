@@ -59,13 +59,6 @@ protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASDocumentation|Abilities")
 	TSubclassOf<class UGameplayEffect> DefaultAttributes;
 
-	// Switch on AbilityID to return individual ability levels. Hardcoded to 1 for every ability in this project.
-	UFUNCTION(BlueprintCallable, Category = "GASDocumentation|GDCharacter")
-	virtual int32 GetAbilityLevel(EARTAbilityInputID AbilityID) const;
-
-	UFUNCTION(BlueprintCallable, Category = "GASDocumentation|GDCharacter")
-	virtual int32 GetCharacterLevel() const;
-
 	// Grant abilities on the Server. The Ability Specs will be replicated to the owning client.
 	virtual void AddCharacterAbilities();
 
@@ -103,6 +96,12 @@ protected:
 	virtual void Restart() override;
 
 public:	
+	// Switch on AbilityID to return individual ability levels. Hardcoded to 1 for every ability in this project.
+	UFUNCTION(BlueprintCallable, Category = "GASDocumentation|GDCharacter")
+	virtual int32 GetAbilityLevel(EARTAbilityInputID AbilityID) const;
+
+	UFUNCTION(BlueprintCallable, Category = "GASDocumentation|GDCharacter")
+	virtual int32 GetCharacterLevel() const;
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
 	float GetShield() const;
 

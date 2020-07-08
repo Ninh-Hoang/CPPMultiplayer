@@ -76,6 +76,13 @@ public:
     UPROPERTY(BlueprintAssignable)
     FOnItemModified OnItemModified;
 
+	//Gameplay Ability System
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ARTPickup")
+	TArray<TSubclassOf<class UARTGameplayAbility>> AbilityClasses;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ARTPickup")
+	TArray<TSubclassOf<class UGameplayEffect>> EffectClasses;
+
 protected:
     virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
     virtual bool IsSupportedForNetworking() const override;

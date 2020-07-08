@@ -32,6 +32,22 @@ public:
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	
+	//AttackPower
+	UPROPERTY(BlueprintReadOnly, Category = "AttackPower", ReplicatedUsing = OnRep_AttackPower)
+	FGameplayAttributeData AttackPower;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, AttackPower)
+
+	UFUNCTION()
+	void OnRep_AttackPower() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, AttackPower); }
+
+	//Armor
+	UPROPERTY(BlueprintReadOnly, Category = "Armor", ReplicatedUsing = OnRep_Armor)
+	FGameplayAttributeData Armor;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, Armor)
+
+	UFUNCTION()
+	void OnRep_Armor() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, Armor); }
 
 	//shield
 	UPROPERTY(BlueprintReadOnly, Category = "Shield", ReplicatedUsing = OnRep_Shield)
@@ -111,14 +127,20 @@ public:
 	FGameplayAttributeData MoveSpeed;
 	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, MoveSpeed)
 
+	UFUNCTION()
+	void OnRep_MoveSpeed() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, MoveSpeed); }
+
 	// Damage is a meta attribute used by the DamageExecution to calculate final damage, which then turns into -Health
 	// Temporary value that only exists on the Server. Not replicated.
 	UPROPERTY(BlueprintReadOnly, Category = "Damage", meta = (HideFromLevelInfos))
 	FGameplayAttributeData Damage;
 	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, Damage)
 
-	UFUNCTION()
-	void OnRep_MoveSpeed() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, MoveSpeed); }
+	// Healing is a meta attribute used by the HealingExecution to calculate final healing, which then turns into +Health
+	// Temporary value that only exists on the Server. Not replicated.
+	UPROPERTY(BlueprintReadOnly, Category = "Healing", meta = (HideFromLevelInfos))
+	FGameplayAttributeData Healing;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, Healing)
 
 protected:
 	void AdjustAttributeForMaxChange(FGameplayAttributeData& AffectedAttribute, const FGameplayAttributeData& MaxAttribute, float NewMaxValue, const FGameplayAttribute& AffectedAttributeProperty);

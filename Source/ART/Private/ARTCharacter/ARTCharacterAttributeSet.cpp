@@ -94,6 +94,7 @@ void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
 		}
 	}
 
+	//damage
 	if (Data.EvaluatedData.Attribute == GetDamageAttribute()) {
 		// Store a local copy of the amount of damage done and clear the damage attribute
 		const float LocalDamageDone = GetDamage();
@@ -151,7 +152,48 @@ void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
 				}
 			}
 		}
-	}//damage
+	}
+
+	//healing
+	if (Data.EvaluatedData.Attribute == GetHealingAttribute()) 
+	{
+		//store a local copy of amount of healing done, clear the healing attribute
+		const float LocalHealingDone = GetHealing();
+		SetHealing(0.0f);
+
+		if (LocalHealingDone > 0.0f) {
+			bool WasAlive = true;
+
+			if (TargetCharacter) {
+				WasAlive = TargetCharacter->IsAlive();
+			}
+
+			if (!TargetCharacter->IsAlive())
+			{
+				//UE_LOG(LogTemp, Warning, TEXT("%s() %s is NOT alive when receiving healing"), *FString(__FUNCTION__), *TargetCharacter->GetName());
+			}
+
+			//Apply health change and then clamp it
+			const float NewHealth = GetHealth() + LocalHealingDone;
+			SetHealth(FMath::Clamp(NewHealth, 0.0f, GetMaxHealth()));
+
+			if (TargetCharacter && WasAlive) {
+				// This is the log statement for healing received. Turned off for live games.
+				//UE_LOG(LogTemp, Log, TEXT("%s() %s Healing Received: %f"), *FString(__FUNCTION__), *GetOwningActor()->GetName(), LocalHealingDone);
+
+				// Show healing number for the Source player unless it was self damage
+				if (SourceActor != TargetActor) {
+					ABasePlayerController* PC = Cast<ABasePlayerController>(SourceController);
+					if (PC) {
+						FGameplayTagContainer HealingNumberTags;
+
+						//PC->ShowDamageNumber(LocalDamageDone, TargetCharacter, DamageNumberTags)
+					}
+				}
+			}
+		}
+	}
+
 
 	// shield
 	else if (Data.EvaluatedData.Attribute == GetShieldAttribute())
@@ -186,6 +228,8 @@ void UARTCharacterAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimePrope
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
+	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, AttackPower, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, Armor, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, Shield, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, MaxShield, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, ShieldRegen, COND_None, REPNOTIFY_Always);
