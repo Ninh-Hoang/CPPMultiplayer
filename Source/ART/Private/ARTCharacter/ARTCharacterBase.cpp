@@ -231,6 +231,26 @@ void AARTCharacterBase::EndCrouch()
 	UnCrouch();
 }
 
+float AARTCharacterBase::GetAttackPower() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetAttackPower();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetArmor() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetArmor();
+	}
+
+	return 0.0f;
+}
+
 float AARTCharacterBase::GetShield() const
 {
 	if (AttributeSetBase)
@@ -326,6 +346,16 @@ float AARTCharacterBase::GetMoveSpeed() const
 	if (AttributeSetBase)
 	{
 		return AttributeSetBase->GetMoveSpeed();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetRotateRate() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetRotateRate();
 	}
 
 	return 0.0f;

@@ -56,6 +56,7 @@ class ART_API UARTCharacterMovementComponent : public UCharacterMovementComponen
 public:
 	UARTCharacterMovementComponent();
 
+	//movespeed stuffs
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sprint")
 	float SprintSpeedMultiplier;
 
@@ -71,13 +72,17 @@ public:
 
 	// Sprint
 	UFUNCTION(BlueprintCallable, Category = "Sprint")
-		void StartSprinting();
+	void StartSprinting();
 	UFUNCTION(BlueprintCallable, Category = "Sprint")
-		void StopSprinting();
+	void StopSprinting();
+
+	//rotate stuffs
+	virtual FRotator GetDeltaRotation(float DeltaTime) const override;
+	float GetAxisDeltaRotation(float InAxisRotationRate, float DeltaTime) const;
 
 	// Aim Down Sights
 	UFUNCTION(BlueprintCallable, Category = "Aim Down Sights")
-		void StartAimDownSights();
+	void StartAimDownSights();
 	UFUNCTION(BlueprintCallable, Category = "Aim Down Sights")
-		void StopAimDownSights();
+	void StopAimDownSights();
 };
