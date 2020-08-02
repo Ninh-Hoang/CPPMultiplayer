@@ -43,8 +43,8 @@ void UAT_WaitTargetDataUsingActor::OnTargetDataReplicatedCallback(const FGamepla
 	check(AbilitySystemComponent);
 
 	FGameplayAbilityTargetDataHandle MutableData = Data;
-	AbilitySystemComponent->ConsumeClientReplicatedTargetData(GetAbilitySpecHandle(), GetActivationPredictionKey());
 
+	AbilitySystemComponent->ConsumeClientReplicatedTargetData(GetAbilitySpecHandle(), GetActivationPredictionKey());
 	/**
 	 *  Call into the TargetActor to sanitize/verify the data. If this returns false, we are rejecting
 	 *	the replicated target data and will treat this as a cancel.
@@ -133,6 +133,7 @@ void UAT_WaitTargetDataUsingActor::OnTargetDataCancelledCallback(const FGameplay
 		if (!TargetActor->ShouldProduceTargetDataOnServer)
 		{
 			AbilitySystemComponent->ServerSetReplicatedTargetDataCancelled(GetAbilitySpecHandle(), GetActivationPredictionKey(), AbilitySystemComponent->ScopedPredictionKey);
+
 		}
 		else
 		{
@@ -226,12 +227,14 @@ void UAT_WaitTargetDataUsingActor::RegisterTargetDataCallbacks()
 			FPredictionKey ActivationPredictionKey = GetActivationPredictionKey();
 
 			//Since multifire is supported, we still need to hook up the callbacks
+
 			AbilitySystemComponent->AbilityTargetDataSetDelegate(SpecHandle, ActivationPredictionKey).AddUObject(this, &UAT_WaitTargetDataUsingActor::OnTargetDataReplicatedCallback);
 			AbilitySystemComponent->AbilityTargetDataCancelledDelegate(SpecHandle, ActivationPredictionKey).AddUObject(this, &UAT_WaitTargetDataUsingActor::OnTargetDataReplicatedCancelledCallback);
 
 			AbilitySystemComponent->CallReplicatedTargetDataDelegatesIfSet(SpecHandle, ActivationPredictionKey);
 
 			SetWaitingOnRemotePlayerData();
+
 		}
 	}
 }

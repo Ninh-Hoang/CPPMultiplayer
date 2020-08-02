@@ -39,7 +39,7 @@ public:
 	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, AttackPower)
 
 	UFUNCTION()
-	void OnRep_AttackPower() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, AttackPower); }
+	void OnRep_AttackPower(const FGameplayAttributeData& OldAttackPower) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, AttackPower, OldAttackPower); }
 
 	//Armor
 	UPROPERTY(BlueprintReadOnly, Category = "Armor", ReplicatedUsing = OnRep_Armor)
@@ -47,7 +47,7 @@ public:
 	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, Armor)
 
 	UFUNCTION()
-	void OnRep_Armor() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, Armor); }
+	void OnRep_Armor(const FGameplayAttributeData& OldArmor) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, Armor, OldArmor); }
 
 	//shield
 	UPROPERTY(BlueprintReadOnly, Category = "Shield", ReplicatedUsing = OnRep_Shield)
@@ -55,7 +55,7 @@ public:
 	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, Shield)
 
 	UFUNCTION()
-	void OnRep_Shield() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, Shield); }
+	void OnRep_Shield(const FGameplayAttributeData& OldShield) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, Shield, OldShield); }
 
 	//max shield
 	UPROPERTY(BlueprintReadOnly, Category = "Shield", ReplicatedUsing = OnRep_MaxShield)
@@ -63,7 +63,7 @@ public:
 	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, MaxShield)
 
 	UFUNCTION()
-	void OnRep_MaxShield() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, MaxShield); }
+	void OnRep_MaxShield(const FGameplayAttributeData& OldMaxShield) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, MaxShield, OldMaxShield); }
 
 	//shieldregen
 	UPROPERTY(BlueprintReadOnly, Category = "Shield", ReplicatedUsing = OnRep_ShieldRegen)
@@ -71,7 +71,7 @@ public:
 	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, ShieldRegen)
 
 	UFUNCTION()
-	void OnRep_ShieldRegen() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, ShieldRegen); }
+	void OnRep_ShieldRegen(const FGameplayAttributeData& OldShieldRegen) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, ShieldRegen, OldShieldRegen); }
 
 	//Health
 	UPROPERTY(BlueprintReadOnly, Category = "Health", ReplicatedUsing = OnRep_Health)
@@ -79,7 +79,7 @@ public:
 	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, Health)
 
 	UFUNCTION()
-	void OnRep_Health() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, Health); }
+	void OnRep_Health(const FGameplayAttributeData& OldHealth) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, Health, OldHealth); }
 
 	// MaxHealth is its own attribute since GameplayEffects may modify it
 	UPROPERTY(BlueprintReadOnly, Category = "Health", ReplicatedUsing = OnRep_MaxHealth)
@@ -87,7 +87,7 @@ public:
 	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, MaxHealth)
 
 	UFUNCTION()
-	void OnRep_MaxHealth() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, MaxHealth); }
+	void OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, MaxHealth, OldMaxHealth); }
 
 	// MaxHealth is its own attribute since GameplayEffects may modify it
 	UPROPERTY(BlueprintReadOnly, Category = "Health", ReplicatedUsing = OnRep_HealthRegen)
@@ -95,7 +95,7 @@ public:
 	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, HealthRegen)
 
 	UFUNCTION()
-	void OnRep_HealthRegen() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, HealthRegen); }
+	void OnRep_HealthRegen(const FGameplayAttributeData& OldHealthRegen) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, HealthRegen, OldHealthRegen); }
 
 
 	//Stamina
@@ -104,15 +104,15 @@ public:
 	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, Stamina)
 
 	UFUNCTION()
-	void OnRep_Stamina() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, Stamina); }
+	void OnRep_Stamina(const FGameplayAttributeData& OldStamina) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, Stamina, OldStamina); }
 
-	// MaxHealth is its own attribute since GameplayEffects may modify it
+	// MaxStamina is its own attribute since GameplayEffects may modify it
 	UPROPERTY(BlueprintReadOnly, Category = "Health", ReplicatedUsing = OnRep_MaxStamina)
 	FGameplayAttributeData MaxStamina;
 	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, MaxStamina)
 
 	UFUNCTION()
-	void OnRep_MaxStamina() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, MaxStamina); }
+	void OnRep_MaxStamina(const FGameplayAttributeData& OldMaxStamina) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, MaxStamina, OldMaxStamina); }
 
 	//Stamina
 	UPROPERTY(BlueprintReadOnly, Category = "Stamina", ReplicatedUsing = OnRep_StaminaRegen)
@@ -120,7 +120,7 @@ public:
 	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, StaminaRegen)
 
 	UFUNCTION()
-	void OnRep_StaminaRegen() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, StaminaRegen); }
+	void OnRep_StaminaRegen(const FGameplayAttributeData& OldStaminaRegen) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, StaminaRegen, OldStaminaRegen); }
 
 	//MoveSpeed
 	UPROPERTY(BlueprintReadOnly, Category = "MoveSpeed", ReplicatedUsing = OnRep_MoveSpeed)
@@ -128,7 +128,7 @@ public:
 	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, MoveSpeed)
 
 	UFUNCTION()
-	void OnRep_MoveSpeed() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, MoveSpeed); }
+	void OnRep_MoveSpeed(const FGameplayAttributeData& OldMoveSpeed) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, MoveSpeed, OldMoveSpeed); }
 
 	//RotateRate
 	UPROPERTY(BlueprintReadOnly, Category = "RotateRate", ReplicatedUsing = OnRep_RotateRate)
@@ -136,7 +136,7 @@ public:
 	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, RotateRate)
 
 	UFUNCTION()
-	void OnRep_RotateRate() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, RotateRate); }
+	void OnRep_RotateRate(const FGameplayAttributeData& OldRotateRate) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, RotateRate, OldRotateRate); }
 
 	// Damage is a meta attribute used by the DamageExecution to calculate final damage, which then turns into -Health
 	// Temporary value that only exists on the Server. Not replicated.

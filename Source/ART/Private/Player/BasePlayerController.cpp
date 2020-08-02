@@ -5,7 +5,6 @@
 
 ABasePlayerController::ABasePlayerController(){
 	bReplicates = true;
-	bReplicateMovement = true;
 }
 
 void ABasePlayerController::ClientShowNotification_Implementation(const FText& Message){

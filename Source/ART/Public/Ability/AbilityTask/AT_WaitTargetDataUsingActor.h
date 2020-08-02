@@ -16,11 +16,11 @@ class ART_API UAT_WaitTargetDataUsingActor : public UAbilityTask
 {
 	GENERATED_UCLASS_BODY()
 
-		UPROPERTY(BlueprintAssignable)
-		FWaitTargetDataUsingActorDelegate ValidData;
+	UPROPERTY(BlueprintAssignable)
+	FWaitTargetDataUsingActorDelegate ValidData;
 
 	UPROPERTY(BlueprintAssignable)
-		FWaitTargetDataUsingActorDelegate Cancelled;
+	FWaitTargetDataUsingActorDelegate Cancelled;
 
 	/**
 	* Uses specified spawned TargetActor and waits for it to return valid data or to be canceled. The TargetActor is *NOT* destroyed.
@@ -60,7 +60,7 @@ class ART_API UAT_WaitTargetDataUsingActor : public UAbilityTask
 
 protected:
 	UPROPERTY()
-		AGameplayAbilityTargetActor* TargetActor;
+	AGameplayAbilityTargetActor* TargetActor;
 
 	bool bCreateKeyIfNotValidForMorePredicting;
 

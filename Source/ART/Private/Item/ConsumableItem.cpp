@@ -29,8 +29,8 @@ void UConsumableItem::Use(AARTSurvivor* Character){
 		{
 			continue;
 		}
-
-		ASC->GiveAbilityAndActivateOnce(FGameplayAbilitySpec(AbilityClass, 1, static_cast<int32>(AbilityClass.GetDefaultObject()->AbilityInputID), this));
+		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1, static_cast<int32>(AbilityClass.GetDefaultObject()->AbilityInputID), this);
+		ASC->GiveAbilityAndActivateOnce(AbilitySpec);
 	}
 
 	FGameplayEffectContextHandle EffectContext = ASC->MakeEffectContext();

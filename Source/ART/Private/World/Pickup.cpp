@@ -31,7 +31,7 @@ APickup::APickup(){
 }
 
 void APickup::InitializePickup(const TSubclassOf<UItem> ItemClass, const int32 Quantity){
-	if (Role == ROLE_Authority && ItemClass && Quantity > 0) {
+	if (HasAuthority() && ItemClass && Quantity > 0) {
 		Item = NewObject<UItem>(this, ItemClass);
 		Item->SetQuantity(Quantity);
 		OnRep_Item();

@@ -133,7 +133,7 @@ void UInventoryComponent::ClientRefreshInventory_Implementation(){
 }
 
 UItem* UInventoryComponent::AddItem(UItem* Item){
-	if (GetOwner()->Role == ROLE_Authority) {
+	if (GetOwner()->HasAuthority()) {
 		UItem* NewItem = NewObject<UItem>(GetOwner(), Item->GetClass());
 		NewItem->SetQuantity(Item->GetQuantity());
 		NewItem->OwningInventory = this;

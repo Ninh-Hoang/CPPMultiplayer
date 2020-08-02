@@ -61,7 +61,7 @@ void AWeaponActor::Initialize(UMeshComponent* MeshComponentToSet){
 void AWeaponActor::Fire()
 {	
 	//use ServerFire() for clients
-	if (Role < ROLE_Authority) {
+	if (!HasAuthority()) {
 		ServerFire();
 	}
 
@@ -112,7 +112,7 @@ void AWeaponActor::Fire()
 
 		PlayFireEffect(TraceEndPoint);
 
-		if (Role == ROLE_Authority) {
+		if (HasAuthority()) {
 			HitScanTrace.TraceTo = TraceEndPoint;
 			HitScanTrace.SurfaceType = SurfaceType;
 			HitScanTrace.StructIncreasement++;
