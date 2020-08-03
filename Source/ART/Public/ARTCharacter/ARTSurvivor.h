@@ -78,6 +78,8 @@ protected:
 	void ClientSyncCurrentWeapon(AWeapon* InWeapon);
 
 	//equip new weapon
+	bool bChangedWeaponLocally;
+
 	UFUNCTION(BlueprintCallable, Category = "GASShooter|Inventory")
 	void EquipWeapon(AWeapon* NewWeapon);
 
@@ -93,6 +95,9 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "Equipment")
 	AWeapon* AddWeaponToEquipment(TSubclassOf<AWeapon> WeaponClass);
 
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerAddWeaponToEquipment(TSubclassOf<AWeapon> WeaponClass);
+	
 	bool DoesWeaponExistInInventory(AWeapon* InWeapon);
 
 	//ITEM USING / INVENTORY

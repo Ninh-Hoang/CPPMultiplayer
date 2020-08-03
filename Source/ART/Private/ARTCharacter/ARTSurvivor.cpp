@@ -62,6 +62,7 @@ void AARTSurvivor::SetCurrentWeapon(AWeapon* NewWeapon, AWeapon* LastWeapon)
 		FGameplayTagContainer AbilityTagsToCancel = FGameplayTagContainer(WeaponAbilityTag);
 		AbilitySystemComponent->CancelAbilities(&AbilityTagsToCancel);
 	}
+
 	if (LastWeapon) {
 		UnEquipWeapon(LastWeapon);
 	}
@@ -94,7 +95,10 @@ void AARTSurvivor::SetCurrentWeapon(AWeapon* NewWeapon, AWeapon* LastWeapon)
 		}
 	}
 	else {
-		UnEquipCurrentWeapon();
+		if (CurrentWeapon)
+		{
+			UnEquipCurrentWeapon();
+		}
 	}
 }
 
@@ -130,6 +134,7 @@ void AARTSurvivor::EquipWeapon(AWeapon* NewWeapon)
 	else
 	{
 		SetCurrentWeapon(NewWeapon, CurrentWeapon);
+		bChangedWeaponLocally = true;
 	}
 }
 
@@ -165,7 +170,7 @@ AWeapon* AARTSurvivor::AddWeaponToEquipment(TSubclassOf<AWeapon> WeaponClass)
 {
 	if (GetLocalRole() < ROLE_Authority)
 	{
-		return nullptr;
+		ServerAddWeaponToEquipment(WeaponClass);
 	}
 
 	if (WeaponClass)
@@ -181,12 +186,28 @@ AWeapon* AARTSurvivor::AddWeaponToEquipment(TSubclassOf<AWeapon> WeaponClass)
 
 		Equipment.Weapons.Add(NewWeapon);
 		NewWeapon->SetOwningCharacter(this);
+
+		if (GetLocalRole() < ROLE_Authority)
+		{
+			return NewWeapon;
+		}
+
 		NewWeapon->AddAbilities();
 
 		return NewWeapon;
 	}
 
 	return nullptr;
+}
+
+void AARTSurvivor::ServerAddWeaponToEquipment_Implementation(TSubclassOf<AWeapon> WeaponClass)
+{
+
+}
+
+bool AARTSurvivor::ServerAddWeaponToEquipment_Validate(TSubclassOf<AWeapon> WeaponClass)
+{
+	return true;
 }
 
 bool AARTSurvivor::DoesWeaponExistInInventory(AWeapon* InWeapon)
