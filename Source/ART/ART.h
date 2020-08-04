@@ -1,4 +1,4 @@
-// Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
+	// Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -53,5 +53,5 @@ enum class EARTAbilityInputID : uint8
 	// 11 Sprint
 	Sprint			UMETA(DisplayName = "Sprint"),
 	// 12 Jump
-	Jump			UMETA(DisplayName = "Jump")
+	Roll			UMETA(DisplayName = "Roll")
 };
