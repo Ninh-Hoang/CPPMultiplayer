@@ -123,20 +123,12 @@ public:
 	void OnRep_StaminaRegen() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, StaminaRegen); }
 
 	//MoveSpeed
-	UPROPERTY(BlueprintReadOnly, Category = "MoveSpeed", ReplicatedUsing = OnRep_MoveSpeed)
+	UPROPERTY(BlueprintReadOnly, Category = "MoveSpeed", ReplicatedUsing = OnRep_Stamina)
 	FGameplayAttributeData MoveSpeed;
 	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, MoveSpeed)
 
 	UFUNCTION()
 	void OnRep_MoveSpeed() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, MoveSpeed); }
-
-	//RotateRate
-	UPROPERTY(BlueprintReadOnly, Category = "RotateRate", ReplicatedUsing = OnRep_RotateRate)
-	FGameplayAttributeData RotateRate;
-	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, RotateRate)
-
-	UFUNCTION()
-	void OnRep_RotateRate() { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, RotateRate); }
 
 	// Damage is a meta attribute used by the DamageExecution to calculate final damage, which then turns into -Health
 	// Temporary value that only exists on the Server. Not replicated.
@@ -152,5 +144,5 @@ public:
 
 protected:
 	void AdjustAttributeForMaxChange(FGameplayAttributeData& AffectedAttribute, const FGameplayAttributeData& MaxAttribute, float NewMaxValue, const FGameplayAttribute& AffectedAttributeProperty);
-		
+	
 };

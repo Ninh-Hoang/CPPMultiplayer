@@ -102,13 +102,6 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "GASDocumentation|GDCharacter")
 	virtual int32 GetCharacterLevel() const;
-
-	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
-	float GetAttackPower() const;
-
-	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
-	float GetArmor() const;
-
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
 	float GetShield() const;
 
@@ -139,10 +132,6 @@ public:
 	// Gets the Current value of MoveSpeed
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
 	float GetMoveSpeed() const;
-
-	// Gets the Current value of MoveSpeed
-	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
-	float GetRotateRate() const;
 
 	bool IsAlive() const;
 

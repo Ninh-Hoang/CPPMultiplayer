@@ -82,30 +82,6 @@ void UARTCharacterMovementComponent::StopSprinting()
 	RequestToStartSprinting = false;
 }
 
-//rotate stuffs
-FRotator UARTCharacterMovementComponent::GetDeltaRotation(float DeltaTime) const
-{
-	float YawRotateRate = 0.0f;
-
-	AARTCharacterBase* Owner = Cast<AARTCharacterBase>(GetOwner());
-	if (Owner) {
-		YawRotateRate = Owner->GetRotateRate();
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("%s() No Owner"), *FString(__FUNCTION__));
-		YawRotateRate = RotationRate.Yaw;
-	}
-
-	return FRotator(GetAxisDeltaRotation(RotationRate.Pitch, DeltaTime), GetAxisDeltaRotation(YawRotateRate, DeltaTime), GetAxisDeltaRotation(RotationRate.Roll, DeltaTime));
-}
-
-float UARTCharacterMovementComponent::GetAxisDeltaRotation(float InAxisRotationRate, float DeltaTime) const
-{
-	return (InAxisRotationRate >= 0.f) ? (InAxisRotationRate * DeltaTime) : 360.f;
-}
-
-//aim stuffs
 void UARTCharacterMovementComponent::StartAimDownSights()
 {
 	RequestToStartADS = true;

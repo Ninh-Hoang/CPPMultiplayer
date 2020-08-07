@@ -43,11 +43,6 @@ void UARTCharacterAttributeSet::PreAttributeChange(const FGameplayAttribute& Att
 		// Cannot slow less than 150 units/s and cannot boost more than 1000 units/s
 		NewValue = FMath::Clamp<float>(NewValue, 100, 1000);
 	}
-	else if (Attribute == GetRotateRateAttribute())
-	{
-		// Cannot slow less than 150 units/s and cannot boost more than 1000 units/s
-		NewValue = FMath::Clamp<float>(NewValue, 0, 1000);
-	}
 }
 
 void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
@@ -245,7 +240,7 @@ void UARTCharacterAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimePrope
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, MaxStamina, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, StaminaRegen, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, MoveSpeed, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, RotateRate, COND_None, REPNOTIFY_Always);
+
 }
 
 void UARTCharacterAttributeSet::AdjustAttributeForMaxChange(FGameplayAttributeData& AffectedAttribute, const FGameplayAttributeData& MaxAttribute, float NewMaxValue, const FGameplayAttribute& AffectedAttributeProperty)
