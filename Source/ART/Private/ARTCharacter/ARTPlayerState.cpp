@@ -4,6 +4,8 @@
 #include "ARTCharacter/ARTPlayerState.h"
 #include "Ability/ARTAbilitySystemComponent.h"
 #include "ARTCharacter/ARTCharacterAttributeSet.h"
+#include <ARTCharacter/ARTSurvivor.h>
+#include <Ability/ARTAbilitySystemGlobals.h>
 
 AARTPlayerState::AARTPlayerState()
 {
@@ -23,7 +25,8 @@ AARTPlayerState::AARTPlayerState()
 	NetUpdateFrequency = 100.0f;
 
 	// Cache tags
-	DeadTag = FGameplayTag::RequestGameplayTag(FName("State.Dead"));
+	DeadTag = UARTAbilitySystemGlobals::ARTGet().DeadTag;
+	KnockedDownTag = UARTAbilitySystemGlobals::ARTGet().KnockedDownTag;
 }
 
 class UAbilitySystemComponent* AARTPlayerState::GetAbilitySystemComponent() const
@@ -36,10 +39,54 @@ class UARTCharacterAttributeSet* AARTPlayerState::GetAttributeSetBase() const
 	return AttributeSetBase;
 }
 
+bool AARTPlayerState::IsAlive() const
+{
+	return GetHealth() > 0.0f;
+}
+
+int32 AARTPlayerState::GetCharacterLevel() const
+{
+	return 1;
+}
+
+float AARTPlayerState::GetAttackPower() const
+{
+	return AttributeSetBase->GetAttackPower();
+}
+
+float AARTPlayerState::GetArmor() const
+{
+	return AttributeSetBase->GetArmor();
+}
+
+float AARTPlayerState::GetShield() const
+{
+	return AttributeSetBase->GetShield();
+}
+
+float AARTPlayerState::GetMaxShield() const
+{
+	return AttributeSetBase->GetMaxShield();
+}
+
+float AARTPlayerState::GetShieldRegen() const
+{
+	return AttributeSetBase->GetShieldRegen();
+}
+
 float AARTPlayerState::GetHealth() const
 {
 	return AttributeSetBase->GetHealth();
+}
 
+float AARTPlayerState::GetMaxHealth() const
+{
+	return AttributeSetBase->GetMaxHealth();
+}
+
+float AARTPlayerState::GetHealthRegen() const
+{
+	return AttributeSetBase->GetHealthRegen();
 }
 
 float AARTPlayerState::GetStamina() const
@@ -47,7 +94,48 @@ float AARTPlayerState::GetStamina() const
 	return AttributeSetBase->GetStamina();
 }
 
+float AARTPlayerState::GetMaxStamina() const
+{
+	return AttributeSetBase->GetMaxStamina();
+}
+
+float AARTPlayerState::GetStaminaRegen() const
+{
+	return AttributeSetBase->GetStaminaRegen();
+}
+
 float AARTPlayerState::GetMoveSpeed() const
 {
 	return AttributeSetBase->GetMoveSpeed();
 }
+
+float AARTPlayerState::GetRotateRate() const
+{
+	return AttributeSetBase->GetRotateRate();
+}
+
+void AARTPlayerState::BeginPlay()
+{
+	Super::BeginPlay();
+
+	if (AbilitySystemComponent)
+	{
+		// Attribute change callbacks
+		HealthChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSetBase->GetHealthAttribute()).AddUObject(this, &AARTPlayerState::HealthChanged);
+	}
+}
+
+void AARTPlayerState::HealthChanged(const FOnAttributeChangeData& Data)
+{
+	if (!Survivor) {
+		Survivor = Cast<AARTSurvivor>(GetPawn());
+	}
+
+	// Check for and handle knockdown and death
+	if (IsValid(Survivor) && !IsAlive() && !AbilitySystemComponent->HasMatchingGameplayTag(DeadTag))
+	{
+		//Survivor->Die();
+	}
+}
+
+	

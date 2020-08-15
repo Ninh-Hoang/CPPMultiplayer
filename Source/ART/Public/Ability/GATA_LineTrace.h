@@ -59,31 +59,31 @@ public:
 	* hardcoded to 1. You will need to add support for this in your project if you need it.
 	*/
 	UFUNCTION(BlueprintCallable)
-		void Configure(
-			UPARAM(DisplayName = "Owning Actor") AActor* InReferenceActor,
-			UPARAM(DisplayName = "Start Location") const FGameplayAbilityTargetingLocationInfo& InStartLocation,
-			UPARAM(DisplayName = "Aiming Tag") FGameplayTag InAimingTag,
-			UPARAM(DisplayName = "Aiming Removal Tag") FGameplayTag InAimingRemovalTag,
-			UPARAM(DisplayName = "Trace Profile") FCollisionProfileName InTraceProfile,
-			UPARAM(DisplayName = "Filter") FGameplayTargetDataFilterHandle InFilter,
-			UPARAM(DisplayName = "Reticle Class") TSubclassOf<AGameplayAbilityWorldReticle> InReticleClass,
-			UPARAM(DisplayName = "Reticle Params") FWorldReticleParameters InReticleParams,
-			UPARAM(DisplayName = "Ignore Blocking Hits") bool bInIgnoreBlockingHits = false,
-			UPARAM(DisplayName = "Should Produce Target Data on Server") bool bInShouldProduceTargetDataOnServer = false,
-			UPARAM(DisplayName = "Use Persistent Hit Results") bool bInUsePersistentHitResults = false,
-			UPARAM(DisplayName = "Debug") bool bInDebug = false,
-			UPARAM(DisplayName = "Trace Affects Aim Pitch") bool bInTraceAffectsAimPitch = true,
-			UPARAM(DisplayName = "Trace with Pawn Orientation") bool bInTraceWithPawnOrientation = false,
-			UPARAM(DisplayName = "Trace From Player ViewPoint") bool bInTraceFromPlayerViewPoint = false,
-			UPARAM(DisplayName = "Use Aiming Spread Mod") bool bInUseAimingSpreadMod = false,
-			UPARAM(DisplayName = "Max Range") float InMaxRange = 999999.0f,
-			UPARAM(DisplayName = "Base Targeting Spread") float InBaseSpread = 0.0f,
-			UPARAM(DisplayName = "Aiming Spread Mod") float InAimingSpreadMod = 0.0f,
-			UPARAM(DisplayName = "Targeting Spread Increment") float InTargetingSpreadIncrement = 0.0f,
-			UPARAM(DisplayName = "Targeting Spread Max") float InTargetingSpreadMax = 0.0f,
-			UPARAM(DisplayName = "Max Hit Results Per Trace") int32 InMaxHitResultsPerTrace = 1,
-			UPARAM(DisplayName = "Number of Traces") int32 InNumberOfTraces = 1
-		);
+	void Configure(
+		UPARAM(DisplayName = "Owning Actor") AActor* InReferenceActor,
+		UPARAM(DisplayName = "Start Location") const FGameplayAbilityTargetingLocationInfo& InStartLocation,
+		UPARAM(DisplayName = "Aiming Tag") FGameplayTag InAimingTag,
+		UPARAM(DisplayName = "Aiming Removal Tag") FGameplayTag InAimingRemovalTag,
+		UPARAM(DisplayName = "Trace Profile") FCollisionProfileName InTraceProfile,
+		UPARAM(DisplayName = "Filter") FGameplayTargetDataFilterHandle InFilter,
+		UPARAM(DisplayName = "Reticle Class") TSubclassOf<AGameplayAbilityWorldReticle> InReticleClass,
+		UPARAM(DisplayName = "Reticle Params") FWorldReticleParameters InReticleParams,
+		UPARAM(DisplayName = "Ignore Blocking Hits") bool bInIgnoreBlockingHits = false,
+		UPARAM(DisplayName = "Should Produce Target Data on Server") bool bInShouldProduceTargetDataOnServer = false,
+		UPARAM(DisplayName = "Use Persistent Hit Results") bool bInUsePersistentHitResults = false,
+		UPARAM(DisplayName = "Debug") bool bInDebug = false,
+		UPARAM(DisplayName = "Trace Affects Aim Pitch") bool bInTraceAffectsAimPitch = true,
+		UPARAM(DisplayName = "Trace with Pawn Orientation") bool bInTraceWithPawnOrientation = false,
+		UPARAM(DisplayName = "Trace From Player ViewPoint") bool bInTraceFromPlayerViewPoint = false,
+		UPARAM(DisplayName = "Use Aiming Spread Mod") bool bInUseAimingSpreadMod = false,
+		UPARAM(DisplayName = "Max Range") float InMaxRange = 999999.0f,
+		UPARAM(DisplayName = "Base Targeting Spread") float InBaseSpread = 0.0f,
+		UPARAM(DisplayName = "Aiming Spread Mod") float InAimingSpreadMod = 0.0f,
+		UPARAM(DisplayName = "Targeting Spread Increment") float InTargetingSpreadIncrement = 0.0f,
+		UPARAM(DisplayName = "Targeting Spread Max") float InTargetingSpreadMax = 0.0f,
+		UPARAM(DisplayName = "Max Hit Results Per Trace") int32 InMaxHitResultsPerTrace = 1,
+		UPARAM(DisplayName = "Number of Traces") int32 InNumberOfTraces = 1
+	);
 
 protected:
 

@@ -161,6 +161,26 @@ void UARTAbilitySystemComponent::RemoveGameplayCueLocal(const FGameplayTag Gamep
 	UAbilitySystemGlobals::Get().GetGameplayCueManager()->HandleGameplayCue(GetOwner(), GameplayCueTag, EGameplayCueEvent::Type::Removed, GameplayCueParameters);
 }
 
+//FOR AI
+/** Returns a list of currently active ability instances that match the tags */
+void UARTAbilitySystemComponent::GetActiveAbilitiesWithTags(const FGameplayTagContainer& GameplayTagContainer, TArray<UARTGameplayAbility*>& ActiveAbilities)
+{
+	TArray<FGameplayAbilitySpec*> AbilitiesToActivate;
+	GetActivatableGameplayAbilitySpecsByAllMatchingTags(GameplayTagContainer, AbilitiesToActivate, false);
+
+	// Iterate the list of all ability specs
+	for (FGameplayAbilitySpec* Spec : AbilitiesToActivate)
+	{
+		// Iterate all instances on this ability spec
+		TArray<UGameplayAbility*> AbilityInstances = Spec->GetAbilityInstances();
+
+		for (UGameplayAbility* ActiveAbility : AbilityInstances)
+		{
+			ActiveAbilities.Add(Cast<UARTGameplayAbility>(ActiveAbility));
+		}
+	}
+}
+
 float UARTAbilitySystemComponent::PlayMontageForMesh(UGameplayAbility* InAnimatingAbility, USkeletalMeshComponent* InMesh, FGameplayAbilityActivationInfo ActivationInfo, UAnimMontage* NewAnimMontage, float InPlayRate, FName StartSectionName, bool bReplicateMontage)
 {
 	UARTGameplayAbility* InAbility = Cast<UARTGameplayAbility>(InAnimatingAbility);

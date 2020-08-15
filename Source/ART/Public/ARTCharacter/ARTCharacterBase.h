@@ -9,6 +9,8 @@
 #include "GameplayEffectTypes.h"
 #include "ARTCharacterBase.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCharacterDiedDelegate, AARTCharacterBase*, Character);
+
 class AWeapon;
 
 UCLASS()
@@ -35,12 +37,34 @@ public:
 	// Implement IAbilitySystemInterface
 	class UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
-	// Only called on the Server. Calls before Server's AcknowledgePossession.
-	virtual void PossessedBy(AController* NewController) override;
+	void RemoveCharacterAbilities();
+
+	//public loose tag action
+	//DIE stuffs
+
+	UPROPERTY(BlueprintAssignable, Category = "GASShooter|GSCharacter")
+	FCharacterDiedDelegate OnCharacterDied;
+
+	virtual void Die();
+
+	UFUNCTION(BlueprintCallable, Category = "GASDocumentation|GDCharacter")
+	virtual void FinishDying();
 
 protected:
+	FGameplayTag DeadTag;
+	FGameplayTag EffectRemoveOnDeathTag;
+
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "GASShooter|GSHeroCharacter")
+	TSubclassOf<class UGameplayEffect> DeathEffect;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASShooter|Animation")
+	UAnimMontage* DeathMontage;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASShooter|Audio")
+	class USoundCue* DeathSound;
 
 	//ABILITY SYSTEM STUFFS
+protected:
 	UPROPERTY()
 	class UARTAbilitySystemComponent* AbilitySystemComponent;
 
@@ -69,6 +93,14 @@ protected:
 
 	virtual void AddStartupEffects();
 
+	//FOR AI/Manual Blueprint Ability Activation
+	UFUNCTION(BlueprintCallable, Category = "Abilities")
+	bool ActivateAbilitiesWithTags(FGameplayTagContainer AbilityTags, bool bAllowRemoteActivation = true);
+
+	/** Returns a list of active abilities matching the specified tags. This only returns if the ability is currently running */
+	UFUNCTION(BlueprintCallable, Category = "Abilities")
+	void GetActiveAbilitiesWithTags(FGameplayTagContainer AbilityTags, TArray<UARTGameplayAbility*>& ActiveAbilities);
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -81,13 +113,7 @@ protected:
 	void BeginCrouch();
 	void EndCrouch();	
 
-	//ONLY USE THIS FOR RE/SPAWNING
-	virtual void SetShield(float Shield);
-	virtual void SetHealth(float Health);
-	virtual void SetStamina(float Stamina);
-
-	// Client only
-	virtual void OnRep_PlayerState() override;
+	
 
 	//bind ASC input
 	bool ASCInputBound = false;
@@ -144,6 +170,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
 	float GetRotateRate() const;
 
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
 	bool IsAlive() const;
 
 	// Called every frame
@@ -152,5 +179,8 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	
+	//ONLY USE THIS FOR RE/SPAWNING
+	virtual void SetShield(float Shield);
+	virtual void SetHealth(float Health);
+	virtual void SetStamina(float Stamina);
 };

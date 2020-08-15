@@ -16,6 +16,7 @@ class UARTGameplayAbility;
 class UAbilitySystemComponent;
 class UARTAbilitySystemComponent;
 class UAnimMontage;
+class UAnimInstance;
 class AARTCharacterBase;
 
 UENUM()
@@ -26,7 +27,8 @@ enum class EWeaponType : uint8 {
 
 UENUM()
 enum class EWeaponReadySlot: uint8 {
-	WRS_RightHand UMETA(DisplayName = "WeaponSocket"),
+	WRS_RightHandGun UMETA(DisplayName = "GunSocket"),
+	WRS_RightHandMelee UMETA(DisplayName = "MeleeSocket"),
 };
 
 
@@ -73,6 +75,9 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASShooter|Animation")
 	UAnimMontage* EquipMontage;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASShooter|Animation")
+	TSubclassOf<UAnimInstance> AnimSet;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASShooter|GSWeapon")
 	FText DefaultStatusText;

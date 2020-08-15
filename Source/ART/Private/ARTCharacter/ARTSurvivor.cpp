@@ -13,6 +13,9 @@
 #include "Item/InventoryComponent.h"
 #include "Item/Item.h"
 #include "World/Pickup.h"
+#include "ARTCharacter/ARTPlayerState.h"
+#include <GameFramework/PlayerState.h>
+#include <GameplayEffect.h>
 
 AARTSurvivor::AARTSurvivor(const class FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -25,6 +28,116 @@ AARTSurvivor::AARTSurvivor(const class FObjectInitializer& ObjectInitializer) : 
 void AARTSurvivor::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
+
+	AARTPlayerState* PS = GetPlayerState<AARTPlayerState>();
+	if (PS)
+	{
+		// Set the ASC on the Server. Clients do this in OnRep_PlayerState()
+		AbilitySystemComponent = Cast<UARTAbilitySystemComponent>(PS->GetAbilitySystemComponent());
+
+		// AI won't have PlayerControllers so we can init again here just to be sure. No harm in initing twice for heroes that have PlayerControllers.
+		PS->GetAbilitySystemComponent()->InitAbilityActorInfo(PS, this);
+
+		// Set the AttributeSetBase for convenience attribute functions
+		AttributeSetBase = PS->GetAttributeSetBase();
+
+		// If we handle players disconnecting and rejoining in the future, we'll have to change this so that possession from rejoining doesn't reset attributes.
+		// For now assume possession = spawn/respawn.
+
+		InitializeAttributes();
+
+		AddStartupEffects();
+
+		AddCharacterAbilities();
+
+		/*AGDPlayerController* PC = Cast<AGDPlayerController>(GetController());
+		if (PC)
+		{
+			PC->CreateHUD();
+		}
+
+		InitializeFloatingStatusBar();*/
+		// Respawn specific things that won't affect first possession.
+
+		// Forcibly set the DeadTag count to 0
+		//AbilitySystemComponent->SetTagMapCount(DeadTag, 0);
+
+		// Set Health/Mana/Stamina to their max. This is only necessary for *Respawn*.
+		if (AbilitySystemComponent->GetTagCount(DeadTag) > 0)
+		{
+			// Set Health/Mana/Stamina to their max. This is only necessary for *Respawn*.
+			SetShield(GetMaxShield());
+			SetHealth(GetMaxHealth());
+			SetStamina(GetMaxStamina());
+			
+		}
+
+		// Remove Dead tag
+		AbilitySystemComponent->RemoveActiveEffectsWithGrantedTags(FGameplayTagContainer(DeadTag));
+	}
+}
+
+
+void AARTSurvivor::BeginPlay()
+{
+	Super::BeginPlay();
+}
+
+void AARTSurvivor::OnRep_PlayerState()
+{
+	Super::OnRep_PlayerState();
+
+	AARTPlayerState* PS = GetPlayerState<AARTPlayerState>();
+	if (PS)
+	{
+		// Set the ASC for clients. Server does this in PossessedBy.
+		AbilitySystemComponent = Cast<UARTAbilitySystemComponent>(PS->GetAbilitySystemComponent());
+
+		// Init ASC Actor Info for clients. Server will init its ASC when it possesses a new Actor.
+		AbilitySystemComponent->InitAbilityActorInfo(PS, this);
+
+		// Bind player input to the AbilitySystemComponent. Also called in SetupPlayerInputComponent because of a potential race condition.
+		BindASCInput();
+
+		// Set the AttributeSetBase for convenience attribute functions
+		AttributeSetBase = PS->GetAttributeSetBase();
+
+		// If we handle players disconnecting and rejoining in the future, we'll have to change this so that posession from rejoining doesn't reset attributes.
+		// For now assume possession = spawn/respawn.
+
+		InitializeAttributes();
+
+		/*AGDPlayerController* PC = Cast<AGDPlayerController>(GetController());
+		if (PC)
+		{
+			PC->CreateHUD();
+		}*/
+
+		// Simulated on proxies don't have their PlayerStates yet when BeginPlay is called so we call it again here
+		//InitializeFloatingStatusBar();
+
+
+		// Respawn specific things that won't affect first possession.
+
+		// Forcibly set the DeadTag count to 0
+		//AbilitySystemComponent->SetTagMapCount(DeadTag, 0);
+		if (AbilitySystemComponent->GetTagCount(DeadTag) > 0)
+		{
+			// Set Health/Mana/Stamina/Shield to their max. This is only for *Respawn*. It will be set (replicated) by the
+			// Server, but we call it here just to be a little more responsive.
+			SetHealth(GetMaxHealth());
+			SetShield(GetMaxShield());
+			SetStamina(GetMaxStamina());
+		}
+
+	}
+
+}
+
+//DEAD STUFFS
+void AARTSurvivor::Die()
+{
+	Super::Die();
 }
 
 //EQUIPMENT LIST

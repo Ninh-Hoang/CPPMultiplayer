@@ -9,7 +9,7 @@
 
 AWeapon::AWeapon(){
 	WeaponType = EWeaponType::WT_Range;
-	WeaponReadySlot = EWeaponReadySlot::WRS_RightHand;
+	WeaponReadySlot = EWeaponReadySlot::WRS_RightHandGun;
 
 	bReplicates = true;
 	bNetUseOwnerRelevancy = true;
@@ -37,6 +37,9 @@ void AWeapon::EquipWeapon() {
 		FName SocketName = FName(*SocketText.ToString());
 
 		AttachToComponent(OwningCharacter->GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, SocketName);
+		if (AnimSet) {
+			OwningCharacter->GetMesh()->SetAnimInstanceClass(AnimSet);
+		}
 	}
 }
 

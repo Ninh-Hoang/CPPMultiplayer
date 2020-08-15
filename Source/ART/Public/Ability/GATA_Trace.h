@@ -85,6 +85,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (ExposeOnSpawn = true), Category = "Trace")
 	bool bUsePersistentHitResults;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (ExposeOnSpawn = true), Category = "Trace")
+	bool bIgnoreSourceActor;
+
 	UFUNCTION(BlueprintCallable)
 	virtual void ResetSpread();
 

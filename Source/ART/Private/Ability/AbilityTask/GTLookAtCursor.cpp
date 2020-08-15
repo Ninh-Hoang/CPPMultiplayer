@@ -22,19 +22,16 @@ UATLookAtCursor::UATLookAtCursor(const FObjectInitializer& ObjectInitializer)
 	bIsFinished = false;
 }
 
-UATLookAtCursor* UATLookAtCursor::LookAtCursor(UGameplayAbility* OwningAbility, FName TaskInstanceName, class ACharacter* Player, class UCharacterMovementComponent* MovementComponent, class APlayerController* PlayerController, float RotationRate, UCurveFloat* OptionalInterpolationCurve)
+UATLookAtCursor* UATLookAtCursor::LookAtCursor(UGameplayAbility* OwningAbility, FName TaskInstanceName, class ACharacter* Player, class UCharacterMovementComponent* MovementComponent, class APlayerController* PlayerController, UCurveFloat* OptionalInterpolationCurve)
 {
 	UATLookAtCursor* MyObj = NewAbilityTask<UATLookAtCursor>(OwningAbility, TaskInstanceName);
 	MyObj->MovementComponent = MovementComponent;
-
-	MyObj->PlayerController = PlayerController;
-	MyObj->RotationRate = FMath::Max(RotationRate, 0.001f);
+	MyObj->PlayerController = PlayerController;	
 	MyObj->LerpCurve = OptionalInterpolationCurve;
 	MyObj->Player = Player;
 	if (MovementComponent != nullptr) {
 		MyObj->StartRotationRate = MovementComponent->RotationRate.Yaw;
 	}
-
 	return MyObj;
 }
 
@@ -47,7 +44,7 @@ void UATLookAtCursor::Activate()
 }
 
 void UATLookAtCursor::TickTask(float DeltaTime)
-{
+{	
 	if (bIsFinished)
 	{
 		return;
@@ -92,5 +89,6 @@ void UATLookAtCursor::OnDestroy(bool AbilityIsEnding)
 	Super::OnDestroy(AbilityIsEnding);
 	if (MovementComponent) {
 		MovementComponent->bOrientRotationToMovement = true;
+		MovementComponent->RotationRate.Yaw = RotationRate;
 	}
 }

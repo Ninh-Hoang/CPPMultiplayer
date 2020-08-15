@@ -12,7 +12,6 @@ class USkeletalMeshComponent;
 UENUM()
 enum class EEquipmentSlot: uint8 {
 	ES_WeaponRest UMETA(DisplayName = "WeaponRestSocket"),
-	ES_RightHand UMETA(DisplayName = "WeaponSocket"),
 	ES_Pelvis UMETA(DisplayName = "PelvisSocket"),
 	ES_Shield UMETA(DisplayName = "ShieldSocket"),
 };

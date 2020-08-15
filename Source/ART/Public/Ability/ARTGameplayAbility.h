@@ -11,6 +11,8 @@
 /**
  * 
  */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FARTAbilityEvent);
+
 class USkeletalMeshComponent;
 
 USTRUCT()
@@ -42,6 +44,11 @@ class ART_API UARTGameplayAbility : public UGameplayAbility
 
 public:
 	UARTGameplayAbility();
+
+	UPROPERTY(BlueprintAssignable, Category = "Ability")
+	FARTAbilityEvent AbilityEnd;
+
+	virtual void EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled) override;
 
 	// Abilities with this set will automatically activate when the input is pressed
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Ability")

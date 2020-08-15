@@ -17,6 +17,13 @@ UARTGameplayAbility::UARTGameplayAbility()
 	bSourceObjectMustEqualCurrentWeaponToActivate = false;
 }
 
+
+void UARTGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled)
+{
+	Super::EndAbility(Handle, ActorInfo, ActivationInfo, bReplicateEndAbility, bWasCancelled);
+	AbilityEnd.Broadcast();
+}
+
 void UARTGameplayAbility::OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
 	Super::OnAvatarSet(ActorInfo, Spec);
@@ -154,7 +161,6 @@ bool UARTGameplayAbility::CanActivateAbility(const FGameplayAbilitySpecHandle Ha
 {
 	if (bSourceObjectMustEqualCurrentWeaponToActivate)
 	{
-		//AARTHeroCharacter* Hero = Cast<AARTHeroCharacter>(ActorInfo->AvatarActor);
 		AARTSurvivor* Hero = Cast<AARTSurvivor>(ActorInfo->AvatarActor);
 
 		if (Hero && Hero->GetCurrentWeapon() && (UObject*)Hero->GetCurrentWeapon() == GetSourceObject(Handle, ActorInfo))
@@ -166,7 +172,6 @@ bool UARTGameplayAbility::CanActivateAbility(const FGameplayAbilitySpecHandle Ha
 			return false;
 		}
 	}
-
 	return Super::CanActivateAbility(Handle, ActorInfo, SourceTAART, TargetTAART, OptionalRelevantTAART);
 }
 

@@ -16,12 +16,9 @@ class ART_API UATLookAtCursor : public UAbilityTask
 {
 	GENERATED_UCLASS_BODY()
 
-	UPROPERTY(BlueprintAssignable)
-	FLookAtCursor OnTargetRotaionReached;
-
 	// change the player controller rotation with LookAt rotation from pawn to cursor
 	UFUNCTION(BlueprintCallable, Category = "Ability|Tasks", meta = (HidePin = "OwningAbility", DefaultToSelf = "OwningAbility", BlueprintInternalUseOnly = "TRUE"))
-	static UATLookAtCursor* LookAtCursor(UGameplayAbility* OwningAbility, FName TaskInstanceName, class ACharacter* Player, class UCharacterMovementComponent* MovementComponent, class APlayerController* PlayerController, float RotationRate, UCurveFloat* OptionalInterpolationCurve);
+	static UATLookAtCursor* LookAtCursor(UGameplayAbility* OwningAbility, FName TaskInstanceName, class ACharacter* Player, class UCharacterMovementComponent* MovementComponent, class APlayerController* PlayerController, UCurveFloat* OptionalInterpolationCurve);
 
 	virtual void Activate() override;
 

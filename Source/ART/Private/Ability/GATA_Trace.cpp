@@ -25,6 +25,7 @@ AGATA_Trace::AGATA_Trace()
 	TargetingSpreadMax = 0.0f;
 	CurrentTargetingSpread = 0.0f;
 	bUsePersistentHitResults = false;
+	bIgnoreSourceActor = true;
 }
 
 void AGATA_Trace::ResetSpread()
@@ -240,7 +241,7 @@ void AGATA_Trace::AimWithPlayerController(const AActor* InSourceActor, FCollisio
 	FVector AdjustedAimDir;
 
 	if (bTraceWithPawnOrientation && MasterPC) {
-		AdjustedAimDir = MasterPC->GetControlRotation().Vector();
+		AdjustedAimDir = MasterPC->GetPawn()->GetActorForwardVector();
 	}
 	else {
 		AdjustedAimDir = (AdjustedEnd - TraceStart).GetSafeNormal();
@@ -334,7 +335,10 @@ TArray<FHitResult> AGATA_Trace::PerformTrace(AActor* InSourceActor)
 	bool bTraceComplex = false;
 	TArray<AActor*> ActorsToIgnore;
 
-	ActorsToIgnore.Add(InSourceActor);
+	if (bIgnoreSourceActor)
+	{
+		ActorsToIgnore.Add(InSourceActor);
+	}
 
 	FCollisionQueryParams Params(SCENE_QUERY_STAT(AGATA_LineTrace), bTraceComplex);
 	Params.bReturnPhysicalMaterial = true;
@@ -494,7 +498,7 @@ TArray<FHitResult> AGATA_Trace::PerformTrace(AActor* InSourceActor)
 	} // for NumberOfTraces
 
 	// Reminder: if bUsePersistentHitResults, Number of Traces = 1
-	if (bUsePersistentHitResults && MaxHitResultsPerTrace > 0)
+	if (bUsePersistentHitResults && MaxHitResultsPerTrace > 0 && ReticleActors.Num() > 0)
 	{
 		// Handle ReticleActors
 		for (int32 PersistentHitResultIndex = 0; PersistentHitResultIndex < PersistentHitResults.Num(); PersistentHitResultIndex++)

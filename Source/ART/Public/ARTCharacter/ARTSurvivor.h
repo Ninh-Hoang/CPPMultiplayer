@@ -38,6 +38,7 @@ public:
 
 	AARTSurvivor(const class FObjectInitializer& ObjectInitializer);
 
+	//TAG STUFFS
 	FGameplayTag CurrentWeaponTag;
 
 	// Cache tags
@@ -46,14 +47,25 @@ public:
 	FGameplayTag WeaponAmmoTypeNoneTag;
 	FGameplayTag WeaponAbilityTag;
 
+	//INITIALIZATION
+
 	// Only called on the Server. Calls before Server's AcknowledgePossession.
 	virtual void PossessedBy(AController* NewController) override;
 
-	UFUNCTION(BlueprintCallable, Category = "GASShooter|Inventory")
-	AWeapon* GetCurrentWeapon() const;
-
 protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+	// Client only
+	virtual void OnRep_PlayerState() override;
+
+	//DEAD STUFFS
+public:
+	virtual void Die() override;
+
+
 	//EQUIPMENT LIST
+protected:
 	UPROPERTY(ReplicatedUsing = OnRep_Equipment)
 	FSurvivorEquipment Equipment;
 
@@ -61,7 +73,11 @@ protected:
 	void OnRep_Equipment();
 
 	//WEAPON STUFFS
+public: 
+	UFUNCTION(BlueprintCallable, Category = "GASShooter|Inventory")
+	AWeapon* GetCurrentWeapon() const;
 
+protected:
 	//current weapon
 	UPROPERTY(ReplicatedUsing = OnRep_CurrentWeapon)
 	AWeapon* CurrentWeapon;

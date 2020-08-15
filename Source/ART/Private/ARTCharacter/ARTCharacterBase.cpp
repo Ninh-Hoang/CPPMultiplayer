@@ -21,6 +21,8 @@
 #include <TimerManager.h>
 #include "Net/UnrealNetwork.h"
 #include "Weapon/Weapon.h"
+#include <Ability/ARTAbilitySystemGlobals.h>
+#include <Kismet/GameplayStatics.h>
 
 // Sets default values
 AARTCharacterBase::AARTCharacterBase(const class FObjectInitializer& ObjectInitializer) :
@@ -44,6 +46,10 @@ AARTCharacterBase::AARTCharacterBase(const class FObjectInitializer& ObjectIniti
 	CameraComponent->SetupAttachment(SpringArmComponent);
 
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory Component"));
+
+	// Cache tags
+	DeadTag = UARTAbilitySystemGlobals::ARTGet().DeadTag;
+	EffectRemoveOnDeathTag = FGameplayTag::RequestGameplayTag("Effect.RemoveOnDeath");
 }
 
 UAbilitySystemComponent* AARTCharacterBase::GetAbilitySystemComponent() const
@@ -51,49 +57,77 @@ UAbilitySystemComponent* AARTCharacterBase::GetAbilitySystemComponent() const
 	return AbilitySystemComponent;
 }
 
-void AARTCharacterBase::PossessedBy(AController* NewController)
+
+void AARTCharacterBase::RemoveCharacterAbilities()
 {
-	Super::PossessedBy(NewController);
-
-	AARTPlayerState* PS = GetPlayerState<AARTPlayerState>();
-	if (PS)
+	if (GetLocalRole() != ROLE_Authority || !IsValid(AbilitySystemComponent) || !AbilitySystemComponent->CharacterAbilitiesGiven)
 	{
-		// Set the ASC on the Server. Clients do this in OnRep_PlayerState()
-		AbilitySystemComponent = Cast<UARTAbilitySystemComponent>(PS->GetAbilitySystemComponent());
+		return;
+	}
 
-		// AI won't have PlayerControllers so we can init again here just to be sure. No harm in initing twice for heroes that have PlayerControllers.
-		PS->GetAbilitySystemComponent()->InitAbilityActorInfo(PS, this);
-
-		// Set the AttributeSetBase for convenience attribute functions
-		AttributeSetBase = PS->GetAttributeSetBase();
-
-		// If we handle players disconnecting and rejoining in the future, we'll have to change this so that possession from rejoining doesn't reset attributes.
-		// For now assume possession = spawn/respawn.
-
-		InitializeAttributes();
-
-		AddStartupEffects();
-
-		AddCharacterAbilities();
-
-		/*AGDPlayerController* PC = Cast<AGDPlayerController>(GetController());
-		if (PC)
+	// Remove any abilities added from a previous call. This checks to make sure the ability is in the startup 'CharacterAbilities' array.
+	TArray<FGameplayAbilitySpecHandle> AbilitiesToRemove;
+	for (const FGameplayAbilitySpec& Spec : AbilitySystemComponent->GetActivatableAbilities())
+	{
+		if ((Spec.SourceObject == this) && CharacterAbilities.Contains(Spec.Ability->GetClass()))
 		{
-			PC->CreateHUD();
+			AbilitiesToRemove.Add(Spec.Handle);
 		}
+	}
 
-		InitializeFloatingStatusBar();*/
-		// Respawn specific things that won't affect first possession.
+	// Do in two passes so the removal happens after we have the full list
+	for (int32 i = 0; i < AbilitiesToRemove.Num(); i++)
+	{
+		AbilitySystemComponent->ClearAbility(AbilitiesToRemove[i]);
+		UE_LOG(LogTemp, Warning, TEXT("Remove"));
+	}
+	AbilitySystemComponent->CharacterAbilitiesGiven = false;
+}
 
-		// Forcibly set the DeadTag count to 0
-		//AbilitySystemComponent->SetTagMapCount(DeadTag, 0);
+void AARTCharacterBase::Die()
+{
+	// Only runs on Server
+	if (!HasAuthority()) {
+		return;
+	}
 
-		// Set Health/Mana/Stamina to their max. This is only necessary for *Respawn*.
-		SetHealth(GetMaxHealth());
-		SetStamina(GetMaxStamina());
+	RemoveCharacterAbilities();
+
+	if (IsValid(AbilitySystemComponent) && DeathEffect)
+	{
+		AbilitySystemComponent->CancelAllAbilities();
+
+		FGameplayTagContainer EffectTagsToRemove;
+		EffectTagsToRemove.AddTag(EffectRemoveOnDeathTag);
+		int32 NumEffectsRemoved = AbilitySystemComponent->RemoveActiveEffectsWithTags(EffectTagsToRemove);
+
+		AbilitySystemComponent->ApplyGameplayEffectToSelf(Cast<UGameplayEffect>(DeathEffect->GetDefaultObject()), 1.0f, AbilitySystemComponent->MakeEffectContext());
+
+		AbilitySystemComponent->AddLooseGameplayTag(DeadTag);
+	}
+
+	OnCharacterDied.Broadcast(this);
+
+	//TODO replace with a locally executed GameplayCue
+	if (DeathSound)
+	{
+		//UGameplayStatics::PlaySoundAtLocation(this, DeathSound, GetActorLocation());
+	}
+
+	if (DeathMontage)
+	{
+		PlayAnimMontage(DeathMontage);
+	}
+	else
+	{
+		FinishDying();
 	}
 }
 
+void AARTCharacterBase::FinishDying()
+{
+	Destroy();
+}
 
 int32 AARTCharacterBase::GetAbilityLevel(EARTAbilityInputID AbilityID) const
 {
@@ -167,6 +201,25 @@ void AARTCharacterBase::AddStartupEffects()
 	}
 
 	AbilitySystemComponent->StartupEffectsApplied = true;
+}
+
+//Mostly for AI
+bool AARTCharacterBase::ActivateAbilitiesWithTags(FGameplayTagContainer AbilityTags, bool bAllowRemoteActivation /*= true*/)
+{
+	if (AbilitySystemComponent)
+	{
+		return AbilitySystemComponent->TryActivateAbilitiesByTag(AbilityTags, bAllowRemoteActivation);
+	}
+
+	return false;
+}
+
+void AARTCharacterBase::GetActiveAbilitiesWithTags(FGameplayTagContainer AbilityTags, TArray<UARTGameplayAbility*>& ActiveAbilities)
+{
+	if (AbilitySystemComponent)
+	{
+		AbilitySystemComponent->GetActiveAbilitiesWithTags(AbilityTags, ActiveAbilities);
+	}
 }
 
 // Called when the game starts or when spawned
@@ -382,50 +435,6 @@ void AARTCharacterBase::SetStamina(float Stamina)
 	if (AttributeSetBase)
 	{
 		AttributeSetBase->SetStamina(Stamina);
-	}
-}
-
-void AARTCharacterBase::OnRep_PlayerState()
-{
-	Super::OnRep_PlayerState();
-
-	AARTPlayerState* PS = GetPlayerState<AARTPlayerState>();
-	if (PS)
-	{
-		// Set the ASC for clients. Server does this in PossessedBy.
-		AbilitySystemComponent = Cast<UARTAbilitySystemComponent>(PS->GetAbilitySystemComponent());
-
-		// Init ASC Actor Info for clients. Server will init its ASC when it possesses a new Actor.
-		AbilitySystemComponent->InitAbilityActorInfo(PS, this);
-
-		// Bind player input to the AbilitySystemComponent. Also called in SetupPlayerInputComponent because of a potential race condition.
-		BindASCInput();
-
-		// Set the AttributeSetBase for convenience attribute functions
-		AttributeSetBase = PS->GetAttributeSetBase();
-
-		// If we handle players disconnecting and rejoining in the future, we'll have to change this so that posession from rejoining doesn't reset attributes.
-		// For now assume possession = spawn/respawn.
-		InitializeAttributes();
-
-		/*AGDPlayerController* PC = Cast<AGDPlayerController>(GetController());
-		if (PC)
-		{
-			PC->CreateHUD();
-		}*/
-
-		// Simulated on proxies don't have their PlayerStates yet when BeginPlay is called so we call it again here
-		//InitializeFloatingStatusBar();
-
-
-		// Respawn specific things that won't affect first possession.
-
-		// Forcibly set the DeadTag count to 0
-		//AbilitySystemComponent->SetTagMapCount(DeadTag, 0);
-
-		// Set Health/Mana/Stamina to their max. This is only necessary for *Respawn*.
-		SetHealth(GetMaxHealth());
-		SetStamina(GetMaxStamina());
 	}
 }
 
