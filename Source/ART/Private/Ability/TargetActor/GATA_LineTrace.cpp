@@ -1,7 +1,7 @@
 	// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Ability/GATA_LineTrace.h"
+#include "Ability/TargetActor/GATA_LineTrace.h"
 #include "DrawDebugHelpers.h"
 #include "GameFramework/PlayerController.h"
 

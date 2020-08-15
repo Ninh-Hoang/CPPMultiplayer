@@ -3,7 +3,7 @@
 
 #include "Ability/AbilityTask/AT_WaitTargetDataUsingActor.h"
 #include "AbilitySystemComponent.h"
-#include "Ability/GATA_Trace.h"
+#include "Ability/TargetActor/GATA_Trace.h"
 
 UAT_WaitTargetDataUsingActor::UAT_WaitTargetDataUsingActor(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)

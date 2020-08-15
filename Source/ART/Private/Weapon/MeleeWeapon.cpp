@@ -5,7 +5,7 @@
 #include <Engine/World.h>
 #include <DrawDebugHelpers.h>
 #include <ARTCharacter/ARTCharacterBase.h>
-#include <Ability/GATA_MeleeWeaponTrace.h>
+#include <Ability/TargetActor/GATA_MeleeWeaponTrace.h>
 
 // Sets default values
 AMeleeWeapon::AMeleeWeapon()

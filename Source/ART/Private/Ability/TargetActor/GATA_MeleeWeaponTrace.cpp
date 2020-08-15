@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Ability/GATA_MeleeWeaponTrace.h"
+#include "Ability/TargetActor/GATA_MeleeWeaponTrace.h"
 #include <Weapon/MeleeWeapon.h>
 #include <ARTCharacter/ARTCharacterBase.h>
 

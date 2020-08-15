@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Ability/GATA_Trace.h"
+#include "Ability/TargetActor/GATA_Trace.h"
 #include "GATA_MeleeWeaponTrace.generated.h"
 
 /**

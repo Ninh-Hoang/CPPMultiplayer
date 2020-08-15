@@ -12,7 +12,7 @@
 #include "Net/UnrealNetwork.h"
 #include "Ability/ARTAbilitySystemComponent.h"
 #include "ARTCharacter/ARTCharacterBase.h"
-#include "Ability/GATA_LineTrace.h"
+#include "Ability/TargetActor/GATA_LineTrace.h"
 
 static int32 DebugWeaponFiring = 0;
 FAutoConsoleVariableRef CVARDebugWeaponFiring(
