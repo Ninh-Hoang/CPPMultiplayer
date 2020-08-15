@@ -162,7 +162,7 @@ void UARTAbilitySystemComponent::RemoveGameplayCueLocal(const FGameplayTag Gamep
 }
 
 //FOR AI
-/** Returns a list of currently active ability instances that match the tags */
+/* Returns a list of currently active ability instances that match the tags */
 void UARTAbilitySystemComponent::GetActiveAbilitiesWithTags(const FGameplayTagContainer& GameplayTagContainer, TArray<UARTGameplayAbility*>& ActiveAbilities)
 {
 	TArray<FGameplayAbilitySpec*> AbilitiesToActivate;
@@ -178,6 +178,22 @@ void UARTAbilitySystemComponent::GetActiveAbilitiesWithTags(const FGameplayTagCo
 		{
 			ActiveAbilities.Add(Cast<UARTGameplayAbility>(ActiveAbility));
 		}
+	}
+}
+
+void UARTAbilitySystemComponent::GetActiveEffectHandlesByClass(TSubclassOf<UGameplayEffect> SourceGameplayEffect, TArray<FActiveGameplayEffectHandle>& OutActiveEffectHandles)
+{
+	OutActiveEffectHandles.Reset();
+
+	if (SourceGameplayEffect)
+	{
+		FGameplayEffectQuery Query;
+		Query.CustomMatchDelegate.BindLambda([&](const FActiveGameplayEffect& CurEffect)
+		{
+			return CurEffect.Spec.Def && SourceGameplayEffect == CurEffect.Spec.Def->GetClass();
+		});
+
+		OutActiveEffectHandles = ActiveGameplayEffects.GetActiveEffects(Query);
 	}
 }
 

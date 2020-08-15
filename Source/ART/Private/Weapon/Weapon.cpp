@@ -51,18 +51,6 @@ void AWeapon::UnEquipWeapon(){
 	}
 }
 
-void AWeapon::StartMouseOne(){
-}
-
-void AWeapon::StopMouseOne(){
-}
-
-void AWeapon::StartMouseTwo(){
-}
-
-void AWeapon::StopMouseTwo(){
-}
-
 void AWeapon::ThreatTrace(){
 }
 

@@ -98,20 +98,11 @@ protected:
 	void BeginCrouch();
 	void EndCrouch();
 
-	//firing
-	void StartMouseOne();
-	void StopMouseOne();
-
-	//roll
-	UFUNCTION(BlueprintCallable, Category = "Player")
-	void SpaceBar();
-
-
 	UPROPERTY(EditDefaultsOnly, Category = "Player")
 	UAnimMontage* RollAnimation;
 	
 //aiming
-public:
+/*public:
 	UFUNCTION(Server, Reliable, WithValidation)
 	void ServerAim();
 
@@ -133,7 +124,7 @@ protected:
 	void Aim();
 
 	UFUNCTION()
-	void LookAtLocation(FVector LookAtLocation);
+	void LookAtLocation(FVector LookAtLocation);*/
 
 
 //health system

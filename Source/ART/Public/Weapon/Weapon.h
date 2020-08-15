@@ -118,17 +118,4 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual void UnEquipWeapon();
 
-	UFUNCTION(BlueprintCallable)
-	virtual void StartMouseOne();
-
-	UFUNCTION(BlueprintCallable)
-	virtual void StopMouseOne();
-
-	UFUNCTION(BlueprintCallable)
-	virtual void StartMouseTwo();
-
-	UFUNCTION(BlueprintCallable)
-	virtual void StopMouseTwo();
-
-
 };

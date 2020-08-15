@@ -34,7 +34,6 @@ AARTCharacterBase::AARTCharacterBase(const class FObjectInitializer& ObjectIniti
 
 	GetMovementComponent()->GetNavAgentPropertiesRef().bCanCrouch = true;
 	GetMovementComponent()->SetJumpAllowed(false);
-	GetCapsuleComponent()->SetCollisionResponseToChannel(COLLISION_WEAPON, ECR_Ignore);
 
 	AzimuthComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Azimuth"));
 	AzimuthComponent->SetupAttachment(RootComponent);

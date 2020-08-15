@@ -43,7 +43,6 @@ ABaseCharacter::ABaseCharacter(){
 	SetReplicateMovement(true);
 	GetMovementComponent()->GetNavAgentPropertiesRef().bCanCrouch = true;
 	GetMovementComponent()->SetJumpAllowed(false);
-	GetCapsuleComponent()->SetCollisionResponseToChannel(COLLISION_WEAPON, ECR_Ignore);
 
 	AzimuthComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Azimuth"));
 	AzimuthComponent->SetupAttachment(RootComponent);
@@ -63,8 +62,8 @@ ABaseCharacter::ABaseCharacter(){
 	BaseTurnRate = 45;
 
 	//aiming
-	bIsAiming = false;
-	bIsAttacking = false;
+	/*bIsAiming = false;
+	bIsAttacking = false;*/
 
 	//interaction
 	InteractionCheckFrequency = 0.;
@@ -130,14 +129,6 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 	PlayerInputComponent->BindAction("Crouch", IE_Pressed,this, &ABaseCharacter::BeginCrouch);
 	PlayerInputComponent->BindAction("Crouch", IE_Released,this, &ABaseCharacter::EndCrouch);
-
-	PlayerInputComponent->BindAction("Roll", IE_Pressed, this, &ABaseCharacter::SpaceBar);
-
-	PlayerInputComponent->BindAction("Aim", IE_Pressed, this, &ABaseCharacter::Aim);
-	PlayerInputComponent->BindAction("Aim", IE_Released, this, &ABaseCharacter::Aim);
-
-	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ABaseCharacter::StartMouseOne);
-	PlayerInputComponent->BindAction("Fire", IE_Released, this, &ABaseCharacter::StopMouseOne);
 
 	PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &ABaseCharacter::BeginInteract);
 	PlayerInputComponent->BindAction("Interact", IE_Released, this, &ABaseCharacter::EndInteract);
@@ -218,45 +209,15 @@ void ABaseCharacter::EndCrouch()
 }	
 
 
-//aiming system
-void ABaseCharacter::Aim(){
-	if (!HasAuthority()) {
-		ServerAim();
-	}
-	if (bIsAiming) {
-		bIsAiming = !bIsAiming;
-		CharacterMovementComponent->bOrientRotationToMovement = true;
-		CharacterMovementComponent->bUseControllerDesiredRotation = false;
-		GetWorld()->GetTimerManager().ClearTimer(AimTimerHandler);
-		if (CurrentWeapon) {
-			CurrentWeapon->StopMouseTwo();
-		}
-	}
-	else {
-		CharacterMovementComponent->bOrientRotationToMovement = false;
-		CharacterMovementComponent->bUseControllerDesiredRotation = true;
-
-		GetWorld()->GetTimerManager().SetTimer(AimTimerHandler, 
-			this,
-			&ABaseCharacter::LookAtCursor, 
-			GetWorld()->GetDeltaSeconds(),
-			true);
-		bIsAiming = !bIsAiming;
-		if (CurrentWeapon) {
-			CurrentWeapon->StartMouseTwo();
-		}
-	}
-}
-
-void ABaseCharacter::LookAtLocation(FVector LookAtLocation){
+/*void ABaseCharacter::LookAtLocation(FVector LookAtLocation) {
 	FVector ActorLocation = GetActorLocation();
 	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(ActorLocation, LookAtLocation);
 	Controller->SetControlRotation(LookAtRotation);
-}
+}*/
 
-void ABaseCharacter::LookAtCursor() {
-	/*APlayerController* PC = Cast<APlayerController>(GetController());
-	FVector MousePosition;
+/*void ABaseCharacter::LookAtCursor() {
+	APlayerController* PC = Cast<APlayerController>(GetController());
+	FVector MousePosition;s
 	//PC->GetMousePosition(MousePosition);
 	FVector WorldLocation;
 	FVector WorldDirection;
@@ -276,16 +237,8 @@ void ABaseCharacter::LookAtCursor() {
 			DrawDebugLine(GetWorld(), ActorLocation, Intersection, FColor::Red, false, GetWorld()->GetDeltaSeconds(), 0, 2);
 		}
 	}
-	LookAtLocation(Intersection);*/
-}
-
-void ABaseCharacter::ServerAim_Implementation(){
-	Aim();
-}
-
-bool ABaseCharacter::ServerAim_Validate(){
-	return true;
-}
+	LookAtLocation(Intersection);
+}*/
 
 // Interaction system
 void ABaseCharacter::PerformInteractionCheck(){
@@ -545,34 +498,6 @@ bool ABaseCharacter::ServerEquipWeapon_Validate(AEquipment* Equipment){
 	return true;
 }
 
-//mouse one system
-void ABaseCharacter::StartMouseOne(){
-	if (CurrentWeapon) {
-		bIsAttacking = true;
-		CurrentWeapon->StartMouseOne();
-	}
-}
-
-void ABaseCharacter::StopMouseOne(){
-	if (CurrentWeapon) {
-		bIsAttacking = false;
-		CurrentWeapon->StopMouseOne();
-	}
-}
-
-void ABaseCharacter::SpaceBar(){
-	if (!GetMovementComponent()->IsFalling()) {
-		if (!RollAnimation) {
-			return;
-		}
-		StopMouseOne();
-		if(GetMovementComponent()->GetLastInputVector().Equals(FVector::ZeroVector, 0.01)){
-			PlayAnimMontage(RollAnimation, 1., NAME_None);
-		}
-		PlayAnimMontage(RollAnimation, 1., NAME_None);
-	}
-}
-
 //item looting
 bool ABaseCharacter::IsLooting() const{
 	return LootSource != nullptr;
@@ -681,7 +606,7 @@ void ABaseCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 	DOREPLIFETIME(ABaseCharacter, CurrentEquipment);
 	DOREPLIFETIME(ABaseCharacter, bDied);
 	//DOREPLIFETIME(ABaseCharacter, bIsAiming);
-	DOREPLIFETIME(ABaseCharacter, bIsAttacking);
+	//DOREPLIFETIME(ABaseCharacter, bIsAttacking);
 	DOREPLIFETIME(ABaseCharacter, LootSource);
 }
 

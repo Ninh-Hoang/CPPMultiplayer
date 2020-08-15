@@ -79,6 +79,7 @@ bool UARTBlueprintFunctionLibrary::IsAbilitySpecHandleValid(FGameplayAbilitySpec
 {
 	return Handle.IsValid();
 }
+
 bool UARTBlueprintFunctionLibrary::DoesEffectContainerSpecHaveEffects(const FARTGameplayEffectContainerSpec& ContainerSpec)
 {
 	return ContainerSpec.HasValidEffects();

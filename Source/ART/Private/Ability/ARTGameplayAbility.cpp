@@ -7,6 +7,8 @@
 #include "Ability/ARTAbilitySystemComponent.h"
 #include "Blueprint/ARTTargetType.h"
 #include "ARTCharacter/ARTSurvivor.h"
+#include "GameplayTagContainer.h"
+#include "Ability/ARTAbilitySystemGlobals.h"
 
 UARTGameplayAbility::UARTGameplayAbility()
 {
@@ -15,6 +17,9 @@ UARTGameplayAbility::UARTGameplayAbility()
 
 	bActivateAbilityOnGranted = false;
 	bSourceObjectMustEqualCurrentWeaponToActivate = false;
+
+	InteractingTag = UARTAbilitySystemGlobals::ARTGet().InteractingTag;
+	InteractingRemovalTag = UARTAbilitySystemGlobals::ARTGet().InteractingRemovalTag;
 }
 
 

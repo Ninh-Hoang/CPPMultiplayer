@@ -48,22 +48,7 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
 	FName TracerTargetName;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
-	UParticleSystem* TracerEffect;
-
-	UPROPERTY(ReplicatedUsing = OnRep_HitScanTrace)
-	FHitScanTrace HitScanTrace;
-
 	virtual void BeginPlay() override;
 
-	virtual void Fire() override;
-
-	UFUNCTION()
-	void OnRep_HitScanTrace();
-
 	virtual void ThreatTrace() override;
-
-	void PlayFireEffect(FVector TraceEndPoint);
-
-	void PlayImpactEffect(EPhysicalSurface SurfaceType, FVector ImpactPoint);
 };

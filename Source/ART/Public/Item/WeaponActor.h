@@ -36,16 +36,6 @@ public:
 	// Sets default values for this actor's properties
 	AWeaponActor();
 
-public:
-	UFUNCTION(BlueprintCallable)
-	void StartFire();
-
-	UFUNCTION(BlueprintCallable)
-	void StopFire();
-
-	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
-	float BaseDamage;
-
 protected:
 
 	float LastFireTime;
@@ -99,29 +89,11 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Component")
 	UMeshComponent* MeshComponent;
-	
-	UPROPERTY(ReplicatedUsing=OnRep_HitScanTrace)
-	FHitScanTrac HitScanTrace;
 
 	virtual void BeginPlay() override;
-		
-	void PlayFireEffect(FVector TraceEndPoint);
-
-	void PlayImpactEffect(EPhysicalSurface SurfaceType, FVector ImpactPoint);
-
-	virtual void Fire();
-	
-	UFUNCTION()
-	void OnRep_HitScanTrace();
-
-	UFUNCTION(Server, Reliable, WithValidation)
-	virtual void ServerFire();
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void Initialize(UMeshComponent* MeshComponentToSet);
-
-	UFUNCTION(BlueprintCallable, Category = "Weapon")
-	void Debug();
 
 	void ThreatTrace();
 };

@@ -21,7 +21,6 @@ ABaseAI::ABaseAI()
 	SetReplicates(true);
 	SetReplicateMovement(true);
 	GetMovementComponent()->GetNavAgentPropertiesRef().bCanCrouch = true;
-	GetCapsuleComponent()->SetCollisionResponseToChannel(COLLISION_WEAPON, ECR_Ignore);
 	GetMovementComponent()->GetNavAgentPropertiesRef().bCanCrouch = true;
 
 	HealthComponent = CreateDefaultSubobject<USHealthComponent>(TEXT("Health Component"));

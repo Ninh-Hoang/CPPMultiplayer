@@ -144,8 +144,11 @@ public:
 
 	//FOR AI
 	/** Returns a list of currently active ability instances that match the tags */
+	UFUNCTION(BlueprintCallable)
 	void GetActiveAbilitiesWithTags(const FGameplayTagContainer& GameplayTagContainer, TArray<UARTGameplayAbility*>& ActiveAbilities);
 
+	UFUNCTION(BlueprintCallable)
+	void GetActiveEffectHandlesByClass(TSubclassOf<UGameplayEffect> SourceGameplayEffect, TArray<FActiveGameplayEffectHandle>& OutActiveEffectHandles);
 	// ----------------------------------------------------------------------------------------------------------------
 	//	AnimMontage Support for multiple USkeletalMeshComponents on the AvatarActor.
 	//  Only one ability can be animating at a time though?

@@ -157,31 +157,6 @@ protected:
 
 	virtual void BeginPlay() override;
 
-	//firing 
-	virtual void Fire();
-
-	UFUNCTION(Server, Reliable, WithValidation)
-	virtual void ServerFire();
-
-	//muzzle effect
-	virtual void PlayMuzzleEffect();
-
-	//chain of functions from player input
-	virtual void StartMouseOne() override;
-	virtual void StopMouseOne() override;
-
-	virtual void StartFire();
-	virtual void StopFire();
-
-	virtual void StartMouseTwo() override;
-	virtual void StopMouseTwo() override;
-
-	virtual void OffsetCharacterSpeedWhileFiring();
-	virtual void OffSetCharacterSpeedWhileAiming();
-
-	UFUNCTION(Server, Reliable, WithValidation)
-	void ServerChangeCharacterMovement(float MovementSpeed, float RotationRate);
-
 	UFUNCTION()
 	virtual void OnRep_PrimaryClipAmmo(int32 OldPrimaryClipAmmo);
 

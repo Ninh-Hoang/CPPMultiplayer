@@ -16,13 +16,9 @@ class ART_API AGrenadeLauncher : public AWeaponActor
 	
 
 protected:
-	virtual void Fire() override;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
 	TSubclassOf<AActor> ProjectileClass;
-
-	UFUNCTION(Server, Reliable, WithValidation)
-	void ServerGrenadeFire();
 };
 
 
