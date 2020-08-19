@@ -96,6 +96,9 @@ public:
 	// Version of function in AbilitySystemGlobals that returns correct type
 	static UARTAbilitySystemComponent* GetAbilitySystemComponentFromActor(const AActor* Actor, bool LookForComponent = false);
 
+	// Input bound to an ability is pressed
+	virtual void AbilityLocalInputPressed(int32 InputID) override;
+
 	// Exposes GetTagCount to Blueprint
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Abilities", Meta = (DisplayName = "GetTagCount", ScriptName = "GetTagCount"))
 	int32 K2_GetTagCount(FGameplayTag TagToCheck) const;

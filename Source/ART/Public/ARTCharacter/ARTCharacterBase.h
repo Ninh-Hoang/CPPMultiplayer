@@ -13,6 +13,24 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCharacterDiedDelegate, AARTCharacte
 
 class AWeapon;
 
+USTRUCT(BlueprintType)
+struct ART_API FARTDamageNumber
+{
+	GENERATED_USTRUCT_BODY()
+
+		float DamageAmount;
+
+	FGameplayTagContainer Tags;
+
+	FARTDamageNumber() {}
+
+	FARTDamageNumber(float InDamageAmount, FGameplayTagContainer InTags) : DamageAmount(InDamageAmount)
+	{
+		// Copy tag container
+		Tags.AppendTags(InTags);
+	}
+};
+
 UCLASS()
 class ART_API AARTCharacterBase : public ACharacter, public IAbilitySystemInterface
 {
@@ -50,9 +68,14 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "GASDocumentation|GDCharacter")
 	virtual void FinishDying();
 
+	virtual void AddDamageNumber(float Damage, FGameplayTagContainer DamageNumberTags);
+
 protected:
 	FGameplayTag DeadTag;
 	FGameplayTag EffectRemoveOnDeathTag;
+
+	TArray<FARTDamageNumber> DamageNumberQueue;
+	FTimerHandle DamageNumberTimer;
 
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "GASShooter|GSHeroCharacter")
 	TSubclassOf<class UGameplayEffect> DeathEffect;
@@ -78,6 +101,9 @@ protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASDocumentation|Abilities")
 	TArray<TSubclassOf<class UGameplayEffect>> StartupEffects;
 
+	UPROPERTY(EditAnywhere, Category = "GASShooter|UI")
+	TSubclassOf<class UARTDamageTextWidgetComponent> DamageNumberClass;
+
 	// Default attributes for a character for initializing on spawn/respawn.
 	// This is an instant GE that overrides the values for attributes that get reset on spawn/respawn.
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASDocumentation|Abilities")
@@ -92,6 +118,8 @@ protected:
 	virtual void InitializeAttributes();
 
 	virtual void AddStartupEffects();
+
+	virtual void ShowDamageNumber();
 
 	//FOR AI/Manual Blueprint Ability Activation
 	UFUNCTION(BlueprintCallable, Category = "Abilities")
@@ -152,6 +180,15 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
 	float GetHealthRegen() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetEnergy() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
+	float GetMaxEnergy() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
+	float GetEnergyRegen() const;
 
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
 	float GetStamina() const;

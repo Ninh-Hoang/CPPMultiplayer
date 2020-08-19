@@ -23,6 +23,7 @@
 #include "Weapon/Weapon.h"
 #include <Ability/ARTAbilitySystemGlobals.h>
 #include <Kismet/GameplayStatics.h>
+#include "Widget/ARTDamageTextWidgetComponent.h"
 
 // Sets default values
 AARTCharacterBase::AARTCharacterBase(const class FObjectInitializer& ObjectInitializer) :
@@ -128,6 +129,16 @@ void AARTCharacterBase::FinishDying()
 	Destroy();
 }
 
+void AARTCharacterBase::AddDamageNumber(float Damage, FGameplayTagContainer DamageNumberTags)
+{
+	DamageNumberQueue.Add(FARTDamageNumber(Damage, DamageNumberTags));
+
+	if (!GetWorldTimerManager().IsTimerActive(DamageNumberTimer))
+	{
+		GetWorldTimerManager().SetTimer(DamageNumberTimer, this, &AARTCharacterBase::ShowDamageNumber, 0.1, true, 0.0f);
+	}
+}
+
 int32 AARTCharacterBase::GetAbilityLevel(EARTAbilityInputID AbilityID) const
 {
 	return 1;
@@ -200,6 +211,24 @@ void AARTCharacterBase::AddStartupEffects()
 	}
 
 	AbilitySystemComponent->StartupEffectsApplied = true;
+}
+
+void AARTCharacterBase::ShowDamageNumber()
+{
+	if (DamageNumberQueue.Num() > 0 && IsValid(this))
+	{
+		UARTDamageTextWidgetComponent* DamageText = NewObject<UARTDamageTextWidgetComponent>(this, DamageNumberClass);
+		DamageText->RegisterComponent();
+		DamageText->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
+		DamageText->SetDamageText(DamageNumberQueue[0].DamageAmount, DamageNumberQueue[0].Tags);
+
+		if (DamageNumberQueue.Num() < 1)
+		{
+			GetWorldTimerManager().ClearTimer(DamageNumberTimer);
+		}
+
+		DamageNumberQueue.RemoveAt(0);
+	}
 }
 
 //Mostly for AI
@@ -358,6 +387,36 @@ float AARTCharacterBase::GetHealthRegen() const
 	if (AttributeSetBase)
 	{
 		return AttributeSetBase->GetHealthRegen();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetEnergy() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetEnergy();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetMaxEnergy() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetMaxEnergy();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetEnergyRegen() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetEnergyRegen();
 	}
 
 	return 0.0f;

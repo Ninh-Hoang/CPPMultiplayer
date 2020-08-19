@@ -32,7 +32,6 @@ FString UARTBlueprintFunctionLibrary::GetPlayerEditorWindowRole(UWorld* World)
 	return Prefix;
 }
 
-
 UARTGameplayAbility* UARTBlueprintFunctionLibrary::GetPrimaryAbilityInstanceFromHandle(UAbilitySystemComponent* AbilitySystemComponent, FGameplayAbilitySpecHandle Handle)
 {
 	if (AbilitySystemComponent)
@@ -137,5 +136,10 @@ void UARTBlueprintFunctionLibrary::EffectContextAddTargetData(FGameplayEffectCon
 	{
 		EffectContext->AddTargetData(TargetData);
 	}
+}
+
+void UARTBlueprintFunctionLibrary::ClearTargetData(FGameplayAbilityTargetDataHandle& TargetData)
+{
+	TargetData.Clear();
 }
 

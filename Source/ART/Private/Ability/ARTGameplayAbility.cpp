@@ -9,6 +9,8 @@
 #include "ARTCharacter/ARTSurvivor.h"
 #include "GameplayTagContainer.h"
 #include "Ability/ARTAbilitySystemGlobals.h"
+#include <ARTCharacter/ARTPlayerController.h>
+#include <Weapon/Weapon.h>
 
 UARTGameplayAbility::UARTGameplayAbility()
 {
@@ -16,7 +18,9 @@ UARTGameplayAbility::UARTGameplayAbility()
 	InstancingPolicy = EGameplayAbilityInstancingPolicy::InstancedPerActor;
 
 	bActivateAbilityOnGranted = false;
+	bActivateOnInput = true;
 	bSourceObjectMustEqualCurrentWeaponToActivate = false;
+	bCannotActivateWhileInteracting = true;
 
 	InteractingTag = UARTAbilitySystemGlobals::ARTGet().InteractingTag;
 	InteractingRemovalTag = UARTAbilitySystemGlobals::ARTGet().InteractingRemovalTag;
@@ -164,6 +168,15 @@ bool UARTGameplayAbility::IsPredictionKeyValidForMorePrediction() const
 
 bool UARTGameplayAbility::CanActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayTagContainer* SourceTAART, const FGameplayTagContainer* TargetTAART, OUT FGameplayTagContainer* OptionalRelevantTAART) const
 {
+	if (bCannotActivateWhileInteracting)
+	{
+		UAbilitySystemComponent* ASC = ActorInfo->AbilitySystemComponent.Get();
+		if (ASC->GetTagCount(InteractingTag) > ASC->GetTagCount(InteractingRemovalTag))
+		{
+			return false;
+		}
+	}
+
 	if (bSourceObjectMustEqualCurrentWeaponToActivate)
 	{
 		AARTSurvivor* Hero = Cast<AARTSurvivor>(ActorInfo->AvatarActor);
@@ -182,21 +195,21 @@ bool UARTGameplayAbility::CanActivateAbility(const FGameplayAbilitySpecHandle Ha
 
 bool UARTGameplayAbility::CheckCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, OUT FGameplayTagContainer* OptionalRelevantTAART) const
 {
-	return Super::CheckCost(Handle, ActorInfo, OptionalRelevantTAART) && GSCheckCost(Handle, *ActorInfo);
+	return Super::CheckCost(Handle, ActorInfo, OptionalRelevantTAART) && ARTCheckCost(Handle, *ActorInfo);
 }
 
-bool UARTGameplayAbility::GSCheckCost_Implementation(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo& ActorInfo) const
+bool UARTGameplayAbility::ARTCheckCost_Implementation(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo& ActorInfo) const
 {
 	return true;
 }
 
 void UARTGameplayAbility::ApplyCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo) const
 {
-	GSApplyCost(Handle, *ActorInfo, ActivationInfo);
+	ARTApplyCost(Handle, *ActorInfo, ActivationInfo);
 	Super::ApplyCost(Handle, ActorInfo, ActivationInfo);
 }
 
-/*void UARTGameplayAbility::SetHUDReticle(TSubclassOf<UARTHUDReticle> ReticleClass)
+void UARTGameplayAbility::SetHUDReticle(TSubclassOf<UARTHUDReticle> ReticleClass)
 {
 	AARTPlayerController* PC = Cast<AARTPlayerController>(CurrentActorInfo->PlayerController);
 	if (PC)
@@ -210,17 +223,38 @@ void UARTGameplayAbility::ResetHUDReticle()
 	AARTPlayerController* PC = Cast<AARTPlayerController>(CurrentActorInfo->PlayerController);
 	if (PC)
 	{
-		AARTHeroCharacter* Hero = Cast<AARTHeroCharacter>(CurrentActorInfo->AvatarActor);
-		if (Hero && Hero->GetCurrentWeapon())
+		AARTSurvivor* Survivor = Cast<AARTSurvivor>(CurrentActorInfo->AvatarActor);
+		if (Survivor && Survivor->GetCurrentWeapon())
 		{
-			PC->SetHUDReticle(Hero->GetCurrentWeapon()->GetPrimaryHUDReticleClass());
+			PC->SetHUDReticle(Survivor->GetCurrentWeapon()->GetPrimaryHUDReticleClass());
 		}
 		else
 		{
 			PC->SetHUDReticle(nullptr);
 		}
 	}
-}*/
+}
+
+void UARTGameplayAbility::SendTargetDataToServer(const FGameplayAbilityTargetDataHandle& TargetData)
+{
+	if (IsPredictingClient())
+	{
+		UAbilitySystemComponent* ASC = CurrentActorInfo->AbilitySystemComponent.Get();
+		check(ASC);
+
+		FScopedPredictionWindow	ScopedPrediction(ASC, IsPredictingClient());
+
+		FGameplayTag ApplicationTag; // Fixme: where would this be useful?
+		CurrentActorInfo->AbilitySystemComponent->CallServerSetReplicatedTargetData(CurrentSpecHandle,
+			CurrentActivationInfo.GetActivationPredictionKey(), TargetData, ApplicationTag, ASC->ScopedPredictionKey);
+	}
+}
+
+bool UARTGameplayAbility::IsInputPressed() const
+{
+	FGameplayAbilitySpec* Spec = GetCurrentAbilitySpec();
+	return Spec && Spec->InputPressed;
+}
 
 UAnimMontage* UARTGameplayAbility::GetCurrentMontageForMesh(USkeletalMeshComponent* InMesh)
 {

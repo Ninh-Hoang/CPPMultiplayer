@@ -25,18 +25,21 @@ void UARTCharacterAttributeSet::PreAttributeChange(const FGameplayAttribute& Att
 	Super::PreAttributeChange(Attribute, NewValue);
 
 	// If a Max value changes, adjust current to keep Current % of Current to Max
-	if (Attribute == GetMaxHealthAttribute()) // GetMaxHealthAttribute comes from the Macros defined at the top of the header
+	if (Attribute == GetMaxShieldAttribute()) // GetMaxShieldAttribute comes from the Macros defined at the top of the header
+	{
+		AdjustAttributeForMaxChange(Shield, MaxShield, NewValue, GetShieldAttribute());
+	}
+	else if (Attribute == GetMaxHealthAttribute()) // GetMaxHealthAttribute comes from the Macros defined at the top of the header
 	{
 		AdjustAttributeForMaxChange(Health, MaxHealth, NewValue, GetHealthAttribute());
+	}
+	else if (Attribute == GetMaxEnergyAttribute())
+	{
+		AdjustAttributeForMaxChange(Energy, MaxEnergy, NewValue, GetEnergyAttribute());
 	}
 	else if (Attribute == GetMaxStaminaAttribute())
 	{
 		AdjustAttributeForMaxChange(Stamina, MaxStamina, NewValue, GetStaminaAttribute());
-	}
-	else if (Attribute == GetMaxShieldAttribute())
-	{
-		// Cannot slow less than 150 units/s and cannot boost more than 1000 units/s
-		AdjustAttributeForMaxChange(Shield, MaxShield, NewValue, GetShieldAttribute());
 	}
 	else if (Attribute == GetMoveSpeedAttribute())
 	{
@@ -212,6 +215,11 @@ void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
 		// Health loss should go through Damage.
 		SetHealth(FMath::Clamp(GetHealth(), 0.0f, GetMaxHealth()));
 	}
+	else if (Data.EvaluatedData.Attribute == GetEnergyAttribute())
+	{
+		// Handle other Energy changes.
+		SetEnergy(FMath::Clamp(GetEnergy(), 0.0f, GetMaxEnergy()));
+	}
 	else if (Data.EvaluatedData.Attribute == GetStaminaAttribute())
 	{
 		// Handle stamina changes.
@@ -241,6 +249,9 @@ void UARTCharacterAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimePrope
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, Health, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, HealthRegen, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, Energy, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, MaxEnergy, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, EnergyRegen, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, Stamina, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, MaxStamina, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, StaminaRegen, COND_None, REPNOTIFY_Always);

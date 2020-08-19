@@ -6,6 +6,8 @@
 #include "ARTCharacter/ARTCharacterAttributeSet.h"
 #include <ARTCharacter/ARTSurvivor.h>
 #include <Ability/ARTAbilitySystemGlobals.h>
+#include <ARTCharacter/ARTPlayerController.h>
+#include <Widget/ARTHUDWidget.h>
 
 AARTPlayerState::AARTPlayerState()
 {
@@ -42,6 +44,71 @@ class UARTCharacterAttributeSet* AARTPlayerState::GetAttributeSetBase() const
 bool AARTPlayerState::IsAlive() const
 {
 	return GetHealth() > 0.0f;
+}
+
+void AARTPlayerState::ShowAbilityConfirmPrompt(bool bShowPrompt)
+{
+	AARTPlayerController* PC = Cast<AARTPlayerController>(GetOwner());
+	if (PC)
+	{
+		UARTHUDWidget* HUD = PC->GetGSHUD();
+		if (HUD)
+		{
+			HUD->ShowAbilityConfirmPrompt(bShowPrompt);
+		}
+	}
+}
+
+void AARTPlayerState::ShowInteractionPrompt(float InteractionDuration)
+{
+	AARTPlayerController* PC = Cast<AARTPlayerController>(GetOwner());
+	if (PC)
+	{
+		UARTHUDWidget* HUD = PC->GetGSHUD();
+		if (HUD)
+		{
+			HUD->ShowInteractionPrompt(InteractionDuration);
+		}
+	}
+}
+
+void AARTPlayerState::HideInteractionPrompt()
+{
+	AARTPlayerController* PC = Cast<AARTPlayerController>(GetOwner());
+	if (PC)
+	{
+		UARTHUDWidget* HUD = PC->GetGSHUD();
+		if (HUD)
+		{
+			HUD->HideInteractionPrompt();
+		}
+	}
+}
+
+void AARTPlayerState::StartInteractionTimer(float InteractionDuration)
+{
+	AARTPlayerController* PC = Cast<AARTPlayerController>(GetOwner());
+	if (PC)
+	{
+		UARTHUDWidget* HUD = PC->GetGSHUD();
+		if (HUD)
+		{
+			HUD->StartInteractionTimer(InteractionDuration);
+		}
+	}
+}
+
+void AARTPlayerState::StopInteractionTimer()
+{
+	AARTPlayerController* PC = Cast<AARTPlayerController>(GetOwner());
+	if (PC)
+	{
+		UARTHUDWidget* HUD = PC->GetGSHUD();
+		if (HUD)
+		{
+			HUD->StopInteractionTimer();
+		}
+	}
 }
 
 int32 AARTPlayerState::GetCharacterLevel() const
@@ -87,6 +154,21 @@ float AARTPlayerState::GetMaxHealth() const
 float AARTPlayerState::GetHealthRegen() const
 {
 	return AttributeSetBase->GetHealthRegen();
+}
+
+float AARTPlayerState::GetEnergy() const
+{
+	return AttributeSetBase->GetEnergy();
+}
+
+float AARTPlayerState::GetMaxEnergy() const
+{
+	return AttributeSetBase->GetMaxEnergy();
+}
+
+float AARTPlayerState::GetEnergyRegen() const
+{
+	return AttributeSetBase->GetEnergyRegen();
 }
 
 float AARTPlayerState::GetStamina() const

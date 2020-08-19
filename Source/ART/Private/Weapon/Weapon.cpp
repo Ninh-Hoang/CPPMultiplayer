@@ -51,6 +51,11 @@ void AWeapon::UnEquipWeapon(){
 	}
 }
 
+TSubclassOf<class UARTHUDReticle> AWeapon::GetPrimaryHUDReticleClass() const
+{
+	return PrimaryHUDReticleClass;
+}
+
 void AWeapon::ThreatTrace(){
 }
 

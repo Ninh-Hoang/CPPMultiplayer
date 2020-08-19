@@ -3,6 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Engine.h"
+#include "Net/UnrealNetwork.h"
+#include "Networking.h"
+#include "Online.h"
 #include "UObject/ObjectMacros.h"
 
 #define SURFACE_FLESHDEFAULT SurfaceType1

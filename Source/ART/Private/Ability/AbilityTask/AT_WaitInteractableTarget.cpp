@@ -12,23 +12,24 @@
 UAT_WaitInteractableTarget::UAT_WaitInteractableTarget(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-	bTraceAffectsAimPitch = true;
+	//setup defaults value hiddens from BP here.
 }
 
-UAT_WaitInteractableTarget* UAT_WaitInteractableTarget::WaitForInteractableTarget(UGameplayAbility* OwningAbility, FName TaskInstanceName, FCollisionProfileName TraceProfile, float MaxRange /*= 200.0f*/, float TimerPeriod /*= 0.1f*/, bool bShowDebug /*= true*/)
+UAT_WaitInteractableTarget* UAT_WaitInteractableTarget::WaitForInteractableTarget(UGameplayAbility* OwningAbility, FName TaskInstanceName, FCollisionProfileName TraceProfile, float MaxRange /*= 200.0f*/, float TimerPeriod /*= 0.1f*/, bool bTraceWithCursor /*= false*/, bool bShowDebug /*= true*/)
 {
 	UAT_WaitInteractableTarget* MyObj = NewAbilityTask<UAT_WaitInteractableTarget>(OwningAbility, TaskInstanceName);		//Register for task list here, providing a given FName as a key
 	MyObj->TraceProfile = TraceProfile;
 	MyObj->MaxRange = MaxRange;
 	MyObj->TimerPeriod = TimerPeriod;
+	MyObj->bTraceWithCursor = bShowDebug;
 	MyObj->bShowDebug = bShowDebug;
 
 	AARTSurvivor* Survivor = Cast<AARTSurvivor>(OwningAbility->GetCurrentActorInfo()->AvatarActor);
 
 	MyObj->StartLocation = FGameplayAbilityTargetingLocationInfo();
-	MyObj->StartLocation.LocationType = EGameplayAbilityTargetingLocationType::SocketTransform;
+	MyObj->StartLocation.LocationType = EGameplayAbilityTargetingLocationType::ActorTransform;
 	MyObj->StartLocation.SourceComponent = Survivor->GetMesh();
-	MyObj->StartLocation.SourceSocketName = "GunSocket";
+	MyObj->StartLocation.SourceActor = OwningAbility->GetCurrentActorInfo()->AvatarActor.Get();
 	MyObj->StartLocation.SourceAbility = OwningAbility;
 
 	return MyObj;
@@ -74,7 +75,6 @@ void UAT_WaitInteractableTarget::LineTrace(FHitResult& OutHitResult, const UWorl
 				{
 					// Component/Actor must be available to interact
 					bool bIsInteractable = Hit.Actor.Get()->Implements<UARTInteractable>();
-
 					if (bIsInteractable && IARTInteractable::Execute_IsAvailableForInteraction(Hit.Actor.Get(), Hit.Component.Get()))
 					{
 						OutHitResult = Hit;
@@ -98,7 +98,7 @@ void UAT_WaitInteractableTarget::LineTrace(FHitResult& OutHitResult, const UWorl
 	}
 }
 
-void UAT_WaitInteractableTarget::AimWithPlayerController(const AActor* InSourceActor, FCollisionQueryParams Params, const FVector& TraceStart, FVector& OutTraceEnd, bool bIgnorePitch /*= false*/) const
+void UAT_WaitInteractableTarget::AimWithPlayerPawn(const AActor* InSourceActor, FCollisionQueryParams Params, const FVector& TraceStart, FVector& OutTraceEnd, bool bIgnorePitch /*= false*/) const
 {
 	if (!Ability) // Server and launching client only
 	{
@@ -109,16 +109,14 @@ void UAT_WaitInteractableTarget::AimWithPlayerController(const AActor* InSourceA
 
 	// Default to TraceStart if no PlayerController
 	FVector ViewStart = TraceStart;
-	FRotator ViewRot(0.0f);
-	if (PC)
-	{
-		PC->GetPlayerViewPoint(ViewStart, ViewRot);
-	}
 
-	const FVector ViewDir = ViewRot.Vector();
-	FVector ViewEnd = ViewStart + (ViewDir * MaxRange);
+	
 
-	ClipCameraRayToAbilityRange(ViewStart, ViewDir, TraceStart, MaxRange, ViewEnd);
+	FVector PawnForwardDir = InSourceActor->GetActorForwardVector();
+
+	FVector ViewEnd = ViewStart + (PawnForwardDir * MaxRange);
+
+	//ClipCameraRayToAbilityRange(ViewStart, ViewDir, TraceStart, MaxRange, ViewEnd);
 
 	FHitResult HitResult;
 	LineTrace(HitResult, InSourceActor->GetWorld(), ViewStart, ViewEnd, TraceProfile.Name, Params, false);
@@ -128,31 +126,16 @@ void UAT_WaitInteractableTarget::AimWithPlayerController(const AActor* InSourceA
 	const FVector AdjustedEnd = (bUseTraceResult) ? HitResult.Location : ViewEnd;
 
 	FVector AdjustedAimDir = (AdjustedEnd - TraceStart).GetSafeNormal();
+
 	if (AdjustedAimDir.IsZero())
 	{
-		AdjustedAimDir = ViewDir;
+		AdjustedAimDir = PawnForwardDir;
 	}
 
-	if (!bTraceAffectsAimPitch && bUseTraceResult)
-	{
-		FVector OriginalAimDir = (ViewEnd - TraceStart).GetSafeNormal();
-
-		if (!OriginalAimDir.IsZero())
-		{
-			// Convert to angles and use original pitch
-			const FRotator OriginalAimRot = OriginalAimDir.Rotation();
-
-			FRotator AdjustedAimRot = AdjustedAimDir.Rotation();
-			AdjustedAimRot.Pitch = OriginalAimRot.Pitch;
-
-			AdjustedAimDir = AdjustedAimRot.Vector();
-		}
-	}
-
-	OutTraceEnd = TraceStart + (AdjustedAimDir * MaxRange);
+	OutTraceEnd = TraceStart + (AdjustedAimDir * MaxRange); 
 }
 
-bool UAT_WaitInteractableTarget::ClipCameraRayToAbilityRange(FVector CameraLocation, FVector CameraDirection, FVector AbilityCenter, float AbilityRange, FVector& ClippedPosition) const
+/*bool UAT_WaitInteractableTarget::ClipCameraRayToAbilityRange(FVector CameraLocation, FVector CameraDirection, FVector AbilityCenter, float AbilityRange, FVector& ClippedPosition) const
 {
 	FVector CameraToCenter = AbilityCenter - CameraLocation;
 	float DotToCenter = FVector::DotProduct(CameraToCenter, CameraDirection);
@@ -169,7 +152,7 @@ bool UAT_WaitInteractableTarget::ClipCameraRayToAbilityRange(FVector CameraLocat
 		}
 	}
 	return false;
-}
+}*/
 
 void UAT_WaitInteractableTarget::PerformTrace()
 {
@@ -193,7 +176,7 @@ void UAT_WaitInteractableTarget::PerformTrace()
 	// Calculate TraceEnd
 	FVector TraceStart = StartLocation.GetTargetingTransform().GetLocation();
 	FVector TraceEnd;
-	AimWithPlayerController(SourceActor, Params, TraceStart, TraceEnd); //Effective on server and launching client only
+	AimWithPlayerPawn(SourceActor, Params, TraceStart, TraceEnd); //Effective on server and launching client only
 
 	// ------------------------------------------------------
 

@@ -46,6 +46,8 @@ public:
 		FGameplayTag WeaponTag;
 
 protected:
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASShooter|UI")
+	TSubclassOf<class UARTHUDReticle> PrimaryHUDReticleClass;
 
 	UPROPERTY()
 	UARTAbilitySystemComponent* AbilitySystemComponent;
@@ -117,5 +119,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	virtual void UnEquipWeapon();
+
+	UFUNCTION(BlueprintCallable, Category = "GASShooter|GSWeapon")
+	TSubclassOf<class UARTHUDReticle> GetPrimaryHUDReticleClass() const;
 
 };

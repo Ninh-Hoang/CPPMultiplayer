@@ -16,6 +16,7 @@
 #include "ARTCharacter/ARTPlayerState.h"
 #include <GameFramework/PlayerState.h>
 #include <GameplayEffect.h>
+#include <ARTCharacter/ARTPlayerController.h>
 
 AARTSurvivor::AARTSurvivor(const class FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -50,13 +51,13 @@ void AARTSurvivor::PossessedBy(AController* NewController)
 
 		AddCharacterAbilities();
 
-		/*AGDPlayerController* PC = Cast<AGDPlayerController>(GetController());
+		AARTPlayerController* PC = Cast<AARTPlayerController>(GetController());
 		if (PC)
 		{
 			PC->CreateHUD();
 		}
 
-		InitializeFloatingStatusBar();*/
+		//InitializeFloatingStatusBar();
 		// Respawn specific things that won't affect first possession.
 
 		// Forcibly set the DeadTag count to 0
@@ -107,11 +108,11 @@ void AARTSurvivor::OnRep_PlayerState()
 
 		InitializeAttributes();
 
-		/*AGDPlayerController* PC = Cast<AGDPlayerController>(GetController());
+		AARTPlayerController* PC = Cast<AARTPlayerController>(GetController());
 		if (PC)
 		{
 			PC->CreateHUD();
-		}*/
+		}
 
 		// Simulated on proxies don't have their PlayerStates yet when BeginPlay is called so we call it again here
 		//InitializeFloatingStatusBar();
@@ -315,7 +316,7 @@ AWeapon* AARTSurvivor::AddWeaponToEquipment(TSubclassOf<AWeapon> WeaponClass)
 
 void AARTSurvivor::ServerAddWeaponToEquipment_Implementation(TSubclassOf<AWeapon> WeaponClass)
 {
-
+	AddWeaponToEquipment( WeaponClass);
 }
 
 bool AARTSurvivor::ServerAddWeaponToEquipment_Validate(TSubclassOf<AWeapon> WeaponClass)

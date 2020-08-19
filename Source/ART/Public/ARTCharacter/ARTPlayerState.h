@@ -30,6 +30,25 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "GASShooter|GSPlayerState")
 	bool IsAlive() const;
 
+	UFUNCTION(BlueprintCallable, Category = "GASShooter|GSPlayerState|UI")
+	void ShowAbilityConfirmPrompt(bool bShowPrompt);
+
+	UFUNCTION(BlueprintCallable, Category = "GASShooter|GSPlayerState|UI")
+	void ShowInteractionPrompt(float InteractionDuration);
+
+	UFUNCTION(BlueprintCallable, Category = "GASShooter|GSPlayerState|UI")
+	void HideInteractionPrompt();
+
+	UFUNCTION(BlueprintCallable, Category = "GASShooter|GSPlayerState|UI")
+	void StartInteractionTimer(float InteractionDuration);
+
+	// Interaction interrupted, cancel and hide HUD interact timer
+	UFUNCTION(BlueprintCallable, Category = "GASShooter|GSPlayerState|UI")
+	void StopInteractionTimer();
+
+	/**
+	* Getters for attributes from GDAttributeSetBase. Returns Current Value unless otherwise specified.
+	*/
 	UFUNCTION(BlueprintCallable, Category = "GASDocumentation|GDCharacter")
 	virtual int32 GetCharacterLevel() const;
 
@@ -56,6 +75,15 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
 	float GetHealthRegen() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetEnergy() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
+	float GetMaxEnergy() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
+	float GetEnergyRegen() const;
 
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
 	float GetStamina() const;

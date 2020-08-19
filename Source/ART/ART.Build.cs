@@ -15,18 +15,17 @@ public class ART : ModuleRules
 			"InputCore",
 			"NavigationSystem",
 			"OnlineSubsystem",
-			"OnlineSubsystemSteam",
-			"GameplayAbilities",
-			"GameplayTags",
-			"HeadMountedDisplay" });
+			"OnlineSubsystemUtils",
+			"Steamworks",
+			"Networking"});
+
+		DynamicallyLoadedModuleNames.Add("OnlineSubsystemSteam");
 
         PrivateDependencyModuleNames.AddRange(new string[] {
             "Slate",
             "SlateCore",
             "GameplayAbilities",
-			"GameplayAbilitiesEditor",	
 			"GameplayTags",
-			"GameplayTagsEditor",
 			"GameplayTasks",
 			"Paper2D"});
 
@@ -35,7 +34,7 @@ public class ART : ModuleRules
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
 		
 		// Uncomment if you are using online features
-		// PrivateDependencyModuleNames.Add("OnlineSubsystem");
+		PrivateDependencyModuleNames.Add("OnlineSubsystem");
 
 		// To include OnlineSubsystemSteam, add it to the plugins section in your uproject file with the Enabled attribute set to true
 	}

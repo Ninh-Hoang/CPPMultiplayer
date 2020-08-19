@@ -63,6 +63,11 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability")
 	bool bActivateAbilityOnGranted;
 
+	// If true, this ability will activate when its bound input is pressed. Disable if you want to bind an ability to an
+	// input but not have it activate when pressed.
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability")
+	bool bActivateOnInput;
+
 	// If true, only activate this ability if the weapon that granted it is the currently equipped weapon.
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability")
 	bool bSourceObjectMustEqualCurrentWeaponToActivate;
@@ -123,22 +128,29 @@ public:
 
 	// Allows C++ and Blueprint abilities to override how cost is checked in case they don't use a GE like weapon ammo
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ability")
-	bool GSCheckCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo& ActorInfo) const;
-	virtual bool GSCheckCost_Implementation(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo& ActorInfo) const;
+	bool ARTCheckCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo& ActorInfo) const;
+	virtual bool ARTCheckCost_Implementation(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo& ActorInfo) const;
 
 	virtual void ApplyCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo) const override;
 
 	// Allows C++ and Blueprint abilities to override how cost is applied in case they don't use a GE like weapon ammo
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ability")
-	void GSApplyCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo& ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo) const;
-	virtual void GSApplyCost_Implementation(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo& ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo) const {};
-
-	/*UFUNCTION(BlueprintCallable, Category = "Ability")
-	virtual void SetHUDReticle(TSubclassOf<class UGSHUDReticle> ReticleClass);
+	void ARTApplyCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo& ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo) const;
+	virtual void ARTApplyCost_Implementation(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo& ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo) const {};
 
 	UFUNCTION(BlueprintCallable, Category = "Ability")
-	virtual void ResetHUDReticle(); */
+	virtual void SetHUDReticle(TSubclassOf<class UARTHUDReticle> ReticleClass);
 
+	UFUNCTION(BlueprintCallable, Category = "Ability")
+	virtual void ResetHUDReticle();
+
+	// Sends TargetData from the client to the Server and creates a new Prediction Window
+	UFUNCTION(BlueprintCallable, Category = "Ability")
+	virtual void SendTargetDataToServer(const FGameplayAbilityTargetDataHandle& TargetData);
+
+	// Is the player's input currently pressed? Only works if the ability is bound to input.
+	UFUNCTION(BlueprintCallable, Category = "Ability")
+	virtual bool IsInputPressed() const;
 
 	// ----------------------------------------------------------------------------------------------------------------
 	//	Animation Support for multiple USkeletalMeshComponents on the AvatarActor

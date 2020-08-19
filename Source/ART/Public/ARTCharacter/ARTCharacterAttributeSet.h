@@ -89,7 +89,7 @@ public:
 	UFUNCTION()
 	void OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, MaxHealth, OldMaxHealth); }
 
-	// MaxHealth is its own attribute since GameplayEffects may modify it
+	// HealthRegen is its own attribute since GameplayEffects may modify it
 	UPROPERTY(BlueprintReadOnly, Category = "Health", ReplicatedUsing = OnRep_HealthRegen)
 	FGameplayAttributeData HealthRegen;
 	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, HealthRegen)
@@ -97,6 +97,29 @@ public:
 	UFUNCTION()
 	void OnRep_HealthRegen(const FGameplayAttributeData& OldHealthRegen) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, HealthRegen, OldHealthRegen); }
 
+	//Energy
+	UPROPERTY(BlueprintReadOnly, Category = "Energy", ReplicatedUsing = OnRep_Energy)
+	FGameplayAttributeData Energy;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, Energy)
+
+	UFUNCTION()
+	void OnRep_Energy(const FGameplayAttributeData& OldEnergy) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, Energy, OldEnergy); }
+
+	// MaxEnergy is its own attribute since GameplayEffects may modify it
+	UPROPERTY(BlueprintReadOnly, Category = "Energy", ReplicatedUsing = OnRep_MaxEnergy)
+	FGameplayAttributeData MaxEnergy;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, MaxEnergy)
+
+	UFUNCTION()
+	void OnRep_MaxEnergy(const FGameplayAttributeData& OldMaxEnergy) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, MaxEnergy, OldMaxEnergy); }
+	
+	// EnergyRegen is its own attribute since GameplayEffects may modify it
+	UPROPERTY(BlueprintReadOnly, Category = "Energy", ReplicatedUsing = OnRep_EnergyRegen)
+	FGameplayAttributeData EnergyRegen;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, EnergyRegen)
+
+	UFUNCTION()
+	void OnRep_EnergyRegen(const FGameplayAttributeData& OldEnergyRegen) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, EnergyRegen, OldEnergyRegen); }
 
 	//Stamina
 	UPROPERTY(BlueprintReadOnly, Category = "Stamina", ReplicatedUsing = OnRep_Stamina)
@@ -107,7 +130,7 @@ public:
 	void OnRep_Stamina(const FGameplayAttributeData& OldStamina) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, Stamina, OldStamina); }
 
 	// MaxStamina is its own attribute since GameplayEffects may modify it
-	UPROPERTY(BlueprintReadOnly, Category = "Health", ReplicatedUsing = OnRep_MaxStamina)
+	UPROPERTY(BlueprintReadOnly, Category = "Stamina", ReplicatedUsing = OnRep_MaxStamina)
 	FGameplayAttributeData MaxStamina;
 	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, MaxStamina)
 
