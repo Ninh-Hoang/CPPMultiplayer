@@ -5,7 +5,7 @@
 #include "Net/UnrealNetwork.h"
 #include <GameplayEffectExtension.h>
 #include "ARTCharacter/ARTCharacterBase.h"
-#include "Player/BasePlayerController.h"
+#include "ARTCharacter/ARTPlayerController.h"
 
 UARTCharacterAttributeSet::UARTCharacterAttributeSet()
 {
@@ -141,7 +141,7 @@ void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
 
 				// Show damage number for the Source player unless it was self damage
 				if (SourceActor != TargetActor) {
-					ABasePlayerController* PC = Cast<ABasePlayerController>(SourceController);
+					AARTPlayerController* PC = Cast<AARTPlayerController>(SourceController);
 					if (PC) {
 						FGameplayTagContainer DamageNumberTags;
 
@@ -191,7 +191,7 @@ void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
 
 				// Show healing number for the Source player unless it was self damage
 				if (SourceActor != TargetActor) {
-					ABasePlayerController* PC = Cast<ABasePlayerController>(SourceController);
+					AARTPlayerController* PC = Cast<AARTPlayerController>(SourceController);
 					if (PC) {
 						FGameplayTagContainer HealingNumberTags;
 

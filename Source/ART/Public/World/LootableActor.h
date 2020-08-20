@@ -10,7 +10,7 @@ class UStaticMeshComponent;
 class UInteractionComponent;
 class UInventoryComponent;
 class UDataTable;
-class ABaseCharacter;
+class AARTSurvivor;
 
 UCLASS()
 class ART_API ALootableActor : public AActor
@@ -23,9 +23,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Components")
 	UStaticMeshComponent* LootContainerMesh;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Components")
-	UInteractionComponent* LootInteraction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Components")
 	UInventoryComponent* Inventory;
@@ -41,6 +38,6 @@ protected:
 	virtual void BeginPlay() override;
 
 	UFUNCTION()
-	void OnInteract(ABaseCharacter* Character);
+	void OnInteract(AARTSurvivor* Character);
 
 };

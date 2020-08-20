@@ -2,10 +2,9 @@
 
 
 #include "Widget/InteractionWidget.h"
-#include "Player/InteractionComponent.h"
 
-void UInteractionWidget::UpdateInteractionWidget(UInteractionComponent* InteractionComponent){
+/*void UInteractionWidget::UpdateInteractionWidget(UInteractionComponent* InteractionComponent){
 	OwningInteractionComponent = InteractionComponent;
 	OnUpdateInteractionWidget();
-}
+}*/
 

@@ -5,8 +5,7 @@
 #include "Engine/ActorChannel.h"
 #include "Item/Item.h"
 #include "Components/StaticMeshComponent.h"
-#include "Player/InteractionComponent.h"
-#include "Player/BaseCharacter.h"
+#include "ARTCharacter/ARTSurvivor.h"
 #include "Item/InventoryComponent.h"
 #include "UObject/UObjectGlobals.h"
 #include "Net/UnrealNetwork.h"
@@ -20,14 +19,6 @@ APickup::APickup(){
 	PickupMesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
 
 	SetRootComponent(PickupMesh);
-
-	InteractionComponent = CreateDefaultSubobject<UInteractionComponent>("PickupInteractionComponent");
-	InteractionComponent->InteractionTime = 0.5;
-	InteractionComponent->InteractionDistance = 200.;
-	InteractionComponent->InteractableNameText = FText::FromString("Pickup");
-	InteractionComponent->InteractableActionText = FText::FromString("Take");
-	InteractionComponent->OnInteract.AddDynamic(this, &APickup::OnTakePickup);
-	InteractionComponent->SetupAttachment(PickupMesh);
 }
 
 void APickup::InitializePickup(const TSubclassOf<UItem> ItemClass, const int32 Quantity){
@@ -43,15 +34,11 @@ void APickup::OnRep_Item() {
 	if (Item) {
 		PickupMesh->SetStaticMesh(Item->PickupMesh);
 
-		InteractionComponent->InteractableNameText = Item->ItemDisplayName;
-
 		Item->OnItemModified.AddDynamic(this, &APickup::OnItemModified);
 	}
-
-	InteractionComponent->RefreshWidget();
 }
 
-void APickup::OnTakePickup(ABaseCharacter* Taker){
+void APickup::OnTakePickup(AARTSurvivor* Taker){
 	if (!Taker) {
 		UE_LOG(LogTemp, Warning, TEXT("Pickup was taken but player not valid."));
 	}
@@ -72,9 +59,7 @@ void APickup::OnTakePickup(ABaseCharacter* Taker){
 
 
 void APickup::OnItemModified(){
-	if (InteractionComponent) {
-		InteractionComponent->RefreshWidget(); 
-	}
+
 }
 
 // Called when the game starts or when spawned

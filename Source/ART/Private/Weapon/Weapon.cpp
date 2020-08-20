@@ -2,7 +2,6 @@
 
 
 #include "Weapon/Weapon.h"
-#include "Player/BaseCharacter.h"
 #include "Ability/ARTAbilitySystemComponent.h"
 #include "Ability/ARTGameplayAbility.h"
 #include "ARTCharacter/ARTCharacterBase.h"

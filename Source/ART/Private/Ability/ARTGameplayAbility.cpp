@@ -22,8 +22,8 @@ UARTGameplayAbility::UARTGameplayAbility()
 	bSourceObjectMustEqualCurrentWeaponToActivate = false;
 	bCannotActivateWhileInteracting = true;
 
-	InteractingTag = UARTAbilitySystemGlobals::ARTGet().InteractingTag;
-	InteractingRemovalTag = UARTAbilitySystemGlobals::ARTGet().InteractingRemovalTag;
+	InteractingTag = FGameplayTag::RequestGameplayTag("State.Interacting");
+	InteractingRemovalTag = FGameplayTag::RequestGameplayTag("State.InteractingRemoval");
 }
 
 

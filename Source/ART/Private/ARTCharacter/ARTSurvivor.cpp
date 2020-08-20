@@ -20,6 +20,9 @@
 
 AARTSurvivor::AARTSurvivor(const class FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
+	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory Component"));
+	InventoryComponent->SetIsReplicated(true);
+
 	NoWeaponTag = FGameplayTag::RequestGameplayTag(FName("Weapon.Equipped.None"));
 	WeaponChangingDelayReplicationTag = FGameplayTag::RequestGameplayTag(FName("Ability.Weapon.IsChangingDelayReplication"));
 

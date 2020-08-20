@@ -2,7 +2,6 @@
 
 
 #include "Weapon/Equipment.h"
-#include "Player/BaseCharacter.h"
 #include "Net/UnrealNetwork.h"
 #include <Components/SkeletalMeshComponent.h>
 #include "ARTCharacter/ARTSurvivor.h"

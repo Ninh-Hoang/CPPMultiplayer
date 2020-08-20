@@ -14,7 +14,6 @@ UInventoryComponent::UInventoryComponent(){
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = false;
 	Capacity = 20;
-	SetIsReplicated(true);
 	// ...
 }
 

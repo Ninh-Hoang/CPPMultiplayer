@@ -10,20 +10,18 @@
  * 
  */
 
-class UInteractionComponent;
-
 UCLASS()
 class ART_API UInteractionWidget : public UUserWidget
 {
 	GENERATED_BODY()
 	
 public:
-	UFUNCTION(BlueprintCallable, Category = "Interaction")
+	/*UFUNCTION(BlueprintCallable, Category = "Interaction")
 	void UpdateInteractionWidget(UInteractionComponent* InteractionComponent);
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnUpdateInteractionWidget();
 
 	UPROPERTY(BlueprintReadOnly, Category = "Interaction", meta=(ExposeOnSpawn))
-	UInteractionComponent* OwningInteractionComponent;
+	UInteractionComponent* OwningInteractionComponent;*/
 };

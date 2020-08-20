@@ -9,7 +9,6 @@
 class UItem;
 class UActorChannel;
 class UStaticMeshComponent;
-class UInteractionComponent;
 
 UCLASS()
 class ART_API APickup : public AActor
@@ -36,11 +35,8 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Component")
 	UStaticMeshComponent* PickupMesh;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Component")
-	UInteractionComponent* InteractionComponent;
-
 	UFUNCTION()
-	void OnTakePickup(ABaseCharacter* Taker);
+	void OnTakePickup(class AARTSurvivor* Taker);
 
 	UFUNCTION()
 	void OnRep_Item();

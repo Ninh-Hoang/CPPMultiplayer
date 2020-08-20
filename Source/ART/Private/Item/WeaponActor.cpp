@@ -13,7 +13,6 @@
 #include "ART/ART.h"
 #include "TimerManager.h"
 #include "Net/UnrealNetwork.h"
-#include "AI/BaseAI.h"
 #include <Kismet/KismetSystemLibrary.h>
 #include <GameFramework/CharacterMovementComponent.h>
 

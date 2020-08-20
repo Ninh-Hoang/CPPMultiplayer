@@ -14,8 +14,7 @@
 #include "ARTCharacter/ARTPlayerState.h"
 #include <GameFramework/PlayerState.h>
 #include "ARTCharacter/ARTCharacterAttributeSet.h"
-#include "Ability/ARTGameplayAbility.h"
-#include "Player/BasePlayerController.h"
+#include "ARTCharacter/ARTPlayerController.h"
 #include <DrawDebugHelpers.h>
 #include <Engine/World.h>
 #include <TimerManager.h>
@@ -24,6 +23,7 @@
 #include <Ability/ARTAbilitySystemGlobals.h>
 #include <Kismet/GameplayStatics.h>
 #include "Widget/ARTDamageTextWidgetComponent.h"
+#include <Ability/ARTGameplayAbility.h>
 
 // Sets default values
 AARTCharacterBase::AARTCharacterBase(const class FObjectInitializer& ObjectInitializer) :
@@ -45,10 +45,8 @@ AARTCharacterBase::AARTCharacterBase(const class FObjectInitializer& ObjectIniti
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	CameraComponent->SetupAttachment(SpringArmComponent);
 
-	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory Component"));
-
 	// Cache tags
-	DeadTag = UARTAbilitySystemGlobals::ARTGet().DeadTag;
+	DeadTag = FGameplayTag::RequestGameplayTag("State.Dead");
 	EffectRemoveOnDeathTag = FGameplayTag::RequestGameplayTag("Effect.RemoveOnDeath");
 }
 
@@ -517,8 +515,8 @@ void AARTCharacterBase::BindASCInput()
 void AARTCharacterBase::Restart()
 {
 	Super::Restart();
-	if (ABasePlayerController* PC = Cast<ABasePlayerController>(GetController())) {
-		PC->ShowIngameUI();
+	if (AARTPlayerController* PC = Cast<AARTPlayerController>(GetController())) {
+		//PC->ShowIngameUI();
 	}
 }
 

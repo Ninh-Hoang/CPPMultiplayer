@@ -27,8 +27,8 @@ AARTPlayerState::AARTPlayerState()
 	NetUpdateFrequency = 100.0f;
 
 	// Cache tags
-	DeadTag = UARTAbilitySystemGlobals::ARTGet().DeadTag;
-	KnockedDownTag = UARTAbilitySystemGlobals::ARTGet().KnockedDownTag;
+	DeadTag = FGameplayTag::RequestGameplayTag("State.Dead");
+	KnockedDownTag = FGameplayTag::RequestGameplayTag("State.KnockedDown");
 }
 
 class UAbilitySystemComponent* AARTPlayerState::GetAbilitySystemComponent() const

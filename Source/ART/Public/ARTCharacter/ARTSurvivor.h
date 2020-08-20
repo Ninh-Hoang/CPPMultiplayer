@@ -47,6 +47,9 @@ public:
 	FGameplayTag WeaponAmmoTypeNoneTag;
 	FGameplayTag WeaponAbilityTag;
 
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Components")
+	class UInventoryComponent* InventoryComponent;
+
 	//INITIALIZATION
 
 	// Only called on the Server. Calls before Server's AcknowledgePossession.

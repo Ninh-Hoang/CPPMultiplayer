@@ -6,9 +6,8 @@
 #include "World/ItemSpawn.h"
 #include "Item/Item.h"
 #include "Item/InventoryComponent.h"
-#include "Player/InteractionComponent.h"
 #include "Engine/DataTable.h"
-#include "Player/BaseCharacter.h"
+#include "ARTCharacter/ARTSurvivor.h"
 
 #define LOCTEXT_NAMESPACE "LootableActor"
 // Sets default values
@@ -20,12 +19,6 @@ ALootableActor::ALootableActor()
 	//set up mesh
 	LootContainerMesh = CreateDefaultSubobject<UStaticMeshComponent>("LootContainerMesh");
 	SetRootComponent(LootContainerMesh); 
-
-	//setup loot interaction
-	LootInteraction = CreateDefaultSubobject<UInteractionComponent>("LootInteraction");
-	LootInteraction->InteractableActionText = LOCTEXT("LootActorText","Loot");
-	LootInteraction->InteractableNameText = LOCTEXT("LootActorText", "Chest");
-	LootInteraction->SetupAttachment(GetRootComponent());
 
 	//setup inventory
 	Inventory = CreateDefaultSubobject<UInventoryComponent>("Inventory");
@@ -41,8 +34,6 @@ ALootableActor::ALootableActor()
 // Called when the game starts or when spawned
 void ALootableActor::BeginPlay(){
 	Super::BeginPlay(); 
-
-	LootInteraction->OnInteract.AddDynamic(this, &ALootableActor::OnInteract);
 
 	if (HasAuthority() && LootTable) {
 		TArray<FLootTableRow*> SpawnItems;
@@ -74,9 +65,9 @@ void ALootableActor::BeginPlay(){
 	}
 }
 
-void ALootableActor::OnInteract(ABaseCharacter* Character){
+void ALootableActor::OnInteract(AARTSurvivor* Character){
 	if (Character) {
-		Character->SetLootSource(Inventory);
+
 	}
 }
 

@@ -2,7 +2,6 @@
 
 
 #include "World/LootBox.h"
-#include "Combat/SHealthComponent.h"
 #include "Net/UnrealNetwork.h"
 #include "Item/Item.h"
 
@@ -20,24 +19,7 @@ void ALootBox::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (HealthComponent) {
-		HealthComponent->OnHealthChanged.AddDynamic(this, &ALootBox::OnHealthChanged);
-	}
 }
-
-void ALootBox::InitializeComponent(USHealthComponent* HealthComp){
-	HealthComponent = HealthComp;
-}
-
-void ALootBox::OnHealthChanged(USHealthComponent* HealthComp, 
-	float Health, float HealthDelta, const class UDamageType* DamageType, 
-	class AController* InstigatedBy, AActor* DamageCauser){
-	if (Health <= 0) {
-		SpawnItem();
-		Destroy();	
-	}
-}
-
 
 void ALootBox::SpawnItem(){
 	ServerSpawnItem();

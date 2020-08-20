@@ -49,9 +49,6 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	class USceneComponent* AzimuthComponent;
 
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Components")
-	class UInventoryComponent* InventoryComponent;
-
 	// Implement IAbilitySystemInterface
 	class UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 

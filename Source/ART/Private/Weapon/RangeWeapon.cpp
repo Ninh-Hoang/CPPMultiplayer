@@ -3,7 +3,6 @@
 
 #include "Weapon/RangeWeapon.h"
 #include <GameFramework/CharacterMovementComponent.h>
-#include "Player/BaseCharacter.h"
 #include <Kismet/GameplayStatics.h>
 #include "Net/UnrealNetwork.h"
 #include "Weapon/Weapon.h"
