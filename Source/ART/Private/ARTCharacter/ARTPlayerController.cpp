@@ -10,6 +10,10 @@
 #include <Weapon/Weapon.h>
 #include <ARTCharacter/ARTSurvivor.h>
 
+AARTPlayerController::AARTPlayerController()
+{
+}
+
 void AARTPlayerController::CreateHUD()
 {
 	// Only create once

@@ -17,6 +17,9 @@
 #include <GameFramework/PlayerState.h>
 #include <GameplayEffect.h>
 #include <ARTCharacter/ARTPlayerController.h>
+#include <Blueprint/UserWidget.h>
+#include <Components/WidgetComponent.h>
+#include <Widget/ARTFloatingStatusBarWidget.h>
 
 AARTSurvivor::AARTSurvivor(const class FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -27,6 +30,12 @@ AARTSurvivor::AARTSurvivor(const class FObjectInitializer& ObjectInitializer) : 
 	WeaponChangingDelayReplicationTag = FGameplayTag::RequestGameplayTag(FName("Ability.Weapon.IsChangingDelayReplication"));
 
 	WeaponAbilityTag = FGameplayTag::RequestGameplayTag(FName("Ability.Weapon"));
+
+	UIFloatingStatusBarComponent = CreateDefaultSubobject<UWidgetComponent>(FName("UIFloatingStatusBarComponent"));
+	UIFloatingStatusBarComponent->SetupAttachment(RootComponent);
+	UIFloatingStatusBarComponent->SetRelativeLocation(FVector(0, 0, 120));
+	UIFloatingStatusBarComponent->SetWidgetSpace(EWidgetSpace::Screen);
+	UIFloatingStatusBarComponent->SetDrawSize(FVector2D(500, 500));
 }
 
 void AARTSurvivor::PossessedBy(AController* NewController)
@@ -78,6 +87,14 @@ void AARTSurvivor::PossessedBy(AController* NewController)
 
 		// Remove Dead tag
 		AbilitySystemComponent->RemoveActiveEffectsWithGrantedTags(FGameplayTagContainer(DeadTag));
+
+		InitializeFloatingStatusBar();
+
+		// If player is host on listen server, the floating status bar would have been created for them from BeginPlay before player possession, hide it
+		if (IsLocallyControlled() && IsPlayerControlled() && UIFloatingStatusBarComponent && UIFloatingStatusBar)
+		{
+			UIFloatingStatusBarComponent->SetVisibility(false, true);
+		}
 	}
 }
 
@@ -85,6 +102,8 @@ void AARTSurvivor::PossessedBy(AController* NewController)
 void AARTSurvivor::BeginPlay()
 {
 	Super::BeginPlay();
+
+	InitializeFloatingStatusBar();
 }
 
 void AARTSurvivor::OnRep_PlayerState()
@@ -136,12 +155,63 @@ void AARTSurvivor::OnRep_PlayerState()
 
 	}
 
+	// Simulated on proxies don't have their PlayerStates yet when BeginPlay is called so we call it again here
+	InitializeFloatingStatusBar();
 }
 
 //DEAD STUFFS
 void AARTSurvivor::Die()
 {
 	Super::Die();
+}
+
+//Player unique UI STUFFS
+UARTFloatingStatusBarWidget* AARTSurvivor::GetFloatingStatusBar()
+{
+	return UIFloatingStatusBar;
+}
+
+void AARTSurvivor::InitializeFloatingStatusBar()
+{
+	// Only create once
+	if (UIFloatingStatusBar || !IsValid(AbilitySystemComponent))
+	{
+		return;
+	}
+
+	// Don't create for locally controlled player. We could add a game setting to toggle this later.
+	if (IsPlayerControlled() && IsLocallyControlled())
+	{
+		return;
+	}
+
+	// Need a valid PlayerState
+	if (!GetPlayerState())
+	{
+		return;
+	}
+
+	// Setup UI for Locally Owned Players only, not AI or the server's copy of the PlayerControllers
+	AARTPlayerController* PC = Cast<AARTPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	if (PC && PC->IsLocalPlayerController())
+	{
+		if (UIFloatingStatusBarClass)
+		{
+			UIFloatingStatusBar = CreateWidget<UARTFloatingStatusBarWidget>(PC, UIFloatingStatusBarClass);
+
+			if (UIFloatingStatusBar && UIFloatingStatusBarComponent)
+			{
+				UIFloatingStatusBarComponent->SetWidget(UIFloatingStatusBar);
+
+				// Setup the floating status bar
+				UIFloatingStatusBar->SetHealthPercentage(GetHealth() / GetMaxHealth());
+				UIFloatingStatusBar->SetEnergyPercentage(GetEnergy() / GetMaxEnergy());
+				UIFloatingStatusBar->SetShieldPercentage(GetShield() / GetMaxShield());
+				UIFloatingStatusBar->OwningCharacter = this;
+				UIFloatingStatusBar->SetCharacterName(CharacterName);
+			}
+		}
+	}
 }
 
 //EQUIPMENT LIST

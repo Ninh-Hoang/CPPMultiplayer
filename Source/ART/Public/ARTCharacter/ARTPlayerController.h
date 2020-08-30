@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "ARTCharacter/ARTCharacterBase.h"
+#include <GenericTeamAgentInterface.h>
 #include "ARTPlayerController.generated.h"
 
 /**
@@ -14,11 +15,14 @@
 class UPaperSprite;
 
 UCLASS()
-class ART_API AARTPlayerController : public APlayerController
+class ART_API AARTPlayerController : public APlayerController, public IGenericTeamAgentInterface
 {
 	GENERATED_BODY()
 
 public:
+
+	AARTPlayerController();
+
 	void CreateHUD();
 
 	class UARTHUDWidget* GetGSHUD();

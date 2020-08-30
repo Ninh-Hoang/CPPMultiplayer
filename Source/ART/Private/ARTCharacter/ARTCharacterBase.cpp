@@ -48,6 +48,28 @@ AARTCharacterBase::AARTCharacterBase(const class FObjectInitializer& ObjectIniti
 	// Cache tags
 	DeadTag = FGameplayTag::RequestGameplayTag("State.Dead");
 	EffectRemoveOnDeathTag = FGameplayTag::RequestGameplayTag("Effect.RemoveOnDeath");
+
+	SetGenericTeamId(FGenericTeamId(TeamNumber));
+}
+
+FGenericTeamId AARTCharacterBase::GetGenericTeamId() const
+{
+	return FGenericTeamId(TeamNumber);
+}
+
+ETeamAttitude::Type AARTCharacterBase::GetTeamAttitudeTowards(const AActor& Other) const
+{
+	if (const AARTCharacterBase* OtherPawn = Cast<AARTCharacterBase>(&Other)) {
+		//Create an alliance with Team with ID 10 and set all the other teams as Hostiles:
+		FGenericTeamId OtherTeamID = OtherPawn->GetGenericTeamId();
+		if (OtherTeamID == FGenericTeamId(TeamNumber)) {
+			return ETeamAttitude::Friendly;
+		}
+		else {
+			return ETeamAttitude::Hostile;
+		}
+	}
+	return ETeamAttitude::Neutral;
 }
 
 UAbilitySystemComponent* AARTCharacterBase::GetAbilitySystemComponent() const

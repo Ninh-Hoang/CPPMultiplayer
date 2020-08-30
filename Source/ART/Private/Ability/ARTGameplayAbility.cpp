@@ -282,6 +282,12 @@ void UARTGameplayAbility::SetCurrentMontageForMesh(USkeletalMeshComponent* InMes
 	}
 }
 
+TArray<FActiveGameplayEffectHandle> UARTGameplayAbility::ApplyEffectContainer(FGameplayTag ContainerTag, const FGameplayEventData& EventData, int32 OverrideGameplayLevel /*= -1*/)
+{
+	FARTGameplayEffectContainerSpec Spec = MakeEffectContainerSpec(ContainerTag, EventData, OverrideGameplayLevel);
+	return ApplyEffectContainerSpec(Spec);
+}
+
 bool UARTGameplayAbility::FindAbillityMeshMontage(USkeletalMeshComponent* InMesh, FAbilityMeshMontage& InAbilityMeshMontage)
 {
 	for (FAbilityMeshMontage& MeshMontage : CurrentAbilityMeshMontages)

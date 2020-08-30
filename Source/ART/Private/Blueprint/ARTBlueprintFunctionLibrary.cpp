@@ -5,6 +5,7 @@
 #include "AbilitySystemComponent.h"
 #include "Ability/ARTGameplayAbility.h"
 #include "Ability/ARTGameplayEffectTypes.h"
+#include "AbilitySystemBlueprintLibrary.h"
 
 
 FString UARTBlueprintFunctionLibrary::GetPlayerEditorWindowRole(UWorld* World)
@@ -143,3 +144,82 @@ void UARTBlueprintFunctionLibrary::ClearTargetData(FGameplayAbilityTargetDataHan
 	TargetData.Clear();
 }
 
+FGameplayTargetDataFilterHandle UARTBlueprintFunctionLibrary::MakeTargetDataFilterByActorType(AActor* FilterActor, 
+	AActor* InSourceActor, TEnumAsByte<EARTTargetSelectionFilter::Type> InTargetTypeFilter, 
+	TEnumAsByte<ETargetDataFilterSelf::Type> InSelfFilter, TSubclassOf<AActor> InRequiredActorClass, 
+	bool InReverseFilter)
+{
+	FARTTargetFilter Filter;
+	Filter.SourceActor = InSourceActor;
+	Filter.ActorTypeFilter = InTargetTypeFilter;
+	Filter.SelfFilter = InSelfFilter;
+	Filter.RequiredActorClass = InRequiredActorClass;
+	Filter.bReverseFilter = InReverseFilter;
+
+	FGameplayTargetDataFilter* NewFilter = new FARTTargetFilter(Filter);
+	NewFilter->InitializeFilterContext(FilterActor);
+
+	FGameplayTargetDataFilterHandle FilterHandle;
+	FilterHandle.Filter = TSharedPtr<FGameplayTargetDataFilter>(NewFilter);
+	return FilterHandle;
+}
+
+FGameplayTargetDataFilterHandle UARTBlueprintFunctionLibrary::MakeTargetDataFilterByTeamAttitude(AActor* FilterActor, 
+	AActor* InSourceActor, TEnumAsByte<ETeamAttitude::Type> InTeamAttitude, 
+	TEnumAsByte<ETargetDataFilterSelf::Type> InSelfFilter, 
+	TSubclassOf<AActor> InRequiredActorClass, bool InReverseFilter)
+{
+	FARTTargetFilterTeamID Filter;
+	Filter.SourceActor = InSourceActor;
+	Filter.TeamAttitude = InTeamAttitude;
+	Filter.SelfFilter = InSelfFilter;
+	Filter.RequiredActorClass = InRequiredActorClass;
+	Filter.bReverseFilter = InReverseFilter;
+
+	FGameplayTargetDataFilter* NewFilter = new FARTTargetFilterTeamID(Filter);
+	NewFilter->InitializeFilterContext(FilterActor);
+
+	FGameplayTargetDataFilterHandle FilterHandle;
+	FilterHandle.Filter = TSharedPtr<FGameplayTargetDataFilter>(NewFilter);
+	return FilterHandle;
+}
+
+FGameplayAbilityTargetDataHandle UARTBlueprintFunctionLibrary::MakeTargetDataFromHit(FHitResult HitResult)
+{
+	FGameplayAbilityTargetDataHandle ReturnDataHandle;
+	/** Note: These are cleaned up by the FGameplayAbilityTargetDataHandle (via an internal TSharedPtr) */
+	FGameplayAbilityTargetData_SingleTargetHit* ReturnData = new FGameplayAbilityTargetData_SingleTargetHit();
+	ReturnData->HitResult = HitResult;
+	ReturnDataHandle.Add(ReturnData);
+	return ReturnDataHandle;
+}
+
+FGameplayAbilityTargetDataHandle UARTBlueprintFunctionLibrary::MakeTargetDataFromHitArray(TArray<FHitResult> HitResults)
+{
+	FGameplayAbilityTargetDataHandle ReturnDataHandle;
+
+	for (int32 i = 0; i < HitResults.Num(); i++)
+	{
+		/** Note: These are cleaned up by the FGameplayAbilityTargetDataHandle (via an internal TSharedPtr) */
+		FGameplayAbilityTargetData_SingleTargetHit* ReturnData = new FGameplayAbilityTargetData_SingleTargetHit();
+		ReturnData->HitResult = HitResults[i];
+		ReturnDataHandle.Add(ReturnData);
+	}
+
+	return ReturnDataHandle;
+}
+
+TArray<FGameplayAbilityTargetDataHandle> UARTBlueprintFunctionLibrary::MakeArrayTargetDataFromHitArray(TArray<FHitResult> HitResults)
+{
+	TArray<FGameplayAbilityTargetDataHandle> ReturnDataHandles;
+
+	for (int32 i = 0; i < HitResults.Num(); i++)
+	{
+		/** Note: These are cleaned up by the FGameplayAbilityTargetDataHandle (via an internal TSharedPtr) */
+		FGameplayAbilityTargetData_SingleTargetHit* ReturnData = new FGameplayAbilityTargetData_SingleTargetHit();
+		ReturnData->HitResult = HitResults[i];
+		ReturnDataHandles.Add(ReturnData);
+	}
+
+	return ReturnDataHandles;
+}

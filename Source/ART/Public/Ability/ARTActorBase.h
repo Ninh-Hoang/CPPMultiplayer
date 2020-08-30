@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "AbilitySystemInterface.h"
+#include <GenericTeamAgentInterface.h>
 #include "ARTActorBase.generated.h"
 
 UCLASS()
@@ -20,10 +21,9 @@ public:
 	virtual class UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 protected:
-	UPROPERTY()
+	UPROPERTY() 
 	class UARTAbilitySystemComponent* AbilitySystemComponent;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
 };

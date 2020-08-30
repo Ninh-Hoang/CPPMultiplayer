@@ -13,7 +13,6 @@ AARTActorBase::AARTActorBase()
 	// Create ability system component, and set it to be explicitly replicated
 	AbilitySystemComponent = CreateDefaultSubobject<UARTAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
 	AbilitySystemComponent->SetIsReplicated(true);
-
 	// Minimal mode means GameplayEffects are not replicated to anyone. Only GameplayTags and Attributes are replicated to clients.
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 }
@@ -29,5 +28,4 @@ void AARTActorBase::BeginPlay()
 	Super::BeginPlay();
 	
 }
-
 

@@ -39,11 +39,35 @@ class ART_API AWeapon : public AEquipment, public IAbilitySystemInterface
 public:
 	AWeapon();
 
+	~AWeapon();
+
 	// Implement IAbilitySystemInterface
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "GASShooter|GSWeapon")
-		FGameplayTag WeaponTag;
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "ART|Weapon")
+	FGameplayTag WeaponTag;
+
+	//TARGET ACTORS
+	UPROPERTY()
+	class AGATA_LineTrace* LineTraceTargetActor;
+
+	UPROPERTY()
+	class AGATA_MeleeWeaponTrace* MeleeTargetActor;
+
+	UPROPERTY()
+	class AGATA_AoeTrace* AoeTargetActor;
+
+	// Getter for LineTraceTargetActor. Spawns it if it doesn't exist yet.
+	UFUNCTION(BlueprintCallable, Category = "ART|Targeting")
+	class AGATA_LineTrace* GetLineTraceTargetActor();
+
+	// Getter for MeleeTargetActor. Spawns it if it doesn't exist yet.
+	UFUNCTION(BlueprintCallable, Category = "ART|Targeting")
+	class AGATA_MeleeWeaponTrace* GetMeleeTraceTargetActor();
+
+	// Getter for MeleeTargetActor. Spawns it if it doesn't exist yet.
+	UFUNCTION(BlueprintCallable, Category = "ART|Targeting")
+	class AGATA_AoeTrace* GetAoeTraceTargetActor();
 
 protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASShooter|UI")

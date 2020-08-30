@@ -7,6 +7,7 @@
 #include "AbilitySystemInterface.h"
 #include "ART/ART.h"
 #include "GameplayEffectTypes.h"
+#include <GenericTeamAgentInterface.h>
 #include "ARTCharacterBase.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCharacterDiedDelegate, AARTCharacterBase*, Character);
@@ -32,7 +33,7 @@ struct ART_API FARTDamageNumber
 };
 
 UCLASS()
-class ART_API AARTCharacterBase : public ACharacter, public IAbilitySystemInterface
+class ART_API AARTCharacterBase : public ACharacter, public IAbilitySystemInterface, public IGenericTeamAgentInterface
 {
 	GENERATED_BODY()
 
@@ -48,6 +49,17 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	class USceneComponent* AzimuthComponent;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Character")
+	FText CharacterName;
+
+	//TEAM STUFFS handle by Interface
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ART|Character")
+	int TeamNumber;
+
+	FGenericTeamId GetGenericTeamId() const override;
+
+	ETeamAttitude::Type GetTeamAttitudeTowards(const AActor& Other) const override;
 
 	// Implement IAbilitySystemInterface
 	class UAbilitySystemComponent* GetAbilitySystemComponent() const override;

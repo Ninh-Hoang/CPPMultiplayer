@@ -37,13 +37,6 @@ public:
 
 	~ATracerRangeWeapon();
 
-	UPROPERTY()
-	AGATA_LineTrace* LineTraceTargetActor;
-
-	// Getter for LineTraceTargetActor. Spawns it if it doesn't exist yet.
-	UFUNCTION(BlueprintCallable, Category = "GASShooter|Targeting")
-	AGATA_LineTrace* GetLineTraceTargetActor();
-
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
 	FName TracerTargetName;

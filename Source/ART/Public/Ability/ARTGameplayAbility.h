@@ -163,6 +163,10 @@ public:
 	/** Call to set/get the current montage from a montage task. Set to allow hooking up montage events to ability events */
 	virtual void SetCurrentMontageForMesh(USkeletalMeshComponent* InMesh, class UAnimMontage* InCurrentMontage);
 
+	/** Applies a gameplay effect container, by creating and then applying the spec */
+	UFUNCTION(BlueprintCallable, Category = Ability, meta = (AutoCreateRefTerm = "EventData"))
+	virtual TArray<FActiveGameplayEffectHandle> ApplyEffectContainer(FGameplayTag ContainerTag, const FGameplayEventData& EventData, int32 OverrideGameplayLevel = -1);
+
 protected:
 
 	FGameplayTag InteractingTag;

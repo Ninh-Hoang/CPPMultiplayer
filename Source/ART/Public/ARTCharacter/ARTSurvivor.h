@@ -66,6 +66,22 @@ protected:
 public:
 	virtual void Die() override;
 
+	//Player unique UI STUFFS
+public:
+	class UARTFloatingStatusBarWidget* GetFloatingStatusBar();
+
+protected:
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "GASShooter|UI")
+	TSubclassOf<class UARTFloatingStatusBarWidget> UIFloatingStatusBarClass;
+
+	UPROPERTY()
+	class UARTFloatingStatusBarWidget* UIFloatingStatusBar;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "GASShooter|UI")
+	class UWidgetComponent* UIFloatingStatusBarComponent;
+
+	UFUNCTION()
+	void InitializeFloatingStatusBar();
 
 	//EQUIPMENT LIST
 protected:

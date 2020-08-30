@@ -5,6 +5,9 @@
 #include "Ability/ARTAbilitySystemComponent.h"
 #include "Ability/ARTGameplayAbility.h"
 #include "ARTCharacter/ARTCharacterBase.h"
+#include <Ability/TargetActor/GATA_AoeTrace.h>
+#include <Ability/TargetActor/GATA_MeleeWeaponTrace.h>
+#include <Ability/TargetActor/GATA_LineTrace.h>
 
 AWeapon::AWeapon(){
 	WeaponType = EWeaponType::WT_Range;
@@ -25,9 +28,59 @@ AWeapon::AWeapon(){
 	StatusText = DefaultStatusText;
 }
 
+AWeapon::~AWeapon()
+{
+	if (IsValid(LineTraceTargetActor) && GetWorld() && !GetWorld()->bIsTearingDown)
+	{
+		LineTraceTargetActor->Destroy();
+	}
+
+	if (IsValid(MeleeTargetActor) && GetWorld() && !GetWorld()->bIsTearingDown)
+	{
+		MeleeTargetActor->Destroy();
+	}
+}
+
 UAbilitySystemComponent* AWeapon::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent;
+}
+
+//TARGET ACTOR
+class AGATA_LineTrace* AWeapon::GetLineTraceTargetActor()
+{
+	if (LineTraceTargetActor)
+	{
+		return LineTraceTargetActor;
+	}
+
+	LineTraceTargetActor = GetWorld()->SpawnActor<AGATA_LineTrace>();
+	LineTraceTargetActor->SetOwner(this);
+	return LineTraceTargetActor;
+}
+
+class AGATA_MeleeWeaponTrace* AWeapon::GetMeleeTraceTargetActor()
+{
+	if (MeleeTargetActor)
+	{
+		return MeleeTargetActor;
+	}
+
+	MeleeTargetActor = GetWorld()->SpawnActor<AGATA_MeleeWeaponTrace>();
+	MeleeTargetActor->SetOwner(this);
+	return MeleeTargetActor;
+}
+
+class AGATA_AoeTrace* AWeapon::GetAoeTraceTargetActor()
+{
+	if (AoeTargetActor)
+	{
+		return AoeTargetActor;
+	}
+
+	AoeTargetActor = GetWorld()->SpawnActor<AGATA_AoeTrace>();
+	AoeTargetActor->SetOwner(this);
+	return AoeTargetActor;
 }
 
 void AWeapon::EquipWeapon() {

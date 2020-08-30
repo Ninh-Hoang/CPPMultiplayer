@@ -5,7 +5,6 @@
 #include <Engine/World.h>
 #include <DrawDebugHelpers.h>
 #include <ARTCharacter/ARTCharacterBase.h>
-#include <Ability/TargetActor/GATA_MeleeWeaponTrace.h>
 
 // Sets default values
 AMeleeWeapon::AMeleeWeapon()
@@ -16,28 +15,12 @@ AMeleeWeapon::AMeleeWeapon()
 
 AMeleeWeapon::~AMeleeWeapon()
 {
-	if (IsValid(MeeleeTargetActor) && GetWorld() && !GetWorld()->bIsTearingDown)
-	{
-		MeeleeTargetActor->Destroy();
-	}
 }
 
 // Called when the game starts or when spawned
 void AMeleeWeapon::BeginPlay()
 {
 	Super::BeginPlay();
-}
-
-class AGATA_MeleeWeaponTrace* AMeleeWeapon::GetMeeleeTraceTargetActor()
-{
-	if (MeeleeTargetActor)
-	{
-		return MeeleeTargetActor;
-	}
-
-	MeeleeTargetActor = GetWorld()->SpawnActor<AGATA_MeleeWeaponTrace>();
-	MeeleeTargetActor->SetOwner(this);
-	return MeeleeTargetActor;
 }
 
 void AMeleeWeapon::StartTrace()

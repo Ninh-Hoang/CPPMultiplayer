@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "Blueprint/ARTAbilityTypes.h"
+#include "ARTTargetFilter.h"
 #include "ARTBlueprintFunctionLibrary.generated.h"
 
 /**
@@ -66,7 +67,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Ability|Container")
 	static TArray<FActiveGameplayEffectHandle> ApplyExternalEffectContainerSpec(const FARTGameplayEffectContainerSpec& ContainerSpec);
 
-
 	/**
 	* FARTGameplayEffectContext
 	*/
@@ -84,4 +84,32 @@ public:
 	*/
 	UFUNCTION(BlueprintCallable, Category = "Ability|TargetData")
 	static void ClearTargetData(UPARAM(ref) FGameplayAbilityTargetDataHandle& TargetData);
+
+	/*
+	* FARTTargetFilterHandle filter by type
+	*/
+	UFUNCTION(BlueprintPure, Category = "Ability|TargetData", Meta = (DisplayName = "Make Target Data Filter by Target Type"))
+	static FGameplayTargetDataFilterHandle MakeTargetDataFilterByActorType(AActor* FilterActor, AActor* InSourceActor, 
+	TEnumAsByte<EARTTargetSelectionFilter::Type> InTargetTypeFilter,
+	TEnumAsByte<ETargetDataFilterSelf::Type> InSelfFilter, TSubclassOf<AActor> InRequiredActorClass, bool InReverseFilter);
+
+	/*
+	* FARTTargetFilterHandle filter by TeamAttitude
+	*/
+	UFUNCTION(BlueprintPure, Category = "Ability|TargetData", Meta = (DisplayName = "Make Target Data Filter by Team Attitude"))
+	static FGameplayTargetDataFilterHandle MakeTargetDataFilterByTeamAttitude(AActor* FilterActor, AActor* InSourceActor,
+		TEnumAsByte<ETeamAttitude::Type> InTeamAttitude,
+		TEnumAsByte<ETargetDataFilterSelf::Type> InSelfFilter, TSubclassOf<AActor> InRequiredActorClass, bool InReverseFilter);
+
+	/*
+	* turn HitResult in to TargetData
+	*/
+	UFUNCTION(BlueprintCallable, Category = "Ability|TargetData")
+	static FGameplayAbilityTargetDataHandle MakeTargetDataFromHit(FHitResult HitResult);
+
+	UFUNCTION(BlueprintCallable, Category = "Ability|TargetData")
+	static FGameplayAbilityTargetDataHandle MakeTargetDataFromHitArray(TArray<FHitResult> HitResults);
+
+	UFUNCTION(BlueprintCallable, Category = "Ability|TargetData")
+	static TArray<FGameplayAbilityTargetDataHandle> MakeArrayTargetDataFromHitArray(TArray<FHitResult> HitResults);
 };

@@ -20,12 +20,6 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	UPROPERTY()
-	class AGATA_MeleeWeaponTrace* MeeleeTargetActor;
-
-	// Getter for MeeleeTargetActor. Spawns it if it doesn't exist yet.
-	UFUNCTION(BlueprintCallable, Category = "GASShooter|Targeting")
-	class AGATA_MeleeWeaponTrace* GetMeeleeTraceTargetActor();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 WeaponStartLength = 20;

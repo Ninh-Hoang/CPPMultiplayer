@@ -5,6 +5,8 @@
 #include <Ability/ARTAbilitySystemComponent.h>
 #include <ARTCharacter/ARTCharacterAttributeSet.h>
 #include <Components/CapsuleComponent.h>
+#include <Components/WidgetComponent.h>
+#include <Widget/ARTFloatingStatusBarWidget.h>
 
 
 
@@ -30,6 +32,13 @@ AARTCharacterAI::AARTCharacterAI(const class FObjectInitializer& ObjectInitializ
 
 	//set collision
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Ignore);
+
+	//setup floating status bar
+	UIFloatingStatusBarComponent = CreateDefaultSubobject<UWidgetComponent>(FName("UIFloatingStatusBarComponent"));
+	UIFloatingStatusBarComponent->SetupAttachment(RootComponent);
+	UIFloatingStatusBarComponent->SetRelativeLocation(FVector(0, 0, 120));
+	UIFloatingStatusBarComponent->SetWidgetSpace(EWidgetSpace::Screen);
+	UIFloatingStatusBarComponent->SetDrawSize(FVector2D(500, 500));
 }
 
 void AARTCharacterAI::BeginPlay()
@@ -47,11 +56,36 @@ void AARTCharacterAI::BeginPlay()
 		HealthChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSetBase->GetHealthAttribute()).AddUObject(this, &AARTCharacterAI::HealthChanged);
 
 	}
+
+	// Setup FloatingStatusBar UI for Locally Owned Players only, not AI or the server's copy of the PlayerControllers
+	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	if (PC && PC->IsLocalPlayerController())
+	{
+		if (UIFloatingStatusBarClass)
+		{
+			UIFloatingStatusBar = CreateWidget<UARTFloatingStatusBarWidget>(PC, UIFloatingStatusBarClass);
+			if (UIFloatingStatusBar && UIFloatingStatusBarComponent)
+			{
+				UIFloatingStatusBarComponent->SetWidget(UIFloatingStatusBar);
+
+				// Setup the floating status bar
+				UIFloatingStatusBar->SetHealthPercentage(GetHealth() / GetMaxHealth());
+
+				UIFloatingStatusBar->SetCharacterName(CharacterName);
+			}
+		}
+	}
 }
 
 void AARTCharacterAI::HealthChanged(const FOnAttributeChangeData& Data)
 {
 	float Health = Data.NewValue;
+
+	// Update floating status bar
+	if (UIFloatingStatusBar)
+	{
+		UIFloatingStatusBar->SetHealthPercentage(Health / GetMaxHealth());
+	}
 
 	// If the minion died, handle death
 	if (!IsAlive() && !AbilitySystemComponent->HasMatchingGameplayTag(DeadTag))

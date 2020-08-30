@@ -145,7 +145,7 @@ void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
 					if (PC) {
 						FGameplayTagContainer DamageNumberTags;
 
-						//PC->ShowDamageNumber(LocalDamageDone, TargetCharacter, DamageNumberTags)
+						PC->ShowDamageNumber(LocalDamageDone, TargetCharacter, DamageNumberTags);
 					}
 				}
 			}
