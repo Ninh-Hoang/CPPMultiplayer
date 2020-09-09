@@ -4,9 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "Weapon/Equipment.h"
-#include "GameplayAbilitySpec.h"
-#include "AbilitySystemInterface.h"
-#include "ART/ART.h"
 #include "Weapon.generated.h"
 
 /**
@@ -33,7 +30,7 @@ enum class EWeaponReadySlot: uint8 {
 
 
 UCLASS(Abstract, Blueprintable, BlueprintType)
-class ART_API AWeapon : public AEquipment, public IAbilitySystemInterface
+class ART_API AWeapon : public AEquipment
 {
 	GENERATED_BODY()
 public:
@@ -41,72 +38,25 @@ public:
 
 	~AWeapon();
 
-	// Implement IAbilitySystemInterface
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "ART|Weapon")
 	FGameplayTag WeaponTag;
-
-	//TARGET ACTORS
-	UPROPERTY()
-	class AGATA_LineTrace* LineTraceTargetActor;
-
-	UPROPERTY()
-	class AGATA_MeleeWeaponTrace* MeleeTargetActor;
-
-	UPROPERTY()
-	class AGATA_AoeTrace* AoeTargetActor;
-
-	// Getter for LineTraceTargetActor. Spawns it if it doesn't exist yet.
-	UFUNCTION(BlueprintCallable, Category = "ART|Targeting")
-	class AGATA_LineTrace* GetLineTraceTargetActor();
-
-	// Getter for MeleeTargetActor. Spawns it if it doesn't exist yet.
-	UFUNCTION(BlueprintCallable, Category = "ART|Targeting")
-	class AGATA_MeleeWeaponTrace* GetMeleeTraceTargetActor();
-
-	// Getter for MeleeTargetActor. Spawns it if it doesn't exist yet.
-	UFUNCTION(BlueprintCallable, Category = "ART|Targeting")
-	class AGATA_AoeTrace* GetAoeTraceTargetActor();
-
 protected:
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASShooter|UI")
-	TSubclassOf<class UARTHUDReticle> PrimaryHUDReticleClass;
-
-	UPROPERTY()
-	UARTAbilitySystemComponent* AbilitySystemComponent;
-
-	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+	UPROPERTY(EditDefaultsOnly, Category = "ART|Weapon")
 	EWeaponType WeaponType;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+	UPROPERTY(EditDefaultsOnly, Category = "ART|Weapon")
 	EWeaponReadySlot WeaponReadySlot;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
-	TSubclassOf<UDamageType> DamageType;
-
-	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
-	float BaseDamage;
 
 	UPROPERTY(EditDefaultsOnly)
 	float ThreatValue;
 
 	virtual void ThreatTrace();
-	
-	UPROPERTY(EditAnywhere, Category = "GASShooter|GSWeapon")
-	TArray<TSubclassOf<UARTGameplayAbility>> Abilities;
 
-	UPROPERTY(BlueprintReadOnly, Category = "GASShooter|GSWeapon")
-	TArray<FGameplayAbilitySpecHandle> AbilitySpecHandles;
-
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASShooter|Animation")
-	UAnimMontage* EquipMontage;
-
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASShooter|Animation")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Animation")
 	TSubclassOf<UAnimInstance> AnimSet;
 
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASShooter|GSWeapon")
-	FText DefaultStatusText;
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Animation")
+	UAnimMontage* EquipWeaponMontage;
 		
 	// Cache tags
 	FGameplayTag WeaponPrimaryInstantAbilityTag;
@@ -117,34 +67,12 @@ protected:
 	virtual void BeginPlay() override;
 
 public: 
-	UPROPERTY(BlueprintReadWrite, VisibleInstanceOnly, Category = "GASShooter|GSWeapon")
-	FText StatusText;
-
-	void SetOwningCharacter(AARTCharacterBase* InOwningCharacter);
-
-	virtual void AddAbilities();
-
-	virtual void RemoveAbilities();
-
-	virtual int32 GetAbilityLevel(EARTAbilityInputID AbilityID);
-
-	// Resets things like fire mode to default
-	UFUNCTION(BlueprintCallable, Category = "GASShooter|GSWeapon")
-	virtual void ResetWeapon();
-
-	UFUNCTION(BlueprintCallable, Category = "GASShooter|Animation")
-	UAnimMontage* GetEquipMontage() const;
-
-	UFUNCTION(BlueprintCallable, Category = "GASShooter|GSWeapon")
-	FText GetDefaultStatusText() const;
+	UFUNCTION(BlueprintCallable, Category = "ART|Animation")
+	UAnimMontage* GetEquipWeaponMontage() const;
 
 	UFUNCTION(BlueprintCallable)
 	virtual void EquipWeapon();
 
 	UFUNCTION(BlueprintCallable)
 	virtual void UnEquipWeapon();
-
-	UFUNCTION(BlueprintCallable, Category = "GASShooter|GSWeapon")
-	TSubclassOf<class UARTHUDReticle> GetPrimaryHUDReticleClass() const;
-
 };

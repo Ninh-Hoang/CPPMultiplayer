@@ -52,12 +52,6 @@ void ARangeWeapon::PreReplication(IRepChangedPropertyTracker& ChangedPropertyTra
 	DOREPLIFETIME_ACTIVE_OVERRIDE(ARangeWeapon, SecondaryClipAmmo, (AbilitySystemComponent && !AbilitySystemComponent->HasMatchingGameplayTag(WeaponIsFiringTag)));
 }
 
-void ARangeWeapon::ResetWeapon()
-{
-	Super::ResetWeapon();
-	FireMode = DefaultFireMode;
-}
-
 int32 ARangeWeapon::GetPrimaryClipAmmo() const
 {
 	return PrimaryClipAmmo;

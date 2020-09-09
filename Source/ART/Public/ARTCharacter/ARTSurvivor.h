@@ -20,6 +20,10 @@ struct ART_API FSurvivorEquipment
 	UPROPERTY()
 	TArray<AWeapon*> Weapons;
 
+	//equipment
+	UPROPERTY()
+	TArray<AEquipment*> Equipments;
+
 	// Consumable items
 
 	// Passive items like armor
@@ -71,13 +75,13 @@ public:
 	class UARTFloatingStatusBarWidget* GetFloatingStatusBar();
 
 protected:
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "GASShooter|UI")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ART|UI")
 	TSubclassOf<class UARTFloatingStatusBarWidget> UIFloatingStatusBarClass;
 
 	UPROPERTY()
 	class UARTFloatingStatusBarWidget* UIFloatingStatusBar;
 
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "GASShooter|UI")
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "ART|UI")
 	class UWidgetComponent* UIFloatingStatusBarComponent;
 
 	UFUNCTION()
@@ -93,7 +97,7 @@ protected:
 
 	//WEAPON STUFFS
 public: 
-	UFUNCTION(BlueprintCallable, Category = "GASShooter|Inventory")
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	AWeapon* GetCurrentWeapon() const;
 
 protected:
@@ -115,7 +119,7 @@ protected:
 	//equip new weapon
 	bool bChangedWeaponLocally;
 
-	UFUNCTION(BlueprintCallable, Category = "GASShooter|Inventory")
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	void EquipWeapon(AWeapon* NewWeapon);
 
 	UFUNCTION(Server, WithValidation, Reliable)
@@ -127,13 +131,34 @@ protected:
 	void UnEquipCurrentWeapon();
 
 	//add weapon to equipment
-	UFUNCTION(BlueprintCallable, Category = "Equipment")
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	AWeapon* AddWeaponToEquipment(TSubclassOf<AWeapon> WeaponClass);
 
 	UFUNCTION(Server, Reliable, WithValidation)
 	void ServerAddWeaponToEquipment(TSubclassOf<AWeapon> WeaponClass);
 	
 	bool DoesWeaponExistInInventory(AWeapon* InWeapon);
+
+	//EQUIPMENT STUFFS
+public:
+	UFUNCTION(BlueprintCallable, Category = "Equipment")
+	TArray<AEquipment*> GetEquipmentArray() const;
+
+protected:
+	UFUNCTION(BlueprintCallable, Category = "Equipment")
+	void EquipEquipment(AEquipment* NewEquipment);
+
+	UFUNCTION(Server, WithValidation, Reliable)
+	void ServerEquipEquipment(AEquipment* NewEquipment);
+
+	//add equipment to equipment list
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	AEquipment* AddEquipmentToEquipmentList(TSubclassOf<AEquipment> EquipmentClass);
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerAddEquipmentToEquipmentList(TSubclassOf<AEquipment> EquipmentClass);
+
+	bool DoesEquipmentExistInInventory(AEquipment* InEquipment);
 
 	//ITEM USING / INVENTORY
 public:

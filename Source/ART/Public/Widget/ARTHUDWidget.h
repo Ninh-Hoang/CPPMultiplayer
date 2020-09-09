@@ -94,16 +94,16 @@ public:
 	void SetStaminaRegen(float StaminaRegen);
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-	void SetMaxEnergy(float MaxMana);
+	void SetMaxEnergy(float MaxEnergy);
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-	void SetCurrentEnergy(float CurrentMana);
+	void SetCurrentEnergy(float CurrentEnergy);
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-	void SetEnergyPercentage(float ManaPercentage);
+	void SetEnergyPercentage(float EnergyPercentage);
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-	void SetEnergyRegen(float ManaRegen);
+	void SetEnergyRegen(float EnergyRegen);
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void SetMaxShield(float MaxShield);

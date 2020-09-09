@@ -67,12 +67,14 @@ public:
 		UPARAM(DisplayName = "Filter") FGameplayTargetDataFilterHandle InFilter,
 		UPARAM(DisplayName = "Reticle Class") TSubclassOf<AGameplayAbilityWorldReticle> InReticleClass,
 		UPARAM(DisplayName = "Reticle Params") FWorldReticleParameters InReticleParams,
+		UPARAM(DisplayName = "Tick?") bool bInTickingTargeting = false,
 		UPARAM(DisplayName = "Ignore Blocking Hits") bool bInIgnoreBlockingHits = false,
 		UPARAM(DisplayName = "Should Produce Target Data on Server") bool bInShouldProduceTargetDataOnServer = false,
 		UPARAM(DisplayName = "Use Persistent Hit Results") bool bInUsePersistentHitResults = false,
 		UPARAM(DisplayName = "Ignore Source Actor") bool bInIgnoreSourceActor = false,
 		UPARAM(DisplayName = "Debug") bool bInDebug = false,
 		UPARAM(DisplayName = "Trace Affects Aim Pitch") bool bInTraceAffectsAimPitch = true,
+		UPARAM(DisplayName = "Trace with Pawn Orientation") bool bInTraceWithPawnOrientation = true,
 		UPARAM(DisplayName = "Trace From Player ViewPoint") bool bInTraceFromPlayerViewPoint = false,
 		UPARAM(DisplayName = "Use Aiming Spread Mod") bool bInUseAimingSpreadMod = false,
 		UPARAM(DisplayName = "Max Range") float InMaxRange = 999999.0f,
@@ -88,7 +90,6 @@ public:
 	virtual void SphereTraceWithFilter(TArray<FHitResult>& OutHitResults, const UWorld* World, const FGameplayTargetDataFilterHandle FilterHandle, const FVector& Start, const FVector& End, float Radius, FName ProfileName, const FCollisionQueryParams Params);
 
 protected:
-	virtual void Tick(float DeltaTime) override;
 
 	virtual void DoTrace(TArray<FHitResult>& HitResults, const UWorld* World, const FGameplayTargetDataFilterHandle FilterHandle, const FVector& Start, const FVector& End, FName ProfileName, const FCollisionQueryParams Params) override;
 	virtual void ShowDebugTrace(TArray<FHitResult>& HitResults, EDrawDebugTrace::Type DrawDebugType, float Duration = 2.0f) override;

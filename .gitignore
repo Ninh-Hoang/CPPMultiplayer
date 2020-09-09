@@ -68,10 +68,10 @@ Saved/*
 
 # Compiled source files for the engine to use
 Intermediate/*
-Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
 
-#Temporary ignore some assets
-Content/KiteDemo
+#Ignore 3rd party plugins
+Plugins/*
+

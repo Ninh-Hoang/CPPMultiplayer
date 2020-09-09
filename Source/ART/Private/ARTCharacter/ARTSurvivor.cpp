@@ -274,7 +274,7 @@ void AARTSurvivor::SetCurrentWeapon(AWeapon* NewWeapon, AWeapon* LastWeapon)
 			AbilitySystemComponent->AddLooseGameplayTag(CurrentWeaponTag);
 		}
 
-		UAnimMontage* EquipMontage = CurrentWeapon->GetEquipMontage();
+		UAnimMontage* EquipMontage = CurrentWeapon->GetEquipWeaponMontage();
 
 		if (EquipMontage && GetMesh())
 		{
@@ -412,7 +412,108 @@ bool AARTSurvivor::DoesWeaponExistInInventory(AWeapon* InWeapon)
 	return false;
 }
 
+//EQUIPMENT STUFFS
 
+TArray<AEquipment*> AARTSurvivor::GetEquipmentArray() const
+{
+	return Equipment.Equipments;
+}
+
+void AARTSurvivor::EquipEquipment(AEquipment* NewEquipment)
+{
+	if (GetLocalRole() < ROLE_Authority)
+	{
+		ServerEquipEquipment(NewEquipment);
+	}
+	else
+	{
+		if (NewEquipment) {
+			NewEquipment->SetOwningCharacter(this);
+			NewEquipment->Equip(this);
+
+			if (AbilitySystemComponent)
+			{
+				AbilitySystemComponent->AddLooseGameplayTag(NewEquipment->EquipmentTag);
+			}
+
+			UAnimMontage* EquipMontage = NewEquipment->GetEquipMontage();
+
+			if (EquipMontage && GetMesh())
+			{
+				GetMesh()->GetAnimInstance()->Montage_Play(EquipMontage);
+			}
+		}
+	}
+}
+
+void AARTSurvivor::ServerEquipEquipment_Implementation(AEquipment* NewEquipment)
+{
+	EquipEquipment(NewEquipment);
+}
+
+bool AARTSurvivor::ServerEquipEquipment_Validate(AEquipment* NewEquipment)
+{
+	return true;
+}
+
+AEquipment* AARTSurvivor::AddEquipmentToEquipmentList(TSubclassOf<AEquipment> EquipmentClass)
+{
+	if (GetLocalRole() < ROLE_Authority)
+	{
+		ServerAddEquipmentToEquipmentList(EquipmentClass);
+	}
+
+	if (EquipmentClass)
+	{
+		AEquipment* NewEquipment = GetWorld()->SpawnActorDeferred<AEquipment>(EquipmentClass,
+			FTransform::Identity, this, this, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
+
+		//setup Equipment before finish spawning
+		//NewEquipment->bSpawnWithCollision = false;
+
+		NewEquipment->FinishSpawning(FTransform::Identity);
+		NewEquipment->Equip(this);
+
+		Equipment.Equipments.Add(NewEquipment);
+		NewEquipment->SetOwningCharacter(this);
+
+		if (GetLocalRole() < ROLE_Authority)
+		{
+			return NewEquipment;
+		}
+
+		NewEquipment->AddAbilities();
+
+		return NewEquipment;
+	}
+
+	return nullptr;
+}
+
+bool AARTSurvivor::DoesEquipmentExistInInventory(AEquipment* InEquipment)
+{
+	//UE_LOG(LogTemp, Log, TEXT("%s InWeapon class %s"), *FString(__FUNCTION__), *InWeapon->GetClass()->GetName());
+
+	for (AEquipment* IndexEquipment : Equipment.Equipments)
+	{
+		if (IndexEquipment && InEquipment && IndexEquipment == InEquipment)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+void AARTSurvivor::ServerAddEquipmentToEquipmentList_Implementation(TSubclassOf<AEquipment> EquipmentClass)
+{
+	AddEquipmentToEquipmentList(EquipmentClass);
+}
+
+bool AARTSurvivor::ServerAddEquipmentToEquipmentList_Validate(TSubclassOf<AEquipment> EquipmentClass)
+{
+	return true;
+}
 
 //ITEM USING / INVENTORY
 void AARTSurvivor::UseItem(UItem* Item)

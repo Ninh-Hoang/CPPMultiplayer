@@ -136,14 +136,13 @@ struct ART_API FARTTargetFilterTeamID : public FGameplayTargetDataFilter
 			bPassFilter = RequiredActorClass == TargetActor->GetClass();
 		}
 
-		AARTCharacterBase* SourceCharacter = Cast<AARTCharacterBase>(SourceActor);
-
-		if (SourceCharacter == nullptr || !TargetActor)
+		if (SourceActor == nullptr || !TargetActor)
 		{
 			bPassFilter = false;
 		}
 		else 
 		{
+			AARTCharacterBase* SourceCharacter = Cast<AARTCharacterBase>(SourceActor);
 			if (TeamAttitude != (SourceCharacter->GetTeamAttitudeTowards(*TargetActor)))
 			{
 				bPassFilter = false;

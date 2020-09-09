@@ -63,6 +63,10 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability")
 	bool bActivateAbilityOnGranted;
 
+	// allow remote activated for forcing ability
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability")
+	bool bAllowRemoteGrantingActivation;
+
 	// If true, this ability will activate when its bound input is pressed. Disable if you want to bind an ability to an
 	// input but not have it activate when pressed.
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability")
@@ -76,6 +80,18 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability")
 	bool bCannotActivateWhileInteracting;
 
+	// If true, ability will be canceled when leveled up
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability")
+	bool bCancelWhenLevelup;
+
+	//Ability that can stack/charge or not, 1 mean no stack
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability")
+	int32 AbilityCharge = 1;
+
+	//Ability represent the charge
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability")
+	FGameplayTag ChargeGameplayEffectTag;
+
 	// Map of gameplay tags to gameplay effect containers
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GameplayEffects")
 	TMap<FGameplayTag, FARTGameplayEffectContainer> EffectContainerMap;
@@ -83,6 +99,8 @@ public:
 	// If an ability is marked as 'ActivateAbilityOnGranted', activate them immediately when given here
 	// Epic's comment: Projects may want to initiate passives or do other "BeginPlay" type of logic here.
 	virtual void OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec) override;
+
+	virtual void OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec);
 
 	UFUNCTION(BlueprintCallable, Category = "Ability")
 	FGameplayAbilityTargetDataHandle MakeGameplayAbilityTargetDataHandleFromActorArray(const TArray<AActor*> TargetActors);
@@ -126,12 +144,23 @@ public:
 
 	virtual bool CheckCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, OUT FGameplayTagContainer* OptionalRelevantTags = nullptr) const override;
 
+	virtual void ApplyCooldown(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo) const override;
+
+	virtual bool CheckCooldown(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, OUT FGameplayTagContainer* OptionalRelevantTags /* = nullptr */) const override;
+	
+	virtual void CommitExecute(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo);
+
+	virtual void OnCooldownTagEventCallback(const FGameplayTag CallbackTag, int32 NewCount);
+
 	// Allows C++ and Blueprint abilities to override how cost is checked in case they don't use a GE like weapon ammo
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ability")
 	bool ARTCheckCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo& ActorInfo) const;
 	virtual bool ARTCheckCost_Implementation(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo& ActorInfo) const;
 
 	virtual void ApplyCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo) const override;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Ability")
+	int32 GetCurrentCharge();
 
 	// Allows C++ and Blueprint abilities to override how cost is applied in case they don't use a GE like weapon ammo
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ability")
@@ -168,6 +197,8 @@ public:
 	virtual TArray<FActiveGameplayEffectHandle> ApplyEffectContainer(FGameplayTag ContainerTag, const FGameplayEventData& EventData, int32 OverrideGameplayLevel = -1);
 
 protected:
+	
+	int32 CurrentCharges = 0;
 
 	FGameplayTag InteractingTag;
 	FGameplayTag InteractingRemovalTag;

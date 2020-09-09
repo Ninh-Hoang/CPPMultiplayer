@@ -27,29 +27,32 @@ public:
 
 	class UARTCharacterAttributeSet* GetAttributeSetBase() const;
 
-	UFUNCTION(BlueprintCallable, Category = "GASShooter|GSPlayerState")
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTPlayerState")
 	bool IsAlive() const;
 
-	UFUNCTION(BlueprintCallable, Category = "GASShooter|GSPlayerState|UI")
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTPlayerState|UI")
 	void ShowAbilityConfirmPrompt(bool bShowPrompt);
 
-	UFUNCTION(BlueprintCallable, Category = "GASShooter|GSPlayerState|UI")
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTPlayerState|UI")
 	void ShowInteractionPrompt(float InteractionDuration);
 
-	UFUNCTION(BlueprintCallable, Category = "GASShooter|GSPlayerState|UI")
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTPlayerState|UI")
 	void HideInteractionPrompt();
 
-	UFUNCTION(BlueprintCallable, Category = "GASShooter|GSPlayerState|UI")
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTPlayerState|UI")
 	void StartInteractionTimer(float InteractionDuration);
 
 	// Interaction interrupted, cancel and hide HUD interact timer
-	UFUNCTION(BlueprintCallable, Category = "GASShooter|GSPlayerState|UI")
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTPlayerState|UI")
 	void StopInteractionTimer();
 
 	/**
 	* Getters for attributes from GDAttributeSetBase. Returns Current Value unless otherwise specified.
 	*/
-	UFUNCTION(BlueprintCallable, Category = "GASDocumentation|GDCharacter")
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Ability")
+	bool GetCooldownRemainingForTag(FGameplayTagContainer CooldownTags, float& TimeRemaining, float& CooldownDuration);
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter")
 	virtual int32 GetCharacterLevel() const;
 
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")

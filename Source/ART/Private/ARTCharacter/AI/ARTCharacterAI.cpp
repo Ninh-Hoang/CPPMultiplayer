@@ -88,7 +88,7 @@ void AARTCharacterAI::HealthChanged(const FOnAttributeChangeData& Data)
 	}
 
 	// If the minion died, handle death
-	if (!IsAlive() && !AbilitySystemComponent->HasMatchingGameplayTag(DeadTag))
+	if (!IsAlive() &&  !AbilitySystemComponent->HasMatchingGameplayTag(DeadTag))
 	{
 		Die();
 	}

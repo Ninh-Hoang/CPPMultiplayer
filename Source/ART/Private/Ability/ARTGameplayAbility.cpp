@@ -18,6 +18,7 @@ UARTGameplayAbility::UARTGameplayAbility()
 	InstancingPolicy = EGameplayAbilityInstancingPolicy::InstancedPerActor;
 
 	bActivateAbilityOnGranted = false;
+	bAllowRemoteGrantingActivation = false;
 	bActivateOnInput = true;
 	bSourceObjectMustEqualCurrentWeaponToActivate = false;
 	bCannotActivateWhileInteracting = true;
@@ -25,7 +26,6 @@ UARTGameplayAbility::UARTGameplayAbility()
 	InteractingTag = FGameplayTag::RequestGameplayTag("State.Interacting");
 	InteractingRemovalTag = FGameplayTag::RequestGameplayTag("State.InteractingRemoval");
 }
-
 
 void UARTGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled)
 {
@@ -37,9 +37,31 @@ void UARTGameplayAbility::OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo
 {
 	Super::OnAvatarSet(ActorInfo, Spec);
 
+	if (AbilityCharge > 1) 
+	{
+		CurrentCharges = AbilityCharge;
+	}
+
 	if (bActivateAbilityOnGranted)
 	{
-		bool ActivatedAbility = ActorInfo->AbilitySystemComponent->TryActivateAbility(Spec.Handle, false);
+		bool ActivatedAbility = ActorInfo->AbilitySystemComponent->TryActivateAbility(Spec.Handle, bAllowRemoteGrantingActivation);
+	}
+}
+
+void UARTGameplayAbility::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
+{
+	Super::OnGiveAbility(ActorInfo, Spec);
+	if (bActivateAbilityOnGranted)
+	{
+		bool ActivatedAbility = ActorInfo->AbilitySystemComponent->TryActivateAbility(Spec.Handle, bAllowRemoteGrantingActivation);
+	}
+
+	//for charged ability
+	const FGameplayTagContainer* CDTags = GetCooldownTags();
+	if (CDTags) {
+		UAbilitySystemComponent* const AbilitySystemComponent = ActorInfo->AbilitySystemComponent.Get();
+		check(AbilitySystemComponent != nullptr);
+		AbilitySystemComponent->RegisterGameplayTagEvent(CDTags->GetByIndex(0), EGameplayTagEventType::AnyCountChange).AddUObject(this, &UARTGameplayAbility::OnCooldownTagEventCallback);
 	}
 }
 
@@ -198,6 +220,56 @@ bool UARTGameplayAbility::CheckCost(const FGameplayAbilitySpecHandle Handle, con
 	return Super::CheckCost(Handle, ActorInfo, OptionalRelevantTAART) && ARTCheckCost(Handle, *ActorInfo);
 }
 
+void UARTGameplayAbility::ApplyCooldown(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo) const
+{
+	Super::ApplyCooldown(Handle, ActorInfo, ActivationInfo);
+}
+
+bool UARTGameplayAbility::CheckCooldown(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, OUT FGameplayTagContainer* OptionalRelevantTags /* = nullptr */) const
+{
+	if (AbilityCharge > 1)
+	{
+		const FGameplayTagContainer* CDTags = GetCooldownTags();
+
+		if (CDTags)
+		{
+			if (CurrentCharges == 0)
+			{
+				const FGameplayTag& FailCDTag = UAbilitySystemGlobals::Get().ActivateFailCooldownTag;
+
+				if (OptionalRelevantTags && FailCDTag.IsValid())
+				{
+					OptionalRelevantTags->AddTag(FailCDTag);
+				}
+
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	return Super::CheckCooldown(Handle, ActorInfo, OptionalRelevantTags);
+}
+
+void UARTGameplayAbility::CommitExecute(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo)
+{
+	if (CurrentCharges > 0) {
+		CurrentCharges -= 1;
+	}
+	Super::CommitExecute(Handle, ActorInfo, ActivationInfo);
+}
+
+void UARTGameplayAbility::OnCooldownTagEventCallback(const FGameplayTag CallbackTag, int32 NewCount)
+{
+	if (AbilityCharge > 1)
+	{
+		const FGameplayTagContainer* CDTags = GetCooldownTags();
+		UAbilitySystemComponent* const AbilitySystemComponent = GetAbilitySystemComponentFromActorInfo();
+		FGameplayEffectQuery const Query = FGameplayEffectQuery::MakeQuery_MatchAnyOwningTags(*CDTags);
+		CurrentCharges = AbilityCharge - AbilitySystemComponent->GetAggregatedStackCount(Query);
+	}
+}
+
 bool UARTGameplayAbility::ARTCheckCost_Implementation(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo& ActorInfo) const
 {
 	return true;
@@ -207,6 +279,11 @@ void UARTGameplayAbility::ApplyCost(const FGameplayAbilitySpecHandle Handle, con
 {
 	ARTApplyCost(Handle, *ActorInfo, ActivationInfo);
 	Super::ApplyCost(Handle, ActorInfo, ActivationInfo);
+}
+
+int32 UARTGameplayAbility::GetCurrentCharge()
+{
+	return CurrentCharges;
 }
 
 void UARTGameplayAbility::SetHUDReticle(TSubclassOf<UARTHUDReticle> ReticleClass)

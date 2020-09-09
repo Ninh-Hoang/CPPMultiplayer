@@ -100,6 +100,12 @@ public:
 	static FGameplayTargetDataFilterHandle MakeTargetDataFilterByTeamAttitude(AActor* FilterActor, AActor* InSourceActor,
 		TEnumAsByte<ETeamAttitude::Type> InTeamAttitude,
 		TEnumAsByte<ETargetDataFilterSelf::Type> InSelfFilter, TSubclassOf<AActor> InRequiredActorClass, bool InReverseFilter);
+	/*
+	* Filter Bulk TargetData
+	*/
+	UFUNCTION(BlueprintPure, Category = "Ability|TargetData", Meta = (DisplayName = "Filter Target Data Array"))
+	static TArray<FGameplayAbilityTargetDataHandle> FilterTargetDataArray(TArray<FGameplayAbilityTargetDataHandle> TargetDataArray,
+	FGameplayTargetDataFilterHandle Filterhandle);
 
 	/*
 	* turn HitResult in to TargetData

@@ -14,9 +14,11 @@ AGATA_Trace::AGATA_Trace()
 	PrimaryActorTick.TickGroup = TG_PostUpdateWork;
 	MaxHitResultsPerTrace = 1;
 	NumberOfTraces = 1;
+	bTickingTargeting = false;
 	bIgnoreBlockingHits = false;
 	bTraceAffectsAimPitch = true;
 	bTraceFromPlayerViewPoint = false;
+	bTraceWithPawnOrientation = true;
 	MaxRange = 999999.0f;
 	bUseAimingSpreadMod = false;
 	BaseSpread = 0.0f;
@@ -76,7 +78,8 @@ void AGATA_Trace::StartTargeting(UGameplayAbility* Ability)
 	SetActorTickEnabled(true);
 
 	OwningAbility = Ability;
-	SourceActor = Ability->GetCurrentActorInfo()->AvatarActor.Get();
+	//SourceActor = Ability->GetCurrentActorInfo()->AvatarActor.Get();
+	SourceActor = Ability->GetAvatarActorFromActorInfo();
 
 	// This is a lazy way of emptying and repopulating the ReticleActors.
 	// We could come up with a solution that reuses them.
@@ -163,7 +166,7 @@ void AGATA_Trace::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 
 	TArray<FHitResult> HitResults;
-	if (bDebug || bUsePersistentHitResults)
+	if (bDebug || bUsePersistentHitResults || bTickingTargeting)
 	{
 		// Only need to trace on Tick if we're showing debug or if we use persistent hit results, otherwise we just use the confirmation trace
 		HitResults = PerformTrace(SourceActor);

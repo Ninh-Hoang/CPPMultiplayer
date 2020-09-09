@@ -184,6 +184,19 @@ FGameplayTargetDataFilterHandle UARTBlueprintFunctionLibrary::MakeTargetDataFilt
 	return FilterHandle;
 }
 
+
+TArray<FGameplayAbilityTargetDataHandle> UARTBlueprintFunctionLibrary::FilterTargetDataArray(TArray<FGameplayAbilityTargetDataHandle> TargetDataArray, FGameplayTargetDataFilterHandle Filterhandle)
+{
+	TArray<FGameplayAbilityTargetDataHandle> OutTargetDataArray;
+
+	for (int i = 0; i < TargetDataArray.Num(); i++)
+	{
+		OutTargetDataArray.Add(UAbilitySystemBlueprintLibrary::FilterTargetData(TargetDataArray[i], Filterhandle));
+	}
+
+	return OutTargetDataArray;
+}
+
 FGameplayAbilityTargetDataHandle UARTBlueprintFunctionLibrary::MakeTargetDataFromHit(FHitResult HitResult)
 {
 	FGameplayAbilityTargetDataHandle ReturnDataHandle;

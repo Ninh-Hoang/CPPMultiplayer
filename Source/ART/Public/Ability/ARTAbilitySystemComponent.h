@@ -93,6 +93,10 @@ public:
 
 	virtual void NotifyAbilityEnded(FGameplayAbilitySpecHandle Handle, UGameplayAbility* Ability, bool bWasCancelled) override;
 
+	//expose cancel ability to BP
+	UFUNCTION(BlueprintCallable, Category = "Abilities", Meta = (DisplayName = "CancelAbilityWithTag"))
+	void CancelAbilitiesWithTag(const FGameplayTagContainer WithTags, const FGameplayTagContainer WithoutTags, UGameplayAbility* Ignore);
+
 	// Version of function in AbilitySystemGlobals that returns correct type
 	static UARTAbilitySystemComponent* GetAbilitySystemComponentFromActor(const AActor* Actor, bool LookForComponent = false);
 
@@ -105,6 +109,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Abilities")
 	FGameplayAbilitySpecHandle FindAbilitySpecHandleForClass(TSubclassOf<UGameplayAbility> AbilityClass, UObject* OptionalSourceObject = nullptr);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Abilities")
+	int32 FindAbilityChargeViaCooldownTag(FGameplayTagContainer CooldownTag);
 
 	// Turn on RPC batching in ASC. Off by default.
 	virtual bool ShouldDoServerAbilityRPCBatch() const override { return true; }
@@ -207,6 +214,14 @@ public:
 
 	// Returns amount of time left in current section
 	float GetCurrentMontageSectionTimeLeftForMesh(USkeletalMeshComponent* InMesh);
+
+	//change active gameplay effect duration
+	UFUNCTION(BlueprintCallable, Category = "Abilities", Meta = (DisplayName = "Change Active Effect Duration"))
+	bool SetGameplayEffectDurationHandle(FActiveGameplayEffectHandle Handle, float NewDuration);
+
+	//add active gameplay effect duration
+	UFUNCTION(BlueprintCallable, Category = "Abilities", Meta = (DisplayName = "Add Active Effect Duration by Float"))
+	bool AddGameplayEffectDurationHandle(FActiveGameplayEffectHandle Handle, float AddDuration);
 
 protected:
 	// ----------------------------------------------------------------------------------------------------------------

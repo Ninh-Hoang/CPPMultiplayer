@@ -8,7 +8,6 @@
 
 AGATA_SphereTrace::AGATA_SphereTrace()
 {
-	PrimaryActorTick.bCanEverTick = false;
 	TraceSphereRadius = 300;
 }
 
@@ -16,10 +15,10 @@ void AGATA_SphereTrace::Configure(const FGameplayAbilityTargetingLocationInfo& I
 	FGameplayTag InAimingTag, FGameplayTag InAimingRemovalTag, 
 	FCollisionProfileName InTraceProfile, FGameplayTargetDataFilterHandle InFilter, 
 	TSubclassOf<AGameplayAbilityWorldReticle> InReticleClass, 
-	FWorldReticleParameters InReticleParams, bool bInIgnoreBlockingHits /*= false*/, 
+	FWorldReticleParameters InReticleParams, bool bInTickingTargeting /*= false*/, bool bInIgnoreBlockingHits /*= false*/,
 	bool bInShouldProduceTargetDataOnServer /*= false*/, bool bInUsePersistentHitResults /*= false*/, 
 	bool bInIgnoreSourceActor /*= false*/, bool bInDebug /*= false*/, bool bInTraceAffectsAimPitch /*= true*/,
-	bool bInTraceFromPlayerViewPoint /*= false*/, bool bInUseAimingSpreadMod /*= false*/,
+	bool bInTraceWithPawnOrientation /*=true*/, bool bInTraceFromPlayerViewPoint /*= false*/, bool bInUseAimingSpreadMod /*= false*/,
 	float InMaxRange /*= 999999.0f*/, float InTraceSphereRadius /*= 100.0f*/, 
 	float InBaseSpread /*= 0.0f*/, float InAimingSpreadMod /*= 0.0f*/, 
 	float InTargetingSpreadIncrement /*= 0.0f*/, float InTargetingSpreadMax /*= 0.0f*/, 
@@ -32,12 +31,14 @@ void AGATA_SphereTrace::Configure(const FGameplayAbilityTargetingLocationInfo& I
 	Filter = InFilter;
 	ReticleClass = InReticleClass;
 	ReticleParams = InReticleParams;
+	bTickingTargeting = bInTickingTargeting;
 	bIgnoreBlockingHits = bInIgnoreBlockingHits;
 	ShouldProduceTargetDataOnServer = bInShouldProduceTargetDataOnServer;
 	bUsePersistentHitResults = bInUsePersistentHitResults;
 	bIgnoreSourceActor = bInIgnoreSourceActor;
 	bDebug = bInDebug;
 	bTraceAffectsAimPitch = bInTraceAffectsAimPitch;
+	bTraceWithPawnOrientation = bInTraceWithPawnOrientation;
 	bTraceFromPlayerViewPoint = bInTraceFromPlayerViewPoint;
 	bUseAimingSpreadMod = bInUseAimingSpreadMod;
 	MaxRange = InMaxRange;
@@ -55,29 +56,13 @@ void AGATA_SphereTrace::Configure(const FGameplayAbilityTargetingLocationInfo& I
 	}
 }
 
-void AGATA_SphereTrace::Tick(float DeltaTime)
-{
-	/*Super::Tick(DeltaTime);
-
-	FVector WorldLocation;
-	FVector WorldDirection;
-
-	MasterPC->DeprojectMousePositionToWorld(WorldLocation, WorldDirection);
-	FVector ActorLocation = MasterPC->GetPawn()->GetActorLocation();
-
-	FVector Intersection = FMath::LinePlaneIntersection(WorldLocation, WorldLocation + WorldDirection * 1000,
-		ActorLocation, FVector::UpVector);
-
-	SetActorLocation(Intersection);*/
-}
-
-
 void AGATA_SphereTrace::SphereTraceWithFilter(TArray<FHitResult>& OutHitResults, const UWorld* World, const FGameplayTargetDataFilterHandle FilterHandle, const FVector& Start, const FVector& End, float Radius, FName ProfileName, const FCollisionQueryParams Params)
 {
 	check(World);
 
 	TArray<FHitResult> HitResults;
 	World->SweepMultiByProfile(HitResults, Start, End, FQuat::Identity, ProfileName, FCollisionShape::MakeSphere(Radius), Params);
+
 	TArray<FHitResult> FilteredHitResults;
 
 	// Start param could be player ViewPoint. We want HitResult to always display the StartLocation.
@@ -103,7 +88,7 @@ void AGATA_SphereTrace::SphereTraceWithFilter(TArray<FHitResult>& OutHitResults,
 
 void AGATA_SphereTrace::DoTrace(TArray<FHitResult>& HitResults, const UWorld* World, const FGameplayTargetDataFilterHandle FilterHandle, const FVector& Start, const FVector& End, FName ProfileName, const FCollisionQueryParams Params)
 {
-	SphereTraceWithFilter(HitResults, World, FilterHandle, Start, Start, TraceSphereRadius, ProfileName, Params);
+	SphereTraceWithFilter(HitResults, World, FilterHandle, Start, End, TraceSphereRadius, ProfileName, Params);
 }
 
 void AGATA_SphereTrace::ShowDebugTrace(TArray<FHitResult>& HitResults, EDrawDebugTrace::Type DrawDebugType, float Duration)

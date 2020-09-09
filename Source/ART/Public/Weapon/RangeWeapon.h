@@ -51,9 +51,6 @@ public:
 
 	virtual void PreReplication(IRepChangedPropertyTracker& ChangedPropertyTracker) override;
 
-	// Resets things like fire mode to default
-	virtual void ResetWeapon() override;
-
 	UFUNCTION(BlueprintCallable, Category = "GASShooter|GSWeapon")
 	virtual int32 GetPrimaryClipAmmo() const;
 

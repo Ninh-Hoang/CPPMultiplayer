@@ -24,7 +24,7 @@ class ART_API UAT_ServerWaitForClientTargetData : public UAbilityTask
 	virtual void Activate() override;
 
 	UFUNCTION()
-		void OnTargetDataReplicatedCallback(const FGameplayAbilityTargetDataHandle& Data, FGameplayTag ActivationTag);
+	void OnTargetDataReplicatedCallback(const FGameplayAbilityTargetDataHandle& Data, FGameplayTag ActivationTag);
 
 protected:
 	virtual void OnDestroy(bool AbilityEnded) override;
