@@ -144,7 +144,11 @@ protected:
 	//movement
 	void MoveForward(float AxisValue);
 	void MoveRight(float AxisValue);
+	void Jump();
+
+	//camera control
 	void LookRight(float AxisValue);
+	void LookUp(float AxisValue);
 
 	//crouch
 	void BeginCrouch();

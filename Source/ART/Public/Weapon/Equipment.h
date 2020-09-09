@@ -81,9 +81,6 @@ protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Equipment")
 	FText DefaultStatusText;
 
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|UI")
-	TSubclassOf<class UARTHUDReticle> PrimaryHUDReticleClass;
-
 	UPROPERTY()
 	UARTAbilitySystemComponent* AbilitySystemComponent;
 
@@ -129,7 +126,4 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "ART|Animation")
 	UAnimMontage* GetEquipMontage() const;
-
-	UFUNCTION(BlueprintCallable, Category = "ART|Equipment")
-	TSubclassOf<class UARTHUDReticle> GetPrimaryHUDReticleClass() const;
 };

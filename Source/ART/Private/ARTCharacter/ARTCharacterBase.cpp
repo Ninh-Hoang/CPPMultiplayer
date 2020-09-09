@@ -33,9 +33,6 @@ AARTCharacterBase::AARTCharacterBase(const class FObjectInitializer& ObjectIniti
 	SetReplicates(true);
 	SetReplicateMovement(true);
 
-	GetMovementComponent()->GetNavAgentPropertiesRef().bCanCrouch = true;
-	GetMovementComponent()->SetJumpAllowed(false);
-
 	AzimuthComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Azimuth"));
 	AzimuthComponent->SetupAttachment(RootComponent);
 
@@ -290,7 +287,9 @@ void AARTCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	PlayerInputComponent->BindAxis("MoveForward", this, &AARTCharacterBase::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AARTCharacterBase::MoveRight);
 
-	//PlayerInputComponent->BindAxis("LookUp", this, &AARTCharacterBase::AddControllerPitchInput);
+	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AARTCharacterBase::Jump);
+
+	PlayerInputComponent->BindAxis("LookUp", this, &AARTCharacterBase::LookUp);
 	PlayerInputComponent->BindAxis("LookRight", this, &AARTCharacterBase::LookRight);
 
 	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &AARTCharacterBase::BeginCrouch);
@@ -299,29 +298,49 @@ void AARTCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	BindASCInput();
 }
 
+//movement control
 void AARTCharacterBase::MoveForward(float AxisValue)
 {
-	if (CameraComponent) {
+	/*if (CameraComponent) {
 		FVector ProjectedVector = UKismetMathLibrary::ProjectVectorOnToPlane(CameraComponent->GetForwardVector(), GetActorUpVector());
 		FVector ForwardDirection = ProjectedVector.GetSafeNormal();
 		AddMovementInput(ForwardDirection, AxisValue);
-	}
+	}*/
+	AddMovementInput(UKismetMathLibrary::GetForwardVector(FRotator(0, GetControlRotation().Yaw, 0)), AxisValue);
 }
 
 void AARTCharacterBase::MoveRight(float AxisValue)
 {
-	if (ensure(CameraComponent)) {
+	/*if (ensure(CameraComponent)) {
 		AddMovementInput(CameraComponent->GetRightVector() * AxisValue);
-	}
+	}*/
+	AddMovementInput(UKismetMathLibrary::GetRightVector(FRotator(0, GetControlRotation().Yaw, 0)), AxisValue);
 }
 
+void AARTCharacterBase::Jump()
+{
+	bPressedJump = true;
+	JumpKeyHoldTime = 0.0f;
+}
+
+//camera control
 void AARTCharacterBase::LookRight(float AxisValue)
 {
-	if (ensure(AzimuthComponent)) {
+	/*if (ensure(AzimuthComponent)) {
 		AzimuthComponent->AddLocalRotation(FRotator(0, AxisValue, 0));
-	}
+	}*/
+	AddControllerYawInput(AxisValue);
 }
 
+void AARTCharacterBase::LookUp(float AxisValue)
+{
+	/*if (ensure(AzimuthComponent)) {
+		AzimuthComponent->AddLocalRotation(FRotator(0, 0, AxisValue));
+	}*/
+	AddControllerPitchInput(AxisValue);
+}
+
+//crouch control
 void AARTCharacterBase::BeginCrouch()
 {
 	Crouch();

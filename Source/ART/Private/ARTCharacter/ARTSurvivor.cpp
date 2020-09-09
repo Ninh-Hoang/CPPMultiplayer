@@ -269,6 +269,12 @@ void AARTSurvivor::SetCurrentWeapon(AWeapon* NewWeapon, AWeapon* LastWeapon)
 
 		ClientSyncCurrentWeapon(CurrentWeapon);
 
+		AARTPlayerController* PC = GetController<AARTPlayerController>();
+		if (PC && PC->IsLocalController())
+		{
+			PC->SetHUDReticle(CurrentWeapon->GetPrimaryHUDReticleClass());
+		}
+
 		if (AbilitySystemComponent)
 		{
 			AbilitySystemComponent->AddLooseGameplayTag(CurrentWeaponTag);

@@ -25,6 +25,11 @@ UAnimMontage* AWeapon::GetEquipWeaponMontage() const
 	return EquipWeaponMontage;
 }
 
+TSubclassOf<class UARTHUDReticle> AWeapon::GetPrimaryHUDReticleClass() const
+{
+	return PrimaryHUDReticleClass;
+}
+
 void AWeapon::EquipWeapon() {
 	if (OwningCharacter) {
 		FText SocketText = UEnum::GetDisplayValueAsText(WeaponReadySlot);

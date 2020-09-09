@@ -41,6 +41,10 @@ public:
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "ART|Weapon")
 	FGameplayTag WeaponTag;
 protected:
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|UI")
+	TSubclassOf<class UARTHUDReticle> PrimaryHUDReticleClass;
+
 	UPROPERTY(EditDefaultsOnly, Category = "ART|Weapon")
 	EWeaponType WeaponType;
 
@@ -69,6 +73,9 @@ protected:
 public: 
 	UFUNCTION(BlueprintCallable, Category = "ART|Animation")
 	UAnimMontage* GetEquipWeaponMontage() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|Weapon")
+	TSubclassOf<class UARTHUDReticle> GetPrimaryHUDReticleClass() const;
 
 	UFUNCTION(BlueprintCallable)
 	virtual void EquipWeapon();

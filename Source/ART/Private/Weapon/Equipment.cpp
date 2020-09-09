@@ -227,11 +227,6 @@ UAnimMontage* AEquipment::GetEquipMontage() const
 	return EquipMontage;
 }
 
-TSubclassOf<class UARTHUDReticle> AEquipment::GetPrimaryHUDReticleClass() const
-{
-	return PrimaryHUDReticleClass;
-}
-
 //replication
 void AEquipment::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
