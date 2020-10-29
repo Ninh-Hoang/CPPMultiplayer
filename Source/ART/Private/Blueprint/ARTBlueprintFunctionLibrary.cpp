@@ -236,3 +236,18 @@ TArray<FGameplayAbilityTargetDataHandle> UARTBlueprintFunctionLibrary::MakeArray
 
 	return ReturnDataHandles;
 }
+
+void UARTBlueprintFunctionLibrary::InitializePropertyMap(FGameplayTagBlueprintPropertyMap InMap, UObject* Owner, UAbilitySystemComponent* ASC)
+{
+}
+
+float UARTBlueprintFunctionLibrary::GetTagCallerMag(UAbilitySystemComponent* InASC, FActiveGameplayEffectHandle InActiveHandle, FGameplayTag CallerTag)
+{
+	if (InASC && InActiveHandle.IsValid())
+	{
+		const FActiveGameplayEffect* ActiveGE = InASC->GetActiveGameplayEffect(InActiveHandle);
+		return ActiveGE->Spec.GetSetByCallerMagnitude(CallerTag);
+	}
+	return 0.0f;
+}
+

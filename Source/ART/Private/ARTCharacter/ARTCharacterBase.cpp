@@ -24,6 +24,7 @@
 #include <Kismet/GameplayStatics.h>
 #include "Widget/ARTDamageTextWidgetComponent.h"
 #include <Ability/ARTGameplayAbility.h>
+#include <ARTCharacter/Voxel/ARTSimpleInvokerComponent.h>
 
 // Sets default values
 AARTCharacterBase::AARTCharacterBase(const class FObjectInitializer& ObjectInitializer) :
@@ -33,14 +34,8 @@ AARTCharacterBase::AARTCharacterBase(const class FObjectInitializer& ObjectIniti
 	SetReplicates(true);
 	SetReplicateMovement(true);
 
-	AzimuthComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Azimuth"));
-	AzimuthComponent->SetupAttachment(RootComponent);
-
-	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
-	SpringArmComponent->SetupAttachment(AzimuthComponent);
-
-	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
-	CameraComponent->SetupAttachment(SpringArmComponent);
+	VoxelInvokerComponent = CreateDefaultSubobject<UARTSimpleInvokerComponent>(TEXT("VoxelInvoker"));
+	VoxelInvokerComponent->SetupAttachment(RootComponent);
 
 	// Cache tags
 	DeadTag = FGameplayTag::RequestGameplayTag("State.Dead");
@@ -154,6 +149,11 @@ void AARTCharacterBase::AddDamageNumber(float Damage, FGameplayTagContainer Dama
 	{
 		GetWorldTimerManager().SetTimer(DamageNumberTimer, this, &AARTCharacterBase::ShowDamageNumber, 0.1, true, 0.0f);
 	}
+}
+
+FGameplayTagBlueprintPropertyMap AARTCharacterBase::GetTagDelegateMap()
+{
+	return TagDelegateMap;
 }
 
 int32 AARTCharacterBase::GetAbilityLevel(EARTAbilityInputID AbilityID) const
@@ -277,6 +277,8 @@ void AARTCharacterBase::BeginPlay()
 	{
 		ServerSyncCurrentWeapon();
 	}*/
+
+	TagDelegateMap.Initialize(this, AbilitySystemComponent);
 }
 
 // Called to bind functionality to input
@@ -361,11 +363,241 @@ float AARTCharacterBase::GetAttackPower() const
 	return 0.0f;
 }
 
+float AARTCharacterBase::GetCritRate() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetCritRate();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetCritMultiplier() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetCritMultiplier();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetReactMas() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetReactMas();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetPhysBonus() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetPhysBonus();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetPhysRes() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetPhysRes();
+	}
+
+	return 0.0f;
+}
+
 float AARTCharacterBase::GetArmor() const
 {
 	if (AttributeSetBase)
 	{
 		return AttributeSetBase->GetArmor();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetHealBonus() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetHealBonus();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetIncomingHealBonus() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetIncomingHealBonus();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetVoidBonus() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetVoidBonus();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetVoidRes() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetVoidRes();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetHeatBonus() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetHeatBonus();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetHeatRes() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetHeatRes();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetColdBonus() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetColdBonus();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetColdRes() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetColdRes();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetElecBonus() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetElecBonus();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetElecRes() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetElecRes();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetWaterBonus() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetWaterBonus();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetWaterRes() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetWaterRes();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetEarthBonus() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetEarthBonus();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetEarthRes() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetEarthRes();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetAirBonus() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetAirBonus();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GeAirRes() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetAirRes();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetLifeBonus() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetLifeBonus();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetLifeRes() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetLifeRes();
 	}
 
 	return 0.0f;
@@ -511,11 +743,51 @@ float AARTCharacterBase::GetRotateRate() const
 	return 0.0f;
 }
 
+float AARTCharacterBase::GetXP() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetXP();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetXPBounty() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetXPBounty();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetEn() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetEn();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetEnBounty() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetEnBounty();
+	}
+
+	return 0.0f;
+}
+
 void AARTCharacterBase::SetShield(float Shield)
 {
 	if (AttributeSetBase)
 	{
-		AttributeSetBase->SetHealth(Shield);
+		AttributeSetBase->SetShield(Shield);
 	}
 }
 

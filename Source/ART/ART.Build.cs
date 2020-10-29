@@ -17,7 +17,8 @@ public class ART : ModuleRules
 			"OnlineSubsystem",
 			"OnlineSubsystemUtils",
 			"Steamworks",
-			"Networking"});
+			"Networking",
+			"Voxel"});
 
 		DynamicallyLoadedModuleNames.Add("OnlineSubsystemSteam");
 

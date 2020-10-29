@@ -8,7 +8,7 @@
 
 UARTCharacterMovementComponent::UARTCharacterMovementComponent()
 {
-	SprintSpeedMultiplier = 1.7f;
+	SprintSpeedMultiplier = 2.0f;
 	ADSSpeedMultiplier = 0.5f;
 }
 

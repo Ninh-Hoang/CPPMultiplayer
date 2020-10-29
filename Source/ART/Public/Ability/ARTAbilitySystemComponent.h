@@ -72,7 +72,6 @@ class ART_API UARTAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
 public:
-
 	UARTAbilitySystemComponent();
 
 	bool CharacterAbilitiesGiven = false;
@@ -222,6 +221,9 @@ public:
 	//add active gameplay effect duration
 	UFUNCTION(BlueprintCallable, Category = "Abilities", Meta = (DisplayName = "Add Active Effect Duration by Float"))
 	bool AddGameplayEffectDurationHandle(FActiveGameplayEffectHandle Handle, float AddDuration);
+
+	/** Get an outgoing GameplayEffectSpec that is ready to be applied to other things. */
+	virtual FGameplayEffectSpecHandle MakeOutgoingSpec(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level, FGameplayEffectContextHandle Context) const override;
 
 protected:
 	// ----------------------------------------------------------------------------------------------------------------

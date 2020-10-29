@@ -75,3 +75,6 @@ DerivedDataCache/*
 #Ignore 3rd party plugins
 Plugins/*
 
+#Ignore Asset files as they are too heavy
+Content/CustomAsset/*
+

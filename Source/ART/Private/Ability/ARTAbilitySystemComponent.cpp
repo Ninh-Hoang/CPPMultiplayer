@@ -8,6 +8,8 @@
 #include "GameplayCueManager.h"
 #include "Net/UnrealNetwork.h"
 #include "Weapon/Weapon.h"
+#include <Blueprint/ARTCurve.h>
+#include <Ability/ARTGameplayEffect.h>
 
 void UARTAbilitySystemComponent::ReceiveDamage(UARTAbilitySystemComponent* SourceASC, float UnmitigatedDamage, float MitigatedDamage)
 {
@@ -686,6 +688,32 @@ bool UARTAbilitySystemComponent::AddGameplayEffectDurationHandle(FActiveGameplay
 	OnGameplayEffectDurationChange(*AGE);
 
 	return true;
+}
+
+//TODO CLEAN THIS DUCTAPE UP
+FGameplayEffectSpecHandle UARTAbilitySystemComponent::MakeOutgoingSpec(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level, FGameplayEffectContextHandle Context) const
+{
+	FGameplayEffectSpecHandle Spec = Super::MakeOutgoingSpec(GameplayEffectClass, Level, Context);
+	if (Spec.IsValid())
+	{
+		UGameplayEffect* GameplayEffect = GameplayEffectClass->GetDefaultObject<UGameplayEffect>();
+		if (UARTGameplayEffect* ArtGE = Cast<UARTGameplayEffect>(GameplayEffect))
+		{
+			if (UARTCurve* GECurve = ArtGE->Curves)
+			{
+				//for each curve in ARTCurve asset, take the curve's tag and use it to SetByCallerMagnitude for GE
+				for (const auto& Data : GECurve->ARTCurveData)
+				{
+					FGameplayTag MagTag = Data.CurveTag;
+
+					//UE_LOG(LogTemp, Warning, TEXT("%f"), GECurve->GetCurveValue(MagTag, Level));
+					Spec.Data->SetSetByCallerMagnitude(MagTag, GECurve->GetCurveValue(MagTag, Level));
+				}
+			}
+		}
+		return Spec;
+	}
+	return FGameplayEffectSpecHandle(nullptr);
 }
 
 FGameplayAbilityLocalAnimMontageForMesh& UARTAbilitySystemComponent::GetLocalAnimMontageInfoForMesh(USkeletalMeshComponent* InMesh)

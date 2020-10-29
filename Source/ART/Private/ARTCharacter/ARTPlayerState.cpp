@@ -145,7 +145,7 @@ bool AARTPlayerState::GetCooldownRemainingForTag(FGameplayTagContainer CooldownT
 
 int32 AARTPlayerState::GetCharacterLevel() const
 {
-	return 1;
+	return AttributeSetBase->GetCharacterLevel();
 }
 
 float AARTPlayerState::GetAttackPower() const
@@ -153,9 +153,124 @@ float AARTPlayerState::GetAttackPower() const
 	return AttributeSetBase->GetAttackPower();
 }
 
+float AARTPlayerState::GetCritRate() const
+{
+	return AttributeSetBase->GetCritRate();
+}
+
+float AARTPlayerState::GetCritMultiplier() const
+{
+	return AttributeSetBase->GetCritMultiplier();
+}
+
+float AARTPlayerState::GetReactMas() const
+{
+	return AttributeSetBase->GetReactMas();
+}
+
+float AARTPlayerState::GetPhysBonus() const
+{
+	return AttributeSetBase->GetPhysBonus();
+}
+
+float AARTPlayerState::GetPhysRes() const
+{
+	return AttributeSetBase->GetPhysRes();
+}
+
 float AARTPlayerState::GetArmor() const
 {
 	return AttributeSetBase->GetArmor();
+}
+
+float AARTPlayerState::GetHealBonus() const
+{
+	return AttributeSetBase->GetHealBonus();
+}
+
+float AARTPlayerState::GetIncomingHealBonus() const
+{
+	return AttributeSetBase->GetIncomingHealBonus();
+}
+
+float AARTPlayerState::GetVoidBonus() const
+{
+	return AttributeSetBase->GetVoidBonus();
+}
+
+float AARTPlayerState::GetVoidRes() const
+{
+	return AttributeSetBase->GetVoidRes();
+}
+
+float AARTPlayerState::GetHeatBonus() const
+{
+	return AttributeSetBase->GetHeatBonus();
+}
+
+float AARTPlayerState::GetHeatRes() const
+{
+	return AttributeSetBase->GetHeatRes();
+}
+
+float AARTPlayerState::GetColdBonus() const
+{
+	return AttributeSetBase->GetColdBonus();
+}
+
+float AARTPlayerState::GetColdRes() const
+{
+	return AttributeSetBase->GetColdRes();
+}
+
+float AARTPlayerState::GetElecBonus() const
+{
+	return AttributeSetBase->GetElecBonus();
+}
+
+float AARTPlayerState::GetElecRes() const
+{
+	return AttributeSetBase->GetElecRes();
+}
+
+float AARTPlayerState::GetWaterBonus() const
+{
+	return AttributeSetBase->GetWaterBonus();
+}
+
+float AARTPlayerState::GetWaterRes() const
+{
+	return AttributeSetBase->GetWaterRes();
+}
+
+float AARTPlayerState::GetEarthBonus() const
+{
+	return AttributeSetBase->GetEarthBonus();
+}
+
+float AARTPlayerState::GetEarthRes() const
+{
+	return AttributeSetBase->GetEarthRes();
+}
+
+float AARTPlayerState::GetAirBonus() const
+{
+	return AttributeSetBase->GetAirBonus();
+}
+
+float AARTPlayerState::GeAirRes() const
+{
+	return AttributeSetBase->GetAirRes();
+}
+
+float AARTPlayerState::GetLifeBonus() const
+{
+	return AttributeSetBase->GetLifeBonus();
+}
+
+float AARTPlayerState::GeLifeRes() const
+{
+	return AttributeSetBase->GetLifeRes();
 }
 
 float AARTPlayerState::GetShield() const
@@ -226,6 +341,26 @@ float AARTPlayerState::GetMoveSpeed() const
 float AARTPlayerState::GetRotateRate() const
 {
 	return AttributeSetBase->GetRotateRate();
+}
+
+float AARTPlayerState::GetXP() const
+{
+	return AttributeSetBase->GetXP();
+}
+
+float AARTPlayerState::GetXPBounty() const
+{
+	return AttributeSetBase->GetXPBounty();
+}
+
+float AARTPlayerState::GetEn() const
+{
+	return AttributeSetBase->GetEn();
+}
+
+float AARTPlayerState::GetEnBounty() const
+{
+	return AttributeSetBase->GetEnBounty();
 }
 
 void AARTPlayerState::BeginPlay()

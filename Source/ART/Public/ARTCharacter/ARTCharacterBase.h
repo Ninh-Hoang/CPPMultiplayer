@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
+#include "VoxelCharacter.h"
 #include "AbilitySystemInterface.h"
 #include "ART/ART.h"
 #include "GameplayEffectTypes.h"
@@ -33,22 +33,17 @@ struct ART_API FARTDamageNumber
 };
 
 UCLASS()
-class ART_API AARTCharacterBase : public ACharacter, public IAbilitySystemInterface, public IGenericTeamAgentInterface
+class ART_API AARTCharacterBase : public AVoxelCharacter, public IAbilitySystemInterface, public IGenericTeamAgentInterface
 {
 	GENERATED_BODY()
 
 public:
+
 	// Sets default values for this character's properties
 	AARTCharacterBase(const class FObjectInitializer& ObjectInitializer);
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-	class UCameraComponent* CameraComponent;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-	class USpringArmComponent* SpringArmComponent;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-	class USceneComponent* AzimuthComponent;
+	class UARTSimpleInvokerComponent* VoxelInvokerComponent;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Character")
 	FText CharacterName;
@@ -69,15 +64,17 @@ public:
 	//public loose tag action
 	//DIE stuffs
 
-	UPROPERTY(BlueprintAssignable, Category = "GASShooter|GSCharacter")
+	UPROPERTY(BlueprintAssignable, Category = "ART|Character")
 	FCharacterDiedDelegate OnCharacterDied;
 
 	virtual void Die();
 
-	UFUNCTION(BlueprintCallable, Category = "GASDocumentation|GDCharacter")
+	UFUNCTION(BlueprintCallable, Category = "ART|Character")
 	virtual void FinishDying();
 
 	virtual void AddDamageNumber(float Damage, FGameplayTagContainer DamageNumberTags);
+
+	FGameplayTagBlueprintPropertyMap GetTagDelegateMap();
 
 protected:
 	FGameplayTag DeadTag;
@@ -86,13 +83,17 @@ protected:
 	TArray<FARTDamageNumber> DamageNumberQueue;
 	FTimerHandle DamageNumberTimer;
 
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "GASShooter|GSHeroCharacter")
+	//Tag and FProperty respond Mapper
+	UPROPERTY(EditAnywhere, Category = "ART|PropertyMap")
+	FGameplayTagBlueprintPropertyMap TagDelegateMap;
+
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "ART|Character")
 	TSubclassOf<class UGameplayEffect> DeathEffect;
 
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASShooter|Animation")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Animation")
 	UAnimMontage* DeathMontage;
 
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASShooter|Audio")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Audio")
 	class USoundCue* DeathSound;
 
 	//ABILITY SYSTEM STUFFS
@@ -103,19 +104,19 @@ protected:
 	UPROPERTY()
 	class UARTCharacterAttributeSet* AttributeSetBase;
 
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASDocumentation|Abilities")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Abilities")
 	TArray<TSubclassOf<class UARTGameplayAbility>> CharacterAbilities;
 
 	// These effects are only applied one time on startup, Health regen, stamina regen...etc
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASDocumentation|Abilities")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Abilities")
 	TArray<TSubclassOf<class UGameplayEffect>> StartupEffects;
 
-	UPROPERTY(EditAnywhere, Category = "GASShooter|UI")
+	UPROPERTY(EditAnywhere, Category = "ART|UI")
 	TSubclassOf<class UARTDamageTextWidgetComponent> DamageNumberClass;
 
 	// Default attributes for a character for initializing on spawn/respawn.
 	// This is an instant GE that overrides the values for attributes that get reset on spawn/respawn.
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASDocumentation|Abilities")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Abilities")
 	TSubclassOf<class UGameplayEffect> DefaultAttributes;
 
 	// Grant abilities on the Server. The Ability Specs will be replicated to the owning client.
@@ -164,28 +165,28 @@ protected:
 
 public:	
 	// Switch on AbilityID to return individual ability levels. Hardcoded to 1 for every ability in this project.
-	UFUNCTION(BlueprintCallable, Category = "GASDocumentation|GDCharacter")
+	UFUNCTION(BlueprintCallable, Category = "ART|Character")
 	virtual int32 GetAbilityLevel(EARTAbilityInputID AbilityID) const;
 
-	UFUNCTION(BlueprintCallable, Category = "GASDocumentation|GDCharacter")
+	UFUNCTION(BlueprintCallable, Category = "ART|Character")
 	virtual int32 GetCharacterLevel() const;
 
-	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
 	float GetAttackPower() const;
 
-	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
 	float GetArmor() const;
 
-	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
 	float GetShield() const;
 
-	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
 	float GetMaxShield() const;
 
-	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
 	float GetShieldRegen() const;
 
-	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
 	float GetHealth() const;
 
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
@@ -194,7 +195,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
 	float GetHealthRegen() const;
 
-	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
 	float GetEnergy() const;
 
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")

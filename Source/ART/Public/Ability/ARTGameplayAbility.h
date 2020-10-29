@@ -37,6 +37,18 @@ public:
 	}
 };
 
+/*USTRUCT()
+struct FARTAbilityTriggerData
+{
+	GENERATED_USTRUCT_BODY()
+
+	FARTAbilityTriggerData(){};
+
+	//Tags to respond to 
+	UPROPERTY(EditAnywhere, Category = TriggerData, meta = (Categories = "TriggerTagCategory"))
+	TArray<FGameplayTag> TriggerTags;
+};*/
+
 UCLASS()
 class ART_API UARTGameplayAbility : public UGameplayAbility
 {
@@ -51,46 +63,50 @@ public:
 	virtual void EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled) override;
 
 	// Abilities with this set will automatically activate when the input is pressed
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Ability")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Ability|Input")
 	EARTAbilityInputID AbilityInputID = EARTAbilityInputID::None;
 
 	// Value to associate an ability with an slot without tying it to an automatically activated input.
 	// Passive abilities won't be tied to an input so we need a way to generically associate abilities with slots.
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Ability")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Ability|Input")
 	EARTAbilityInputID AbilityID = EARTAbilityInputID::None;
 
 	// Tells an ability to activate immediately when its granted. Used for passive abilities and abilites forced on others.
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability|Activation")
 	bool bActivateAbilityOnGranted;
 
 	// allow remote activated for forcing ability
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability|Activation")
 	bool bAllowRemoteGrantingActivation;
 
 	// If true, this ability will activate when its bound input is pressed. Disable if you want to bind an ability to an
 	// input but not have it activate when pressed.
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability|Activation")
 	bool bActivateOnInput;
 
 	// If true, only activate this ability if the weapon that granted it is the currently equipped weapon.
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability|Activation")
 	bool bSourceObjectMustEqualCurrentWeaponToActivate;
 
 	// If true, only activate this ability if not interacting with something via GA_Interact.
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability|Activation")
 	bool bCannotActivateWhileInteracting;
 
 	// If true, ability will be canceled when leveled up
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability|Activation")
 	bool bCancelWhenLevelup;
 
 	//Ability that can stack/charge or not, 1 mean no stack
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability|Charge")
 	int32 AbilityCharge = 1;
 
 	//Ability represent the charge
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability|Charge")
 	FGameplayTag ChargeGameplayEffectTag;
+
+	//Custom tags activation with tag combination as condition
+	//UPROPERTY(EditDefaultsOnly, Category = "Ability|Trigger")
+	//TArray<FARTAbilityTriggerData> CombinationTriggers;
 
 	// Map of gameplay tags to gameplay effect containers
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GameplayEffects")

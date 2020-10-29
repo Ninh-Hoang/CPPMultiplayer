@@ -4,8 +4,8 @@
 #include "Item/ConsumableItem.h"
 #include "Item/InventoryComponent.h"
 #include "Ability/ARTGameplayAbility.h"
-#include <AbilitySystemComponent.h>
 #include "ARTCharacter/ARTSurvivor.h"
+#include <Ability/ARTAbilitySystemComponent.h>
 
 #define LOCTEXT_NAMESPACE "FoodItem"
 
@@ -15,8 +15,9 @@ UConsumableItem::UConsumableItem(){
 }
 
 void UConsumableItem::Use(AARTSurvivor* Character){
-	UAbilitySystemComponent* ASC = Character->GetAbilitySystemComponent();
-
+	UARTAbilitySystemComponent* ASC = Cast<UARTAbilitySystemComponent>(Character->GetAbilitySystemComponent());
+	//UAbilitySystemComponent* ASC = Character->GetAbilitySystemComponent();
+	//UE_LOG(LogTemp, Warning, TEXT("Used"));
 	if (!ASC)
 	{
 		UE_LOG(LogTemp, Error, TEXT("%s Pawn's ASC is null."), *FString(__FUNCTION__));

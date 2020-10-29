@@ -52,14 +52,83 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Ability")
 	bool GetCooldownRemainingForTag(FGameplayTagContainer CooldownTags, float& TimeRemaining, float& CooldownDuration);
 
-	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter")
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
 	virtual int32 GetCharacterLevel() const;
 
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
 	float GetAttackPower() const;
 
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetCritRate() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetCritMultiplier() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetReactMas() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetPhysBonus() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetPhysRes() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
 	float GetArmor() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetHealBonus() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetIncomingHealBonus() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetVoidBonus() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetVoidRes() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetHeatBonus() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetHeatRes() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetColdBonus() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetColdRes() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetElecBonus() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetElecRes() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetWaterBonus() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetWaterRes() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetEarthBonus() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetEarthRes() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetAirBonus() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GeAirRes() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GetLifeBonus() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
+	float GeLifeRes() const;
 
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
 	float GetShield() const;
@@ -104,6 +173,18 @@ public:
 	// Gets the Current value of MoveSpeed
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
 	float GetRotateRate() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
+	float GetXP() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
+	float GetXPBounty() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
+	float GetEn() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
+	float GetEnBounty() const;
 
 protected:
 	UPROPERTY()

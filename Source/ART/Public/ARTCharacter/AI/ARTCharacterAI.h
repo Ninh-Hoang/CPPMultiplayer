@@ -23,6 +23,8 @@ public:
 	virtual void BeginPlay() override;
 
 protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	class UARTNavigationInvokerComponent* NavInvoker;
 
 	class UARTAbilitySystemComponent* HardRefAbilitySystemComponent;
 

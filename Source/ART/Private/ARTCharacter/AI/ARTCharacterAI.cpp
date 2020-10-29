@@ -7,11 +7,15 @@
 #include <Components/CapsuleComponent.h>
 #include <Components/WidgetComponent.h>
 #include <Widget/ARTFloatingStatusBarWidget.h>
+#include "ARTCharacter/AI/ARTNavigationInvokerComponent.h"
 
 
 
 AARTCharacterAI::AARTCharacterAI(const class FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
+	//Create Nav Invoker
+	NavInvoker = CreateDefaultSubobject<UARTNavigationInvokerComponent>(TEXT("NavInvokerComp"));
+
 	//Create Ability System Component
 	HardRefAbilitySystemComponent = CreateDefaultSubobject<UARTAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
 	HardRefAbilitySystemComponent->SetIsReplicated(true);

@@ -118,4 +118,15 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Ability|TargetData")
 	static TArray<FGameplayAbilityTargetDataHandle> MakeArrayTargetDataFromHitArray(TArray<FHitResult> HitResults);
+
+	/*
+	* GameplayTagBlueprintPropertyMap ultilities
+	*/
+	static void InitializePropertyMap(FGameplayTagBlueprintPropertyMap InMap, UObject* Owner, UAbilitySystemComponent* ASC);
+
+	/*
+	* Get Tag caller Mag
+	*/
+	UFUNCTION(BlueprintCallable, Category = "Ability|ActiveEffect")
+	static float GetTagCallerMag(UAbilitySystemComponent* InASC, FActiveGameplayEffectHandle InActiveHandle, FGameplayTag CallerTag);
 };

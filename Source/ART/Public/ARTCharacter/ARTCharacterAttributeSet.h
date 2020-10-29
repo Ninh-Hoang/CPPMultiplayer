@@ -41,6 +41,46 @@ public:
 	UFUNCTION()
 	void OnRep_AttackPower(const FGameplayAttributeData& OldAttackPower) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, AttackPower, OldAttackPower); }
 
+	//CritRate
+	UPROPERTY(BlueprintReadOnly, Category = "Crit", ReplicatedUsing = OnRep_CritRate)
+	FGameplayAttributeData CritRate;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, CritRate)
+
+	UFUNCTION()
+	void OnRep_CritRate(const FGameplayAttributeData& OldCritRate) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, CritRate, OldCritRate); }
+
+	//CritMultiplier
+	UPROPERTY(BlueprintReadOnly, Category = "Crit", ReplicatedUsing = OnRep_CritMultiplier)
+	FGameplayAttributeData CritMultiplier;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, CritMultiplier)
+
+	UFUNCTION()
+	void OnRep_CritMultiplier(const FGameplayAttributeData& OldCritMultiplier) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, CritMultiplier, OldCritMultiplier); }
+
+	//reaction mastery
+	UPROPERTY(BlueprintReadOnly, Category = "ReactionMastery", ReplicatedUsing = OnRep_ReactMas)
+	FGameplayAttributeData ReactMas;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, ReactMas)
+
+	UFUNCTION()
+	void OnRep_ReactMas(const FGameplayAttributeData& OldReactMas) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, ReactMas, OldReactMas); }
+
+	//physical damage bonus
+	UPROPERTY(BlueprintReadOnly, Category = "Phys", ReplicatedUsing = OnRep_PhysBonus)
+	FGameplayAttributeData PhysBonus;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, PhysBonus)
+
+	UFUNCTION()
+	void OnRep_PhysBonus(const FGameplayAttributeData& OldPhysBonus) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, PhysBonus, OldPhysBonus); }
+
+	//physical damage res
+	UPROPERTY(BlueprintReadOnly, Category = "Phys", ReplicatedUsing = OnRep_PhysRes)
+	FGameplayAttributeData PhysRes;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, PhysRes)
+
+	UFUNCTION()
+	void OnRep_PhysRes(const FGameplayAttributeData& OldPhysRes) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, PhysRes, OldPhysRes); }
+	
 	//Armor
 	UPROPERTY(BlueprintReadOnly, Category = "Armor", ReplicatedUsing = OnRep_Armor)
 	FGameplayAttributeData Armor;
@@ -48,6 +88,150 @@ public:
 
 	UFUNCTION()
 	void OnRep_Armor(const FGameplayAttributeData& OldArmor) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, Armor, OldArmor); }
+
+	//healing bonus
+	UPROPERTY(BlueprintReadOnly, Category = "Heal", ReplicatedUsing = OnRep_HealBonus)
+	FGameplayAttributeData HealBonus;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, HealBonus)
+
+	UFUNCTION()
+	void OnRep_HealBonus(const FGameplayAttributeData& OldHealBonus) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, HealBonus, OldHealBonus); }
+
+	//incoming healing bonus
+	UPROPERTY(BlueprintReadOnly, Category = "Heal", ReplicatedUsing = OnRep_IncomingHealBonus)
+	FGameplayAttributeData IncomingHealBonus;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, IncomingHealBonus)
+
+	UFUNCTION()
+	void OnRep_IncomingHealBonus(const FGameplayAttributeData& OldIncomingHealBonus) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, IncomingHealBonus, OldIncomingHealBonus); }
+
+	//void damage bonus
+	UPROPERTY(BlueprintReadOnly, Category = "Void", ReplicatedUsing = OnRep_VoidBonus)
+	FGameplayAttributeData VoidBonus;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, VoidBonus)
+
+	UFUNCTION()
+	void OnRep_VoidBonus(const FGameplayAttributeData& OldVoidBonus) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, VoidBonus, OldVoidBonus); }
+
+	//void damage res
+	UPROPERTY(BlueprintReadOnly, Category = "Void", ReplicatedUsing = OnRep_VoidRes)
+	FGameplayAttributeData VoidRes;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, VoidRes)
+
+	UFUNCTION()
+	void OnRep_VoidRes(const FGameplayAttributeData& OldVoidRes) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, VoidRes, OldVoidRes); }
+
+	//heat damage bonus
+	UPROPERTY(BlueprintReadOnly, Category = "Heat", ReplicatedUsing = OnRep_HeatBonus)
+	FGameplayAttributeData HeatBonus;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, HeatBonus)
+
+	UFUNCTION()
+	void OnRep_HeatBonus(const FGameplayAttributeData& OldHeatBonus) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, HeatBonus, OldHeatBonus); }
+
+	//heat damage bonus
+	UPROPERTY(BlueprintReadOnly, Category = "Heat", ReplicatedUsing = OnRep_HeatRes)
+	FGameplayAttributeData HeatRes;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, HeatRes)
+
+	UFUNCTION()
+	void OnRep_HeatRes(const FGameplayAttributeData& OldHeatRes) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, HeatRes, OldHeatRes); }
+
+	//cold damage bonus
+	UPROPERTY(BlueprintReadOnly, Category = "Cold", ReplicatedUsing = OnRep_ColdBonus)
+	FGameplayAttributeData ColdBonus;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, ColdBonus)
+
+	UFUNCTION()
+	void OnRep_ColdBonus(const FGameplayAttributeData& OldColdBonus) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, ColdBonus, OldColdBonus); }
+
+	//cold damage res
+	UPROPERTY(BlueprintReadOnly, Category = "Cold", ReplicatedUsing = OnRep_ColdRes)
+	FGameplayAttributeData ColdRes;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, ColdRes)
+
+	UFUNCTION()
+	void OnRep_ColdRes(const FGameplayAttributeData& OldColdRes) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, ColdRes, OldColdRes); }
+
+	//electricity damage bonus
+	UPROPERTY(BlueprintReadOnly, Category = "Elec", ReplicatedUsing = OnRep_ElecBonus)
+	FGameplayAttributeData ElecBonus;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, ElecBonus)
+
+	UFUNCTION()
+	void OnRep_ElecBonus(const FGameplayAttributeData& OldElecBonus) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, ElecBonus, OldElecBonus); }
+
+	//electricity damage res
+	UPROPERTY(BlueprintReadOnly, Category = "Elec", ReplicatedUsing = OnRep_ElecRes)
+	FGameplayAttributeData ElecRes;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, ElecRes)
+
+	UFUNCTION()
+	void OnRep_ElecRes(const FGameplayAttributeData& OldElecRes) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, ElecRes, OldElecRes); }
+	
+	//water damage bonus
+	UPROPERTY(BlueprintReadOnly, Category = "Water", ReplicatedUsing = OnRep_WaterBonus)
+	FGameplayAttributeData WaterBonus;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, WaterBonus)
+
+	UFUNCTION()
+	void OnRep_WaterBonus(const FGameplayAttributeData& OldWaterBonus) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, WaterBonus, OldWaterBonus); }
+
+	//water damage res
+	UPROPERTY(BlueprintReadOnly, Category = "Water", ReplicatedUsing = OnRep_WaterRes)
+	FGameplayAttributeData WaterRes;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, WaterRes)
+
+	UFUNCTION()
+	void OnRep_WaterRes(const FGameplayAttributeData& OldWaterRes) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, WaterRes, OldWaterRes); }
+
+	//earth damage bonus
+	UPROPERTY(BlueprintReadOnly, Category = "Earth", ReplicatedUsing = OnRep_EarthBonus)
+	FGameplayAttributeData EarthBonus;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, EarthBonus)
+
+	UFUNCTION()
+	void OnRep_EarthBonus(const FGameplayAttributeData& OldEarthBonus) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, EarthBonus, OldEarthBonus); }
+
+	//earth damage res
+	UPROPERTY(BlueprintReadOnly, Category = "Earth", ReplicatedUsing = OnRep_EarthRes)
+	FGameplayAttributeData EarthRes;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, EarthRes)
+
+	UFUNCTION()
+	void OnRep_EarthRes(const FGameplayAttributeData& OldEarthRes) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, EarthRes, OldEarthRes); }
+
+	//air damage bonus
+	UPROPERTY(BlueprintReadOnly, Category = "Air", ReplicatedUsing = OnRep_AirBonus)
+	FGameplayAttributeData AirBonus;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, AirBonus)
+
+	UFUNCTION()
+	void OnRep_AirBonus(const FGameplayAttributeData& OldAirBonus) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, AirBonus, OldAirBonus); }
+
+	//air damage res
+	UPROPERTY(BlueprintReadOnly, Category = "Air", ReplicatedUsing = OnRep_AirRes)
+	FGameplayAttributeData AirRes;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, AirRes)
+
+	UFUNCTION()
+	void OnRep_AirRes(const FGameplayAttributeData& OldAirRes) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, AirRes, OldAirRes); }
+
+	//life damage bonus
+	UPROPERTY(BlueprintReadOnly, Category = "Life", ReplicatedUsing = OnRep_LifeBonus)
+	FGameplayAttributeData LifeBonus;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, LifeBonus)
+
+	UFUNCTION()
+	void OnRep_LifeBonus(const FGameplayAttributeData& OldLifeBonus) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, LifeBonus, OldLifeBonus); }
+
+	//life damage res
+	UPROPERTY(BlueprintReadOnly, Category = "Life", ReplicatedUsing = OnRep_LifeRes)
+	FGameplayAttributeData LifeRes;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, LifeRes)
+
+	UFUNCTION()
+	void OnRep_LifeRes(const FGameplayAttributeData& OldLifeRes) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, LifeRes, OldLifeRes); }
 
 	//shield
 	UPROPERTY(BlueprintReadOnly, Category = "Shield", ReplicatedUsing = OnRep_Shield)
@@ -65,7 +249,7 @@ public:
 	UFUNCTION()
 	void OnRep_MaxShield(const FGameplayAttributeData& OldMaxShield) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, MaxShield, OldMaxShield); }
 
-	//shieldregen
+	//ShieldRegen
 	UPROPERTY(BlueprintReadOnly, Category = "Shield", ReplicatedUsing = OnRep_ShieldRegen)
 	FGameplayAttributeData ShieldRegen;
 	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, ShieldRegen)
@@ -160,6 +344,47 @@ public:
 
 	UFUNCTION()
 	void OnRep_RotateRate(const FGameplayAttributeData& OldRotateRate) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, RotateRate, OldRotateRate); }
+	
+	//character level
+	UPROPERTY(BlueprintReadOnly, Category = "Character Level", ReplicatedUsing = OnRep_CharacterLevel)
+	FGameplayAttributeData CharacterLevel;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, CharacterLevel)
+	
+	UFUNCTION()
+	void OnRep_CharacterLevel(const FGameplayAttributeData& OldCharacterLevel) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, CharacterLevel, OldCharacterLevel); }
+
+	// Experience points gained from killing enemies. Used to level up.
+	UPROPERTY(BlueprintReadOnly, Category = "XP", ReplicatedUsing = OnRep_XP)
+	FGameplayAttributeData XP;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, XP)
+
+	UFUNCTION()
+	void OnRep_XP(const FGameplayAttributeData& OldXP) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, XP, OldXP); }
+
+	// Experience points awarded to the character's killers. Used to level up.
+	UPROPERTY(BlueprintReadOnly, Category = "XP", ReplicatedUsing = OnRep_XPBounty)
+	FGameplayAttributeData XPBounty;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, XPBounty)
+
+	UFUNCTION()
+	void OnRep_XPBounty(const FGameplayAttributeData& OldXPBounty) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, XPBounty, OldXPBounty); }
+
+	// En gained from killing enemies. Used to purchase items.
+	UPROPERTY(BlueprintReadOnly, Category = "En", ReplicatedUsing = OnRep_En)
+	FGameplayAttributeData En;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, En)
+
+	UFUNCTION()
+	void OnRep_En(const FGameplayAttributeData& OldEn) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, En, OldEn); }
+
+	// Gold awarded to the character's killer. Used to purchase items (not implemented in this project).
+	UPROPERTY(BlueprintReadOnly, Category = "En", ReplicatedUsing = OnRep_EnBounty)
+	FGameplayAttributeData EnBounty;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, EnBounty)
+
+	UFUNCTION()
+	void OnRep_EnBounty(const FGameplayAttributeData& OldEnBounty) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, EnBounty, OldEnBounty); }
+
 
 	// Damage is a meta attribute used by the DamageExecution to calculate final damage, which then turns into -Health
 	// Temporary value that only exists on the Server. Not replicated.
