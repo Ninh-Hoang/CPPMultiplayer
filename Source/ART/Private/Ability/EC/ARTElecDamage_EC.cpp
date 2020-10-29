@@ -1,16 +1,19 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Ability/EC/ARTDamageExecutionCalculation.h"
+#include "Ability/EC/ARTElecDamage_EC.h"
 #include "ARTCharacter/ARTCharacterAttributeSet.h"
 #include "Ability/ARTAbilitySystemComponent.h"
+#include <AbilitySystemBlueprintLibrary.h>
 
 // Declare the attributes to capture and define how we want to capture them from the Source and Target.
-struct ARTDamageStatics
+struct ARTElecDamageStatics
 {
 	DECLARE_ATTRIBUTE_CAPTUREDEF(AttackPower);
 
-	DECLARE_ATTRIBUTE_CAPTUREDEF(Armor);
+	DECLARE_ATTRIBUTE_CAPTUREDEF(ElecBonus);
+
+	DECLARE_ATTRIBUTE_CAPTUREDEF(ElecRes);
 
 	DECLARE_ATTRIBUTE_CAPTUREDEF(Shield);
 
@@ -18,17 +21,20 @@ struct ARTDamageStatics
 	// We still need to declare and define it so that we can output to it.
 	DECLARE_ATTRIBUTE_CAPTUREDEF(Damage);
 
-	ARTDamageStatics()
+	ARTElecDamageStatics()
 	{
 		// Snapshot happens at time of GESpec creation
 
 		// here could be like AttackPower attributes that you might want.
 
-		// Capture the Source's attack. Don't snapshot (the false).
+		// Capture the Source's Attack. Don't snapshot (the false).
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UARTCharacterAttributeSet, AttackPower, Source, false);
 
-		// Capture the Target's Armor. Don't snapshot (the false).
-		DEFINE_ATTRIBUTE_CAPTUREDEF(UARTCharacterAttributeSet, Armor, Target, false);
+		// Capture the Source's ElecBonus. Don't snapshot (the false).
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UARTCharacterAttributeSet, ElecBonus, Source, false);
+
+		// Capture the Target's ElecRes. Don't snapshot (the false).
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UARTCharacterAttributeSet, ElecRes, Target, false);
 
 		// Capture the Target's Shield. Don't snapshot (the false).
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UARTCharacterAttributeSet, Shield, Target, false);
@@ -38,22 +44,21 @@ struct ARTDamageStatics
 	}
 };
 
-static const ARTDamageStatics& DamageStatics()
+static const ARTElecDamageStatics& DamageStatics()
 {
-	static ARTDamageStatics DStatics;
+	static ARTElecDamageStatics DStatics;
 	return DStatics;
 }
 
-UARTDamageExecutionCalculation::UARTDamageExecutionCalculation()
+UARTElecDamage_EC::UARTElecDamage_EC()
 {
-	CritMultiplier = 1.5f;
-
 	RelevantAttributesToCapture.Add(DamageStatics().AttackPowerDef);
-	RelevantAttributesToCapture.Add(DamageStatics().ArmorDef);
+	RelevantAttributesToCapture.Add(DamageStatics().ElecBonusDef);
+	RelevantAttributesToCapture.Add(DamageStatics().ElecResDef);
 	RelevantAttributesToCapture.Add(DamageStatics().ShieldDef);
 }
 
-void UARTDamageExecutionCalculation::Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams, OUT FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const
+void UARTElecDamage_EC::Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams, OUT FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const
 {
 	UAbilitySystemComponent* TargetAbilitySystemComponent = ExecutionParams.GetTargetAbilitySystemComponent();
 	UAbilitySystemComponent* SourceAbilitySystemComponent = ExecutionParams.GetSourceAbilitySystemComponent();
@@ -73,42 +78,46 @@ void UARTDamageExecutionCalculation::Execute_Implementation(const FGameplayEffec
 	EvaluationParameters.SourceTags = SourceTags;
 	EvaluationParameters.TargetTags = TargetTags;
 
-	float AttackPower = 1.f;
+	float AttackPower = 0.f;
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().AttackPowerDef, EvaluationParameters, AttackPower);
 	AttackPower = FMath::Max<float>(AttackPower, 0.0f);
 
-	float Armor = 0.0f;
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().ArmorDef, EvaluationParameters, Armor);
+	float ElecBonus = 0.0f;
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().ElecBonusDef, EvaluationParameters, ElecBonus);
+
+	float ElecRes = 0.0f;
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().ElecResDef, EvaluationParameters, ElecRes);
 
 	float Shield = 0.0f;
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().ShieldDef, EvaluationParameters, Shield);
 	Shield = FMath::Max<float>(Shield, 0.0f);
 
 	// SetByCaller Damage
-	float Damage = FMath::Max<float>(Spec.GetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Data.Damage")), false, -1.0f), 0.0f);
+	float Damage = FMath::Max<float>(Spec.GetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Data.Damage.Elec")), false, -1.0f), 0.0f);
 
-	float UnmitigatedDamage = Damage * AttackPower; // Can multiply any damage boosters here
+	float BaseDamage = Damage * AttackPower;
 
-	// Check for crit. There's only one character mesh here, but you could have a function on your Character class to return the head bone name
-	const FHitResult* Hit = Spec.GetContext().GetHitResult();
-	if (AssetTags.HasTagExact(FGameplayTag::RequestGameplayTag(FName("Effect.Damage.CanCrit"))) && Hit && Hit->BoneName == "b_head")
-	{
-		UnmitigatedDamage *= CritMultiplier;
-		FGameplayEffectSpec* MutableSpec = ExecutionParams.GetOwningSpecForPreExecuteMod();
-		MutableSpec->DynamicAssetTags.AddTag(FGameplayTag::RequestGameplayTag(FName("Effect.Damage.Crit")));
-	}
+	float UnmitigatedDamage = BaseDamage * (ElecBonus+1); // Can multiply any damage boosters here
 
 	//formular: only health is under armor mitigation from damage
 	float MitigatedDamage = UnmitigatedDamage;
 
 	//if Damage exceed shield, calculate damage to health with armor modification
 	if (MitigatedDamage > Shield) {
-		MitigatedDamage = Shield + (MitigatedDamage - Shield) * (100 / (Armor + 100));
+		MitigatedDamage = Shield + (MitigatedDamage - Shield) * (1-ElecRes);
 	}
 
 	if (MitigatedDamage > 0.f)
 	{
 		// Set the Target's damage meta attribute
 		OutExecutionOutput.AddOutputModifier(FGameplayModifierEvaluatedData(DamageStatics().DamageProperty, EGameplayModOp::Additive, MitigatedDamage));
+
+		//send event to target that they just took electro damage
+		FGameplayEventData EventData;
+		EventData.Instigator = SourceActor;
+		EventData.Target = TargetActor;
+		EventData.EventMagnitude = BaseDamage;
+		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(TargetActor, FGameplayTag::RequestGameplayTag(FName("Data.Damage.Elec"), false), EventData);
 	}
+
 }

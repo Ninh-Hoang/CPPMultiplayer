@@ -1,16 +1,19 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Ability/EC/ARTDamageExecutionCalculation.h"
+#include "Ability/EC/ARTWaterDamage_EC.h"
 #include "ARTCharacter/ARTCharacterAttributeSet.h"
 #include "Ability/ARTAbilitySystemComponent.h"
+#include <AbilitySystemBlueprintLibrary.h>
 
 // Declare the attributes to capture and define how we want to capture them from the Source and Target.
-struct ARTDamageStatics
+struct ARTWaterDamageStatics
 {
 	DECLARE_ATTRIBUTE_CAPTUREDEF(AttackPower);
 
-	DECLARE_ATTRIBUTE_CAPTUREDEF(Armor);
+	DECLARE_ATTRIBUTE_CAPTUREDEF(WaterBonus);
+
+	DECLARE_ATTRIBUTE_CAPTUREDEF(WaterRes);
 
 	DECLARE_ATTRIBUTE_CAPTUREDEF(Shield);
 
@@ -18,17 +21,20 @@ struct ARTDamageStatics
 	// We still need to declare and define it so that we can output to it.
 	DECLARE_ATTRIBUTE_CAPTUREDEF(Damage);
 
-	ARTDamageStatics()
+	ARTWaterDamageStatics()
 	{
 		// Snapshot happens at time of GESpec creation
 
 		// here could be like AttackPower attributes that you might want.
 
-		// Capture the Source's attack. Don't snapshot (the false).
+		// Capture the Source's Attack. Don't snapshot (the false).
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UARTCharacterAttributeSet, AttackPower, Source, false);
 
-		// Capture the Target's Armor. Don't snapshot (the false).
-		DEFINE_ATTRIBUTE_CAPTUREDEF(UARTCharacterAttributeSet, Armor, Target, false);
+		// Capture the Source's WaterBonus. Don't snapshot (the false).
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UARTCharacterAttributeSet, WaterBonus, Source, false);
+
+		// Capture the Target's WaterRes. Don't snapshot (the false).
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UARTCharacterAttributeSet, WaterRes, Target, false);
 
 		// Capture the Target's Shield. Don't snapshot (the false).
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UARTCharacterAttributeSet, Shield, Target, false);
@@ -38,22 +44,21 @@ struct ARTDamageStatics
 	}
 };
 
-static const ARTDamageStatics& DamageStatics()
+static const ARTWaterDamageStatics& DamageStatics()
 {
-	static ARTDamageStatics DStatics;
+	static ARTWaterDamageStatics DStatics;
 	return DStatics;
 }
 
-UARTDamageExecutionCalculation::UARTDamageExecutionCalculation()
+UARTWaterDamage_EC::UARTWaterDamage_EC()
 {
-	CritMultiplier = 1.5f;
-
 	RelevantAttributesToCapture.Add(DamageStatics().AttackPowerDef);
-	RelevantAttributesToCapture.Add(DamageStatics().ArmorDef);
+	RelevantAttributesToCapture.Add(DamageStatics().WaterBonusDef);
+	RelevantAttributesToCapture.Add(DamageStatics().WaterResDef);
 	RelevantAttributesToCapture.Add(DamageStatics().ShieldDef);
 }
 
-void UARTDamageExecutionCalculation::Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams, OUT FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const
+void UARTWaterDamage_EC::Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams, OUT FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const
 {
 	UAbilitySystemComponent* TargetAbilitySystemComponent = ExecutionParams.GetTargetAbilitySystemComponent();
 	UAbilitySystemComponent* SourceAbilitySystemComponent = ExecutionParams.GetSourceAbilitySystemComponent();
@@ -73,42 +78,45 @@ void UARTDamageExecutionCalculation::Execute_Implementation(const FGameplayEffec
 	EvaluationParameters.SourceTags = SourceTags;
 	EvaluationParameters.TargetTags = TargetTags;
 
-	float AttackPower = 1.f;
+	float AttackPower = 0.f;
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().AttackPowerDef, EvaluationParameters, AttackPower);
 	AttackPower = FMath::Max<float>(AttackPower, 0.0f);
 
-	float Armor = 0.0f;
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().ArmorDef, EvaluationParameters, Armor);
+	float WaterBonus = 0.0f;
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().WaterBonusDef, EvaluationParameters, WaterBonus);
+
+	float WaterRes = 0.0f;
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().WaterResDef, EvaluationParameters, WaterRes);
 
 	float Shield = 0.0f;
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().ShieldDef, EvaluationParameters, Shield);
 	Shield = FMath::Max<float>(Shield, 0.0f);
 
 	// SetByCaller Damage
-	float Damage = FMath::Max<float>(Spec.GetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Data.Damage")), false, -1.0f), 0.0f);
+	float Damage = FMath::Max<float>(Spec.GetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Data.Damage.Water")), false, -1.0f), 0.0f);
 
-	float UnmitigatedDamage = Damage * AttackPower; // Can multiply any damage boosters here
+	float BaseDamage = Damage * AttackPower;
 
-	// Check for crit. There's only one character mesh here, but you could have a function on your Character class to return the head bone name
-	const FHitResult* Hit = Spec.GetContext().GetHitResult();
-	if (AssetTags.HasTagExact(FGameplayTag::RequestGameplayTag(FName("Effect.Damage.CanCrit"))) && Hit && Hit->BoneName == "b_head")
-	{
-		UnmitigatedDamage *= CritMultiplier;
-		FGameplayEffectSpec* MutableSpec = ExecutionParams.GetOwningSpecForPreExecuteMod();
-		MutableSpec->DynamicAssetTags.AddTag(FGameplayTag::RequestGameplayTag(FName("Effect.Damage.Crit")));
-	}
+	float UnmitigatedDamage = BaseDamage * (WaterBonus + 1); // Can multiply any damage boosters here
 
 	//formular: only health is under armor mitigation from damage
 	float MitigatedDamage = UnmitigatedDamage;
 
 	//if Damage exceed shield, calculate damage to health with armor modification
 	if (MitigatedDamage > Shield) {
-		MitigatedDamage = Shield + (MitigatedDamage - Shield) * (100 / (Armor + 100));
+		MitigatedDamage = Shield + (MitigatedDamage - Shield) * (1 - WaterRes);
 	}
 
 	if (MitigatedDamage > 0.f)
 	{
 		// Set the Target's damage meta attribute
 		OutExecutionOutput.AddOutputModifier(FGameplayModifierEvaluatedData(DamageStatics().DamageProperty, EGameplayModOp::Additive, MitigatedDamage));
+
+		//send event to target that they just took Water damage
+		FGameplayEventData EventData;
+		EventData.Instigator = SourceActor;
+		EventData.Target = TargetActor;
+		EventData.EventMagnitude = BaseDamage;
+		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(TargetActor, FGameplayTag::RequestGameplayTag(FName("Data.Damage.Water"), false), EventData);
 	}
 }
