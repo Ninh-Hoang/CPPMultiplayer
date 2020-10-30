@@ -93,6 +93,9 @@ protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Animation")
 	UAnimMontage* DeathMontage;
 
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Animation")
+	UAnimMontage* Knockback;
+
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Audio")
 	class USoundCue* DeathSound;
 

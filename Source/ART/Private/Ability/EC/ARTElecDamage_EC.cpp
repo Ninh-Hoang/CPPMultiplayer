@@ -44,7 +44,7 @@ struct ARTElecDamageStatics
 	}
 };
 
-static const ARTElecDamageStatics& DamageStatics()
+static const ARTElecDamageStatics& ELecDamageStatics()
 {
 	static ARTElecDamageStatics DStatics;
 	return DStatics;
@@ -52,10 +52,10 @@ static const ARTElecDamageStatics& DamageStatics()
 
 UARTElecDamage_EC::UARTElecDamage_EC()
 {
-	RelevantAttributesToCapture.Add(DamageStatics().AttackPowerDef);
-	RelevantAttributesToCapture.Add(DamageStatics().ElecBonusDef);
-	RelevantAttributesToCapture.Add(DamageStatics().ElecResDef);
-	RelevantAttributesToCapture.Add(DamageStatics().ShieldDef);
+	RelevantAttributesToCapture.Add(ELecDamageStatics().AttackPowerDef);
+	RelevantAttributesToCapture.Add(ELecDamageStatics().ElecBonusDef);
+	RelevantAttributesToCapture.Add(ELecDamageStatics().ElecResDef);
+	RelevantAttributesToCapture.Add(ELecDamageStatics().ShieldDef);
 }
 
 void UARTElecDamage_EC::Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams, OUT FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const
@@ -79,17 +79,17 @@ void UARTElecDamage_EC::Execute_Implementation(const FGameplayEffectCustomExecut
 	EvaluationParameters.TargetTags = TargetTags;
 
 	float AttackPower = 0.f;
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().AttackPowerDef, EvaluationParameters, AttackPower);
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(ELecDamageStatics().AttackPowerDef, EvaluationParameters, AttackPower);
 	AttackPower = FMath::Max<float>(AttackPower, 0.0f);
 
 	float ElecBonus = 0.0f;
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().ElecBonusDef, EvaluationParameters, ElecBonus);
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(ELecDamageStatics().ElecBonusDef, EvaluationParameters, ElecBonus);
 
 	float ElecRes = 0.0f;
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().ElecResDef, EvaluationParameters, ElecRes);
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(ELecDamageStatics().ElecResDef, EvaluationParameters, ElecRes);
 
 	float Shield = 0.0f;
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().ShieldDef, EvaluationParameters, Shield);
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(ELecDamageStatics().ShieldDef, EvaluationParameters, Shield);
 	Shield = FMath::Max<float>(Shield, 0.0f);
 
 	// SetByCaller Damage
@@ -110,7 +110,7 @@ void UARTElecDamage_EC::Execute_Implementation(const FGameplayEffectCustomExecut
 	if (MitigatedDamage > 0.f)
 	{
 		// Set the Target's damage meta attribute
-		OutExecutionOutput.AddOutputModifier(FGameplayModifierEvaluatedData(DamageStatics().DamageProperty, EGameplayModOp::Additive, MitigatedDamage));
+		OutExecutionOutput.AddOutputModifier(FGameplayModifierEvaluatedData(ELecDamageStatics().DamageProperty, EGameplayModOp::Additive, MitigatedDamage));
 
 		//send event to target that they just took electro damage
 		FGameplayEventData EventData;

@@ -10,6 +10,54 @@
 #include "Weapon/Weapon.h"
 #include <Blueprint/ARTCurve.h>
 #include <Ability/ARTGameplayEffect.h>
+#include <AbilitySystemBlueprintLibrary.h>
+
+
+UARTAbilitySystemComponent::UARTAbilitySystemComponent()
+{
+}
+
+void UARTAbilitySystemComponent::BeginPlay()
+{
+	Super::BeginPlay();
+	OnGameplayEffectAppliedDelegateToTarget.AddUObject(this, &UARTAbilitySystemComponent::OnActiveGameplayEffectAddedCallback);
+}
+
+//TODO ADD INSTIGATOR AND TARGET TAG TO EVENTDATA
+void UARTAbilitySystemComponent::OnActiveGameplayEffectAddedCallback(UAbilitySystemComponent* Target, const FGameplayEffectSpec& SpecApplied, FActiveGameplayEffectHandle ActiveHandle)
+{
+	const UARTGameplayEffect* Effect = Cast<UARTGameplayEffect>(SpecApplied.Def);
+	if (Effect && Effect->GameplayEvents.Num() > 0)
+	{
+		for (FGameplayEffectEvent Event : Effect->GameplayEvents)
+		{
+			FGameplayEventData Data;
+			FGameplayTag GameplayEventTag;
+
+			AActor* EventInstigator = nullptr;
+			AActor* EventTarget = nullptr;
+
+			Event.AttempAssignGameplayEventDataActors(GetAvatarActor(), Target->GetAvatarActor(), EventInstigator, EventTarget);
+
+			Data.Instigator = EventInstigator;
+			Data.Target = EventTarget;
+
+			Event.AttemptReturnGameplayEventTags(GameplayEventTag, Data.InstigatorTags, Data.TargetTags);
+			Event.AttemptCalculateMagnitude(SpecApplied, Data.EventMagnitude, false);
+
+			if (EventInstigator)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("%s"), *EventInstigator->GetName());
+			}
+			if (EventTarget)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("%s"), *EventTarget->GetName());
+			}
+
+			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(EventTarget, GameplayEventTag, Data);
+		}
+	}
+}
 
 void UARTAbilitySystemComponent::ReceiveDamage(UARTAbilitySystemComponent* SourceASC, float UnmitigatedDamage, float MitigatedDamage)
 {
@@ -17,10 +65,6 @@ void UARTAbilitySystemComponent::ReceiveDamage(UARTAbilitySystemComponent* Sourc
 }
 
 static TAutoConsoleVariable<float> CVarReplayMontageErrorThreshold(TEXT("replay.MontageErrorThreshold"), 0.5f, TEXT("Tolerance level for when montage playback position correction occurs in replays"));
-
-UARTAbilitySystemComponent::UARTAbilitySystemComponent()
-{
-}
 
 void UARTAbilitySystemComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
@@ -690,7 +734,6 @@ bool UARTAbilitySystemComponent::AddGameplayEffectDurationHandle(FActiveGameplay
 	return true;
 }
 
-//TODO CLEAN THIS DUCTAPE UP
 FGameplayEffectSpecHandle UARTAbilitySystemComponent::MakeOutgoingSpec(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level, FGameplayEffectContextHandle Context) const
 {
 	FGameplayEffectSpecHandle Spec = Super::MakeOutgoingSpec(GameplayEffectClass, Level, Context);

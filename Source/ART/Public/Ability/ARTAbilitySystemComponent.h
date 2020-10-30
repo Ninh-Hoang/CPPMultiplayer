@@ -74,10 +74,15 @@ class ART_API UARTAbilitySystemComponent : public UAbilitySystemComponent
 public:
 	UARTAbilitySystemComponent();
 
+	virtual void BeginPlay() override;
+
 	bool CharacterAbilitiesGiven = false;
 	bool StartupEffectsApplied = false;
 
 	FReceivedDamageDelegate ReceivedDamage;
+
+	//called when active gameplay added
+	void OnActiveGameplayEffectAddedCallback(UAbilitySystemComponent* Target, const FGameplayEffectSpec& SpecApplied, FActiveGameplayEffectHandle ActiveHandle);
 
 	// Called from GDDamageExecCalculation. Broadcasts on ReceivedDamage whenever this ASC receives damage.
 	virtual void ReceiveDamage(UARTAbilitySystemComponent* SourceASC, float UnmitigatedDamage, float MitigatedDamage);
