@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
+#include <Engine/DataAsset.h>
 #include "Item.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnItemModified);
@@ -28,7 +28,7 @@ enum class EItemRarity : uint8 {
 
 
 UCLASS(Abstract, Blueprintable, BlueprintType, EditInlineNew, DefaultToInstanced)
-class ART_API UItem : public UObject
+class ART_API UItem : public UPrimaryDataAsset
 {
 	GENERATED_BODY()
 	

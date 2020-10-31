@@ -21,6 +21,13 @@ UAsyncTaskEffectStackChanged* UAsyncTaskEffectStackChanged::ListenForGameplayEff
 	return ListenForGameplayEffectStackChange;
 }
 
+UAsyncTaskEffectStackChanged* UAsyncTaskEffectStackChanged::ListenForGameplayEffectStacksChange(UAbilitySystemComponent* AbilitySystemComponent, FGameplayTagContainer InEffectGameplayTagContainer)
+{
+	UAsyncTaskEffectStackChanged* ListenForGameplayEffectStacksChange = NewObject<UAsyncTaskEffectStackChanged>();
+	ListenForGameplayEffectStackChange->ASC = AbilitySystemComponent;
+	ListenForGameplayEffectStackChange->EffectGameplayTags = InEffectGameplayTagContainer;
+}
+
 void UAsyncTaskEffectStackChanged::EndTask()
 {
 	if (IsValid(ASC))
