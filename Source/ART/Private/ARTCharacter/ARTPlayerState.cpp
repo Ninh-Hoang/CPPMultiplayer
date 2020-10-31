@@ -258,7 +258,7 @@ float AARTPlayerState::GetAirBonus() const
 	return AttributeSetBase->GetAirBonus();
 }
 
-float AARTPlayerState::GeAirRes() const
+float AARTPlayerState::GetAirRes() const
 {
 	return AttributeSetBase->GetAirRes();
 }
@@ -268,7 +268,7 @@ float AARTPlayerState::GetLifeBonus() const
 	return AttributeSetBase->GetLifeBonus();
 }
 
-float AARTPlayerState::GeLifeRes() const
+float AARTPlayerState::GetLifeRes() const
 {
 	return AttributeSetBase->GetLifeRes();
 }

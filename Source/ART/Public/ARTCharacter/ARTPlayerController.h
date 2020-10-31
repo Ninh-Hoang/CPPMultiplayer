@@ -32,7 +32,7 @@ public:
 	* Weapon HUD info
 	*/
 
-	UFUNCTION(BlueprintCallable, Category = "GASShooter|UI")
+	UFUNCTION(BlueprintCallable, Category = "ART|UI")
 	void SetHUDReticle(TSubclassOf<class UARTHUDReticle> ReticleClass);
 
 	UFUNCTION(Client, Reliable, WithValidation)
@@ -41,11 +41,14 @@ public:
 	bool ShowDamageNumber_Validate(float DamageAmount, AARTCharacterBase* TargetCharacter, FGameplayTagContainer DamageNumberTags);
 
 protected:
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "GASShooter|UI")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ART|UI")
 	TSubclassOf<class UARTHUDWidget> UIHUDWidgetClass;
 
-	UPROPERTY(BlueprintReadWrite, Category = "GASShooter|UI")
-		class UARTHUDWidget* UIHUDWidget;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ART|UI")
+	TSubclassOf<class UARTHUDWidget> AttributeStatusWidgetClass;
+
+	UPROPERTY(BlueprintReadWrite, Category = "ART|UI")
+	class UARTHUDWidget* UIHUDWidget;
 
 	// Server only
 	virtual void OnPossess(APawn* InPawn) override;

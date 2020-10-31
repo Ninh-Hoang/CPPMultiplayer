@@ -125,7 +125,6 @@ class ART_API UARTGameplayEffect : public UGameplayEffect
 
 public:
 
-	     
 	UPROPERTY(EditDefaultsOnly, Category = "ART")
 	class UARTCurve* Curves;
 

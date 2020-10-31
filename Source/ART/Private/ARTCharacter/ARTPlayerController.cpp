@@ -65,8 +65,43 @@ void AARTPlayerController::CreateHUD()
 	UIHUDWidget->SetStaminaPercentage(PS->GetStamina() / PS->GetMaxStamina());
 	UIHUDWidget->SetStaminaRegen(PS->GetStaminaRegen());
 
+	UIHUDWidget->SetReactMas(PS->GetReactMas());
 
-	UIHUDWidget->SetSurvivorLevel(PS->GetCharacterLevel());
+	UIHUDWidget->SetArmor(PS->GetArmor());
+	UIHUDWidget->SetHealBonus(PS->GetHealBonus());
+	UIHUDWidget->SetIncomingHealBonus(PS->GetIncomingHealBonus());
+
+	UIHUDWidget->SetPhysBonus(PS->GetPhysBonus());
+	UIHUDWidget->SetPhysRes(PS->GetPhysRes());
+
+	UIHUDWidget->SetVoidBonus(PS->GetVoidBonus());
+	UIHUDWidget->SetVoidRes(PS->GetVoidRes());
+
+	UIHUDWidget->SetHeatBonus(PS->GetHeatBonus());
+	UIHUDWidget->SetHeatRes(PS->GetHeatRes());
+
+	UIHUDWidget->SetColdBonus(PS->GetColdBonus());
+	UIHUDWidget->SetColdRes(PS->GetColdRes());
+
+	UIHUDWidget->SetElecBonus(PS->GetElecBonus());
+	UIHUDWidget->SetElecRes(PS->GetElecRes());
+
+	UIHUDWidget->SetWaterBonus(PS->GetWaterBonus());
+	UIHUDWidget->SetWaterRes(PS->GetWaterRes());
+
+	UIHUDWidget->SetEarthBonus(PS->GetEarthBonus());
+	UIHUDWidget->SetEarthRes(PS->GetEarthRes());
+
+	UIHUDWidget->SetAirBonus(PS->GetAirBonus());
+	UIHUDWidget->SetAirRes(PS->GetAirRes());
+
+	UIHUDWidget->SetAirBonus(PS->GetLifeBonus());
+	UIHUDWidget->SetAirRes(PS->GetLifeRes());
+
+	UIHUDWidget->SetMoveSpeed(PS->GetMoveSpeed());
+
+	UIHUDWidget->SetCharacterLevel(PS->GetCharacterLevel());
+	UIHUDWidget->SetEn(PS->GetEn());
 
 	AARTSurvivor* Survivor = GetPawn<AARTSurvivor>();
 	if (Survivor)

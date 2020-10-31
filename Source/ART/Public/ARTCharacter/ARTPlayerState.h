@@ -122,13 +122,13 @@ public:
 	float GetAirBonus() const;
 
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
-	float GeAirRes() const;
+	float GetAirRes() const;
 
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
 	float GetLifeBonus() const;
 
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
-	float GeLifeRes() const;
+	float GetLifeRes() const;
 
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
 	float GetShield() const;

@@ -62,7 +62,6 @@ bool FGameplayEffectEvent::AttemptReturnGameplayEventTags(OUT FGameplayTag& InEv
 	return true;
 }
 
-//TODO: GET THE ACTOR THE GE IS CURRENT ON VIA SPEC OR HANDLE THAT DOES NOT NEED TO INCLUDE 
 bool FGameplayEffectEvent::AttempAssignGameplayEventDataActors(AActor* SourceActor, AActor* TargetActor, OUT AActor*& Instigator, OUT AActor*& Target)
 {
 	switch (GameplayEventDirection)
