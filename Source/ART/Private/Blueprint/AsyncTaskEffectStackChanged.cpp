@@ -3,13 +3,13 @@
 
 #include "Blueprint/AsyncTaskEffectStackChanged.h"
 
-UAsyncTaskEffectStackChanged* UAsyncTaskEffectStackChanged::ListenForGameplayEffectStackChange(UAbilitySystemComponent* AbilitySystemComponent, FGameplayTag InEffectGameplayTag)
+UAsyncTaskEffectStackChanged* UAsyncTaskEffectStackChanged::ListenForGameplayEffectStackChange(UAbilitySystemComponent* AbilitySystemComponent, FGameplayTagContainer InEffectGameplayTags)
 {
 	UAsyncTaskEffectStackChanged* ListenForGameplayEffectStackChange = NewObject<UAsyncTaskEffectStackChanged>();
 	ListenForGameplayEffectStackChange->ASC = AbilitySystemComponent;
-	ListenForGameplayEffectStackChange->EffectGameplayTag = InEffectGameplayTag;
+	InEffectGameplayTags.GetGameplayTagArray(ListenForGameplayEffectStackChange->EffectGameplayTags);
 
-	if (!IsValid(AbilitySystemComponent) || !InEffectGameplayTag.IsValid())
+	if (!IsValid(AbilitySystemComponent) || InEffectGameplayTags.Num() < 1)
 	{
 		ListenForGameplayEffectStackChange->EndTask();
 		return nullptr;
@@ -19,13 +19,6 @@ UAsyncTaskEffectStackChanged* UAsyncTaskEffectStackChanged::ListenForGameplayEff
 	AbilitySystemComponent->OnAnyGameplayEffectRemovedDelegate().AddUObject(ListenForGameplayEffectStackChange, &UAsyncTaskEffectStackChanged::OnRemoveGameplayEffectCallback);
 
 	return ListenForGameplayEffectStackChange;
-}
-
-UAsyncTaskEffectStackChanged* UAsyncTaskEffectStackChanged::ListenForGameplayEffectStacksChange(UAbilitySystemComponent* AbilitySystemComponent, FGameplayTagContainer InEffectGameplayTagContainer)
-{
-	UAsyncTaskEffectStackChanged* ListenForGameplayEffectStacksChange = NewObject<UAsyncTaskEffectStackChanged>();
-	ListenForGameplayEffectStackChange->ASC = AbilitySystemComponent;
-	ListenForGameplayEffectStackChange->EffectGameplayTags = InEffectGameplayTagContainer;
 }
 
 void UAsyncTaskEffectStackChanged::EndTask()
@@ -47,11 +40,13 @@ void UAsyncTaskEffectStackChanged::OnActiveGameplayEffectAddedCallback(UAbilityS
 
 	FGameplayTagContainer GrantedTags;
 	SpecApplied.GetAllGrantedTags(GrantedTags);
-
-	if (AssetTags.HasTagExact(EffectGameplayTag) || GrantedTags.HasTagExact(EffectGameplayTag))
+	for (FGameplayTag EffectGameplayTag : EffectGameplayTags)
 	{
-		ASC->OnGameplayEffectStackChangeDelegate(ActiveHandle)->AddUObject(this, &UAsyncTaskEffectStackChanged::GameplayEffectStackChanged);
-		OnGameplayEffectStackChange.Broadcast(EffectGameplayTag, ActiveHandle, 1, 0);
+		if (AssetTags.HasTagExact(EffectGameplayTag) || GrantedTags.HasTagExact(EffectGameplayTag))
+		{
+			ASC->OnGameplayEffectStackChangeDelegate(ActiveHandle)->AddUObject(this, &UAsyncTaskEffectStackChanged::GameplayEffectStackChanged);
+			OnGameplayEffectStackChange.Broadcast(EffectGameplayTag, ActiveHandle, 1, 0);
+		}
 	}
 }
 
@@ -62,14 +57,19 @@ void UAsyncTaskEffectStackChanged::OnRemoveGameplayEffectCallback(const FActiveG
 
 	FGameplayTagContainer GrantedTags;
 	EffectRemoved.Spec.GetAllGrantedTags(GrantedTags);
-
-	if (AssetTags.HasTagExact(EffectGameplayTag) || GrantedTags.HasTagExact(EffectGameplayTag))
+	for (FGameplayTag EffectGameplayTag : EffectGameplayTags)
 	{
-		OnGameplayEffectStackChange.Broadcast(EffectGameplayTag, EffectRemoved.Handle, 0, 1);
+		if (AssetTags.HasTagExact(EffectGameplayTag) || GrantedTags.HasTagExact(EffectGameplayTag))
+		{
+			OnGameplayEffectStackChange.Broadcast(EffectGameplayTag, EffectRemoved.Handle, 0, 1);
+		}
 	}
 }
 
+//TO DO RIGHT NOW THE DEGELATE ONLY BOARDCAST THE FIRST ASSET TAG OF THE EFFECT THAT HAS CHANGED TAG, NOT THE ACTUAL TAG INIT FROM THE CONTAINER
 void UAsyncTaskEffectStackChanged::GameplayEffectStackChanged(FActiveGameplayEffectHandle EffectHandle, int32 NewStackCount, int32 PreviousStackCount)
 {
-	OnGameplayEffectStackChange.Broadcast(EffectGameplayTag, EffectHandle, NewStackCount, PreviousStackCount);
+	FGameplayTagContainer Tags;
+	ASC->GetActiveGameplayEffect(EffectHandle)->Spec.GetAllAssetTags(Tags);
+	OnGameplayEffectStackChange.Broadcast(Tags.GetByIndex(0), EffectHandle, NewStackCount, PreviousStackCount);
 }

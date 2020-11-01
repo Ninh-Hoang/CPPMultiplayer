@@ -22,12 +22,7 @@ class ART_API UAsyncTaskEffectStackChanged : public UBlueprintAsyncActionBase
 	FOnGameplayEffectStackChanged OnGameplayEffectStackChange;
 
 	UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true"))
-	static UAsyncTaskEffectStackChanged* ListenForGameplayEffectStackChange(UAbilitySystemComponent* AbilitySystemComponent, FGameplayTag EffectGameplayTag);
-
-	// Listens for effect stack changes
-	// Version that takes in an TagContainer. Check the GameplayTag output to know which GE has changed stack.
-	UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true"))
-	static UAsyncTaskEffectStackChanged* ListenForGameplayEffectStacksChange(UAbilitySystemComponent* AbilitySystemComponent, FGameplayTagContainer EffectGameplayTagContainer);
+	static UAsyncTaskEffectStackChanged* ListenForGameplayEffectStackChange(UAbilitySystemComponent* AbilitySystemComponent, FGameplayTagContainer EffectGameplayTags);
 
 	// You must call this function manually when you want the AsyncTask to end.
 	// For UMG Widgets, you would call it in the Widget's Destruct event.
@@ -38,8 +33,7 @@ protected:
 	UPROPERTY()
 	UAbilitySystemComponent* ASC;
 
-	FGameplayTag EffectGameplayTag;
-	FGameplayTagContainer EffectGameplayTags;
+	TArray<FGameplayTag> EffectGameplayTags;
 
 	virtual void OnActiveGameplayEffectAddedCallback(UAbilitySystemComponent* Target, const FGameplayEffectSpec& SpecApplied, FActiveGameplayEffectHandle ActiveHandle);
 	virtual void OnRemoveGameplayEffectCallback(const FActiveGameplayEffect& EffectRemoved);
