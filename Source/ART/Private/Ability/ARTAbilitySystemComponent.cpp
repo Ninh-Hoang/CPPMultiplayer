@@ -23,7 +23,7 @@ void UARTAbilitySystemComponent::BeginPlay()
 	OnGameplayEffectAppliedDelegateToTarget.AddUObject(this, &UARTAbilitySystemComponent::OnActiveGameplayEffectAddedCallback);
 }
 
-//TODO ADD INSTIGATOR AND TARGET TAG TO EVENTDATA
+//TODO MAYBE THIS CAN BE CHEAPER
 void UARTAbilitySystemComponent::OnActiveGameplayEffectAddedCallback(UAbilitySystemComponent* Target, const FGameplayEffectSpec& SpecApplied, FActiveGameplayEffectHandle ActiveHandle)
 {
 	const UARTGameplayEffect* Effect = Cast<UARTGameplayEffect>(SpecApplied.Def);
@@ -45,14 +45,15 @@ void UARTAbilitySystemComponent::OnActiveGameplayEffectAddedCallback(UAbilitySys
 			Event.AttemptReturnGameplayEventTags(GameplayEventTag, Data.InstigatorTags, Data.TargetTags);
 			Event.AttemptCalculateMagnitude(SpecApplied, Data.EventMagnitude, false);
 
-			if (EventInstigator)
+			//debugging code
+			/*if (EventInstigator)
 			{
 				UE_LOG(LogTemp, Warning, TEXT("%s"), *EventInstigator->GetName());
 			}
 			if (EventTarget)
 			{
 				UE_LOG(LogTemp, Warning, TEXT("%s"), *EventTarget->GetName());
-			}
+			}*/
 
 			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(EventTarget, GameplayEventTag, Data);
 		}

@@ -35,8 +35,11 @@ protected:
 
 	TArray<FGameplayTag> EffectGameplayTags;
 
+	TMap<FActiveGameplayEffectHandle, FGameplayTag> HandleTagMap;
+
 	virtual void OnActiveGameplayEffectAddedCallback(UAbilitySystemComponent* Target, const FGameplayEffectSpec& SpecApplied, FActiveGameplayEffectHandle ActiveHandle);
 	virtual void OnRemoveGameplayEffectCallback(const FActiveGameplayEffect& EffectRemoved);
-
+	
+	//TO DO RIGHT NOW THE DEGELATE ONLY BOARDCAST THE FIRST ASSET TAG OF THE EFFECT THAT HAS CHANGED TAG, NOT THE ACTUAL TAG INIT FROM THE CONTAINER
 	virtual void GameplayEffectStackChanged(FActiveGameplayEffectHandle EffectHandle, int32 NewStackCount, int32 PreviousStackCount);
 };

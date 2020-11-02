@@ -45,6 +45,7 @@ void UAsyncTaskEffectStackChanged::OnActiveGameplayEffectAddedCallback(UAbilityS
 		if (AssetTags.HasTagExact(EffectGameplayTag) || GrantedTags.HasTagExact(EffectGameplayTag))
 		{
 			ASC->OnGameplayEffectStackChangeDelegate(ActiveHandle)->AddUObject(this, &UAsyncTaskEffectStackChanged::GameplayEffectStackChanged);
+			HandleTagMap.Add(ActiveHandle, EffectGameplayTag);
 			OnGameplayEffectStackChange.Broadcast(EffectGameplayTag, ActiveHandle, 1, 0);
 		}
 	}
@@ -66,10 +67,13 @@ void UAsyncTaskEffectStackChanged::OnRemoveGameplayEffectCallback(const FActiveG
 	}
 }
 
-//TO DO RIGHT NOW THE DEGELATE ONLY BOARDCAST THE FIRST ASSET TAG OF THE EFFECT THAT HAS CHANGED TAG, NOT THE ACTUAL TAG INIT FROM THE CONTAINER
+
 void UAsyncTaskEffectStackChanged::GameplayEffectStackChanged(FActiveGameplayEffectHandle EffectHandle, int32 NewStackCount, int32 PreviousStackCount)
 {
+	//THIS PIECE OF CODE IS KEPT INCASE Using TMap with struct is weird, the first method might be handy later
 	FGameplayTagContainer Tags;
 	ASC->GetActiveGameplayEffect(EffectHandle)->Spec.GetAllAssetTags(Tags);
 	OnGameplayEffectStackChange.Broadcast(Tags.GetByIndex(0), EffectHandle, NewStackCount, PreviousStackCount);
+	UE_LOG(LogTemp, Warning, TEXT("Testing"));
+	//OnGameplayEffectStackChange.Broadcast(*HandleTagMap.Find(EffectHandle), EffectHandle, NewStackCount, PreviousStackCount);
 }
