@@ -8,7 +8,7 @@ UAsyncTaskEffectStackChanged* UAsyncTaskEffectStackChanged::ListenForGameplayEff
 	UAsyncTaskEffectStackChanged* ListenForGameplayEffectStackChange = NewObject<UAsyncTaskEffectStackChanged>();
 	ListenForGameplayEffectStackChange->ASC = AbilitySystemComponent;
 	InEffectGameplayTags.GetGameplayTagArray(ListenForGameplayEffectStackChange->EffectGameplayTags);
-
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *ListenForGameplayEffectStackChange->ASC->GetName());
 	if (!IsValid(AbilitySystemComponent) || InEffectGameplayTags.Num() < 1)
 	{
 		ListenForGameplayEffectStackChange->EndTask();
