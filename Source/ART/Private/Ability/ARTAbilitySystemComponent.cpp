@@ -20,7 +20,7 @@ UARTAbilitySystemComponent::UARTAbilitySystemComponent()
 void UARTAbilitySystemComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	OnGameplayEffectAppliedDelegateToTarget.AddUObject(this, &UARTAbilitySystemComponent::OnActiveGameplayEffectAddedCallback);
+	//OnGameplayEffectAppliedDelegateToTarget.AddUObject(this, &UARTAbilitySystemComponent::OnActiveGameplayEffectAddedCallback);
 }
 
 //TODO MAYBE THIS CAN BE CHEAPER

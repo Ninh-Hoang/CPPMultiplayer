@@ -8,15 +8,15 @@ UAsyncTaskEffectStackChanged* UAsyncTaskEffectStackChanged::ListenForGameplayEff
 	UAsyncTaskEffectStackChanged* ListenForGameplayEffectStackChange = NewObject<UAsyncTaskEffectStackChanged>();
 	ListenForGameplayEffectStackChange->ASC = AbilitySystemComponent;
 	InEffectGameplayTags.GetGameplayTagArray(ListenForGameplayEffectStackChange->EffectGameplayTags);
-	UE_LOG(LogTemp, Warning, TEXT("%s"), *ListenForGameplayEffectStackChange->ASC->GetName());
-	if (!IsValid(AbilitySystemComponent) || InEffectGameplayTags.Num() < 1)
+
+	if (!IsValid(AbilitySystemComponent) || !InEffectGameplayTags.IsValid())
 	{
 		ListenForGameplayEffectStackChange->EndTask();
 		return nullptr;
 	}
 
 	AbilitySystemComponent->OnActiveGameplayEffectAddedDelegateToSelf.AddUObject(ListenForGameplayEffectStackChange, &UAsyncTaskEffectStackChanged::OnActiveGameplayEffectAddedCallback);
-	AbilitySystemComponent->OnAnyGameplayEffectRemovedDelegate().AddUObject(ListenForGameplayEffectStackChange, &UAsyncTaskEffectStackChanged::OnRemoveGameplayEffectCallback);
+	//AbilitySystemComponent->OnAnyGameplayEffectRemovedDelegate().AddUObject(ListenForGameplayEffectStackChange, &UAsyncTaskEffectStackChanged::OnRemoveGameplayEffectCallback);
 
 	return ListenForGameplayEffectStackChange;
 }
@@ -63,6 +63,7 @@ void UAsyncTaskEffectStackChanged::OnRemoveGameplayEffectCallback(const FActiveG
 		if (AssetTags.HasTagExact(EffectGameplayTag) || GrantedTags.HasTagExact(EffectGameplayTag))
 		{
 			OnGameplayEffectStackChange.Broadcast(EffectGameplayTag, EffectRemoved.Handle, 0, 1);
+			UE_LOG(LogTemp, Warning, TEXT("Removed"));
 		}
 	}
 }
@@ -74,6 +75,6 @@ void UAsyncTaskEffectStackChanged::GameplayEffectStackChanged(FActiveGameplayEff
 	FGameplayTagContainer Tags;
 	ASC->GetActiveGameplayEffect(EffectHandle)->Spec.GetAllAssetTags(Tags);
 	OnGameplayEffectStackChange.Broadcast(Tags.GetByIndex(0), EffectHandle, NewStackCount, PreviousStackCount);
-	UE_LOG(LogTemp, Warning, TEXT("Testing"));
+	UE_LOG(LogTemp, Warning, TEXT("%i"), NewStackCount);
 	//OnGameplayEffectStackChange.Broadcast(*HandleTagMap.Find(EffectHandle), EffectHandle, NewStackCount, PreviousStackCount);
 }
