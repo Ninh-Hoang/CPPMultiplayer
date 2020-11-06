@@ -56,6 +56,10 @@ public:
 
 	ETeamAttitude::Type GetTeamAttitudeTowards(const AActor& Other) const override;
 
+	//hit direction
+	UFUNCTION(BlueprintCallable)
+	EARTHitReactDirection GetHitReactDirectionVector(const FVector& ImpactPoint, const AActor* AttackingActor);
+
 	// Implement IAbilitySystemInterface
 	class UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 

@@ -11,6 +11,7 @@
 #include <Blueprint/ARTCurve.h>
 #include <Ability/ARTGameplayEffect.h>
 #include <AbilitySystemBlueprintLibrary.h>
+#include <Ability/ARTGameplayEffectTypes.h>
 
 
 UARTAbilitySystemComponent::UARTAbilitySystemComponent()
@@ -20,7 +21,7 @@ UARTAbilitySystemComponent::UARTAbilitySystemComponent()
 void UARTAbilitySystemComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	//OnGameplayEffectAppliedDelegateToTarget.AddUObject(this, &UARTAbilitySystemComponent::OnActiveGameplayEffectAddedCallback);
+	OnGameplayEffectAppliedDelegateToTarget.AddUObject(this, &UARTAbilitySystemComponent::OnActiveGameplayEffectAddedCallback);
 }
 
 //TODO MAYBE THIS CAN BE CHEAPER
@@ -45,15 +46,8 @@ void UARTAbilitySystemComponent::OnActiveGameplayEffectAddedCallback(UAbilitySys
 			Event.AttemptReturnGameplayEventTags(GameplayEventTag, Data.InstigatorTags, Data.TargetTags);
 			Event.AttemptCalculateMagnitude(SpecApplied, Data.EventMagnitude, false);
 
-			//debugging code
-			/*if (EventInstigator)
-			{
-				UE_LOG(LogTemp, Warning, TEXT("%s"), *EventInstigator->GetName());
-			}
-			if (EventTarget)
-			{
-				UE_LOG(LogTemp, Warning, TEXT("%s"), *EventTarget->GetName());
-			}*/
+			FARTGameplayEffectContext* EffectContext = (FARTGameplayEffectContext*)SpecApplied.GetEffectContext().Get();
+			Data.TargetData = EffectContext->GetTargetData();
 
 			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(EventTarget, GameplayEventTag, Data);
 		}

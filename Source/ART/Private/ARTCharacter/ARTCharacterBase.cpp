@@ -64,6 +64,56 @@ ETeamAttitude::Type AARTCharacterBase::GetTeamAttitudeTowards(const AActor& Othe
 	return ETeamAttitude::Neutral;
 }
 
+EARTHitReactDirection AARTCharacterBase::GetHitReactDirectionVector(const FVector& ImpactPoint, const AActor* AttackingActor)
+{
+	const FVector& ActorLocation = GetActorLocation();
+	FVector ImpactVector;
+
+	if (ImpactPoint.IsZero() && AttackingActor)
+	{
+		ImpactVector = AttackingActor->GetActorLocation();
+	}
+	else
+	{
+		ImpactVector = ImpactPoint;
+	}
+
+	// PointPlaneDist is super cheap - 1 vector subtraction, 1 dot product.
+	float DistanceToFrontBackPlane = FVector::PointPlaneDist(ImpactVector, ActorLocation, GetActorRightVector());
+	float DistanceToRightLeftPlane = FVector::PointPlaneDist(ImpactVector, ActorLocation, GetActorForwardVector());
+
+
+	if (FMath::Abs(DistanceToFrontBackPlane) <= FMath::Abs(DistanceToRightLeftPlane))
+	{
+		// Determine if Front or Back
+
+		// Can see if it's left or right of Left/Right plane which would determine Front or Back
+		if (DistanceToRightLeftPlane >= 0)
+		{
+			return EARTHitReactDirection::Front;
+		}
+		else
+		{
+			return EARTHitReactDirection::Back;
+		}	
+	}
+	else
+	{
+		// Determine if Right or Left
+
+		if (DistanceToFrontBackPlane >= 0)
+		{
+			return EARTHitReactDirection::Right;
+		}
+		else
+		{
+			return EARTHitReactDirection::Left;
+		}
+	}
+
+	return EARTHitReactDirection::Front;
+}
+
 UAbilitySystemComponent* AARTCharacterBase::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent;
