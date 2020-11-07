@@ -25,6 +25,7 @@
 #include "Widget/ARTDamageTextWidgetComponent.h"
 #include <Ability/ARTGameplayAbility.h>
 #include <ARTCharacter/Voxel/ARTSimpleInvokerComponent.h>
+#include <ARTCharacter/ARTGameplayAbilitySet.h>
 
 // Sets default values
 AARTCharacterBase::AARTCharacterBase(const class FObjectInitializer& ObjectInitializer) :
@@ -131,9 +132,15 @@ void AARTCharacterBase::RemoveCharacterAbilities()
 	TArray<FGameplayAbilitySpecHandle> AbilitiesToRemove;
 	for (const FGameplayAbilitySpec& Spec : AbilitySystemComponent->GetActivatableAbilities())
 	{
-		if ((Spec.SourceObject == this) && CharacterAbilities.Contains(Spec.Ability->GetClass()))
+		if (Spec.SourceObject == this && AbilitySet)
 		{
-			AbilitiesToRemove.Add(Spec.Handle);
+			for (const FARTGameplayAbilityApplicationInfo& GameplayAbility : AbilitySet->StartupGameplayAbilities)
+			{
+				if (GameplayAbility.GameplayAbilityClass == Spec.Ability->GetClass())
+				{
+					AbilitiesToRemove.Add(Spec.Handle);
+				}
+			}
 		}
 	}
 
@@ -224,14 +231,10 @@ void AARTCharacterBase::AddCharacterAbilities()
 		return;
 	}
 
-	for (TSubclassOf<UARTGameplayAbility>& StartupAbility : CharacterAbilities)
+	if (AbilitySet)
 	{
-		AbilitySystemComponent->GiveAbility(
-			FGameplayAbilitySpec(StartupAbility, GetAbilityLevel(StartupAbility.GetDefaultObject()->AbilityID), static_cast<int32>(StartupAbility.GetDefaultObject()->AbilityInputID), this));
-		//AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(StartupAbility.GetDefaultObject(), GetAbilityLevel(StartupAbility.GetDefaultObject()->AbilityID), static_cast<int32>(StartupAbility.GetDefaultObject()->AbilityInputID)));
+		AbilitySet->GiveAbilities(AbilitySystemComponent);
 	}
-
-	AbilitySystemComponent->CharacterAbilitiesGiven = true;
 }
 
 void AARTCharacterBase::InitializeAttributes()
@@ -265,19 +268,10 @@ void AARTCharacterBase::AddStartupEffects()
 		return;
 	}
 
-	FGameplayEffectContextHandle EffectContext = AbilitySystemComponent->MakeEffectContext();
-	EffectContext.AddSourceObject(this);
-
-	for (TSubclassOf<UGameplayEffect> GameplayEffect : StartupEffects)
+	if (AbilitySet)
 	{
-		FGameplayEffectSpecHandle NewHandle = AbilitySystemComponent->MakeOutgoingSpec(GameplayEffect, GetCharacterLevel(), EffectContext);
-		if (NewHandle.IsValid())
-		{
-			FActiveGameplayEffectHandle ActiveGEHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(), AbilitySystemComponent);
-		}
+		AbilitySet->AddStartupEffects(AbilitySystemComponent);
 	}
-
-	AbilitySystemComponent->StartupEffectsApplied = true;
 }
 
 void AARTCharacterBase::ShowDamageNumber()
@@ -321,6 +315,7 @@ void AARTCharacterBase::GetActiveAbilitiesWithTags(FGameplayTagContainer Ability
 void AARTCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
+
 	/*SpawnDefaultInventory();
 
 	if (GetLocalRole() == ROLE_AutonomousProxy)

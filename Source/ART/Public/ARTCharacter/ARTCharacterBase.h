@@ -57,7 +57,7 @@ public:
 	ETeamAttitude::Type GetTeamAttitudeTowards(const AActor& Other) const override;
 
 	//hit direction
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "ART|Character")
 	EARTHitReactDirection GetHitReactDirectionVector(const FVector& ImpactPoint, const AActor* AttackingActor);
 
 	// Implement IAbilitySystemInterface
@@ -112,11 +112,7 @@ protected:
 	class UARTCharacterAttributeSet* AttributeSetBase;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Abilities")
-	TArray<TSubclassOf<class UARTGameplayAbility>> CharacterAbilities;
-
-	// These effects are only applied one time on startup, Health regen, stamina regen...etc
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Abilities")
-	TArray<TSubclassOf<class UGameplayEffect>> StartupEffects;
+	class UARTGameplayAbilitySet* AbilitySet;
 
 	UPROPERTY(EditAnywhere, Category = "ART|UI")
 	TSubclassOf<class UARTDamageTextWidgetComponent> DamageNumberClass;
