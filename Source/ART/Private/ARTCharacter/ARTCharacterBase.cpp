@@ -26,6 +26,7 @@
 #include <Ability/ARTGameplayAbility.h>
 #include <ARTCharacter/Voxel/ARTSimpleInvokerComponent.h>
 #include <ARTCharacter/ARTGameplayAbilitySet.h>
+#include <GameplayTagResponseTable.h>
 
 // Sets default values
 AARTCharacterBase::AARTCharacterBase(const class FObjectInitializer& ObjectInitializer) :
@@ -208,11 +209,6 @@ void AARTCharacterBase::AddDamageNumber(float Damage, FGameplayTagContainer Dama
 	}
 }
 
-FGameplayTagBlueprintPropertyMap AARTCharacterBase::GetTagDelegateMap()
-{
-	return TagDelegateMap;
-}
-
 int32 AARTCharacterBase::GetAbilityLevel(EARTAbilityInputID AbilityID) const
 {
 	return 1;
@@ -274,6 +270,19 @@ void AARTCharacterBase::AddStartupEffects()
 	}
 }
 
+void AARTCharacterBase::InitializeTagPropertyMap()
+{
+	TagDelegateMap.Initialize(this, AbilitySystemComponent);
+}
+
+void AARTCharacterBase::InitializeTagResponseTable()
+{
+	if (TagReponseTable)
+	{
+		TagReponseTable->RegisterResponseForEvents(AbilitySystemComponent);
+	}
+}
+
 void AARTCharacterBase::ShowDamageNumber()
 {
 	if (DamageNumberQueue.Num() > 0 && IsValid(this))
@@ -322,8 +331,6 @@ void AARTCharacterBase::BeginPlay()
 	{
 		ServerSyncCurrentWeapon();
 	}*/
-
-	TagDelegateMap.Initialize(this, AbilitySystemComponent);
 }
 
 // Called to bind functionality to input

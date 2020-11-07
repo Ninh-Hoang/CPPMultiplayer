@@ -55,6 +55,8 @@ void AARTCharacterAI::BeginPlay()
 		InitializeAttributes();
 		AddStartupEffects();
 		AddCharacterAbilities();
+		InitializeTagPropertyMap();
+		InitializeTagResponseTable();
 
 		// Attribute change callbacks
 		HealthChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSetBase->GetHealthAttribute()).AddUObject(this, &AARTCharacterAI::HealthChanged);

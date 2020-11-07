@@ -6,6 +6,10 @@
 
 void UARTGameplayAbilitySet::GiveAbilities(UARTAbilitySystemComponent* AbilitySystemComponent) const
 {
+	if (!AbilitySystemComponent)
+	{
+		return;
+	}
 
 	for (const FARTGameplayAbilityApplicationInfo& GameplayAbility : StartupGameplayAbilities)
 	{
@@ -22,6 +26,11 @@ void UARTGameplayAbilitySet::GiveAbilities(UARTAbilitySystemComponent* AbilitySy
 
 void UARTGameplayAbilitySet::AddStartupEffects(class UARTAbilitySystemComponent* AbilitySystemComponent) const
 {
+	if (!AbilitySystemComponent)
+	{
+		return;
+	}
+
 	FGameplayEffectContextHandle EffectContext = AbilitySystemComponent->MakeEffectContext();
 	EffectContext.AddSourceObject(AbilitySystemComponent->GetAvatarActor());
 

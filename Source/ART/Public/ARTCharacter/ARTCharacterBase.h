@@ -78,8 +78,6 @@ public:
 
 	virtual void AddDamageNumber(float Damage, FGameplayTagContainer DamageNumberTags);
 
-	FGameplayTagBlueprintPropertyMap GetTagDelegateMap();
-
 protected:
 	FGameplayTag DeadTag;
 	FGameplayTag EffectRemoveOnDeathTag;
@@ -88,8 +86,12 @@ protected:
 	FTimerHandle DamageNumberTimer;
 
 	//Tag and FProperty respond Mapper
-	UPROPERTY(EditAnywhere, Category = "ART|PropertyMap")
+	UPROPERTY(EditAnywhere, Category = "ART|Delegate")
 	FGameplayTagBlueprintPropertyMap TagDelegateMap;
+
+	//Tag Response Table
+	UPROPERTY(EditAnywhere, Category = "ART|Delegate")
+	class UGameplayTagReponseTable* TagReponseTable;
 
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "ART|Character")
 	TSubclassOf<class UGameplayEffect> DeathEffect;
@@ -131,6 +133,10 @@ protected:
 	virtual void InitializeAttributes();
 
 	virtual void AddStartupEffects();
+
+	virtual void InitializeTagPropertyMap();
+
+	virtual void InitializeTagResponseTable();
 
 	virtual void ShowDamageNumber();
 

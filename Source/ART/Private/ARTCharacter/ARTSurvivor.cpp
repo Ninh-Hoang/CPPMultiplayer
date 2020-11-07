@@ -20,6 +20,7 @@
 #include <Blueprint/UserWidget.h>
 #include <Components/WidgetComponent.h>
 #include <Widget/ARTFloatingStatusBarWidget.h>
+#include "Item/InventorySet.h"
 
 AARTSurvivor::AARTSurvivor(const class FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -71,6 +72,12 @@ void AARTSurvivor::PossessedBy(AController* NewController)
 		AddStartupEffects();
 
 		AddCharacterAbilities();
+
+		InitializeTagPropertyMap();
+
+		InitializeTagResponseTable();
+
+		InitializeStartInventory();
 
 		AARTPlayerController* PC = Cast<AARTPlayerController>(GetController());
 		if (PC)
@@ -178,6 +185,14 @@ void AARTSurvivor::Die()
 UARTFloatingStatusBarWidget* AARTSurvivor::GetFloatingStatusBar()
 {
 	return UIFloatingStatusBar;
+}
+
+void AARTSurvivor::InitializeStartInventory()
+{
+	if (InventorySet)
+	{
+		InventorySet->InitInventory(InventoryComponent);
+	}
 }
 
 void AARTSurvivor::InitializeFloatingStatusBar()
