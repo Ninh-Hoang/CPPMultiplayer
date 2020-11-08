@@ -27,6 +27,8 @@ public:
 
 	class UARTCharacterAttributeSet* GetAttributeSetBase() const;
 
+	class UInventoryComponent* GetInventoryComponent() const;
+
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTPlayerState")
 	bool IsAlive() const;
 
@@ -193,6 +195,12 @@ protected:
 	UPROPERTY()
 	class UARTCharacterAttributeSet* AttributeSetBase;
 
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "ART|Item")
+	class UInventoryComponent* InventoryComponent;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Item")
+	class UInventorySet* InventorySet;
+
 	FGameplayTag DeadTag;
 	FGameplayTag KnockedDownTag;
 
@@ -206,4 +214,6 @@ protected:
 
 	// Attribute changed callbacks
 	virtual void HealthChanged(const FOnAttributeChangeData& Data);
+
+	virtual void InitializeStartInventory();
 };

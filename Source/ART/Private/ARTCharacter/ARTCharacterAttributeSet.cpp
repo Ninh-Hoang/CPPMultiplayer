@@ -44,7 +44,7 @@ void UARTCharacterAttributeSet::PreAttributeChange(const FGameplayAttribute& Att
 	else if (Attribute == GetMoveSpeedAttribute())
 	{
 		// Cannot slow less than 150 units/s and cannot boost more than 1000 units/s
-		NewValue = FMath::Clamp<float>(NewValue, 100, 1000);
+		NewValue = FMath::Clamp<float>(NewValue, 0, 1000);
 	}
 	else if (Attribute == GetRotateRateAttribute())
 	{
@@ -180,7 +180,7 @@ void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
 	}
 
 	//healing
-	if (Data.EvaluatedData.Attribute == GetHealingAttribute()) 
+	else if (Data.EvaluatedData.Attribute == GetHealingAttribute()) 
 	{
 		//store a local copy of amount of healing done, clear the healing attribute
 		const float LocalHealingDone = GetHealing();
@@ -219,7 +219,6 @@ void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
 		}
 	}
 
-
 	// shield
 	else if (Data.EvaluatedData.Attribute == GetShieldAttribute())
 	{
@@ -240,6 +239,21 @@ void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
 	else if (Data.EvaluatedData.Attribute == GetStaminaAttribute())
 	{
 		// Handle stamina changes.
+		SetStamina(FMath::Clamp(GetStamina(), 0.0f, GetMaxStamina()));
+	}
+	else if (Data.EvaluatedData.Attribute == GetXPAttribute())
+	{
+		// Handle XP and level up.
+		if (GetXP() >= GetMaxXP())
+		{
+			//level up
+			SetCharacterLevel(GetCharacterLevel() + 1.0f);
+
+			//set XP to 0 + extra xp from level up
+			SetXP(GetXP() - GetMaxXP());
+
+			//TODO: Add MaxXP reading from curve
+		}
 		SetStamina(FMath::Clamp(GetStamina(), 0.0f, GetMaxStamina()));
 	}
 }
@@ -286,6 +300,7 @@ void UARTCharacterAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimePrope
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, MoveSpeed, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, RotateRate, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, XP, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, MaxXP, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, XPBounty, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, En, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, EnBounty, COND_None, REPNOTIFY_Always);

@@ -8,6 +8,8 @@
 #include <Ability/ARTAbilitySystemGlobals.h>
 #include <ARTCharacter/ARTPlayerController.h>
 #include <Widget/ARTHUDWidget.h>
+#include <Item/InventoryComponent.h>
+#include <Item/InventorySet.h>
 
 AARTPlayerState::AARTPlayerState()
 {
@@ -20,6 +22,9 @@ AARTPlayerState::AARTPlayerState()
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
 
 	AttributeSetBase = CreateDefaultSubobject<UARTCharacterAttributeSet>(TEXT("AttributeSetBase"));
+
+	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory Component"));
+	InventoryComponent->SetIsReplicated(true);
 
 	// Set PlayerState's NetUpdateFrequency to the same as the Character.
 	// Default is very low for PlayerStates and introduces perceived lag in the ability system.
@@ -39,6 +44,11 @@ class UAbilitySystemComponent* AARTPlayerState::GetAbilitySystemComponent() cons
 class UARTCharacterAttributeSet* AARTPlayerState::GetAttributeSetBase() const
 {
 	return AttributeSetBase;
+}
+
+class UInventoryComponent* AARTPlayerState::GetInventoryComponent() const
+{
+	return InventoryComponent;
 }
 
 bool AARTPlayerState::IsAlive() const
@@ -372,6 +382,11 @@ void AARTPlayerState::BeginPlay()
 		// Attribute change callbacks
 		HealthChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSetBase->GetHealthAttribute()).AddUObject(this, &AARTPlayerState::HealthChanged);
 	}
+
+	if (InventoryComponent)
+	{
+		InitializeStartInventory();
+	}
 }
 
 void AARTPlayerState::HealthChanged(const FOnAttributeChangeData& Data)
@@ -387,4 +402,11 @@ void AARTPlayerState::HealthChanged(const FOnAttributeChangeData& Data)
 	}
 }
 
-	
+
+void AARTPlayerState::InitializeStartInventory()
+{
+	if (InventorySet)
+	{
+		InventorySet->InitInventory(InventoryComponent);
+	}
+}

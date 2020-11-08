@@ -33,9 +33,6 @@ AARTSurvivor::AARTSurvivor(const class FObjectInitializer& ObjectInitializer) : 
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	CameraComponent->SetupAttachment(SpringArmComponent);
 
-	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory Component"));
-	InventoryComponent->SetIsReplicated(true);
-
 	NoWeaponTag = FGameplayTag::RequestGameplayTag(FName("Weapon.Equipped.None"));
 	WeaponChangingDelayReplicationTag = FGameplayTag::RequestGameplayTag(FName("Ability.Weapon.IsChangingDelayReplication"));
 
@@ -58,6 +55,9 @@ void AARTSurvivor::PossessedBy(AController* NewController)
 		// Set the ASC on the Server. Clients do this in OnRep_PlayerState()
 		AbilitySystemComponent = Cast<UARTAbilitySystemComponent>(PS->GetAbilitySystemComponent());
 
+		// Set the ASC on the Server. Clients do this in OnRep_PlayerState()
+		InventoryComponent = Cast<UInventoryComponent>(PS->GetInventoryComponent());
+
 		// AI won't have PlayerControllers so we can init again here just to be sure. No harm in initing twice for heroes that have PlayerControllers.
 		PS->GetAbilitySystemComponent()->InitAbilityActorInfo(PS, this);
 
@@ -76,8 +76,6 @@ void AARTSurvivor::PossessedBy(AController* NewController)
 		InitializeTagPropertyMap();
 
 		InitializeTagResponseTable();
-
-		InitializeStartInventory();
 
 		AARTPlayerController* PC = Cast<AARTPlayerController>(GetController());
 		if (PC)
@@ -132,6 +130,9 @@ void AARTSurvivor::OnRep_PlayerState()
 		// Set the ASC for clients. Server does this in PossessedBy.
 		AbilitySystemComponent = Cast<UARTAbilitySystemComponent>(PS->GetAbilitySystemComponent());
 
+		// Set the inventory for clients. Server does this in PossessedBy.
+		InventoryComponent = Cast<UInventoryComponent>(PS->GetInventoryComponent());
+
 		// Init ASC Actor Info for clients. Server will init its ASC when it possesses a new Actor.
 		AbilitySystemComponent->InitAbilityActorInfo(PS, this);
 
@@ -185,14 +186,6 @@ void AARTSurvivor::Die()
 UARTFloatingStatusBarWidget* AARTSurvivor::GetFloatingStatusBar()
 {
 	return UIFloatingStatusBar;
-}
-
-void AARTSurvivor::InitializeStartInventory()
-{
-	if (InventorySet)
-	{
-		InventorySet->InitInventory(InventoryComponent);
-	}
 }
 
 void AARTSurvivor::InitializeFloatingStatusBar()

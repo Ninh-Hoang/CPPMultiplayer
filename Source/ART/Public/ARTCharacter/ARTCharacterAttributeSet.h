@@ -361,6 +361,14 @@ public:
 	UFUNCTION()
 	void OnRep_XP(const FGameplayAttributeData& OldXP) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, XP, OldXP); }
 
+	// MaxExperience, experience to level up
+	UPROPERTY(BlueprintReadOnly, Category = "XP", ReplicatedUsing = OnRep_MaxXP)
+	FGameplayAttributeData MaxXP;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, MaxXP)
+
+	UFUNCTION()
+	void OnRep_MaxXP(const FGameplayAttributeData& OldMaxXP) { GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, MaxXP, MaxXP); }
+
 	// Experience points awarded to the character's killers. Used to level up.
 	UPROPERTY(BlueprintReadOnly, Category = "XP", ReplicatedUsing = OnRep_XPBounty)
 	FGameplayAttributeData XPBounty;

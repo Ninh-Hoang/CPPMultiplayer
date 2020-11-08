@@ -10,8 +10,9 @@
 #include "Weapon/Weapon.h"
 #include <Blueprint/ARTCurve.h>
 #include <Ability/ARTGameplayEffect.h>
-#include <AbilitySystemBlueprintLibrary.h>
 #include <Ability/ARTGameplayEffectTypes.h>
+#include <Blueprint/ARTBlueprintFunctionLibrary.h>
+#include <AbilitySystemBlueprintLibrary.h>
 
 
 UARTAbilitySystemComponent::UARTAbilitySystemComponent()
@@ -46,8 +47,7 @@ void UARTAbilitySystemComponent::OnActiveGameplayEffectAddedCallback(UAbilitySys
 			Event.AttemptReturnGameplayEventTags(GameplayEventTag, Data.InstigatorTags, Data.TargetTags);
 			Event.AttemptCalculateMagnitude(SpecApplied, Data.EventMagnitude, false);
 
-			FARTGameplayEffectContext* EffectContext = (FARTGameplayEffectContext*)SpecApplied.GetEffectContext().Get();
-			Data.TargetData = EffectContext->GetTargetData();
+			Data.TargetData = UARTBlueprintFunctionLibrary::MakeTargetDataFromHit(*SpecApplied.GetEffectContext().Get()->GetHitResult());
 
 			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(EventTarget, GameplayEventTag, Data);
 		}

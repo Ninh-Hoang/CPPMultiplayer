@@ -85,8 +85,6 @@ public:
 public:
 	class UARTFloatingStatusBarWidget* GetFloatingStatusBar();
 
-	virtual void InitializeStartInventory();
-
 protected:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ART|UI")
 	TSubclassOf<class UARTFloatingStatusBarWidget> UIFloatingStatusBarClass;
@@ -97,13 +95,10 @@ protected:
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "ART|UI")
 	class UWidgetComponent* UIFloatingStatusBarComponent;
 
-	UFUNCTION()
-	void InitializeFloatingStatusBar();
+	virtual void InitializeFloatingStatusBar();
 
 	//EQUIPMENT LIST
 protected:
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Item")
-	class UInventorySet* InventorySet;
 
 	UPROPERTY(ReplicatedUsing = OnRep_Equipment)
 	FSurvivorEquipment Equipment;
