@@ -10,7 +10,6 @@
 #define LOCTEXT_NAMESPACE "FoodItem"
 
 UConsumableItem::UConsumableItem(){
-	AmountToHeal = 100;
 	UseActionText = LOCTEXT("ItemUseActionText", "Consume");
 }
 

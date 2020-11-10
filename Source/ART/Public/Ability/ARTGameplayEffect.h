@@ -64,9 +64,10 @@ public:
 	 *
 	 * @return True if the calculation was successful, false if it was not
 	 */
+
 	bool AttemptCalculateMagnitude(const FGameplayEffectSpec& InRelevantSpec, OUT float& OutCalculatedMagnitude, bool WarnIfSetByCallerFail = true, float DefaultSetbyCaller = 0.f) const;
 
-	bool AttemptReturnGameplayEventTags(OUT FGameplayTag& InEventTag, OUT FGameplayTagContainer& InInstigatorTags, OUT FGameplayTagContainer& InTargetTags);
+	bool AttemptReturnGameplayEventTags(const FGameplayTagContainer* InstigatorTags, const FGameplayTagContainer* TargetTags, OUT FGameplayTag& InEventTag, OUT FGameplayTagContainer& InInstigatorTags, OUT FGameplayTagContainer& InTargetTags);
 
 	bool AttempAssignGameplayEventDataActors(AActor* SourceActor, AActor* TargetActor, OUT AActor*& Instigator, OUT AActor*& Target);
 
@@ -99,12 +100,6 @@ protected:
 	FGameplayTag GameplayEventTag;
 
 	UPROPERTY(EditDefaultsOnly, Category = "ART|GameplayEvent")
-	FGameplayTagContainer InstigatorTags;
-
-	UPROPERTY(EditDefaultsOnly, Category = "ART|GameplayEvent")
-	FGameplayTagContainer TargetTags;
-
-	UPROPERTY(EditDefaultsOnly, Category = "ART|GameplayEvent")
 	EGameplayEffectEventMagnitude GameplayEventMagnitudeCalculation;
 
 	/** Magnitude value represented by a scalable float */
@@ -124,6 +119,18 @@ class ART_API UARTGameplayEffect : public UGameplayEffect
 	GENERATED_BODY()
 
 public:
+
+	/** Icon of this ability. Can be shown in the UI. */
+	UPROPERTY(EditDefaultsOnly, Category = "ART|UI")
+	UTexture2D* Icon;
+
+	/** Name of this effect. Can be shown in the UI. */
+	UPROPERTY(EditDefaultsOnly, Category = "ART|UI")
+	FText EffectName;
+
+	/** Description of this effect. Can be shown in the UI. */
+	UPROPERTY(EditDefaultsOnly, Category = "ART|UI")
+	FText EffectDescription;
 
 	UPROPERTY(EditDefaultsOnly, Category = "ART")
 	class UARTCurve* Curves;

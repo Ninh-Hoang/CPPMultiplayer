@@ -97,12 +97,20 @@ public:
 	bool bCancelWhenLevelup;
 
 	//Ability that can stack/charge or not, 1 mean no stack
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability|Charge")
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Ability|Charge")
 	int32 AbilityCharge = 1;
 
-	//Ability represent the charge
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Ability|Charge")
-	FGameplayTag ChargeGameplayEffectTag;
+	/** Icon of the ability. Can be shown in the UI. */
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Ability|UI")
+	UTexture2D* Icon;
+
+	/** Name of the ability. Can be shown in the UI. */
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Ability|UI")
+	FText Name;
+
+	/** Description of the ability. Can be shown in the UI. */
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Ability|UI")
+	FText Description;
 
 	//Custom tags activation with tag combination as condition
 	//UPROPERTY(EditDefaultsOnly, Category = "Ability|Trigger")
@@ -115,8 +123,6 @@ public:
 	// If an ability is marked as 'ActivateAbilityOnGranted', activate them immediately when given here
 	// Epic's comment: Projects may want to initiate passives or do other "BeginPlay" type of logic here.
 	virtual void OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec) override;
-
-	virtual void OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec);
 
 	UFUNCTION(BlueprintCallable, Category = "Ability")
 	FGameplayAbilityTargetDataHandle MakeGameplayAbilityTargetDataHandleFromActorArray(const TArray<AActor*> TargetActors);
@@ -252,4 +258,7 @@ protected:
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Ability|Animation", Meta = (AdvancedDisplay = "OverrideBlendOutTime"))
 	void MontageStopForAllMeshes(float OverrideBlendOutTime = -1.0f);
+
+	/** Whether there are ability tasks active on this gameplay ability instance. */
+	bool AreAbilityTasksActive() const;
 };

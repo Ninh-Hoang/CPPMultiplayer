@@ -14,7 +14,6 @@
 #include <Blueprint/ARTBlueprintFunctionLibrary.h>
 #include <AbilitySystemBlueprintLibrary.h>
 
-
 UARTAbilitySystemComponent::UARTAbilitySystemComponent()
 {
 }
@@ -22,35 +21,90 @@ UARTAbilitySystemComponent::UARTAbilitySystemComponent()
 void UARTAbilitySystemComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	OnGameplayEffectAppliedDelegateToTarget.AddUObject(this, &UARTAbilitySystemComponent::OnActiveGameplayEffectAddedCallback);
+	OnGameplayEffectAppliedDelegateToTarget.AddUObject(this, &UARTAbilitySystemComponent::OnGameplayEffectAppliedToTargetCallback);
+	OnActiveGameplayEffectAddedDelegateToSelf.AddUObject(this, &UARTAbilitySystemComponent::OnActiveGameplayEffectAppliedToSelfCallback);
 }
 
 //TODO MAYBE THIS CAN BE CHEAPER
-void UARTAbilitySystemComponent::OnActiveGameplayEffectAddedCallback(UAbilitySystemComponent* Target, const FGameplayEffectSpec& SpecApplied, FActiveGameplayEffectHandle ActiveHandle)
+void UARTAbilitySystemComponent::OnGameplayEffectAppliedToTargetCallback(UAbilitySystemComponent* Target, const FGameplayEffectSpec& SpecApplied, FActiveGameplayEffectHandle ActiveHandle)
 {
 	const UARTGameplayEffect* Effect = Cast<UARTGameplayEffect>(SpecApplied.Def);
-	if (Effect && Effect->GameplayEvents.Num() > 0)
+	if (!Effect || Effect->GameplayEvents.Num() < 1 || Effect->DurationPolicy != EGameplayEffectDurationType::Instant)
 	{
-		for (FGameplayEffectEvent Event : Effect->GameplayEvents)
+		return;
+	}
+	
+	for (FGameplayEffectEvent Event : Effect->GameplayEvents)
+	{
+
+		FGameplayEventData Data;
+		FGameplayTag GameplayEventTag;
+
+		AActor* EventInstigator = nullptr;
+		AActor* EventTarget = nullptr;
+
+		Event.AttempAssignGameplayEventDataActors(GetAvatarActor(), Target->GetAvatarActor(), EventInstigator, EventTarget);
+
+		Data.Instigator = EventInstigator;
+		Data.Target = EventTarget;
+
+		Event.AttemptCalculateMagnitude(SpecApplied, Data.EventMagnitude, false);
+
+		const FGameplayTagContainer* InstigatorTags = SpecApplied.CapturedSourceTags.GetAggregatedTags();
+		const FGameplayTagContainer* TargetTags = SpecApplied.CapturedTargetTags.GetAggregatedTags();
+
+		Event.AttemptReturnGameplayEventTags(InstigatorTags, TargetTags, GameplayEventTag, Data.InstigatorTags, Data.TargetTags);
+
+		if (const FHitResult* Hit = SpecApplied.GetEffectContext().Get()->GetHitResult())
 		{
-			FGameplayEventData Data;
-			FGameplayTag GameplayEventTag;
-
-			AActor* EventInstigator = nullptr;
-			AActor* EventTarget = nullptr;
-
-			Event.AttempAssignGameplayEventDataActors(GetAvatarActor(), Target->GetAvatarActor(), EventInstigator, EventTarget);
-
-			Data.Instigator = EventInstigator;
-			Data.Target = EventTarget;
-
-			Event.AttemptReturnGameplayEventTags(GameplayEventTag, Data.InstigatorTags, Data.TargetTags);
-			Event.AttemptCalculateMagnitude(SpecApplied, Data.EventMagnitude, false);
-
-			Data.TargetData = UARTBlueprintFunctionLibrary::MakeTargetDataFromHit(*SpecApplied.GetEffectContext().Get()->GetHitResult());
-
-			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(EventTarget, GameplayEventTag, Data);
+			Data.TargetData = UARTBlueprintFunctionLibrary::MakeTargetDataFromHit(*Hit);
 		}
+
+		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(EventTarget, GameplayEventTag, Data);
+	}
+}
+
+void UARTAbilitySystemComponent::OnActiveGameplayEffectAppliedToSelfCallback(UAbilitySystemComponent* Target, const FGameplayEffectSpec& SpecApplied, FActiveGameplayEffectHandle ActiveHandle)
+{
+	const UARTGameplayEffect* Effect = Cast<UARTGameplayEffect>(SpecApplied.Def);
+	if (!Effect || Effect->GameplayEvents.Num() < 1
+		|| Effect->DurationPolicy == EGameplayEffectDurationType::Instant)
+	{
+		return;
+	}
+
+	for (FGameplayEffectEvent Event : Effect->GameplayEvents)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("%s"), *SpecApplied.GetEffectContext().GetInstigatorAbilitySystemComponent()->GetAvatarActor()->GetName());
+		UE_LOG(LogTemp, Warning, TEXT("%s"), *Target->GetAvatarActor()->GetName());
+		
+		FGameplayEventData Data;
+		FGameplayTag GameplayEventTag;
+
+		AActor* SourceAvatarActor = SpecApplied.GetEffectContext().GetInstigatorAbilitySystemComponent()->GetAvatarActor();
+		AActor* TargetAvatarActor = GetAvatarActor();
+
+		AActor* EventInstigator = nullptr;
+		AActor* EventTarget = nullptr;
+
+		Event.AttempAssignGameplayEventDataActors(SourceAvatarActor, GetAvatarActor(), EventInstigator, EventTarget);
+
+		Data.Instigator = EventInstigator;
+		Data.Target = EventTarget;
+
+		Event.AttemptCalculateMagnitude(SpecApplied, Data.EventMagnitude, false);
+
+		const FGameplayTagContainer* InstigatorTags = SpecApplied.CapturedSourceTags.GetAggregatedTags();
+		const FGameplayTagContainer* TargetTags = SpecApplied.CapturedTargetTags.GetAggregatedTags();
+
+		Event.AttemptReturnGameplayEventTags(InstigatorTags, TargetTags, GameplayEventTag, Data.InstigatorTags, Data.TargetTags);
+
+		if (const FHitResult* Hit = SpecApplied.GetEffectContext().Get()->GetHitResult())
+		{
+			Data.TargetData = UARTBlueprintFunctionLibrary::MakeTargetDataFromHit(*Hit);
+		}
+
+		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(EventTarget, GameplayEventTag, Data);
 	}
 }
 
@@ -272,6 +326,184 @@ void UARTAbilitySystemComponent::AddGameplayCueLocal(const FGameplayTag Gameplay
 void UARTAbilitySystemComponent::RemoveGameplayCueLocal(const FGameplayTag GameplayCueTag, const FGameplayCueParameters& GameplayCueParameters)
 {
 	UAbilitySystemGlobals::Get().GetGameplayCueManager()->HandleGameplayCue(GetOwner(), GameplayCueTag, EGameplayCueEvent::Type::Removed, GameplayCueParameters);
+}
+
+FString UARTAbilitySystemComponent::GetCurrentPredictionKeyStatus()
+{
+	return ScopedPredictionKey.ToString() + " is valid for more prediction: " + (ScopedPredictionKey.IsValidForMorePrediction() ? TEXT("true") : TEXT("false"));
+}
+
+FActiveGameplayEffectHandle UARTAbilitySystemComponent::BP_ApplyGameplayEffectToSelfWithPrediction(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level, FGameplayEffectContextHandle EffectContext)
+{
+	if (GameplayEffectClass)
+	{
+		if (!EffectContext.IsValid())
+		{
+			EffectContext = MakeEffectContext();
+		}
+
+		UGameplayEffect* GameplayEffect = GameplayEffectClass->GetDefaultObject<UGameplayEffect>();
+
+		if (CanPredict())
+		{
+			return ApplyGameplayEffectToSelf(GameplayEffect, Level, EffectContext, ScopedPredictionKey);
+		}
+
+		return ApplyGameplayEffectToSelf(GameplayEffect, Level, EffectContext);
+	}
+
+	return FActiveGameplayEffectHandle();
+}
+
+FActiveGameplayEffectHandle UARTAbilitySystemComponent::BP_ApplyGameplayEffectToTargetWithPrediction(TSubclassOf<UGameplayEffect> GameplayEffectClass, UAbilitySystemComponent* Target, float Level, FGameplayEffectContextHandle Context)
+{
+	if (Target == nullptr)
+	{
+		ABILITY_LOG(Log, TEXT("UAbilitySystemComponent::BP_ApplyGameplayEffectToTargetWithPrediction called with null Target. %s. Context: %s"), *GetFullName(), *Context.ToString());
+		return FActiveGameplayEffectHandle();
+	}
+
+	if (GameplayEffectClass == nullptr)
+	{
+		ABILITY_LOG(Error, TEXT("UAbilitySystemComponent::BP_ApplyGameplayEffectToTargetWithPrediction called with null GameplayEffectClass. %s. Context: %s"), *GetFullName(), *Context.ToString());
+		return FActiveGameplayEffectHandle();
+	}
+
+	UGameplayEffect* GameplayEffect = GameplayEffectClass->GetDefaultObject<UGameplayEffect>();
+
+	if (CanPredict())
+	{
+		return ApplyGameplayEffectToTarget(GameplayEffect, Target, Level, Context, ScopedPredictionKey);
+	}
+
+	return ApplyGameplayEffectToTarget(GameplayEffect, Target, Level, Context);
+}
+
+FActiveGameplayEffectHandle UARTAbilitySystemComponent::BP_ApplyGameplayEffectSpecToSelfWithPrediction(const FGameplayEffectSpec& GameplayEffect)
+{
+	if (CanPredict())
+	{
+		return ApplyGameplayEffectSpecToSelf(GameplayEffect, ScopedPredictionKey);
+	}
+
+	return ApplyGameplayEffectSpecToSelf(GameplayEffect);
+}
+
+FActiveGameplayEffectHandle UARTAbilitySystemComponent::BP_ApplyGameplayEffectSpecToTargetWithPrediction(const FGameplayEffectSpec& GameplayEffect, UAbilitySystemComponent* Target)
+{
+	if (Target == nullptr)
+	{
+		ABILITY_LOG(Log, TEXT("UAbilitySystemComponent::BP_ApplyGameplayEffectSpecToTargetWithPrediction called with null Target. %s. Context: %s"), *GetFullName(), *GameplayEffect.GetEffectContext().ToString());
+		return FActiveGameplayEffectHandle();
+	}
+
+	if (CanPredict())
+	{
+		return ApplyGameplayEffectSpecToTarget(GameplayEffect,Target, ScopedPredictionKey);
+	}
+
+	return ApplyGameplayEffectSpecToTarget(GameplayEffect,Target);
+}
+
+bool UARTAbilitySystemComponent::SetGameplayEffectDurationHandle(FActiveGameplayEffectHandle Handle, float NewDuration)
+{
+	if (!Handle.IsValid())
+	{
+		return false;
+	}
+
+	const FActiveGameplayEffect* ActiveGameplayEffect = GetActiveGameplayEffect(Handle);
+	if (!ActiveGameplayEffect)
+	{
+		return false;
+	}
+
+	FActiveGameplayEffect* AGE = const_cast<FActiveGameplayEffect*>(ActiveGameplayEffect);
+	if (NewDuration > 0)
+	{
+		AGE->Spec.Duration = NewDuration;
+	}
+	else
+	{
+		AGE->Spec.Duration = 0.01f;
+	}
+
+	AGE->StartServerWorldTime = ActiveGameplayEffects.GetServerWorldTime();
+	AGE->CachedStartServerWorldTime = AGE->StartServerWorldTime;
+	AGE->StartWorldTime = ActiveGameplayEffects.GetWorldTime();
+	ActiveGameplayEffects.MarkItemDirty(*AGE);
+	ActiveGameplayEffects.CheckDuration(Handle);
+
+	AGE->EventSet.OnTimeChanged.Broadcast(AGE->Handle, AGE->StartWorldTime, AGE->GetDuration());
+	OnGameplayEffectDurationChange(*AGE);
+
+	return true;
+}
+
+bool UARTAbilitySystemComponent::AddGameplayEffectDurationHandle(FActiveGameplayEffectHandle Handle, float AddDuration)
+{
+	if (!Handle.IsValid())
+	{
+		return false;
+	}
+
+	const FActiveGameplayEffect* ActiveGameplayEffect = GetActiveGameplayEffect(Handle);
+	if (!ActiveGameplayEffect)
+	{
+		return false;
+	}
+
+	FActiveGameplayEffect* AGE = const_cast<FActiveGameplayEffect*>(ActiveGameplayEffect);
+	if (AddDuration > 0.f)
+	{
+		AGE->Spec.Duration += AddDuration;
+	}
+	if(AddDuration < 0.f)
+	{
+		if (AGE->Spec.Duration + AddDuration > 0.01f)
+		{
+			AGE->Spec.Duration += AddDuration;
+		}
+		else {
+			AGE->Spec.Duration = 0.01f;
+		}
+	}
+
+	AGE->StartServerWorldTime = ActiveGameplayEffects.GetServerWorldTime();
+	AGE->CachedStartServerWorldTime = AGE->StartServerWorldTime;
+	AGE->StartWorldTime = ActiveGameplayEffects.GetWorldTime();
+	ActiveGameplayEffects.MarkItemDirty(*AGE);
+	ActiveGameplayEffects.CheckDuration(Handle);
+
+	AGE->EventSet.OnTimeChanged.Broadcast(AGE->Handle, AGE->StartWorldTime, AGE->GetDuration());
+	OnGameplayEffectDurationChange(*AGE);
+
+	return true;
+}
+
+FGameplayEffectSpecHandle UARTAbilitySystemComponent::MakeOutgoingSpec(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level, FGameplayEffectContextHandle Context) const
+{
+	FGameplayEffectSpecHandle Spec = Super::MakeOutgoingSpec(GameplayEffectClass, Level, Context);
+	if (Spec.IsValid())
+	{
+		UGameplayEffect* GameplayEffect = GameplayEffectClass->GetDefaultObject<UGameplayEffect>();
+		if (UARTGameplayEffect* ArtGE = Cast<UARTGameplayEffect>(GameplayEffect))
+		{
+			if (UARTCurve* GECurve = ArtGE->Curves)
+			{
+				//for each curve in ARTCurve asset, take the curve's tag and use it to SetByCallerMagnitude for GE
+				for (const auto& Data : GECurve->ARTCurveData)
+				{
+					FGameplayTag MagTag = Data.CurveTag;
+
+					//UE_LOG(LogTemp, Warning, TEXT("%f"), GECurve->GetCurveValue(MagTag, Level));
+					Spec.Data->SetSetByCallerMagnitude(MagTag, GECurve->GetCurveValue(MagTag, Level));
+				}
+			}
+		}
+		return Spec;
+	}
+	return FGameplayEffectSpecHandle(nullptr);
 }
 
 //FOR AI
@@ -518,6 +750,11 @@ void UARTAbilitySystemComponent::CurrentMontageSetPlayRateForMesh(USkeletalMeshC
 	}
 }
 
+void UARTAbilitySystemComponent::BP_SetPlayRateForCurrentMontage(USkeletalMeshComponent* InMesh, float InPlayRate)
+{
+	CurrentMontageSetPlayRateForMesh(InMesh, InPlayRate);
+}
+
 bool UARTAbilitySystemComponent::IsAnimatingAbilityForAnyMesh(UGameplayAbility* InAbility) const
 {
 	for (FGameplayAbilityLocalAnimMontageForMesh GameplayAbilityLocalAnimMontageForMesh : LocalAnimMontageInfoForMeshes)
@@ -562,6 +799,11 @@ TArray<UAnimMontage*> UARTAbilitySystemComponent::GetCurrentMontages() const
 	}
 
 	return Montages;
+}
+
+TArray<UAnimMontage*> UARTAbilitySystemComponent::BP_GetCurrentMontages() const
+{
+	return GetCurrentMontages();
 }
 
 UAnimMontage* UARTAbilitySystemComponent::GetCurrentMontageForMesh(USkeletalMeshComponent* InMesh)
@@ -653,106 +895,6 @@ float UARTAbilitySystemComponent::GetCurrentMontageSectionTimeLeftForMesh(USkele
 	return -1.f;
 }
 
-bool UARTAbilitySystemComponent::SetGameplayEffectDurationHandle(FActiveGameplayEffectHandle Handle, float NewDuration)
-{
-	if (!Handle.IsValid())
-	{
-		return false;
-	}
-
-	const FActiveGameplayEffect* ActiveGameplayEffect = GetActiveGameplayEffect(Handle);
-	if (!ActiveGameplayEffect)
-	{
-		return false;
-	}
-
-	FActiveGameplayEffect* AGE = const_cast<FActiveGameplayEffect*>(ActiveGameplayEffect);
-	if (NewDuration > 0)
-	{
-		AGE->Spec.Duration = NewDuration;
-	}
-	else
-	{
-		AGE->Spec.Duration = 0.01f;
-	}
-
-	AGE->StartServerWorldTime = ActiveGameplayEffects.GetServerWorldTime();
-	AGE->CachedStartServerWorldTime = AGE->StartServerWorldTime;
-	AGE->StartWorldTime = ActiveGameplayEffects.GetWorldTime();
-	ActiveGameplayEffects.MarkItemDirty(*AGE);
-	ActiveGameplayEffects.CheckDuration(Handle);
-
-	AGE->EventSet.OnTimeChanged.Broadcast(AGE->Handle, AGE->StartWorldTime, AGE->GetDuration());
-	OnGameplayEffectDurationChange(*AGE);
-
-	return true;
-}
-
-bool UARTAbilitySystemComponent::AddGameplayEffectDurationHandle(FActiveGameplayEffectHandle Handle, float AddDuration)
-{
-	if (!Handle.IsValid())
-	{
-		return false;
-	}
-
-	const FActiveGameplayEffect* ActiveGameplayEffect = GetActiveGameplayEffect(Handle);
-	if (!ActiveGameplayEffect)
-	{
-		return false;
-	}
-
-	FActiveGameplayEffect* AGE = const_cast<FActiveGameplayEffect*>(ActiveGameplayEffect);
-	if (AddDuration > 0.f)
-	{
-		AGE->Spec.Duration += AddDuration;
-	}
-	if(AddDuration < 0.f)
-	{
-		if (AGE->Spec.Duration + AddDuration > 0.01f)
-		{
-			AGE->Spec.Duration += AddDuration;
-		}
-		else {
-			AGE->Spec.Duration = 0.01f;
-		}
-	}
-
-	AGE->StartServerWorldTime = ActiveGameplayEffects.GetServerWorldTime();
-	AGE->CachedStartServerWorldTime = AGE->StartServerWorldTime;
-	AGE->StartWorldTime = ActiveGameplayEffects.GetWorldTime();
-	ActiveGameplayEffects.MarkItemDirty(*AGE);
-	ActiveGameplayEffects.CheckDuration(Handle);
-
-	AGE->EventSet.OnTimeChanged.Broadcast(AGE->Handle, AGE->StartWorldTime, AGE->GetDuration());
-	OnGameplayEffectDurationChange(*AGE);
-
-	return true;
-}
-
-FGameplayEffectSpecHandle UARTAbilitySystemComponent::MakeOutgoingSpec(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level, FGameplayEffectContextHandle Context) const
-{
-	FGameplayEffectSpecHandle Spec = Super::MakeOutgoingSpec(GameplayEffectClass, Level, Context);
-	if (Spec.IsValid())
-	{
-		UGameplayEffect* GameplayEffect = GameplayEffectClass->GetDefaultObject<UGameplayEffect>();
-		if (UARTGameplayEffect* ArtGE = Cast<UARTGameplayEffect>(GameplayEffect))
-		{
-			if (UARTCurve* GECurve = ArtGE->Curves)
-			{
-				//for each curve in ARTCurve asset, take the curve's tag and use it to SetByCallerMagnitude for GE
-				for (const auto& Data : GECurve->ARTCurveData)
-				{
-					FGameplayTag MagTag = Data.CurveTag;
-
-					//UE_LOG(LogTemp, Warning, TEXT("%f"), GECurve->GetCurveValue(MagTag, Level));
-					Spec.Data->SetSetByCallerMagnitude(MagTag, GECurve->GetCurveValue(MagTag, Level));
-				}
-			}
-		}
-		return Spec;
-	}
-	return FGameplayEffectSpecHandle(nullptr);
-}
 
 FGameplayAbilityLocalAnimMontageForMesh& UARTAbilitySystemComponent::GetLocalAnimMontageInfoForMesh(USkeletalMeshComponent* InMesh)
 {

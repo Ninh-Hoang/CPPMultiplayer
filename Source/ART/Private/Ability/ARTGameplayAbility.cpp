@@ -37,31 +37,39 @@ void UARTGameplayAbility::OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo
 {
 	Super::OnAvatarSet(ActorInfo, Spec);
 
-	if (AbilityCharge > 1) 
-	{
-		CurrentCharges = AbilityCharge;
-	}
-
-	if (bActivateAbilityOnGranted)
-	{
-		bool ActivatedAbility = ActorInfo->AbilitySystemComponent->TryActivateAbility(Spec.Handle, bAllowRemoteGrantingActivation);
-	}
-}
-
-void UARTGameplayAbility::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
-{
-	Super::OnGiveAbility(ActorInfo, Spec);
 	if (bActivateAbilityOnGranted)
 	{
 		bool ActivatedAbility = ActorInfo->AbilitySystemComponent->TryActivateAbility(Spec.Handle, bAllowRemoteGrantingActivation);
 	}
 
 	//for charged ability
+	if (AbilityCharge > 1)
+	{
+		CurrentCharges = AbilityCharge;
+	}
+
 	const FGameplayTagContainer* CDTags = GetCooldownTags();
 	if (CDTags) {
 		UAbilitySystemComponent* const AbilitySystemComponent = ActorInfo->AbilitySystemComponent.Get();
 		check(AbilitySystemComponent != nullptr);
 		AbilitySystemComponent->RegisterGameplayTagEvent(CDTags->GetByIndex(0), EGameplayTagEventType::AnyCountChange).AddUObject(this, &UARTGameplayAbility::OnCooldownTagEventCallback);
+	}
+
+	//re-check ability trigger when given, this is needed if the ability is given via a GameplayEffect and need to recheck trigger conditions
+	const TArray<FAbilityTriggerData>& AbilityTriggerData = AbilityTriggers;
+
+	for (const FAbilityTriggerData& TriggerData : AbilityTriggerData)
+	{
+		FGameplayTag EventTag = TriggerData.TriggerTag;
+
+		if (TriggerData.TriggerSource != EGameplayAbilityTriggerSource::GameplayEvent)
+		{
+
+			if (ActorInfo->AbilitySystemComponent->GetTagCount(TriggerData.TriggerTag))
+			{
+				bool ActivatedAbility = ActorInfo->AbilitySystemComponent->TryActivateAbility(Spec.Handle, bAllowRemoteGrantingActivation);
+			}
+		}
 	}
 }
 
@@ -428,4 +436,9 @@ void UARTGameplayAbility::MontageStopForAllMeshes(float OverrideBlendOutTime)
 			AbilitySystemComponent->StopAllCurrentMontages(OverrideBlendOutTime);
 		}
 	}
+}
+
+bool UARTGameplayAbility::AreAbilityTasksActive() const
+{
+	return ActiveTasks.Num() > 0;
 }

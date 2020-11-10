@@ -53,12 +53,30 @@ bool FGameplayEffectEvent::AttemptCalculateMagnitude(const FGameplayEffectSpec& 
 	return true;
 }
 
-bool FGameplayEffectEvent::AttemptReturnGameplayEventTags(OUT FGameplayTag& InEventTag, OUT FGameplayTagContainer& InInstigatorTags, OUT FGameplayTagContainer& InTargetTags)
+bool FGameplayEffectEvent::AttemptReturnGameplayEventTags(const FGameplayTagContainer* InstigatorTags, const FGameplayTagContainer* TargetTags, OUT FGameplayTag& InEventTag, OUT FGameplayTagContainer& InInstigatorTags, OUT FGameplayTagContainer& InTargetTags)
 {
 	InEventTag = GameplayEventTag;
-	InInstigatorTags = InstigatorTags;
-	InTargetTags = TargetTags;
-
+	switch (GameplayEventDirection)
+	{
+	case EGameplayEffectEventDirection::SourceToTarget:
+	{
+		UE_LOG(LogTemp, Warning, TEXT("setting"));
+		InInstigatorTags = *InstigatorTags;
+		InTargetTags = *TargetTags;
+	}
+	break;
+	case EGameplayEffectEventDirection::TargetToSource:
+	{
+		InInstigatorTags = *TargetTags;
+		InTargetTags = *InstigatorTags;
+	}
+	break;
+	default:
+		ABILITY_LOG(Error, TEXT("Unknown GameplayEffectEventDirection %d in AttempAssignGameplayEventDataActors"), (int32)GameplayEventDirection);
+		InInstigatorTags = *InstigatorTags;
+		InTargetTags = *TargetTags;
+		break;
+	}
 	return true;
 }
 
@@ -68,7 +86,6 @@ bool FGameplayEffectEvent::AttempAssignGameplayEventDataActors(AActor* SourceAct
 	{
 	case EGameplayEffectEventDirection::SourceToTarget:
 	{ 
-		UE_LOG(LogTemp, Warning, TEXT("setting"));
 		Instigator = SourceActor;
 		Target = TargetActor;
 	}

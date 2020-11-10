@@ -20,9 +20,6 @@ class ART_API UConsumableItem : public UItem
 public:
 	UConsumableItem();
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item", meta = (ClampMin = 0.0))
-	float AmountToHeal;
-
 protected:
 	virtual void Use(AARTSurvivor* Character) override;
 };

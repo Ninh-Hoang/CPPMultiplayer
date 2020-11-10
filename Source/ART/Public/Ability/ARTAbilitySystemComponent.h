@@ -81,8 +81,11 @@ public:
 
 	FReceivedDamageDelegate ReceivedDamage;
 
-	//called when active gameplay added
-	void OnActiveGameplayEffectAddedCallback(UAbilitySystemComponent* Target, const FGameplayEffectSpec& SpecApplied, FActiveGameplayEffectHandle ActiveHandle);
+	//called on Server when any gameplay effect added to target (will be used if GE is type instant)
+	void OnGameplayEffectAppliedToTargetCallback(UAbilitySystemComponent* Target, const FGameplayEffectSpec& SpecApplied, FActiveGameplayEffectHandle ActiveHandle);
+	
+	//called on both Client and Server when Duration base GE applied to self (Will be used with duration base GE instead of OnGameplayEffectAppliedToTargetCallback)
+	void OnActiveGameplayEffectAppliedToSelfCallback(UAbilitySystemComponent* Target, const FGameplayEffectSpec& SpecApplied, FActiveGameplayEffectHandle ActiveHandle);
 
 	// Called from GDDamageExecCalculation. Broadcasts on ReceivedDamage whenever this ASC receives damage.
 	virtual void ReceiveDamage(UARTAbilitySystemComponent* SourceASC, float UnmitigatedDamage, float MitigatedDamage);
@@ -155,6 +158,48 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "GameplayCue", Meta = (AutoCreateRefTerm = "GameplayCueParameters", GameplayTagFilter = "GameplayCue"))
 	void RemoveGameplayCueLocal(const FGameplayTag GameplayCueTag, const FGameplayCueParameters& GameplayCueParameters);
+	
+	UFUNCTION(BlueprintCallable, Category = "Ability")
+	virtual FString GetCurrentPredictionKeyStatus();
+
+	/**
+	* If this ASC has a valid prediction key, attempt to predictively apply this GE.
+	* If the key is not valid, it will apply the GE without prediction.
+	*/
+	UFUNCTION(BlueprintCallable, Category = "GameplayEffect", Meta = (DisplayName = "ApplyGameplayEffectToSelfWithPrediction"))
+	FActiveGameplayEffectHandle BP_ApplyGameplayEffectToSelfWithPrediction(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level, FGameplayEffectContextHandle EffectContext);
+
+	/**
+	* If this ASC has a valid prediction key, attempt to predictively apply this GE to the target.
+	* If the key is not valid, it will apply the GE to the target without prediction.
+	*/
+	UFUNCTION(BlueprintCallable, Category = "GameplayEffect", Meta = (DisplayName = "ApplyGameplayEffectToTargetWithPrediction"))
+	FActiveGameplayEffectHandle BP_ApplyGameplayEffectToTargetWithPrediction(TSubclassOf<UGameplayEffect> GameplayEffectClass, UAbilitySystemComponent* Target, float Level, FGameplayEffectContextHandle Context);
+
+	/**
+	* If this ASC has a valid prediction key, attempt to predictively apply this GESpec
+	* If the key is not valid, it will apply the GE without prediction.
+	*/
+	UFUNCTION(BlueprintCallable, Category = "GameplayEffect", Meta = (DisplayName = "ApplyGameplayEffectToSelfWithPrediction"))
+	FActiveGameplayEffectHandle BP_ApplyGameplayEffectSpecToSelfWithPrediction(const FGameplayEffectSpec& GameplayEffect);
+
+	/**
+	* If this ASC has a valid prediction key, attempt to predictively apply this GESpec
+	* If the key is not valid, it will apply the GE without prediction.
+	*/
+	UFUNCTION(BlueprintCallable, Category = "GameplayEffect", Meta = (DisplayName = "ApplyGameplayEffectToSelfWithPrediction"))
+	FActiveGameplayEffectHandle BP_ApplyGameplayEffectSpecToTargetWithPrediction(const FGameplayEffectSpec& GameplayEffect, UAbilitySystemComponent* Target);
+
+	//change active gameplay effect duration
+	UFUNCTION(BlueprintCallable, Category = "GameplayEffect", Meta = (DisplayName = "Change Active Effect Duration"))
+	bool SetGameplayEffectDurationHandle(FActiveGameplayEffectHandle Handle, float NewDuration);
+
+	//add active gameplay effect duration
+	UFUNCTION(BlueprintCallable, Category = "GameplayEffect", Meta = (DisplayName = "Add Active Effect Duration by Float"))
+	bool AddGameplayEffectDurationHandle(FActiveGameplayEffectHandle Handle, float AddDuration);
+
+	/** Get an outgoing GameplayEffectSpec that is ready to be applied to other things. */
+	virtual FGameplayEffectSpecHandle MakeOutgoingSpec(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level, FGameplayEffectContextHandle Context) const override;
 
 	//FOR AI
 	/** Returns a list of currently active ability instances that match the tags */
@@ -195,6 +240,9 @@ public:
 	// Sets current montage's play rate
 	virtual void CurrentMontageSetPlayRateForMesh(USkeletalMeshComponent* InMesh, float InPlayRate);
 
+	UFUNCTION(BlueprintCallable, Category = "Montage", Meta = (DisplayName = "SetCurrentMontagePlayRate"))
+	void BP_SetPlayRateForCurrentMontage(USkeletalMeshComponent* InMesh, float InPlayRate);
+
 	// Returns true if the passed in ability is the current animating ability
 	bool IsAnimatingAbilityForAnyMesh(UGameplayAbility* Ability) const;
 
@@ -203,6 +251,9 @@ public:
 
 	// Returns montages that are currently playing
 	TArray<UAnimMontage*> GetCurrentMontages() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Montage", Meta = (DisplayName = "GetCurrentMontages"))
+	TArray<UAnimMontage*> BP_GetCurrentMontages() const;
 
 	// Returns the montage that is playing for the mesh
 	UAnimMontage* GetCurrentMontageForMesh(USkeletalMeshComponent* InMesh);
@@ -218,17 +269,6 @@ public:
 
 	// Returns amount of time left in current section
 	float GetCurrentMontageSectionTimeLeftForMesh(USkeletalMeshComponent* InMesh);
-
-	//change active gameplay effect duration
-	UFUNCTION(BlueprintCallable, Category = "Abilities", Meta = (DisplayName = "Change Active Effect Duration"))
-	bool SetGameplayEffectDurationHandle(FActiveGameplayEffectHandle Handle, float NewDuration);
-
-	//add active gameplay effect duration
-	UFUNCTION(BlueprintCallable, Category = "Abilities", Meta = (DisplayName = "Add Active Effect Duration by Float"))
-	bool AddGameplayEffectDurationHandle(FActiveGameplayEffectHandle Handle, float AddDuration);
-
-	/** Get an outgoing GameplayEffectSpec that is ready to be applied to other things. */
-	virtual FGameplayEffectSpecHandle MakeOutgoingSpec(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level, FGameplayEffectContextHandle Context) const override;
 
 protected:
 	// ----------------------------------------------------------------------------------------------------------------
