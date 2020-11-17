@@ -119,19 +119,6 @@ class ART_API UARTGameplayEffect : public UGameplayEffect
 	GENERATED_BODY()
 
 public:
-
-	/** Icon of this ability. Can be shown in the UI. */
-	UPROPERTY(EditDefaultsOnly, Category = "ART|UI")
-	UTexture2D* Icon;
-
-	/** Name of this effect. Can be shown in the UI. */
-	UPROPERTY(EditDefaultsOnly, Category = "ART|UI")
-	FText EffectName;
-
-	/** Description of this effect. Can be shown in the UI. */
-	UPROPERTY(EditDefaultsOnly, Category = "ART|UI")
-	FText EffectDescription;
-
 	UPROPERTY(EditDefaultsOnly, Category = "ART")
 	class UARTCurve* Curves;
 
