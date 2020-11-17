@@ -6,6 +6,8 @@
 #include "Ability/ARTGameplayAbility.h"
 #include "Ability/ARTGameplayEffectTypes.h"
 #include "AbilitySystemBlueprintLibrary.h"
+#include <Ability/ARTGameplayEffectUIData.h>
+#include <Ability/ARTGameplayAbilityUIData.h>
 
 
 FString UARTBlueprintFunctionLibrary::GetPlayerEditorWindowRole(UWorld* World)
@@ -184,7 +186,6 @@ FGameplayTargetDataFilterHandle UARTBlueprintFunctionLibrary::MakeTargetDataFilt
 	return FilterHandle;
 }
 
-
 TArray<FGameplayAbilityTargetDataHandle> UARTBlueprintFunctionLibrary::FilterTargetDataArray(TArray<FGameplayAbilityTargetDataHandle> TargetDataArray, FGameplayTargetDataFilterHandle Filterhandle)
 {
 	TArray<FGameplayAbilityTargetDataHandle> OutTargetDataArray;
@@ -237,11 +238,11 @@ TArray<FGameplayAbilityTargetDataHandle> UARTBlueprintFunctionLibrary::MakeArray
 	return ReturnDataHandles;
 }
 
-void UARTBlueprintFunctionLibrary::InitializePropertyMap(FGameplayTagBlueprintPropertyMap InMap, UObject* Owner, UAbilitySystemComponent* ASC)
+void UARTBlueprintFunctionLibrary::InitializePropertyMap(FGameplayTagBlueprintPropertyMap& InMap, UObject* Owner, UAbilitySystemComponent* ASC)
 {
 }
 
-float UARTBlueprintFunctionLibrary::GetTagCallerMag(UAbilitySystemComponent* InASC, FActiveGameplayEffectHandle InActiveHandle, FGameplayTag CallerTag)
+float UARTBlueprintFunctionLibrary::GetTagCallerMag(UAbilitySystemComponent* InASC, FActiveGameplayEffectHandle& InActiveHandle, FGameplayTag CallerTag)
 {
 	if (InASC && InActiveHandle.IsValid())
 	{
@@ -251,3 +252,27 @@ float UARTBlueprintFunctionLibrary::GetTagCallerMag(UAbilitySystemComponent* InA
 	return 0.0f;
 }
 
+UARTGameplayEffectUIData* UARTBlueprintFunctionLibrary::GetGameplayEffectUIDataFromActiveHandle(const FActiveGameplayEffectHandle& InActiveHandle)
+{
+	if (InActiveHandle.IsValid())
+	{
+		if (const UAbilitySystemComponent* ASC = InActiveHandle.GetOwningAbilitySystemComponent())
+		{
+			const FActiveGameplayEffect* ActiveEffect = ASC->GetActiveGameplayEffect(InActiveHandle);
+			UGameplayEffectUIData* Data = ActiveEffect->Spec.Def->UIData;
+			return Cast<UARTGameplayEffectUIData>(Data);
+		}
+	}
+	return nullptr;
+}
+
+UARTGameplayAbilityUIData* UARTBlueprintFunctionLibrary::GetGameplayAbilityUIDataFromInput(UAbilitySystemComponent* InASC, const EARTAbilityInputID Input)
+{
+	if (InASC)
+	{
+		FGameplayAbilitySpec* Spec = InASC->FindAbilitySpecFromInputID(static_cast<int32>(Input));
+		UARTGameplayAbility* Ability = Cast<UARTGameplayAbility>(Spec->Ability);
+		return Ability->UIData;
+	}
+	return nullptr;
+}

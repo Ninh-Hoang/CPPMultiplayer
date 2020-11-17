@@ -506,7 +506,7 @@ FGameplayEffectSpecHandle UARTAbilitySystemComponent::MakeOutgoingSpec(TSubclass
 	return FGameplayEffectSpecHandle(nullptr);
 }
 
-//FOR AI
+//FOR AI OR UI
 /* Returns a list of currently active ability instances that match the tags */
 void UARTAbilitySystemComponent::GetActiveAbilitiesWithTags(const FGameplayTagContainer& GameplayTagContainer, TArray<UARTGameplayAbility*>& ActiveAbilities)
 {

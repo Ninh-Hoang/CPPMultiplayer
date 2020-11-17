@@ -13,10 +13,9 @@
 UCLASS()
 class ART_API UARTGameplayEffectUIData : public UGameplayEffectUIData
 {
-	GENERATED_BODY()
+	GENERATED_UCLASS_BODY()
 
-protected:
-	/** Icon of this ability. Can be shown in the UI. */
+	/** Icon of this Effect. Can be shown in the UI. */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Data)
 	UTexture2D* Icon;
 
@@ -24,6 +23,7 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Data)
 	FText EffectName;
 
+	/** Description of this effect. Can be shown in the UI. */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Data, meta = (MultiLine = "true"))
 	FText Description;
 	

@@ -11,6 +11,7 @@
 /**
  * 
  */
+
 UCLASS()
 class ART_API UARTBlueprintFunctionLibrary : public UBlueprintFunctionLibrary
 {
@@ -122,11 +123,25 @@ public:
 	/*
 	* GameplayTagBlueprintPropertyMap ultilities
 	*/
-	static void InitializePropertyMap(FGameplayTagBlueprintPropertyMap InMap, UObject* Owner, UAbilitySystemComponent* ASC);
+	static void InitializePropertyMap(FGameplayTagBlueprintPropertyMap& InMap, UObject* Owner, UAbilitySystemComponent* ASC);
 
 	/*
 	* Get Tag caller Mag
 	*/
 	UFUNCTION(BlueprintCallable, Category = "Ability|ActiveEffect")
-	static float GetTagCallerMag(UAbilitySystemComponent* InASC, FActiveGameplayEffectHandle InActiveHandle, FGameplayTag CallerTag);
+	static float GetTagCallerMag(UAbilitySystemComponent* InASC, FActiveGameplayEffectHandle& InActiveHandle, FGameplayTag CallerTag);
+
+	/*
+	* Get UI information from GameplayEffect Handle, or Spec?
+	*/
+
+	UFUNCTION(BlueprintCallable, Category = "Ability|ActiveEffect", Meta = (DisplayName = "Get GE UI Data from Active Handle"))
+	static  UARTGameplayEffectUIData* GetGameplayEffectUIDataFromActiveHandle(const FActiveGameplayEffectHandle& InActiveHandle);
+
+	/*
+	* Get UI information from Ability Input, Spec, or Handle?
+	*/
+
+	UFUNCTION(BlueprintCallable, Category = "Ability|ActiveAbility", Meta = (DisplayName = "Get GA UI Data from Input"))
+	static UARTGameplayAbilityUIData* GetGameplayAbilityUIDataFromInput(UAbilitySystemComponent* InASC, const EARTAbilityInputID Input);
 };

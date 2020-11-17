@@ -100,17 +100,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Ability|Charge")
 	int32 AbilityCharge = 1;
 
-	/** Icon of the ability. Can be shown in the UI. */
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Ability|UI")
-	UTexture2D* Icon;
-
-	/** Name of the ability. Can be shown in the UI. */
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Ability|UI")
-	FText Name;
-
-	/** Description of the ability. Can be shown in the UI. */
-	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Ability|UI")
-	FText Description;
+	/** Data for the UI representation of this effect. This should include things like text, icons, etc. Not available in server-only builds. */
+	UPROPERTY(EditDefaultsOnly, Instanced, BlueprintReadOnly, Category = "Ability|Display")
+	class UARTGameplayAbilityUIData* UIData;
 
 	//Custom tags activation with tag combination as condition
 	//UPROPERTY(EditDefaultsOnly, Category = "Ability|Trigger")
