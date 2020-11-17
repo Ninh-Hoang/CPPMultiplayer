@@ -230,7 +230,14 @@ bool UARTGameplayAbility::CheckCost(const FGameplayAbilitySpecHandle Handle, con
 
 void UARTGameplayAbility::ApplyCooldown(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo) const
 {
-	Super::ApplyCooldown(Handle, ActorInfo, ActivationInfo);
+	UGameplayEffect* CooldownGE = GetCooldownGameplayEffect();
+	if (CooldownGE)
+	{
+		FGameplayEffectSpecHandle SpecHandle = MakeOutgoingGameplayEffectSpec(CooldownGE->GetClass(), GetAbilityLevel());
+		SpecHandle.Data.Get()->DynamicGrantedTags.AppendTags(CooldownTags);
+		SpecHandle.Data.Get()->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Data.Cooldown")), CooldownDuration.GetValueAtLevel(GetAbilityLevel()));
+		ApplyGameplayEffectSpecToOwner(Handle, ActorInfo, ActivationInfo, SpecHandle);
+	}
 }
 
 bool UARTGameplayAbility::CheckCooldown(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, OUT FGameplayTagContainer* OptionalRelevantTags /* = nullptr */) const
@@ -257,6 +264,18 @@ bool UARTGameplayAbility::CheckCooldown(const FGameplayAbilitySpecHandle Handle,
 	}
 	
 	return Super::CheckCooldown(Handle, ActorInfo, OptionalRelevantTags);
+}
+
+const FGameplayTagContainer* UARTGameplayAbility::GetCooldownTags() const
+{
+	FGameplayTagContainer* MutableTags = const_cast<FGameplayTagContainer*>(&TempCooldownTags);
+	const FGameplayTagContainer* ParentTags = Super::GetCooldownTags();
+	if (ParentTags)
+	{
+		MutableTags->AppendTags(*ParentTags);
+	}
+	MutableTags->AppendTags(CooldownTags);
+	return MutableTags;
 }
 
 void UARTGameplayAbility::CommitExecute(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo)

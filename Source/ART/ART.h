@@ -45,22 +45,22 @@ enum class EARTAbilityInputID : uint8
 	Confirm			UMETA(DisplayName = "Confirm"),
 	// 2 Cancel
 	Cancel			UMETA(DisplayName = "Cancel"),
-	// 3 LMB
-	Ability1		UMETA(DisplayName = "Ability1"),
-	// 4 RMB
-	Ability2		UMETA(DisplayName = "Ability2"),
-	// 5 Q
-	Ability3		UMETA(DisplayName = "Ability3"),
-	// 6 E
-	Ability4		UMETA(DisplayName = "Ability4"),
-	// 7 R
-	Ability5		UMETA(DisplayName = "Ability5"),
-	// 9 Fire
-	Fire			UMETA(DisplayName = "Fire"),
-	// 10 Aim
-	Aim				UMETA(DisplayName = "Aim"),
+	// 3 Q
+	Q				UMETA(DisplayName = "Q"),
+	// 4 E
+	E				UMETA(DisplayName = "E"),
+	// 5 R
+	R				UMETA(DisplayName = "R"),
+	// 6 F
+	F				UMETA(DisplayName = "F"),
+	// 7 G
+	G				UMETA(DisplayName = "G"),
+	// 9 LMB	
+	LMB				UMETA(DisplayName = "LMB"),
+	// 10 RMB	
+	RMB				UMETA(DisplayName = "RMB	"),
 	// 11 Sprint
-	Sprint			UMETA(DisplayName = "Sprint"),
+	Shift			UMETA(DisplayName = "Shift"),
 	// 12 Jump
-	Roll			UMETA(DisplayName = "Roll")
+	Space			UMETA(DisplayName = "Space")
 };

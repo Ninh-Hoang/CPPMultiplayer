@@ -4,7 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "UObject/ObjectMacros.h"
-#include "UObject/Object.h"
+#include "GameplayEffectUIData.h"
+#include <GameplayTagContainer.h>
 #include "ARTGameplayAbilityUIData.generated.h"
 
 /**
@@ -13,7 +14,7 @@
  */
 
 UCLASS()
-class ART_API UARTGameplayAbilityUIData : public UObject
+class ART_API UARTGameplayAbilityUIData : public UGameplayEffectUIData
 {
 	GENERATED_UCLASS_BODY()
 
@@ -28,4 +29,8 @@ class ART_API UARTGameplayAbilityUIData : public UObject
 	/** Description of this ability. Can be shown in the UI. */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Data, meta = (MultiLine = "true"))
 	FText Description;
+
+	/** Description of this ability. Can be shown in the UI. */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Data, meta = (MultiLine = "true"))
+	FGameplayTag CooldownTag;
 };
