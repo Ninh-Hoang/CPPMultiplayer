@@ -39,6 +39,10 @@
 			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/b08e5581837e4bbca486b61cdf2751bb"
 		},
 		{
+			"Name": "HoudiniEngine",
+			"Enabled": true
+		},
+		{
 			"Name": "TheCurviestCurve",
 			"Enabled": true,
 			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/b5fce2cbfa644b1a8e1fcb7683a881d2"
