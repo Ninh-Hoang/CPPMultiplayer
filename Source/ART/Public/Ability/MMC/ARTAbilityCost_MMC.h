@@ -4,18 +4,18 @@
 
 #include "CoreMinimal.h"
 #include "GameplayModMagnitudeCalculation.h"
-#include "ARTEnergyCost_MMC.generated.h"
+#include "ARTAbilityCost_MMC.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class ART_API UARTEnergyCost_MMC : public UGameplayModMagnitudeCalculation
+class ART_API UARTAbilityCost_MMC : public UGameplayModMagnitudeCalculation
 {
 	GENERATED_BODY()
 
 public:
-	UARTEnergyCost_MMC();
+	UARTAbilityCost_MMC();
 
 	virtual float CalculateBaseMagnitude_Implementation(const FGameplayEffectSpec& Spec) const override;
 
