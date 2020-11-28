@@ -107,6 +107,9 @@ public:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Ability|Cooldown")
 	FGameplayTagContainer CooldownTags;
 
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Ability|Cost")
+	FScalableFloat Cost;
+
 	/** Data for the UI representation of this Ability. This should include things like text, icons, etc. Not available in server-only builds. */
 	UPROPERTY(EditDefaultsOnly, Instanced, BlueprintReadOnly, Category = "Ability|Display")
 	class UGameplayEffectUIData* UIData;

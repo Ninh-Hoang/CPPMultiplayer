@@ -4,6 +4,9 @@
 #include "ARTCharacter/ARTCharacterAttributeSet.h"
 #include "Net/UnrealNetwork.h"
 #include <GameplayEffectExtension.h>
+
+
+#include "Ability/FARTAggregatorEvaluateMetaDataLibrary.h"
 #include "ARTCharacter/ARTCharacterBase.h"
 #include "ARTCharacter/ARTPlayerController.h"
 
@@ -304,6 +307,22 @@ void UARTCharacterAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimePrope
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, XPBounty, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, En, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, EnBounty, COND_None, REPNOTIFY_Always);
+}
+
+void UARTCharacterAttributeSet::OnAttributeAggregatorCreated(const FGameplayAttribute& Attribute,
+	FAggregator* NewAggregator) const
+{
+	Super::OnAttributeAggregatorCreated(Attribute, NewAggregator);
+
+	if (!NewAggregator)
+	{
+		return;
+	}
+
+	if (Attribute == GetMoveSpeedAttribute())
+	{
+		NewAggregator->EvaluationMetaData = &FARTAggregatorEvaluateMetaDataLibrary::MostNegativeMod_MostPositiveModPerClass;
+	}
 }
 
 void UARTCharacterAttributeSet::AdjustAttributeForMaxChange(FGameplayAttributeData& AffectedAttribute, const FGameplayAttributeData& MaxAttribute, float NewMaxValue, const FGameplayAttribute& AffectedAttributeProperty)
