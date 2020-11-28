@@ -9,16 +9,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8605fe89-941f-4f47-ac62-154384fefc60" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/FARTAggregatorEvaluateMetaDataLibrary.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/FARTAggregatorEvaluateMetaDataLibrary.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ART.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/ART.uproject" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/ItemAndEquipment/Consumable/ElementTestItem/GA_TestEventActivation.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/ItemAndEquipment/Consumable/ElementTestItem/GA_TestEventActivation.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/DS_SurvivorAbilitySet.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/DS_SurvivorAbilitySet.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/VolumetricFog.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/VolumetricFog.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterAttributeSet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterAttributeSet.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/MMC/ARTEnergyCost_MMC.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/MMC/ARTAbilityCost_MMC.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterAttributeSet.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterAttributeSet.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayAbility.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayAbility.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/MMC/ARTEnergyCost_MMC.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/MMC/ARTAbilityCost_MMC.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -284,7 +277,7 @@
       <option name="presentableId" value="Default" />
       <updated>1606475112431</updated>
       <workItem from="1606475117962" duration="2269000" />
-      <workItem from="1606499515631" duration="13641000" />
+      <workItem from="1606499515631" duration="14278000" />
     </task>
     <servers />
   </component>
