@@ -7,19 +7,20 @@
 
 AGATA_MeleeWeaponTrace::AGATA_MeleeWeaponTrace()
 {
-
 }
 
-void AGATA_MeleeWeaponTrace::Configure(class AMeleeWeapon* InMeleeWeaponActor, 
-	const FGameplayAbilityTargetingLocationInfo& InStartLocation,
-	FGameplayTag InAimingTag, FGameplayTag InAimingRemovalTag, FCollisionProfileName InTraceProfile, 
-	FGameplayTargetDataFilterHandle InFilter, TSubclassOf<AGameplayAbilityWorldReticle> InReticleClass, 
-	FWorldReticleParameters InReticleParams, 
-	bool bInShouldProduceTargetDataOnServer /*= false*/, 
-	bool bInDebug /*= false*/,
-	bool bInUsePawnSocket /*= false*/,
-	FName InMeleeSocketName,
-	float InSocketLenght)
+void AGATA_MeleeWeaponTrace::Configure(class AMeleeWeapon* InMeleeWeaponActor,
+                                       const FGameplayAbilityTargetingLocationInfo& InStartLocation,
+                                       FGameplayTag InAimingTag, FGameplayTag InAimingRemovalTag,
+                                       FCollisionProfileName InTraceProfile,
+                                       FGameplayTargetDataFilterHandle InFilter,
+                                       TSubclassOf<AGameplayAbilityWorldReticle> InReticleClass,
+                                       FWorldReticleParameters InReticleParams,
+                                       bool bInShouldProduceTargetDataOnServer /*= false*/,
+                                       bool bInDebug /*= false*/,
+                                       bool bInUsePawnSocket /*= false*/,
+                                       FName InMeleeSocketName,
+                                       float InSocketLenght)
 {
 	MeleeWeaponActor = InMeleeWeaponActor;
 	StartLocation = InStartLocation;
@@ -51,7 +52,9 @@ void AGATA_MeleeWeaponTrace::Configure(class AMeleeWeapon* InMeleeWeaponActor,
 }
 
 
-void AGATA_MeleeWeaponTrace::DoTrace(TArray<FHitResult>& HitResults, const UWorld* World, const FGameplayTargetDataFilterHandle FilterHandle, const FVector& Start, const FVector& End, FName ProfileName, const FCollisionQueryParams Params)
+void AGATA_MeleeWeaponTrace::DoTrace(TArray<FHitResult>& HitResults, const UWorld* World,
+                                     const FGameplayTargetDataFilterHandle FilterHandle, const FVector& Start,
+                                     const FVector& End, FName ProfileName, const FCollisionQueryParams Params)
 {
 	LineTraceWithFilter(HitResults, World, FilterHandle, Start, End, ProfileName, Params);
 }
@@ -68,19 +71,24 @@ void AGATA_MeleeWeaponTrace::StartTargeting(UGameplayAbility* Ability)
 	CurrVecs.Reset();
 	MyTargets.Empty();
 
-	if (MeleeWeaponActor) {
+	if (MeleeWeaponActor)
+	{
 		//initialize vector values
 		for (int i = MeleeWeaponActor->WeaponStartLength; i <= MeleeWeaponActor->WeaponTail; i += 10)
 		{
 			CurrVecs.Add(MeleeWeaponActor->GetActorLocation() + i * MeleeWeaponActor->GetActorUpVector());
 		}
 	}
-	if (bUsePawnSocket) {
+	if (bUsePawnSocket)
+	{
 		OwnerCharacter = Cast<AARTCharacterBase>(SourceActor);
-		if (OwnerCharacter) {
+		if (OwnerCharacter)
+		{
 			for (int i = 0; i <= SocketLenght; i += 10)
 			{
-				CurrVecs.Add(OwnerCharacter->GetMesh()->GetSocketLocation(MeleeSocketName) + i * FRotationMatrix(OwnerCharacter->GetMesh()->GetSocketRotation(MeleeSocketName)).GetScaledAxis(EAxis::Z));
+				CurrVecs.Add(
+					OwnerCharacter->GetMesh()->GetSocketLocation(MeleeSocketName) + i * FRotationMatrix(
+						OwnerCharacter->GetMesh()->GetSocketRotation(MeleeSocketName)).GetScaledAxis(EAxis::Z));
 			}
 		}
 	}
@@ -111,7 +119,8 @@ TArray<FHitResult> AGATA_MeleeWeaponTrace::PerformTrace(AActor* InSourceActor)
 	{
 		FHitResult& HitResult = PersistentHitResults[i];
 
-		if (!HitResult.Actor.IsValid() || FVector::DistSquared(TraceStart, HitResult.Actor.Get()->GetActorLocation()) > (MaxRange * MaxRange))
+		if (!HitResult.Actor.IsValid() || FVector::DistSquared(TraceStart, HitResult.Actor.Get()->GetActorLocation()) >
+			(MaxRange * MaxRange))
 		{
 			PersistentHitResults.RemoveAt(i);
 		}
@@ -123,8 +132,8 @@ TArray<FHitResult> AGATA_MeleeWeaponTrace::PerformTrace(AActor* InSourceActor)
 
 	PrevVecs = CurrVecs;
 
-	float StartLenght;
-	float EndLenght;
+	float StartLenght = 0.0f;
+	float EndLenght = 0.0f;
 
 	if (MeleeWeaponActor)
 	{
@@ -133,7 +142,7 @@ TArray<FHitResult> AGATA_MeleeWeaponTrace::PerformTrace(AActor* InSourceActor)
 	}
 	else if (bUsePawnSocket)
 	{
-		StartLenght = 0;
+		StartLenght = 0.0f;
 		EndLenght = SocketLenght;
 	}
 
@@ -142,21 +151,24 @@ TArray<FHitResult> AGATA_MeleeWeaponTrace::PerformTrace(AActor* InSourceActor)
 		UE_LOG(LogTemp, Warning, TEXT("Length"));
 		const int32 size_ = (bUsePawnSocket) ? i : (i - MeleeWeaponActor->WeaponStartLength) / 10;
 
-		if(MeleeWeaponActor)
-		{ 
+		if (MeleeWeaponActor)
+		{
 			CurrVecs[size_] = MeleeWeaponActor->GetActorLocation() + i * MeleeWeaponActor->GetActorUpVector();
 		}
 		if (bUsePawnSocket)
 		{
-			CurrVecs[size_] = OwnerCharacter->GetMesh()->GetSocketLocation(MeleeSocketName) + i * FRotationMatrix(OwnerCharacter->GetMesh()->GetSocketRotation(MeleeSocketName)).GetScaledAxis(EAxis::Z);
+			CurrVecs[size_] = OwnerCharacter->GetMesh()->GetSocketLocation(MeleeSocketName) + i * FRotationMatrix(
+				OwnerCharacter->GetMesh()->GetSocketRotation(MeleeSocketName)).GetScaledAxis(EAxis::Z);
 		}
 
 		TArray<FHitResult> TraceHitResultsBuffer;
-		DoTrace(TraceHitResultsBuffer, InSourceActor->GetWorld(), Filter, PrevVecs[size_], CurrVecs[size_], TraceProfile.Name, Params);
+		DoTrace(TraceHitResultsBuffer, InSourceActor->GetWorld(), Filter, PrevVecs[size_], CurrVecs[size_],
+		        TraceProfile.Name, Params);
 
 		TraceHitResults.Append(TraceHitResultsBuffer);
 
-		DrawDebugLineTraceMulti(GetWorld(), PrevVecs[size_], CurrVecs[size_], EDrawDebugTrace::Type::ForDuration, true, TraceHitResults, FLinearColor::Red, FLinearColor::Green, 2.0f);
+		DrawDebugLineTraceMulti(GetWorld(), PrevVecs[size_], CurrVecs[size_], EDrawDebugTrace::Type::ForDuration, true,
+		                        TraceHitResults, FLinearColor::Red, FLinearColor::Green, 2.0f);
 	}
 
 	for (int32 j = TraceHitResults.Num() - 1; j >= 0; j--)
@@ -199,7 +211,6 @@ TArray<FHitResult> AGATA_MeleeWeaponTrace::PerformTrace(AActor* InSourceActor)
 
 			ValidData.Broadcast();
 		}
-
 	} // for TraceHitResults
 
 	if (TraceHitResults.Num() < ReticleActors.Num())
@@ -233,12 +244,14 @@ TArray<FHitResult> AGATA_MeleeWeaponTrace::PerformTrace(AActor* InSourceActor)
 		}
 	}
 
-	if (ReticleActors.Num() <= 0) {
+	if (ReticleActors.Num() <= 0)
+	{
 		return PersistentHitResults;
 	}
 
 	// Handle ReticleActors
-	for (int32 PersistentHitResultIndex = 0; PersistentHitResultIndex < PersistentHitResults.Num(); PersistentHitResultIndex++)
+	for (int32 PersistentHitResultIndex = 0; PersistentHitResultIndex < PersistentHitResults.Num();
+	     PersistentHitResultIndex++)
 	{
 		FHitResult& HitResult = PersistentHitResults[PersistentHitResultIndex];
 
@@ -253,7 +266,9 @@ TArray<FHitResult> AGATA_MeleeWeaponTrace::PerformTrace(AActor* InSourceActor)
 			{
 				LocalReticleActor->SetActorHiddenInGame(false);
 
-				const FVector ReticleLocation = (bHitActor && LocalReticleActor->bSnapToTargetedActor) ? HitResult.Actor->GetActorLocation() : HitResult.Location;
+				const FVector ReticleLocation = (bHitActor && LocalReticleActor->bSnapToTargetedActor)
+					                                ? HitResult.Actor->GetActorLocation()
+					                                : HitResult.Location;
 
 				LocalReticleActor->SetActorLocation(ReticleLocation);
 				LocalReticleActor->SetIsTargetAnActor(bHitActor);
@@ -268,7 +283,8 @@ TArray<FHitResult> AGATA_MeleeWeaponTrace::PerformTrace(AActor* InSourceActor)
 	if (PersistentHitResults.Num() < ReticleActors.Num())
 	{
 		// We have less hit results than ReticleActors, hide the extra ones
-		for (int32 PersistentHitResultIndex = PersistentHitResults.Num(); PersistentHitResultIndex < ReticleActors.Num(); PersistentHitResultIndex++)
+		for (int32 PersistentHitResultIndex = PersistentHitResults.Num(); PersistentHitResultIndex < ReticleActors.Num()
+		     ; PersistentHitResultIndex++)
 		{
 			if (AGameplayAbilityWorldReticle* LocalReticleActor = ReticleActors[PersistentHitResultIndex].Get())
 			{
@@ -281,14 +297,18 @@ TArray<FHitResult> AGATA_MeleeWeaponTrace::PerformTrace(AActor* InSourceActor)
 	return PersistentHitResults;
 }
 
-void AGATA_MeleeWeaponTrace::ShowDebugTrace(TArray<FHitResult>& HitResults, EDrawDebugTrace::Type DrawDebugType, float Duration /*= 2.0f*/)
+void AGATA_MeleeWeaponTrace::ShowDebugTrace(TArray<FHitResult>& HitResults, EDrawDebugTrace::Type DrawDebugType,
+                                            float Duration /*= 2.0f*/)
 {
 #if ENABLE_DRAW_DEBUG
 	//not using this, overrided
 #endif
 }
 
-void AGATA_MeleeWeaponTrace::DrawDebugLineTraceMulti(const UWorld* World, const FVector& Start, const FVector& End, EDrawDebugTrace::Type DrawDebugType, bool bHit, const TArray<FHitResult>& OutHits, FLinearColor TraceColor, FLinearColor TraceHitColor, float DrawTime)
+void AGATA_MeleeWeaponTrace::DrawDebugLineTraceMulti(const UWorld* World, const FVector& Start, const FVector& End,
+                                                     EDrawDebugTrace::Type DrawDebugType, bool bHit,
+                                                     const TArray<FHitResult>& OutHits, FLinearColor TraceColor,
+                                                     FLinearColor TraceHitColor, float DrawTime)
 {
 #if ENABLE_DRAW_DEBUG
 	if (DrawDebugType != EDrawDebugTrace::None)
@@ -306,17 +326,18 @@ void AGATA_MeleeWeaponTrace::DrawDebugLineTraceMulti(const UWorld* World, const 
 		}
 		else
 		{*/
-			// no hit means all red
-			::DrawDebugLine(World, Start, End, TraceColor.ToFColor(true), bPersistent, LifeTime);
+		// no hit means all red
+		DrawDebugLine(World, Start, End, TraceColor.ToFColor(true), bPersistent, LifeTime);
 		//}
 
 		// draw hits
 		for (int32 HitIdx = 0; HitIdx < OutHits.Num(); ++HitIdx)
 		{
 			FHitResult const& Hit = OutHits[HitIdx];
-			::DrawDebugPoint(World, Hit.ImpactPoint, 16.0f, (!Hit.bBlockingHit ? TraceColor.ToFColor(true) : TraceHitColor.ToFColor(true)), bPersistent, LifeTime);
+			DrawDebugPoint(World, Hit.ImpactPoint, 16.0f,
+			               (!Hit.bBlockingHit ? TraceColor.ToFColor(true) : TraceHitColor.ToFColor(true)), bPersistent,
+			               LifeTime);
 		}
 	}
-	#endif
+#endif
 }
-

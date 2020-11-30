@@ -8,7 +8,7 @@ public class ARTEditorTarget : TargetRules
 	public ARTEditorTarget( TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Editor;
-		bUsesSteam = true;
+		//bUsesSteam = true;
 		DefaultBuildSettings = BuildSettingsVersion.V2;
 		ExtraModuleNames.AddRange( new string[] { "ART"} );
 	}

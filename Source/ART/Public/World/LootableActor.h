@@ -16,8 +16,8 @@ UCLASS()
 class ART_API ALootableActor : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ALootableActor();
 
@@ -32,12 +32,11 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Components")
 	FIntPoint LootRolls;
-	 
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	UFUNCTION()
 	void OnInteract(AARTSurvivor* Character);
-
 };

@@ -14,7 +14,7 @@ UCLASS()
 class ART_API UInteractionWidget : public UUserWidget
 {
 	GENERATED_BODY()
-	
+
 public:
 	/*UFUNCTION(BlueprintCallable, Category = "Interaction")
 	void UpdateInteractionWidget(UInteractionComponent* InteractionComponent);

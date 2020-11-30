@@ -10,9 +10,13 @@ UAT_WaitTargetDataUsingActor::UAT_WaitTargetDataUsingActor(const FObjectInitiali
 {
 }
 
-UAT_WaitTargetDataUsingActor* UAT_WaitTargetDataUsingActor::WaitTargetDataWithReusableActor(UGameplayAbility* OwningAbility, FName TaskInstanceName, TEnumAsByte<EGameplayTargetingConfirmation::Type> ConfirmationType, AGameplayAbilityTargetActor* InTargetActor, bool bCreateKeyIfNotValidForMorePredicting)
+UAT_WaitTargetDataUsingActor* UAT_WaitTargetDataUsingActor::WaitTargetDataWithReusableActor(
+	UGameplayAbility* OwningAbility, FName TaskInstanceName,
+	TEnumAsByte<EGameplayTargetingConfirmation::Type> ConfirmationType, AGameplayAbilityTargetActor* InTargetActor,
+	bool bCreateKeyIfNotValidForMorePredicting)
 {
-	UAT_WaitTargetDataUsingActor* MyObj = NewAbilityTask<UAT_WaitTargetDataUsingActor>(OwningAbility, TaskInstanceName);		//Register for task list here, providing a given FName as a key
+	UAT_WaitTargetDataUsingActor* MyObj = NewAbilityTask<UAT_WaitTargetDataUsingActor>(OwningAbility, TaskInstanceName);
+	//Register for task list here, providing a given FName as a key
 	MyObj->TargetActor = InTargetActor;
 	MyObj->ConfirmationType = ConfirmationType;
 	MyObj->bCreateKeyIfNotValidForMorePredicting = bCreateKeyIfNotValidForMorePredicting;
@@ -38,7 +42,8 @@ void UAT_WaitTargetDataUsingActor::Activate()
 	}
 }
 
-void UAT_WaitTargetDataUsingActor::OnTargetDataReplicatedCallback(const FGameplayAbilityTargetDataHandle& Data, FGameplayTag ActivationTag)
+void UAT_WaitTargetDataUsingActor::OnTargetDataReplicatedCallback(const FGameplayAbilityTargetDataHandle& Data,
+                                                                  FGameplayTag ActivationTag)
 {
 	check(AbilitySystemComponent);
 
@@ -93,8 +98,10 @@ void UAT_WaitTargetDataUsingActor::OnTargetDataReadyCallback(const FGameplayAbil
 		return;
 	}
 
-	FScopedPredictionWindow	ScopedPrediction(AbilitySystemComponent,
-		ShouldReplicateDataToServer() && (bCreateKeyIfNotValidForMorePredicting && !AbilitySystemComponent->ScopedPredictionKey.IsValidForMorePrediction()));
+	FScopedPredictionWindow ScopedPrediction(AbilitySystemComponent,
+	                                         ShouldReplicateDataToServer() && (bCreateKeyIfNotValidForMorePredicting &&
+		                                         !AbilitySystemComponent->ScopedPredictionKey.IsValidForMorePrediction()
+	                                         ));
 
 	const FGameplayAbilityActorInfo* Info = Ability->GetCurrentActorInfo();
 	if (IsPredictingClient())
@@ -102,12 +109,17 @@ void UAT_WaitTargetDataUsingActor::OnTargetDataReadyCallback(const FGameplayAbil
 		if (!TargetActor->ShouldProduceTargetDataOnServer)
 		{
 			FGameplayTag ApplicationTag; // Fixme: where would this be useful?
-			AbilitySystemComponent->CallServerSetReplicatedTargetData(GetAbilitySpecHandle(), GetActivationPredictionKey(), Data, ApplicationTag, AbilitySystemComponent->ScopedPredictionKey);
+			AbilitySystemComponent->CallServerSetReplicatedTargetData(GetAbilitySpecHandle(),
+			                                                          GetActivationPredictionKey(), Data,
+			                                                          ApplicationTag,
+			                                                          AbilitySystemComponent->ScopedPredictionKey);
 		}
 		else if (ConfirmationType == EGameplayTargetingConfirmation::UserConfirmed)
 		{
 			// We aren't going to send the target data, but we will send a generic confirmed message.
-			AbilitySystemComponent->ServerSetReplicatedEvent(EAbilityGenericReplicatedEvent::GenericConfirm, GetAbilitySpecHandle(), GetActivationPredictionKey(), AbilitySystemComponent->ScopedPredictionKey);
+			AbilitySystemComponent->ServerSetReplicatedEvent(EAbilityGenericReplicatedEvent::GenericConfirm,
+			                                                 GetAbilitySpecHandle(), GetActivationPredictionKey(),
+			                                                 AbilitySystemComponent->ScopedPredictionKey);
 		}
 	}
 
@@ -132,13 +144,15 @@ void UAT_WaitTargetDataUsingActor::OnTargetDataCancelledCallback(const FGameplay
 	{
 		if (!TargetActor->ShouldProduceTargetDataOnServer)
 		{
-			AbilitySystemComponent->ServerSetReplicatedTargetDataCancelled(GetAbilitySpecHandle(), GetActivationPredictionKey(), AbilitySystemComponent->ScopedPredictionKey);
-
+			AbilitySystemComponent->ServerSetReplicatedTargetDataCancelled(
+				GetAbilitySpecHandle(), GetActivationPredictionKey(), AbilitySystemComponent->ScopedPredictionKey);
 		}
 		else
 		{
 			// We aren't going to send the target data, but we will send a generic confirmed message.
-			AbilitySystemComponent->ServerSetReplicatedEvent(EAbilityGenericReplicatedEvent::GenericCancel, GetAbilitySpecHandle(), GetActivationPredictionKey(), AbilitySystemComponent->ScopedPredictionKey);
+			AbilitySystemComponent->ServerSetReplicatedEvent(EAbilityGenericReplicatedEvent::GenericCancel,
+			                                                 GetAbilitySpecHandle(), GetActivationPredictionKey(),
+			                                                 AbilitySystemComponent->ScopedPredictionKey);
 		}
 	}
 	Cancelled.Broadcast(Data);
@@ -176,8 +190,10 @@ void UAT_WaitTargetDataUsingActor::InitializeTargetActor() const
 	TargetActor->MasterPC = Ability->GetCurrentActorInfo()->PlayerController.Get();
 
 	// If we spawned the target actor, always register the callbacks for when the data is ready.
-	TargetActor->TargetDataReadyDelegate.AddUObject(const_cast<UAT_WaitTargetDataUsingActor*>(this), &UAT_WaitTargetDataUsingActor::OnTargetDataReadyCallback);
-	TargetActor->CanceledDelegate.AddUObject(const_cast<UAT_WaitTargetDataUsingActor*>(this), &UAT_WaitTargetDataUsingActor::OnTargetDataCancelledCallback);
+	TargetActor->TargetDataReadyDelegate.AddUObject(const_cast<UAT_WaitTargetDataUsingActor*>(this),
+	                                                &UAT_WaitTargetDataUsingActor::OnTargetDataReadyCallback);
+	TargetActor->CanceledDelegate.AddUObject(const_cast<UAT_WaitTargetDataUsingActor*>(this),
+	                                         &UAT_WaitTargetDataUsingActor::OnTargetDataCancelledCallback);
 }
 
 void UAT_WaitTargetDataUsingActor::FinalizeTargetActor() const
@@ -223,18 +239,19 @@ void UAT_WaitTargetDataUsingActor::RegisterTargetDataCallbacks()
 		// Register with the TargetData callbacks if we are expecting client to send them
 		if (!bShouldProduceTargetDataOnServer)
 		{
-			FGameplayAbilitySpecHandle	SpecHandle = GetAbilitySpecHandle();
+			FGameplayAbilitySpecHandle SpecHandle = GetAbilitySpecHandle();
 			FPredictionKey ActivationPredictionKey = GetActivationPredictionKey();
 
 			//Since multifire is supported, we still need to hook up the callbacks
 
-			AbilitySystemComponent->AbilityTargetDataSetDelegate(SpecHandle, ActivationPredictionKey).AddUObject(this, &UAT_WaitTargetDataUsingActor::OnTargetDataReplicatedCallback);
-			AbilitySystemComponent->AbilityTargetDataCancelledDelegate(SpecHandle, ActivationPredictionKey).AddUObject(this, &UAT_WaitTargetDataUsingActor::OnTargetDataReplicatedCancelledCallback);
+			AbilitySystemComponent->AbilityTargetDataSetDelegate(SpecHandle, ActivationPredictionKey).AddUObject(
+				this, &UAT_WaitTargetDataUsingActor::OnTargetDataReplicatedCallback);
+			AbilitySystemComponent->AbilityTargetDataCancelledDelegate(SpecHandle, ActivationPredictionKey).AddUObject(
+				this, &UAT_WaitTargetDataUsingActor::OnTargetDataReplicatedCancelledCallback);
 
 			AbilitySystemComponent->CallReplicatedTargetDataDelegatesIfSet(SpecHandle, ActivationPredictionKey);
 
 			SetWaitingOnRemotePlayerData();
-
 		}
 	}
 }
@@ -257,8 +274,10 @@ void UAT_WaitTargetDataUsingActor::OnDestroy(bool AbilityEnded)
 			TargetActor->TargetDataReadyDelegate.RemoveAll(this);
 			TargetActor->CanceledDelegate.RemoveAll(this);
 
-			AbilitySystemComponent->GenericLocalConfirmCallbacks.RemoveDynamic(TargetActor, &AGameplayAbilityTargetActor::ConfirmTargeting);
-			AbilitySystemComponent->GenericLocalCancelCallbacks.RemoveDynamic(TargetActor, &AGameplayAbilityTargetActor::CancelTargeting);
+			AbilitySystemComponent->GenericLocalConfirmCallbacks.RemoveDynamic(
+				TargetActor, &AGameplayAbilityTargetActor::ConfirmTargeting);
+			AbilitySystemComponent->GenericLocalCancelCallbacks.RemoveDynamic(
+				TargetActor, &AGameplayAbilityTargetActor::CancelTargeting);
 			TargetActor->GenericDelegateBoundASC = nullptr;
 		}
 	}

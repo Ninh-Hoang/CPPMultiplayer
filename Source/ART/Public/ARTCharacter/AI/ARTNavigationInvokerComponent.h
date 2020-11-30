@@ -13,5 +13,4 @@ UCLASS()
 class ART_API UARTNavigationInvokerComponent : public UNavigationInvokerComponent
 {
 	GENERATED_BODY()
-	
 };

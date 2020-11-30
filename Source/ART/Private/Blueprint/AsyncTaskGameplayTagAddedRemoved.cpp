@@ -4,9 +4,11 @@
 #include "Blueprint/AsyncTaskGameplayTagAddedRemoved.h"
 #include "Blueprint/ARTBlueprintFunctionLibrary.h"
 
-UAsyncTaskGameplayTagAddedRemoved* UAsyncTaskGameplayTagAddedRemoved::ListenForGameplayTagAddedOrRemoved(UAbilitySystemComponent* AbilitySystemComponent, FGameplayTagContainer InTags)
+UAsyncTaskGameplayTagAddedRemoved* UAsyncTaskGameplayTagAddedRemoved::ListenForGameplayTagAddedOrRemoved(
+	UAbilitySystemComponent* AbilitySystemComponent, FGameplayTagContainer InTags)
 {
-	UAsyncTaskGameplayTagAddedRemoved* ListenForGameplayTagAddedRemoved = NewObject<UAsyncTaskGameplayTagAddedRemoved>();
+	UAsyncTaskGameplayTagAddedRemoved* ListenForGameplayTagAddedRemoved = NewObject<UAsyncTaskGameplayTagAddedRemoved
+	>();
 	ListenForGameplayTagAddedRemoved->ASC = AbilitySystemComponent;
 	ListenForGameplayTagAddedRemoved->Tags = InTags;
 
@@ -21,7 +23,8 @@ UAsyncTaskGameplayTagAddedRemoved* UAsyncTaskGameplayTagAddedRemoved::ListenForG
 
 	for (FGameplayTag Tag : TagArray)
 	{
-		AbilitySystemComponent->RegisterGameplayTagEvent(Tag, EGameplayTagEventType::NewOrRemoved).AddUObject(ListenForGameplayTagAddedRemoved, &UAsyncTaskGameplayTagAddedRemoved::TagChanged);
+		AbilitySystemComponent->RegisterGameplayTagEvent(Tag, EGameplayTagEventType::NewOrRemoved).AddUObject(
+			ListenForGameplayTagAddedRemoved, &UAsyncTaskGameplayTagAddedRemoved::TagChanged);
 	}
 
 	return ListenForGameplayTagAddedRemoved;

@@ -7,12 +7,13 @@
 UAT_ServerWaitForClientTargetData::UAT_ServerWaitForClientTargetData(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-
 }
 
-UAT_ServerWaitForClientTargetData* UAT_ServerWaitForClientTargetData::ServerWaitForClientTargetData(UGameplayAbility* OwningAbility, FName TaskInstanceName, bool TriggerOnce)
+UAT_ServerWaitForClientTargetData* UAT_ServerWaitForClientTargetData::ServerWaitForClientTargetData(
+	UGameplayAbility* OwningAbility, FName TaskInstanceName, bool TriggerOnce)
 {
-	UAT_ServerWaitForClientTargetData* MyObj = NewAbilityTask<UAT_ServerWaitForClientTargetData>(OwningAbility, TaskInstanceName);
+	UAT_ServerWaitForClientTargetData* MyObj = NewAbilityTask<UAT_ServerWaitForClientTargetData>(
+		OwningAbility, TaskInstanceName);
 	MyObj->bTriggerOnce = TriggerOnce;
 	return MyObj;
 }
@@ -24,12 +25,14 @@ void UAT_ServerWaitForClientTargetData::Activate()
 		return;
 	}
 
-	FGameplayAbilitySpecHandle	SpecHandle = GetAbilitySpecHandle();
+	FGameplayAbilitySpecHandle SpecHandle = GetAbilitySpecHandle();
 	FPredictionKey ActivationPredictionKey = GetActivationPredictionKey();
-	AbilitySystemComponent->AbilityTargetDataSetDelegate(SpecHandle, ActivationPredictionKey).AddUObject(this, &UAT_ServerWaitForClientTargetData::OnTargetDataReplicatedCallback);
+	AbilitySystemComponent->AbilityTargetDataSetDelegate(SpecHandle, ActivationPredictionKey).AddUObject(
+		this, &UAT_ServerWaitForClientTargetData::OnTargetDataReplicatedCallback);
 }
 
-void UAT_ServerWaitForClientTargetData::OnTargetDataReplicatedCallback(const FGameplayAbilityTargetDataHandle& Data, FGameplayTag ActivationTag)
+void UAT_ServerWaitForClientTargetData::OnTargetDataReplicatedCallback(const FGameplayAbilityTargetDataHandle& Data,
+                                                                       FGameplayTag ActivationTag)
 {
 	FGameplayAbilityTargetDataHandle MutableData = Data;
 	AbilitySystemComponent->ConsumeClientReplicatedTargetData(GetAbilitySpecHandle(), GetActivationPredictionKey());
@@ -49,7 +52,7 @@ void UAT_ServerWaitForClientTargetData::OnDestroy(bool AbilityEnded)
 {
 	if (AbilitySystemComponent)
 	{
-		FGameplayAbilitySpecHandle	SpecHandle = GetAbilitySpecHandle();
+		FGameplayAbilitySpecHandle SpecHandle = GetAbilitySpecHandle();
 		FPredictionKey ActivationPredictionKey = GetActivationPredictionKey();
 		AbilitySystemComponent->AbilityTargetDataSetDelegate(SpecHandle, ActivationPredictionKey).RemoveAll(this);
 	}

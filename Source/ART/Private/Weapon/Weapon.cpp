@@ -4,7 +4,8 @@
 #include "Weapon/Weapon.h"
 #include "ARTCharacter/ARTCharacterBase.h"
 
-AWeapon::AWeapon(){
+AWeapon::AWeapon()
+{
 	WeaponType = EWeaponType::WT_Range;
 	WeaponReadySlot = EWeaponReadySlot::WRS_RightHandGun;
 
@@ -30,31 +31,38 @@ TSubclassOf<class UARTHUDReticle> AWeapon::GetPrimaryHUDReticleClass() const
 	return PrimaryHUDReticleClass;
 }
 
-void AWeapon::EquipWeapon() {
-	if (OwningCharacter) {
+void AWeapon::EquipWeapon()
+{
+	if (OwningCharacter)
+	{
 		FText SocketText = UEnum::GetDisplayValueAsText(WeaponReadySlot);
 		FName SocketName = FName(*SocketText.ToString());
 
-		AttachToComponent(OwningCharacter->GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, SocketName);
-		if (AnimSet) {
+		AttachToComponent(OwningCharacter->GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale,
+		                  SocketName);
+		if (AnimSet)
+		{
 			OwningCharacter->GetMesh()->SetAnimInstanceClass(AnimSet);
 		}
 	}
 }
 
-void AWeapon::UnEquipWeapon(){
-	if (OwningCharacter){
-	FText SocketText = UEnum::GetDisplayValueAsText(EquipmentSlot);
+void AWeapon::UnEquipWeapon()
+{
+	if (OwningCharacter)
+	{
+		FText SocketText = UEnum::GetDisplayValueAsText(EquipmentSlot);
 		FName SocketName = FName(*SocketText.ToString());
-		AttachToComponent(OwningCharacter->GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, SocketName);
+		AttachToComponent(OwningCharacter->GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale,
+		                  SocketName);
 	}
 }
 
-void AWeapon::ThreatTrace(){
+void AWeapon::ThreatTrace()
+{
 }
 
 void AWeapon::BeginPlay()
 {
 	Super::BeginPlay();
 }
-

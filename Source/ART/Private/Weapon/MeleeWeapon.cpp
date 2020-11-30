@@ -9,7 +9,7 @@
 // Sets default values
 AMeleeWeapon::AMeleeWeapon()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 }
 
@@ -37,7 +37,8 @@ void AMeleeWeapon::StartTrace()
 	}
 
 	//set timer tick
-	World->GetTimerManager().SetTimer(TraceTimerHandle, this, &AMeleeWeapon::CheckCollision, World->GetDeltaSeconds(), true, 0);
+	World->GetTimerManager().SetTimer(TraceTimerHandle, this, &AMeleeWeapon::CheckCollision, World->GetDeltaSeconds(),
+	                                  true, 0);
 }
 
 void AMeleeWeapon::EndTrace()
@@ -71,25 +72,24 @@ bool AMeleeWeapon::TryExcludeActor(AActor* HitActor)
 void AMeleeWeapon::DrawTraceLine(FVector prevVec_, FVector currVec_, bool bDrawTraceLine)
 {
 	TArray<FHitResult> Hits;
-    FCollisionQueryParams QueryParams;
-    QueryParams.AddIgnoredActor(this);
+	FCollisionQueryParams QueryParams;
+	QueryParams.AddIgnoredActor(this);
 
-    const bool bIsHit = GetWorld()->LineTraceMultiByChannel(Hits, prevVec_, currVec_, ECC_Pawn, QueryParams);
-    if (bIsHit)
-    {
-        if (bDrawTraceLine)
-            DrawDebugLine(GetWorld(), prevVec_, currVec_, FColor::Green, 0, 2.f, 0, 1.f);
+	const bool bIsHit = GetWorld()->LineTraceMultiByChannel(Hits, prevVec_, currVec_, ECC_Pawn, QueryParams);
+	if (bIsHit)
+	{
+		if (bDrawTraceLine)
+			DrawDebugLine(GetWorld(), prevVec_, currVec_, FColor::Green, false, 2.f, 0, 1.f);
 
-        for (const auto& Hit : Hits)
-        {
-            AARTCharacterBase* TargetPawn = Cast<AARTCharacterBase>(Hit.GetActor());
-            /*if (TargetPawn && TryExcludeActor(TargetPawn))
-            {
-                ApplyEventBackToGA(TargetPawn, Hit);
-            }*/
-        }
-    }
-    else if (bDrawTraceLine)
-        DrawDebugLine(GetWorld(), prevVec_, currVec_, FColor::Red, 0, 2.f, 0, 1.f);
+		for (const auto& Hit : Hits)
+		{
+			AARTCharacterBase* TargetPawn = Cast<AARTCharacterBase>(Hit.GetActor());
+			/*if (TargetPawn && TryExcludeActor(TargetPawn))
+			{
+			    ApplyEventBackToGA(TargetPawn, Hit);
+			}*/
+		}
+	}
+	else if (bDrawTraceLine)
+		DrawDebugLine(GetWorld(), prevVec_, currVec_, FColor::Red, false, 2.f, 0, 1.f);
 }
-

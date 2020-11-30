@@ -15,9 +15,13 @@ UAT_WaitInteractableTarget::UAT_WaitInteractableTarget(const FObjectInitializer&
 	//setup defaults value hiddens from BP here.
 }
 
-UAT_WaitInteractableTarget* UAT_WaitInteractableTarget::WaitForInteractableTarget(UGameplayAbility* OwningAbility, FName TaskInstanceName, FCollisionProfileName TraceProfile, float MaxRange /*= 200.0f*/, float TimerPeriod /*= 0.1f*/, bool bTraceWithCursor /*= false*/, bool bShowDebug /*= true*/)
+UAT_WaitInteractableTarget* UAT_WaitInteractableTarget::WaitForInteractableTarget(
+	UGameplayAbility* OwningAbility, FName TaskInstanceName, FCollisionProfileName TraceProfile,
+	float MaxRange /*= 200.0f*/, float TimerPeriod /*= 0.1f*/, bool bTraceWithCursor /*= false*/,
+	bool bShowDebug /*= true*/)
 {
-	UAT_WaitInteractableTarget* MyObj = NewAbilityTask<UAT_WaitInteractableTarget>(OwningAbility, TaskInstanceName);		//Register for task list here, providing a given FName as a key
+	UAT_WaitInteractableTarget* MyObj = NewAbilityTask<UAT_WaitInteractableTarget>(OwningAbility, TaskInstanceName);
+	//Register for task list here, providing a given FName as a key
 	MyObj->TraceProfile = TraceProfile;
 	MyObj->MaxRange = MaxRange;
 	MyObj->TimerPeriod = TimerPeriod;
@@ -38,7 +42,8 @@ UAT_WaitInteractableTarget* UAT_WaitInteractableTarget::WaitForInteractableTarge
 void UAT_WaitInteractableTarget::Activate()
 {
 	UWorld* World = GetWorld();
-	World->GetTimerManager().SetTimer(TraceTimerHandle, this, &UAT_WaitInteractableTarget::PerformTrace, TimerPeriod, true);
+	World->GetTimerManager().SetTimer(TraceTimerHandle, this, &UAT_WaitInteractableTarget::PerformTrace, TimerPeriod,
+	                                  true);
 }
 
 void UAT_WaitInteractableTarget::OnDestroy(bool AbilityEnded)
@@ -49,7 +54,9 @@ void UAT_WaitInteractableTarget::OnDestroy(bool AbilityEnded)
 	Super::OnDestroy(AbilityEnded);
 }
 
-void UAT_WaitInteractableTarget::LineTrace(FHitResult& OutHitResult, const UWorld* World, const FVector& Start, const FVector& End, FName ProfileName, const FCollisionQueryParams Params, bool bLookForInteractableActor) const
+void UAT_WaitInteractableTarget::LineTrace(FHitResult& OutHitResult, const UWorld* World, const FVector& Start,
+                                           const FVector& End, FName ProfileName, const FCollisionQueryParams Params,
+                                           bool bLookForInteractableActor) const
 {
 	check(World);
 
@@ -70,12 +77,14 @@ void UAT_WaitInteractableTarget::LineTrace(FHitResult& OutHitResult, const UWorl
 			{
 				// bLookForInteractableActor is true, hit component must overlap COLLISION_INTERACTABLE trace channel
 				// This is so that a big Actor like a computer can have a small interactable button.
-				if (Hit.Component.IsValid() && Hit.Component.Get()->GetCollisionResponseToChannel(COLLISION_INTERACTABLE)
-					== ECollisionResponse::ECR_Overlap)
+				if (Hit.Component.IsValid() && Hit.Component.Get()->GetCollisionResponseToChannel(
+						COLLISION_INTERACTABLE)
+					== ECR_Overlap)
 				{
 					// Component/Actor must be available to interact
 					bool bIsInteractable = Hit.Actor.Get()->Implements<UARTInteractable>();
-					if (bIsInteractable && IARTInteractable::Execute_IsAvailableForInteraction(Hit.Actor.Get(), Hit.Component.Get()))
+					if (bIsInteractable && IARTInteractable::Execute_IsAvailableForInteraction(
+						Hit.Actor.Get(), Hit.Component.Get()))
 					{
 						OutHitResult = Hit;
 						OutHitResult.bBlockingHit = true; // treat it as a blocking hit
@@ -98,7 +107,9 @@ void UAT_WaitInteractableTarget::LineTrace(FHitResult& OutHitResult, const UWorl
 	}
 }
 
-void UAT_WaitInteractableTarget::AimWithPlayerPawn(const AActor* InSourceActor, FCollisionQueryParams Params, const FVector& TraceStart, FVector& OutTraceEnd, bool bIgnorePitch /*= false*/) const
+void UAT_WaitInteractableTarget::AimWithPlayerPawn(const AActor* InSourceActor, FCollisionQueryParams Params,
+                                                   const FVector& TraceStart, FVector& OutTraceEnd,
+                                                   bool bIgnorePitch /*= false*/) const
 {
 	if (!Ability) // Server and launching client only
 	{
@@ -110,7 +121,6 @@ void UAT_WaitInteractableTarget::AimWithPlayerPawn(const AActor* InSourceActor, 
 	// Default to TraceStart if no PlayerController
 	FVector ViewStart = TraceStart;
 
-	
 
 	FVector PawnForwardDir = InSourceActor->GetActorForwardVector();
 
@@ -121,7 +131,8 @@ void UAT_WaitInteractableTarget::AimWithPlayerPawn(const AActor* InSourceActor, 
 	FHitResult HitResult;
 	LineTrace(HitResult, InSourceActor->GetWorld(), ViewStart, ViewEnd, TraceProfile.Name, Params, false);
 
-	const bool bUseTraceResult = HitResult.bBlockingHit && (FVector::DistSquared(TraceStart, HitResult.Location) <= (MaxRange * MaxRange));
+	const bool bUseTraceResult = HitResult.bBlockingHit && (FVector::DistSquared(TraceStart, HitResult.Location) <= (
+		MaxRange * MaxRange));
 
 	const FVector AdjustedEnd = (bUseTraceResult) ? HitResult.Location : ViewEnd;
 
@@ -132,7 +143,7 @@ void UAT_WaitInteractableTarget::AimWithPlayerPawn(const AActor* InSourceActor, 
 		AdjustedAimDir = PawnForwardDir;
 	}
 
-	OutTraceEnd = TraceStart + (AdjustedAimDir * MaxRange); 
+	OutTraceEnd = TraceStart + (AdjustedAimDir * MaxRange);
 }
 
 /*bool UAT_WaitInteractableTarget::ClipCameraRayToAbilityRange(FVector CameraLocation, FVector CameraDirection, FVector AbilityCenter, float AbilityRange, FVector& ClippedPosition) const

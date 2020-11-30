@@ -10,8 +10,157 @@
   <component name="ChangeListManager">
     <list default="true" id="8605fe89-941f-4f47-ac62-154384fefc60" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/DS_SurvivorAbilitySet.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/DS_SurvivorAbilitySet.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ART.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/ART.uproject" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/BP_ARTPlayerController.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/BP_ARTPlayerController.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/BP_Survivor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/BP_Survivor.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/VolumetricFog.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/VolumetricFog.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART.Target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART.Target.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/ART.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/ART.Build.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/ART.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/ART.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/ART.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/ART.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTAIController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTAIController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTCharacterAI.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTCharacterAI.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTNavigationInvokerComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTNavigationInvokerComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterAttributeSet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterAttributeSet.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterBase.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterMovementComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterMovementComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTGameplayAbilitySet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTGameplayAbilitySet.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTPlayerController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTPlayerState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTPlayerState.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTSurvivor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTSurvivor.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/Voxel/ARTSimpleInvokerComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/Voxel/ARTSimpleInvokerComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTAbilitySystemComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTAbilitySystemComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTAbilitySystemGlobals.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTAbilitySystemGlobals.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTActorBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTActorBase.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbilityUIData.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbilityUIData.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayCueManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayCueManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayEffect.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayEffect.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayEffectUIData.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayEffectUIData.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTProjectile.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTProjectile.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/AbilityTask/AT_LookAtCursor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/AbilityTask/AT_LookAtCursor.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/AbilityTask/AT_PlayMontageMeshWaitForEvent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/AbilityTask/AT_PlayMontageMeshWaitForEvent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/AbilityTask/AT_ServerWaitForClientTargetData.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/AbilityTask/AT_ServerWaitForClientTargetData.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/AbilityTask/AT_SpawnActorComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/AbilityTask/AT_SpawnActorComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/AbilityTask/AT_WaitDelayOneFrame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/AbilityTask/AT_WaitDelayOneFrame.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/AbilityTask/AT_WaitInputPressWithTags.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/AbilityTask/AT_WaitInputPressWithTags.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/AbilityTask/AT_WaitInteractableTarget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/AbilityTask/AT_WaitInteractableTarget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/AbilityTask/AT_WaitTargetDataUsingActor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/AbilityTask/AT_WaitTargetDataUsingActor.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/EC/ARTDamageExecutionCalculation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/EC/ARTDamageExecutionCalculation.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/EC/ARTElecDamage_EC.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/EC/ARTElecDamage_EC.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/EC/ARTHealingExecutionCalculation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/EC/ARTHealingExecutionCalculation.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/EC/ARTWaterDamage_EC.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/EC/ARTWaterDamage_EC.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/FARTAggregatorEvaluateMetaDataLibrary.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/FARTAggregatorEvaluateMetaDataLibrary.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/Interface/ARTInteractable.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/Interface/ARTInteractable.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/MMC/ARTAbilityCost_MMC.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/MMC/ARTAbilityCost_MMC.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_AoeTrace.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_AoeTrace.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_LineTrace.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_LineTrace.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_MeleeWeaponTrace.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_MeleeWeaponTrace.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_SphereTrace.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_SphereTrace.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_SphereTrace_Tick.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_SphereTrace_Tick.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_Trace.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_Trace.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTAbilityTypes.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTAbilityTypes.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTBlueprintFunctionLibrary.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTBlueprintFunctionLibrary.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTCurve.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTCurve.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTTargetFilter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTTargetFilter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTTargetType.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTTargetType.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Blueprint/AsyncTaskAttributeChanged.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Blueprint/AsyncTaskAttributeChanged.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Blueprint/AsyncTaskCooldownChanged.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Blueprint/AsyncTaskCooldownChanged.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Blueprint/AsyncTaskEffectStackChanged.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Blueprint/AsyncTaskEffectStackChanged.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Blueprint/AsyncTaskGameplayTagAddedRemoved.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Blueprint/AsyncTaskGameplayTagAddedRemoved.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Framework/ARTGameInstance.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Framework/ARTGameInstance.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Framework/SGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Framework/SGameMode.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Framework/SGameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Framework/SGameState.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Item/ConsumableItem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Item/ConsumableItem.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Item/GrenadeLauncher.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Item/GrenadeLauncher.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Item/InventoryComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Item/InventoryComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Item/InventorySet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Item/InventorySet.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Item/Item.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Item/Item.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Item/WeaponActor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Item/WeaponActor.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Weapon/Equipment.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Weapon/Equipment.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Weapon/MeleeWeapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Weapon/MeleeWeapon.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Weapon/ProjectileWeapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Weapon/ProjectileWeapon.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Weapon/RangeWeapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Weapon/RangeWeapon.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Weapon/TracerRangeWeapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Weapon/TracerRangeWeapon.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Weapon/Weapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Weapon/Weapon.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Widget/ARTDamageTextWidgetComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Widget/ARTDamageTextWidgetComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Widget/ARTFloatingStatusBarWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Widget/ARTFloatingStatusBarWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Widget/ARTHUDReticle.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Widget/ARTHUDReticle.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Widget/ARTHUDWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Widget/ARTHUDWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Widget/InteractionWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Widget/InteractionWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Widget/InventoryItemWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Widget/InventoryItemWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Widget/ItemTooltip.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Widget/ItemTooltip.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/World/ItemSpawn.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/World/ItemSpawn.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/World/LootBox.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/World/LootBox.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/World/LootableActor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/World/LootableActor.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/World/Pickup.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/World/Pickup.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/AI/ARTNavigationInvokerComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/AI/ARTNavigationInvokerComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterAttributeSet.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterAttributeSet.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterBase.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterMovementComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterMovementComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTPlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTPlayerController.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTPlayerState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTPlayerState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTSurvivor.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTSurvivor.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/Voxel/ARTSimpleInvokerComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/Voxel/ARTSimpleInvokerComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTAbilitySystemComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTAbilitySystemComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTActorBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTActorBase.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayAbility.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayAbility.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayCueManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayCueManager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayEffect.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayEffect.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayEffectTypes.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayEffectTypes.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayEffectUIData.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayEffectUIData.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTProjectile.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTProjectile.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_LookAtCursor.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_LookAtCursor.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_PlayMontageMeshWaitForEvent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_PlayMontageMeshWaitForEvent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_ServerWaitForClientTargetData.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_ServerWaitForClientTargetData.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_SpawnActorComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_SpawnActorComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_WaitDelayOneFrame.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_WaitDelayOneFrame.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_WaitInputPressWithTags.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_WaitInputPressWithTags.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_WaitInteractableTarget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_WaitInteractableTarget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_WaitTargetDataUsingActor.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_WaitTargetDataUsingActor.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/EC/ARTDamageExecutionCalculation.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/EC/ARTDamageExecutionCalculation.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/EC/ARTElecDamage_EC.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/EC/ARTElecDamage_EC.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/EC/ARTHealingExecutionCalculation.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/EC/ARTHealingExecutionCalculation.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/EC/ARTWaterDamage_EC.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/EC/ARTWaterDamage_EC.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/FARTAggregatorEvaluateMetaDataLibrary.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/FARTAggregatorEvaluateMetaDataLibrary.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/Interface/ARTInteractable.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/Interface/ARTInteractable.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/TargetActor/GATA_LineTrace.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/TargetActor/GATA_LineTrace.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/TargetActor/GATA_MeleeWeaponTrace.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/TargetActor/GATA_MeleeWeaponTrace.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/TargetActor/GATA_SphereTrace.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/TargetActor/GATA_SphereTrace.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/TargetActor/GATA_Trace.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/TargetActor/GATA_Trace.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTAbilityTypes.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTAbilityTypes.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTBlueprintFunctionLibrary.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTBlueprintFunctionLibrary.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTCurve.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTCurve.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTTargetFilter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTTargetFilter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTTargetType.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTTargetType.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Blueprint/AsyncTaskAttributeChanged.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Blueprint/AsyncTaskAttributeChanged.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Blueprint/AsyncTaskCooldownChanged.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Blueprint/AsyncTaskCooldownChanged.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Blueprint/AsyncTaskEffectStackChanged.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Blueprint/AsyncTaskEffectStackChanged.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Blueprint/AsyncTaskGameplayTagAddedRemoved.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Blueprint/AsyncTaskGameplayTagAddedRemoved.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Framework/ARTGameInstance.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Framework/ARTGameInstance.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Framework/SGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Framework/SGameMode.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Framework/SGameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Framework/SGameState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Item/GrenadeLauncher.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Item/GrenadeLauncher.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Item/InventoryComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Item/InventoryComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Item/InventorySet.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Item/InventorySet.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Item/Item.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Item/Item.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Item/WeaponActor.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Item/WeaponActor.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Weapon/Equipment.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Weapon/Equipment.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Weapon/MeleeWeapon.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Weapon/MeleeWeapon.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Weapon/ProjectileWeapon.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Weapon/ProjectileWeapon.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Weapon/RangeWeapon.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Weapon/RangeWeapon.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Weapon/TracerRangeWeapon.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Weapon/TracerRangeWeapon.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Weapon/Weapon.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Weapon/Weapon.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Widget/ARTDamageTextWidgetComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Widget/ARTDamageTextWidgetComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Widget/ARTFloatingStatusBarWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Widget/ARTFloatingStatusBarWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Widget/ARTHUDReticle.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Widget/ARTHUDReticle.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Widget/InteractionWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Widget/InteractionWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Widget/ItemTooltip.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Widget/ItemTooltip.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/World/ItemSpawn.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/World/ItemSpawn.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/World/LootBox.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/World/LootBox.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/World/LootableActor.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/World/LootableActor.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/World/Pickup.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/World/Pickup.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ARTEditor.Target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ARTEditor.Target.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +169,12 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock://E:/Unreal/repo/CPPMultiplayer/Source/ART/Public/Item/Item.h" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../UE_4.25/Engine/Source/Runtime/CoreUObject/Public/Templates/SubclassOf.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://E:/Unreal/repo/CPPMultiplayer/Source/ART/Private/Item/InventorySet.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/Unreal/repo/CPPMultiplayer/Source/ART/Private/Item/Item.cpp" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
@@ -30,9 +185,16 @@
       <option value="$PROJECT_DIR$/Source/ART/Public/Ability/FARTAggregatorEvaluateMetaDataLibrary.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Private/Ability/FARTAggregatorEvaluateMetaDataLibrary.h" />
       <option value="$PROJECT_DIR$/Source/ART/Public/Ability/FARTAggregatorEvaluateMetaDataLibrary.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/FARTAggregatorEvaluateMetaDataLibrary.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterAttributeSet.h" />
       <option value="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterAttributeSet.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART.Target.cs" />
+      <option value="$PROJECT_DIR$/Source/ARTEditor.Target.cs" />
+      <option value="$PROJECT_DIR$/Source/ART/ART.Build.cs" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_MeleeWeaponTrace.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/Ability/ARTAbilitySystemComponent.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Item/ConsumableItem.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/FARTAggregatorEvaluateMetaDataLibrary.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Item/InventorySet.cpp" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1ks2iZyMDfGmBAe0lMfmHmNU9jC" />
@@ -278,6 +440,7 @@
       <updated>1606475112431</updated>
       <workItem from="1606475117962" duration="2269000" />
       <workItem from="1606499515631" duration="14278000" />
+      <workItem from="1606679965327" duration="6186000" />
     </task>
     <servers />
   </component>
@@ -296,8 +459,29 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Source/ART/Private/Ability/ARTAbilitySystemComponent.cpp</url>
+          <line>3</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbilityUIData.cpp</url>
+          <line>3</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Source/ART/Private/Ability/FARTAggregatorEvaluateMetaDataLibrary.cpp</url>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

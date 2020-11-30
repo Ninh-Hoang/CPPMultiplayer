@@ -17,8 +17,9 @@ class ART_API UARTHealingExecutionCalculation : public UGameplayEffectExecutionC
 public:
 	UARTHealingExecutionCalculation();
 
-	virtual void Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams, OUT FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const override;
-	
+	virtual void Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams,
+	                                    OUT FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const override;
+
 protected:
 	float CritMultiplier;
 };

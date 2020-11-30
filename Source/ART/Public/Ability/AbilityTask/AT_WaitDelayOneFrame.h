@@ -23,7 +23,8 @@ class ART_API UAT_WaitDelayOneFrame : public UAbilityTask
 	virtual void Activate() override;
 
 	// Wait one frame.
-	UFUNCTION(BlueprintCallable, Category = "Ability|Tasks", meta = (HidePin = "OwningAbility", DefaultToSelf = "OwningAbility", BlueprintInternalUseOnly = "TRUE"))
+	UFUNCTION(BlueprintCallable, Category = "Ability|Tasks", meta = (HidePin = "OwningAbility", DefaultToSelf =
+		"OwningAbility", BlueprintInternalUseOnly = "TRUE"))
 	static UAT_WaitDelayOneFrame* WaitDelayOneFrame(UGameplayAbility* OwningAbility);
 
 private:

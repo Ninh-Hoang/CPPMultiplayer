@@ -3,4 +3,4 @@
 #include "ART.h"
 #include "Modules/ModuleManager.h"
 
-IMPLEMENT_PRIMARY_GAME_MODULE( FDefaultGameModuleImpl, ART, "ART" );
+IMPLEMENT_PRIMARY_GAME_MODULE(FDefaultGameModuleImpl, ART, "ART");

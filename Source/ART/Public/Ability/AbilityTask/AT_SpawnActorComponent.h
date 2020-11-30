@@ -15,7 +15,7 @@ UCLASS()
 class ART_API UAT_SpawnActorComponent : public UAbilityTask
 {
 	GENERATED_BODY()
-	
+
 	//constructor override
 	UAT_SpawnActorComponent(const FObjectInitializer& ObjectInitializer);
 
@@ -44,11 +44,12 @@ class ART_API UAT_SpawnActorComponent : public UAbilityTask
 	 */
 	virtual void Activate() override;
 
-	UFUNCTION(BlueprintCallable, Category = "Ability|Tasks", meta = (HidePin = "OwningAbility", DefaultToSelf = "OwningAbility", BlueprintInternalUseOnly = "TRUE"))
-		static UAT_SpawnActorComponent* SpawnActorComponent(
-			UGameplayAbility* OwningAbility,
-			TSubclassOf<USceneComponent> InActorComponentClass,
-			FName InComponentName,
-			AActor* InActorToAttachTo);
+	UFUNCTION(BlueprintCallable, Category = "Ability|Tasks", meta = (HidePin = "OwningAbility", DefaultToSelf =
+		"OwningAbility", BlueprintInternalUseOnly = "TRUE"))
+	static UAT_SpawnActorComponent* SpawnActorComponent(
+		UGameplayAbility* OwningAbility,
+		TSubclassOf<USceneComponent> InActorComponentClass,
+		FName InComponentName,
+		AActor* InActorToAttachTo);
 private:
 };

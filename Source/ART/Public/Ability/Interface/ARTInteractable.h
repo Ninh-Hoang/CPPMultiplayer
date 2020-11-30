@@ -56,8 +56,10 @@ public:
 	* @param InteractionComponent UPrimitiveComponent in case an Actor has many separate interactable areas.
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interactable")
-	void GetPreInteractSyncType(bool& bShouldSync, EAbilityTaskNetSyncType& Type, UPrimitiveComponent* InteractionComponent) const;
-	void GetPreInteractSyncType_Implementation(bool& bShouldSync, EAbilityTaskNetSyncType& Type, UPrimitiveComponent* InteractionComponent) const;
+	void GetPreInteractSyncType(bool& bShouldSync, EAbilityTaskNetSyncType& Type,
+	                            UPrimitiveComponent* InteractionComponent) const;
+	void GetPreInteractSyncType_Implementation(bool& bShouldSync, EAbilityTaskNetSyncType& Type,
+	                                           UPrimitiveComponent* InteractionComponent) const;
 
 	/**
 	* Should we sync and who should sync before calling PostInteract()? Defaults to false and OnlyServerWait.
@@ -72,8 +74,10 @@ public:
 	* @param InteractionComponent UPrimitiveComponent in case an Actor has many separate interactable areas.
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interactable")
-	void GetPostInteractSyncType(bool& bShouldSync, EAbilityTaskNetSyncType& Type, UPrimitiveComponent* InteractionComponent) const;
-	void GetPostInteractSyncType_Implementation(bool& bShouldSync, EAbilityTaskNetSyncType& Type, UPrimitiveComponent* InteractionComponent) const;
+	void GetPostInteractSyncType(bool& bShouldSync, EAbilityTaskNetSyncType& Type,
+	                             UPrimitiveComponent* InteractionComponent) const;
+	void GetPostInteractSyncType_Implementation(bool& bShouldSync, EAbilityTaskNetSyncType& Type,
+	                                            UPrimitiveComponent* InteractionComponent) const;
 
 	/**
 	* Interact with this Actor. This will call before starting the Interact Duration timer. This might do things, apply
@@ -93,7 +97,10 @@ public:
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interactable")
 	void PreInteract(AActor* InteractingActor, UPrimitiveComponent* InteractionComponent);
-	virtual void PreInteract_Implementation(AActor* InteractingActor, UPrimitiveComponent* InteractionComponent) {};
+
+	virtual void PreInteract_Implementation(AActor* InteractingActor, UPrimitiveComponent* InteractionComponent)
+	{
+	};
 
 	/**
 	* Interact with this Actor. This will call after the Interact Duration timer completes. This might do things, apply
@@ -111,7 +118,10 @@ public:
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interactable")
 	void PostInteract(AActor* InteractingActor, UPrimitiveComponent* InteractionComponent);
-	virtual void PostInteract_Implementation(AActor* InteractingActor, UPrimitiveComponent* InteractionComponent) {};
+
+	virtual void PostInteract_Implementation(AActor* InteractingActor, UPrimitiveComponent* InteractionComponent)
+	{
+	};
 
 	/**
 	* Cancel an ongoing interaction, typically anything happening in PreInteract() while waiting on the Interact Duration
@@ -121,7 +131,10 @@ public:
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interactable")
 	void CancelInteraction(UPrimitiveComponent* InteractionComponent);
-	virtual void CancelInteraction_Implementation(UPrimitiveComponent* InteractionComponent) {};
+
+	virtual void CancelInteraction_Implementation(UPrimitiveComponent* InteractionComponent)
+	{
+	};
 
 	/**
 	* Returns a delegate for GA_Interact to bind to that fires when this Actor is canceling the interactiong (e.g. died).
@@ -142,7 +155,7 @@ public:
 	* Unregisters an interacting Actor from this Interactable. Not meant to be overriden.
 	*/
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interactable|Do Not Override")
-		void UnregisterInteracter(UPrimitiveComponent* InteractionComponent, AActor* InteractingActor);
+	void UnregisterInteracter(UPrimitiveComponent* InteractionComponent, AActor* InteractingActor);
 	void UnregisterInteracter_Implementation(UPrimitiveComponent* InteractionComponent, AActor* InteractingActor);
 
 	/**

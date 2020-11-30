@@ -10,14 +10,12 @@ UCLASS()
 class ART_API AARTProjectile : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AARTProjectile();
 
 protected:
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "PBProjectile")
 	class UProjectileMovementComponent* ProjectileMovement;
-
-
 };

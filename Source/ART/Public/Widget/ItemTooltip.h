@@ -18,6 +18,6 @@ class ART_API UItemTooltip : public UUserWidget
 	GENERATED_BODY()
 
 public:
-    UPROPERTY(BlueprintReadOnly, Category = "ToolTip", meta = (ExposeOnSpawn = true))
-    UInventoryItemWidget* InventoryItemWidget;
+	UPROPERTY(BlueprintReadOnly, Category = "ToolTip", meta = (ExposeOnSpawn = true))
+	UInventoryItemWidget* InventoryItemWidget;
 };

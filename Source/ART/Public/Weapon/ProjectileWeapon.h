@@ -13,5 +13,4 @@ UCLASS()
 class ART_API AProjectileWeapon : public AWeaponActor
 {
 	GENERATED_BODY()
-	
 };

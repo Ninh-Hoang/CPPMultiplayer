@@ -58,7 +58,8 @@ UARTElecDamage_EC::UARTElecDamage_EC()
 	RelevantAttributesToCapture.Add(ELecDamageStatics().ShieldDef);
 }
 
-void UARTElecDamage_EC::Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams, OUT FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const
+void UARTElecDamage_EC::Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams,
+                                               OUT FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const
 {
 	UAbilitySystemComponent* TargetAbilitySystemComponent = ExecutionParams.GetTargetAbilitySystemComponent();
 	UAbilitySystemComponent* SourceAbilitySystemComponent = ExecutionParams.GetSourceAbilitySystemComponent();
@@ -79,45 +80,54 @@ void UARTElecDamage_EC::Execute_Implementation(const FGameplayEffectCustomExecut
 	EvaluationParameters.TargetTags = TargetTags;
 
 	float AttackPower = 0.f;
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(ELecDamageStatics().AttackPowerDef, EvaluationParameters, AttackPower);
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(ELecDamageStatics().AttackPowerDef, EvaluationParameters,
+	                                                           AttackPower);
 	AttackPower = FMath::Max<float>(AttackPower, 0.0f);
 
 	float ElecBonus = 0.0f;
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(ELecDamageStatics().ElecBonusDef, EvaluationParameters, ElecBonus);
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(ELecDamageStatics().ElecBonusDef, EvaluationParameters,
+	                                                           ElecBonus);
 
 	float ElecRes = 0.0f;
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(ELecDamageStatics().ElecResDef, EvaluationParameters, ElecRes);
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(ELecDamageStatics().ElecResDef, EvaluationParameters,
+	                                                           ElecRes);
 
 	float Shield = 0.0f;
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(ELecDamageStatics().ShieldDef, EvaluationParameters, Shield);
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(ELecDamageStatics().ShieldDef, EvaluationParameters,
+	                                                           Shield);
 	Shield = FMath::Max<float>(Shield, 0.0f);
 
 	// SetByCaller Damage
-	float Damage = FMath::Max<float>(Spec.GetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Data.Damage.Elec")), false, -1.0f), 0.0f);
+	float Damage = FMath::Max<float>(
+		Spec.GetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Data.Damage.Elec")), false, -1.0f), 0.0f);
 
 	float BaseDamage = Damage * AttackPower;
 
-	float UnmitigatedDamage = BaseDamage * (ElecBonus+1); // Can multiply any damage boosters here
+	float UnmitigatedDamage = BaseDamage * (ElecBonus + 1); // Can multiply any damage boosters here
 
 	//formular: only health is under armor mitigation from damage
 	float MitigatedDamage = UnmitigatedDamage;
 
 	//if Damage exceed shield, calculate damage to health with armor modification
-	if (MitigatedDamage > Shield) {
-		MitigatedDamage = Shield + (MitigatedDamage - Shield) * (1-ElecRes);
+	if (MitigatedDamage > Shield)
+	{
+		MitigatedDamage = Shield + (MitigatedDamage - Shield) * (1 - ElecRes);
 	}
 
 	if (MitigatedDamage > 0.f)
 	{
 		// Set the Target's damage meta attribute
-		OutExecutionOutput.AddOutputModifier(FGameplayModifierEvaluatedData(ELecDamageStatics().DamageProperty, EGameplayModOp::Additive, MitigatedDamage));
+		OutExecutionOutput.AddOutputModifier(
+			FGameplayModifierEvaluatedData(ELecDamageStatics().DamageProperty, EGameplayModOp::Additive,
+			                               MitigatedDamage));
 
 		//send event to target that they just took electro damage
 		FGameplayEventData EventData;
 		EventData.Instigator = SourceActor;
 		EventData.Target = TargetActor;
 		EventData.EventMagnitude = BaseDamage;
-		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(TargetActor, FGameplayTag::RequestGameplayTag(FName("Data.Damage.Elec"), false), EventData);
+		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(TargetActor,
+		                                                         FGameplayTag::RequestGameplayTag(
+			                                                         FName("Data.Damage.Elec"), false), EventData);
 	}
-
 }

@@ -6,7 +6,6 @@
 
 UARTAbilitySystemGlobals::UARTAbilitySystemGlobals()
 {
-
 }
 
 FGameplayEffectContext* UARTAbilitySystemGlobals::AllocGameplayEffectContext() const

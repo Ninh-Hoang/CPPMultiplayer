@@ -24,7 +24,9 @@ void AARTPlayerController::CreateHUD()
 
 	if (!UIHUDWidgetClass)
 	{
-		UE_LOG(LogTemp, Error, TEXT("%s() Missing UIHUDWidgetClass. Please fill in on the Blueprint of the PlayerController."), *FString(__FUNCTION__));
+		UE_LOG(LogTemp, Error,
+		       TEXT("%s() Missing UIHUDWidgetClass. Please fill in on the Blueprint of the PlayerController."),
+		       *FString(__FUNCTION__));
 		return;
 	}
 
@@ -141,7 +143,8 @@ void AARTPlayerController::SetHUDReticle(TSubclassOf<class UARTHUDReticle> Retic
 	}
 }
 
-void AARTPlayerController::ShowDamageNumber_Implementation(float DamageAmount, AARTCharacterBase* TargetCharacter, FGameplayTagContainer DamageNumberTags)
+void AARTPlayerController::ShowDamageNumber_Implementation(float DamageAmount, AARTCharacterBase* TargetCharacter,
+                                                           FGameplayTagContainer DamageNumberTags)
 {
 	if (IsValid(TargetCharacter))
 	{
@@ -149,7 +152,8 @@ void AARTPlayerController::ShowDamageNumber_Implementation(float DamageAmount, A
 	}
 }
 
-bool AARTPlayerController::ShowDamageNumber_Validate(float DamageAmount, AARTCharacterBase* TargetCharacter, FGameplayTagContainer DamageNumberTags)
+bool AARTPlayerController::ShowDamageNumber_Validate(float DamageAmount, AARTCharacterBase* TargetCharacter,
+                                                     FGameplayTagContainer DamageNumberTags)
 {
 	return true;
 }

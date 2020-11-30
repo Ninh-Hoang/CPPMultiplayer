@@ -116,7 +116,8 @@ void AEquipment::BeginPlay()
 }
 
 //EQUIPMENT STUFFS
-void AEquipment::Equip(AARTSurvivor* CharacterToEquip){
+void AEquipment::Equip(AARTSurvivor* CharacterToEquip)
+{
 	//stupid conversion from enum to FName, holy shit
 	/*const TEnumAsByte<EEquipmentSlot> Enum = EquipmentSlot;
 	FString Enum = UEnum::GetValueAsString(Enum.GetValue());
@@ -131,8 +132,8 @@ void AEquipment::Equip(AARTSurvivor* CharacterToEquip){
 	OwningCharacter = CharacterToEquip;
 }
 
-void AEquipment::UnEquip(){
-
+void AEquipment::UnEquip()
+{
 }
 
 void AEquipment::ResetEquipment()
@@ -149,7 +150,8 @@ FText AEquipment::GetDefaultStatusText() const
 void AEquipment::SetOwningCharacter(AARTCharacterBase* InOwningCharacter)
 {
 	OwningCharacter = InOwningCharacter;
-	if (OwningCharacter) {
+	if (OwningCharacter)
+	{
 		AbilitySystemComponent = Cast<UARTAbilitySystemComponent>(OwningCharacter->GetAbilitySystemComponent());
 		SetOwner(InOwningCharacter);
 	}
@@ -166,7 +168,8 @@ void AEquipment::AddAbilities()
 
 	if (!ASC)
 	{
-		UE_LOG(LogTemp, Error, TEXT("%s %s Role: %s ASC is null"), *FString(__FUNCTION__), *GetName(), GET_ACTOR_ROLE_FSTRING(OwningCharacter));
+		UE_LOG(LogTemp, Error, TEXT("%s %s Role: %s ASC is null"), *FString(__FUNCTION__), *GetName(),
+		       GET_ACTOR_ROLE_FSTRING(OwningCharacter));
 		return;
 	}
 
@@ -179,7 +182,8 @@ void AEquipment::AddAbilities()
 	for (TSubclassOf<UARTGameplayAbility>& Ability : Abilities)
 	{
 		FGameplayAbilitySpecHandle GrantedHandle = ASC->GiveAbility(
-			FGameplayAbilitySpec(Ability, GetAbilityLevel(Ability.GetDefaultObject()->AbilityID), static_cast<int32>(Ability.GetDefaultObject()->AbilityInputID), this));
+			FGameplayAbilitySpec(Ability, GetAbilityLevel(Ability.GetDefaultObject()->AbilityID),
+			                     static_cast<int32>(Ability.GetDefaultObject()->AbilityInputID), this));
 
 		AbilitySpecHandles.Add(GrantedHandle);
 	}
@@ -228,8 +232,8 @@ UAnimMontage* AEquipment::GetEquipMontage() const
 }
 
 //replication
-void AEquipment::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
+void AEquipment::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME_CONDITION(AEquipment, OwningCharacter, COND_OwnerOnly);
 }
-

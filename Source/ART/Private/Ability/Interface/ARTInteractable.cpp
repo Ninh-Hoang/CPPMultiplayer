@@ -4,7 +4,6 @@
 #include "Ability/Interface/ARTInteractable.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
-#include "AbilitySystemGlobals.h"
 
 // Add default functionality here for any IARTInteractable functions that are not pure virtual.
 
@@ -19,24 +18,28 @@ float IARTInteractable::GetInteractionDuration_Implementation(UPrimitiveComponen
 	return 0.0f;
 }
 
-void IARTInteractable::GetPreInteractSyncType_Implementation(bool& bShouldSync, EAbilityTaskNetSyncType& Type, UPrimitiveComponent* InteractionComponent) const
+void IARTInteractable::GetPreInteractSyncType_Implementation(bool& bShouldSync, EAbilityTaskNetSyncType& Type,
+                                                             UPrimitiveComponent* InteractionComponent) const
 {
 	bShouldSync = false;
 	Type = EAbilityTaskNetSyncType::OnlyServerWait;
 }
 
-void IARTInteractable::GetPostInteractSyncType_Implementation(bool& bShouldSync, EAbilityTaskNetSyncType& Type, UPrimitiveComponent* InteractionComponent) const
+void IARTInteractable::GetPostInteractSyncType_Implementation(bool& bShouldSync, EAbilityTaskNetSyncType& Type,
+                                                              UPrimitiveComponent* InteractionComponent) const
 {
 	bShouldSync = false;
 	Type = EAbilityTaskNetSyncType::OnlyServerWait;
 }
 
-FSimpleMulticastDelegate* IARTInteractable::GetTargetCancelInteractionDelegate(UPrimitiveComponent* InteractionComponent)
+FSimpleMulticastDelegate* IARTInteractable::GetTargetCancelInteractionDelegate(
+	UPrimitiveComponent* InteractionComponent)
 {
 	return nullptr;
 }
 
-void IARTInteractable::RegisterInteracter_Implementation(UPrimitiveComponent* InteractionComponent, AActor* InteractingActor)
+void IARTInteractable::RegisterInteracter_Implementation(UPrimitiveComponent* InteractionComponent,
+                                                         AActor* InteractingActor)
 {
 	if (Interacters.Contains(InteractionComponent))
 	{
@@ -54,7 +57,8 @@ void IARTInteractable::RegisterInteracter_Implementation(UPrimitiveComponent* In
 	}
 }
 
-void IARTInteractable::UnregisterInteracter_Implementation(UPrimitiveComponent* InteractionComponent, AActor* InteractingActor)
+void IARTInteractable::UnregisterInteracter_Implementation(UPrimitiveComponent* InteractionComponent,
+                                                           AActor* InteractingActor)
 {
 	if (Interacters.Contains(InteractionComponent))
 	{

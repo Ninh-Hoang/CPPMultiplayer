@@ -18,16 +18,20 @@ FAutoConsoleVariableRef CVARDebugWeaponFiring(
 	TEXT("Draw Debug For Weapon"),
 	ECVF_Cheat);
 
-ATracerRangeWeapon::ATracerRangeWeapon(){
-	TracerTargetName = "Target";	
+ATracerRangeWeapon::ATracerRangeWeapon()
+{
+	TracerTargetName = "Target";
 }
 
 ATracerRangeWeapon::~ATracerRangeWeapon()
 {
 }
 
-void ATracerRangeWeapon::BeginPlay(){
+void ATracerRangeWeapon::BeginPlay()
+{
 	Super::BeginPlay();
 }
-void ATracerRangeWeapon::ThreatTrace(){
+
+void ATracerRangeWeapon::ThreatTrace()
+{
 }

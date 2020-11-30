@@ -22,7 +22,9 @@ struct FARTGameplayEffectContainer
 	GENERATED_BODY()
 
 public:
-	FARTGameplayEffectContainer() {}
+	FARTGameplayEffectContainer()
+	{
+	}
 
 	/** Sets the way that targeting happens */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GameplayEffectContainer")
@@ -40,7 +42,9 @@ struct FARTGameplayEffectContainerSpec
 	GENERATED_BODY()
 
 public:
-	FARTGameplayEffectContainerSpec() {}
+	FARTGameplayEffectContainerSpec()
+	{
+	}
 
 	/** Computed target data */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GameplayEffectContainer")
@@ -57,7 +61,8 @@ public:
 	bool HasValidTargets() const;
 
 	/** Adds new targets to target data */
-	void AddTargets(const TArray<FGameplayAbilityTargetDataHandle>& TargetData, const TArray<FHitResult>& HitResults, const TArray<AActor*>& TargetActors);
+	void AddTargets(const TArray<FGameplayAbilityTargetDataHandle>& TargetData, const TArray<FHitResult>& HitResults,
+	                const TArray<AActor*>& TargetActors);
 
 	/** Clears target data */
 	void ClearTargets();

@@ -34,7 +34,8 @@ AARTSurvivor::AARTSurvivor(const class FObjectInitializer& ObjectInitializer) : 
 	CameraComponent->SetupAttachment(SpringArmComponent);
 
 	NoWeaponTag = FGameplayTag::RequestGameplayTag(FName("Weapon.Equipped.None"));
-	WeaponChangingDelayReplicationTag = FGameplayTag::RequestGameplayTag(FName("Ability.Weapon.IsChangingDelayReplication"));
+	WeaponChangingDelayReplicationTag = FGameplayTag::RequestGameplayTag(
+		FName("Ability.Weapon.IsChangingDelayReplication"));
 
 	WeaponAbilityTag = FGameplayTag::RequestGameplayTag(FName("Ability.Weapon"));
 
@@ -96,7 +97,6 @@ void AARTSurvivor::PossessedBy(AController* NewController)
 			SetShield(GetMaxShield());
 			SetHealth(GetMaxHealth());
 			SetStamina(GetMaxStamina());
-			
 		}
 
 		// Remove Dead tag
@@ -169,7 +169,6 @@ void AARTSurvivor::OnRep_PlayerState()
 			SetShield(GetMaxShield());
 			SetStamina(GetMaxStamina());
 		}
-
 	}
 
 	// Simulated on proxies don't have their PlayerStates yet when BeginPlay is called so we call it again here
@@ -267,11 +266,13 @@ void AARTSurvivor::SetCurrentWeapon(AWeapon* NewWeapon, AWeapon* LastWeapon)
 		AbilitySystemComponent->CancelAbilities(&AbilityTagsToCancel);
 	}
 
-	if (LastWeapon) {
+	if (LastWeapon)
+	{
 		UnEquipWeapon(LastWeapon);
 	}
 
-	if (NewWeapon) {
+	if (NewWeapon)
+	{
 		if (AbilitySystemComponent)
 		{
 			// Clear out potential NoWeaponTag
@@ -304,7 +305,8 @@ void AARTSurvivor::SetCurrentWeapon(AWeapon* NewWeapon, AWeapon* LastWeapon)
 			GetMesh()->GetAnimInstance()->Montage_Play(EquipMontage);
 		}
 	}
-	else {
+	else
+	{
 		if (CurrentWeapon)
 		{
 			UnEquipCurrentWeapon();
@@ -386,7 +388,8 @@ AWeapon* AARTSurvivor::AddWeaponToEquipment(TSubclassOf<AWeapon> WeaponClass)
 	if (WeaponClass)
 	{
 		AWeapon* NewWeapon = GetWorld()->SpawnActorDeferred<AWeapon>(WeaponClass,
-			FTransform::Identity, this, this, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
+		                                                             FTransform::Identity, this, this,
+		                                                             ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
 
 		//setup Weapon before finish spawning
 		//NewWeapon->bSpawnWithCollision = false;
@@ -412,7 +415,7 @@ AWeapon* AARTSurvivor::AddWeaponToEquipment(TSubclassOf<AWeapon> WeaponClass)
 
 void AARTSurvivor::ServerAddWeaponToEquipment_Implementation(TSubclassOf<AWeapon> WeaponClass)
 {
-	AddWeaponToEquipment( WeaponClass);
+	AddWeaponToEquipment(WeaponClass);
 }
 
 bool AARTSurvivor::ServerAddWeaponToEquipment_Validate(TSubclassOf<AWeapon> WeaponClass)
@@ -450,7 +453,8 @@ void AARTSurvivor::EquipEquipment(AEquipment* NewEquipment)
 	}
 	else
 	{
-		if (NewEquipment) {
+		if (NewEquipment)
+		{
 			NewEquipment->SetOwningCharacter(this);
 			NewEquipment->Equip(this);
 
@@ -489,7 +493,8 @@ AEquipment* AARTSurvivor::AddEquipmentToEquipmentList(TSubclassOf<AEquipment> Eq
 	if (EquipmentClass)
 	{
 		AEquipment* NewEquipment = GetWorld()->SpawnActorDeferred<AEquipment>(EquipmentClass,
-			FTransform::Identity, this, this, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
+		                                                                      FTransform::Identity, this, this,
+		                                                                      ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
 
 		//setup Equipment before finish spawning
 		//NewEquipment->bSpawnWithCollision = false;
@@ -542,18 +547,22 @@ bool AARTSurvivor::ServerAddEquipmentToEquipmentList_Validate(TSubclassOf<AEquip
 void AARTSurvivor::UseItem(UItem* Item)
 {
 	//if is client, run on server
-	if (!HasAuthority() && Item) {
+	if (!HasAuthority() && Item)
+	{
 		ServerUseItem(Item);
 	}
 
 	//if is server, check if the wanted item is in inventory, if not return
-	if (HasAuthority()) {
-		if (InventoryComponent && !InventoryComponent->FindItem(Item)) {
+	if (HasAuthority())
+	{
+		if (InventoryComponent && !InventoryComponent->FindItem(Item))
+		{
 			return;
 		}
 	}
 
-	if (Item) {
+	if (Item)
+	{
 		Item->OnUse(this);
 		Item->Use(this);
 	}
@@ -571,16 +580,19 @@ bool AARTSurvivor::ServerUseItem_Validate(UItem* Item)
 
 void AARTSurvivor::DropItem(UItem* Item, int32 Quantity)
 {
-	if (Quantity <= 0) {
+	if (Quantity <= 0)
+	{
 		return;
 	}
 	//if is client, run on server 
-	if (!HasAuthority()) {
+	if (!HasAuthority())
+	{
 		ServerDropItem(Item, Quantity);
 		return;
 	}
 
-	if (HasAuthority()) {
+	if (HasAuthority())
+	{
 		const int32 ItemQuantity = Item->GetQuantity();
 		const int32 DroppedQuantity = InventoryComponent->ConsumeItem(Item, Quantity);
 
@@ -599,7 +611,6 @@ void AARTSurvivor::DropItem(UItem* Item, int32 Quantity)
 
 		APickup* Pickup = GetWorld()->SpawnActor<APickup>(PickupClass, SpawnTransform, SpawnParams);
 		Pickup->InitializePickup(Item->GetClass(), DroppedQuantity);
-
 	}
 }
 

@@ -26,7 +26,7 @@ public:
 	void CreateHUD();
 
 	class UARTHUDWidget* GetGSHUD();
-	
+
 
 	/**
 	* Weapon HUD info
@@ -36,9 +36,12 @@ public:
 	void SetHUDReticle(TSubclassOf<class UARTHUDReticle> ReticleClass);
 
 	UFUNCTION(Client, Reliable, WithValidation)
-	void ShowDamageNumber(float DamageAmount, AARTCharacterBase* TargetCharacter, FGameplayTagContainer DamageNumberTags);
-	void ShowDamageNumber_Implementation(float DamageAmount, AARTCharacterBase* TargetCharacter, FGameplayTagContainer DamageNumberTags);
-	bool ShowDamageNumber_Validate(float DamageAmount, AARTCharacterBase* TargetCharacter, FGameplayTagContainer DamageNumberTags);
+	void ShowDamageNumber(float DamageAmount, AARTCharacterBase* TargetCharacter,
+	                      FGameplayTagContainer DamageNumberTags);
+	void ShowDamageNumber_Implementation(float DamageAmount, AARTCharacterBase* TargetCharacter,
+	                                     FGameplayTagContainer DamageNumberTags);
+	bool ShowDamageNumber_Validate(float DamageAmount, AARTCharacterBase* TargetCharacter,
+	                               FGameplayTagContainer DamageNumberTags);
 
 protected:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ART|UI")

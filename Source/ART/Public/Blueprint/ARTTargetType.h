@@ -24,12 +24,19 @@ class ART_API UARTTargetType : public UObject
 
 public:
 	// Constructor and overrides
-	UARTTargetType() {}
+	UARTTargetType()
+	{
+	}
 
 	/** Called to determine targets to apply gameplay effects to */
 	UFUNCTION(BlueprintNativeEvent)
-		void GetTargets(AARTCharacterBase* TargetingCharacter, AActor* TargetingActor, FGameplayEventData EventData, TArray<FGameplayAbilityTargetDataHandle>& OutTargetData, TArray<FHitResult>& OutHitResults, TArray<AActor*>& OutActors) const;
-	virtual void GetTargets_Implementation(AARTCharacterBase* TargetingCharacter, AActor* TargetingActor, FGameplayEventData EventData, TArray<FGameplayAbilityTargetDataHandle>& OutTargetData, TArray<FHitResult>& OutHitResults, TArray<AActor*>& OutActors) const;
+	void GetTargets(AARTCharacterBase* TargetingCharacter, AActor* TargetingActor, FGameplayEventData EventData,
+	                TArray<FGameplayAbilityTargetDataHandle>& OutTargetData, TArray<FHitResult>& OutHitResults,
+	                TArray<AActor*>& OutActors) const;
+	virtual void GetTargets_Implementation(AARTCharacterBase* TargetingCharacter, AActor* TargetingActor,
+	                                       FGameplayEventData EventData,
+	                                       TArray<FGameplayAbilityTargetDataHandle>& OutTargetData,
+	                                       TArray<FHitResult>& OutHitResults, TArray<AActor*>& OutActors) const;
 };
 
 /** Trivial target type that uses the owner */
@@ -40,10 +47,16 @@ class ART_API UARTTargetType_UseOwner : public UARTTargetType
 
 public:
 	// Constructor and overrides
-	UARTTargetType_UseOwner() {}
+	UARTTargetType_UseOwner()
+	{
+	}
 
 	/** Uses the passed in event data */
-	virtual void GetTargets_Implementation(AARTCharacterBase* TargetingCharacter, AActor* TargetingActor, FGameplayEventData EventData, TArray<FGameplayAbilityTargetDataHandle>& OutTargetData, TArray<FHitResult>& OutHitResults, TArray<AActor*>& OutActors) const override;
+	virtual void GetTargets_Implementation(AARTCharacterBase* TargetingCharacter, AActor* TargetingActor,
+	                                       FGameplayEventData EventData,
+	                                       TArray<FGameplayAbilityTargetDataHandle>& OutTargetData,
+	                                       TArray<FHitResult>& OutHitResults,
+	                                       TArray<AActor*>& OutActors) const override;
 };
 
 /** Trivial target type that pulls the target out of the event data */
@@ -54,8 +67,14 @@ class ART_API UARTTargetType_UseEventData : public UARTTargetType
 
 public:
 	// Constructor and overrides
-	UARTTargetType_UseEventData() {}
+	UARTTargetType_UseEventData()
+	{
+	}
 
 	/** Uses the passed in event data */
-	virtual void GetTargets_Implementation(AARTCharacterBase* TargetingCharacter, AActor* TargetingActor, FGameplayEventData EventData, TArray<FGameplayAbilityTargetDataHandle>& OutTargetData, TArray<FHitResult>& OutHitResults, TArray<AActor*>& OutActors) const override;
+	virtual void GetTargets_Implementation(AARTCharacterBase* TargetingCharacter, AActor* TargetingActor,
+	                                       FGameplayEventData EventData,
+	                                       TArray<FGameplayAbilityTargetDataHandle>& OutTargetData,
+	                                       TArray<FHitResult>& OutHitResults,
+	                                       TArray<AActor*>& OutActors) const override;
 };

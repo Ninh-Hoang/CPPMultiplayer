@@ -6,7 +6,8 @@
 #include "Abilities/Tasks/AbilityTask.h"
 #include "AT_WaitTargetDataUsingActor.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FWaitTargetDataUsingActorDelegate, const FGameplayAbilityTargetDataHandle&, Data);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FWaitTargetDataUsingActorDelegate, const FGameplayAbilityTargetDataHandle&,
+                                            Data);
 
 /**
  * 
@@ -29,28 +30,30 @@ class ART_API UAT_WaitTargetDataUsingActor : public UAbilityTask
 	* If false, it will always create a new scoped prediction key. We would want to set this to true if we want to use a potentially existing valid scoped prediction
 	* key like the ability's activation key in a batched ability.
 	*/
-	UFUNCTION(BlueprintCallable, meta = (HidePin = "OwningAbility", DefaultToSelf = "OwningAbility", BlueprintInternalUseOnly = "true", HideSpawnParms = "Instigator"), Category = "Ability|Tasks")
-		static UAT_WaitTargetDataUsingActor* WaitTargetDataWithReusableActor(
-			UGameplayAbility* OwningAbility,
-			FName TaskInstanceName,
-			TEnumAsByte<EGameplayTargetingConfirmation::Type> ConfirmationType,
-			AGameplayAbilityTargetActor* InTargetActor,
-			bool bCreateKeyIfNotValidForMorePredicting = false
-		);
+	UFUNCTION(BlueprintCallable, meta = (HidePin = "OwningAbility", DefaultToSelf = "OwningAbility",
+		BlueprintInternalUseOnly = "true", HideSpawnParms = "Instigator"), Category = "Ability|Tasks")
+	static UAT_WaitTargetDataUsingActor* WaitTargetDataWithReusableActor(
+		UGameplayAbility* OwningAbility,
+		FName TaskInstanceName,
+		TEnumAsByte<EGameplayTargetingConfirmation::Type> ConfirmationType,
+		AGameplayAbilityTargetActor* InTargetActor,
+		bool bCreateKeyIfNotValidForMorePredicting = false
+	);
 
 	virtual void Activate() override;
 
 	UFUNCTION()
-		virtual void OnTargetDataReplicatedCallback(const FGameplayAbilityTargetDataHandle& Data, FGameplayTag ActivationTag);
+	virtual void OnTargetDataReplicatedCallback(const FGameplayAbilityTargetDataHandle& Data,
+	                                            FGameplayTag ActivationTag);
 
 	UFUNCTION()
-		virtual void OnTargetDataReplicatedCancelledCallback();
+	virtual void OnTargetDataReplicatedCancelledCallback();
 
 	UFUNCTION()
-		virtual void OnTargetDataReadyCallback(const FGameplayAbilityTargetDataHandle& Data);
+	virtual void OnTargetDataReadyCallback(const FGameplayAbilityTargetDataHandle& Data);
 
 	UFUNCTION()
-		virtual void OnTargetDataCancelledCallback(const FGameplayAbilityTargetDataHandle& Data);
+	virtual void OnTargetDataCancelledCallback(const FGameplayAbilityTargetDataHandle& Data);
 
 	// Called when the ability is asked to confirm from an outside node. What this means depends on the individual task. By default, this does nothing other than ending if bEndTask is true.
 	virtual void ExternalConfirm(bool bEndTask) override;

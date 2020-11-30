@@ -121,11 +121,15 @@ public:
 	virtual void Tick(float DeltaSeconds) override;
 
 	// Traces as normal, but will manually filter all hit actors
-	virtual void LineTraceWithFilter(TArray<FHitResult>& OutHitResults, const UWorld* World, const FGameplayTargetDataFilterHandle FilterHandle, const FVector& Start, const FVector& End, FName ProfileName, const FCollisionQueryParams Params);
+	virtual void LineTraceWithFilter(TArray<FHitResult>& OutHitResults, const UWorld* World,
+	                                 const FGameplayTargetDataFilterHandle FilterHandle, const FVector& Start,
+	                                 const FVector& End, FName ProfileName, const FCollisionQueryParams Params);
 
-	virtual void AimWithPlayerController(const AActor* InSourceActor, FCollisionQueryParams Params, const FVector& TraceStart, FVector& OutTraceEnd, bool bIgnorePitch = false);
+	virtual void AimWithPlayerController(const AActor* InSourceActor, FCollisionQueryParams Params,
+	                                     const FVector& TraceStart, FVector& OutTraceEnd, bool bIgnorePitch = false);
 
-	virtual bool ClipCameraRayToAbilityRange(FVector CameraLocation, FVector CameraDirection, FVector AbilityCenter, float AbilityRange, FVector& ClippedPosition);
+	virtual bool ClipCameraRayToAbilityRange(FVector CameraLocation, FVector CameraDirection, FVector AbilityCenter,
+	                                         float AbilityRange, FVector& ClippedPosition);
 
 	virtual void StopTargeting();
 
@@ -139,8 +143,12 @@ protected:
 	virtual FGameplayAbilityTargetDataHandle MakeTargetData(const TArray<FHitResult>& HitResults) const;
 	virtual TArray<FHitResult> PerformTrace(AActor* InSourceActor);
 
-	virtual void DoTrace(TArray<FHitResult>& HitResults, const UWorld* World, const FGameplayTargetDataFilterHandle FilterHandle, const FVector& Start, const FVector& End, FName ProfileName, const FCollisionQueryParams Params) PURE_VIRTUAL(AGSGATA_Trace, return;);
-	virtual void ShowDebugTrace(TArray<FHitResult> & HitResults, EDrawDebugTrace::Type DrawDebugType, float Duration = 2.0f) PURE_VIRTUAL(AGSGATA_Trace, return;);
+	virtual void DoTrace(TArray<FHitResult>& HitResults, const UWorld* World,
+	                     const FGameplayTargetDataFilterHandle FilterHandle, const FVector& Start, const FVector& End,
+	                     FName ProfileName, const FCollisionQueryParams Params) PURE_VIRTUAL(AGSGATA_Trace,);
+
+	virtual void ShowDebugTrace(TArray<FHitResult>& HitResults, EDrawDebugTrace::Type DrawDebugType,
+	                            float Duration = 2.0f) PURE_VIRTUAL(AGSGATA_Trace,);
 
 	virtual AGameplayAbilityWorldReticle* SpawnReticleActor(FVector Location, FRotator Rotation);
 	virtual void DestroyReticleActors();

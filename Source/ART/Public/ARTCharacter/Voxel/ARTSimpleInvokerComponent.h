@@ -13,5 +13,4 @@ UCLASS()
 class ART_API UARTSimpleInvokerComponent : public UVoxelSimpleInvokerComponent
 {
 	GENERATED_BODY()
-	
 };

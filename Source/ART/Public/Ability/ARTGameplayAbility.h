@@ -22,10 +22,10 @@ struct FAbilityMeshMontage
 
 public:
 	UPROPERTY()
-		class USkeletalMeshComponent* Mesh;
+	class USkeletalMeshComponent* Mesh;
 
 	UPROPERTY()
-		class UAnimMontage* Montage;
+	class UAnimMontage* Montage;
 
 	FAbilityMeshMontage() : Mesh(nullptr), Montage(nullptr)
 	{
@@ -60,7 +60,9 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Ability")
 	FARTAbilityEvent AbilityEnd;
 
-	virtual void EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled) override;
+	virtual void EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
+	                        const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility,
+	                        bool bWasCancelled) override;
 
 	// Abilities with this set will automatically activate when the input is pressed
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Ability|Input")
@@ -127,22 +129,29 @@ public:
 	virtual void OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec) override;
 
 	UFUNCTION(BlueprintCallable, Category = "Ability")
-	FGameplayAbilityTargetDataHandle MakeGameplayAbilityTargetDataHandleFromActorArray(const TArray<AActor*> TargetActors);
+	FGameplayAbilityTargetDataHandle MakeGameplayAbilityTargetDataHandleFromActorArray(
+		const TArray<AActor*> TargetActors);
 
 	UFUNCTION(BlueprintCallable, Category = "Ability")
-	FGameplayAbilityTargetDataHandle MakeGameplayAbilityTargetDataHandleFromHitResults(const TArray<FHitResult> HitResults);
+	FGameplayAbilityTargetDataHandle MakeGameplayAbilityTargetDataHandleFromHitResults(
+		const TArray<FHitResult> HitResults);
 
 	// Make gameplay effect container spec to be applied later, using the passed in container
 	UFUNCTION(BlueprintCallable, Category = Ability, meta = (AutoCreateRefTerm = "EventData"))
-	virtual FARTGameplayEffectContainerSpec MakeEffectContainerSpecFromContainer(const FARTGameplayEffectContainer& Container, const FGameplayEventData& EventData, int32 OverrideGameplayLevel = -1);
+	virtual FARTGameplayEffectContainerSpec MakeEffectContainerSpecFromContainer(
+		const FARTGameplayEffectContainer& Container, const FGameplayEventData& EventData,
+		int32 OverrideGameplayLevel = -1);
 
 	// Search for and make a gameplay effect container spec to be applied later, from the EffectContainerMap
 	UFUNCTION(BlueprintCallable, Category = Ability, meta = (AutoCreateRefTerm = "EventData"))
-	virtual FARTGameplayEffectContainerSpec MakeEffectContainerSpec(FGameplayTag ContainerTag, const FGameplayEventData& EventData, int32 OverrideGameplayLevel = -1);
+	virtual FARTGameplayEffectContainerSpec MakeEffectContainerSpec(FGameplayTag ContainerTag,
+	                                                                const FGameplayEventData& EventData,
+	                                                                int32 OverrideGameplayLevel = -1);
 
 	// Applies a gameplay effect container spec that was previously created
 	UFUNCTION(BlueprintCallable, Category = "Ability")
-	virtual TArray<FActiveGameplayEffectHandle> ApplyEffectContainerSpec(const FARTGameplayEffectContainerSpec& ContainerSpec);
+	virtual TArray<FActiveGameplayEffectHandle> ApplyEffectContainerSpec(
+		const FARTGameplayEffectContainerSpec& ContainerSpec);
 
 	// Expose GetSourceObject to Blueprint. Retrieves the SourceObject associated with this ability. Callable on non instanced abilities.
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Ability", meta = (DisplayName = "Get Source Object"))
@@ -168,34 +177,49 @@ public:
 	//	Override cooldown related function for dynamic cooldown GE
 	// ----------------------------------------------------------------------------------------------------------------
 
-	virtual bool CanActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayTagContainer* SourceTags = nullptr, const FGameplayTagContainer* TargetTags = nullptr, OUT FGameplayTagContainer* OptionalRelevantTags = nullptr) const override;
+	virtual bool CanActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
+	                                const FGameplayTagContainer* SourceTags = nullptr,
+	                                const FGameplayTagContainer* TargetTags = nullptr,
+	                                OUT FGameplayTagContainer* OptionalRelevantTags = nullptr) const override;
 
-	virtual bool CheckCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, OUT FGameplayTagContainer* OptionalRelevantTags = nullptr) const override;
+	virtual bool CheckCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
+	                       OUT FGameplayTagContainer* OptionalRelevantTags = nullptr) const override;
 
-	virtual void ApplyCooldown(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo) const override;
+	virtual void ApplyCooldown(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
+	                           const FGameplayAbilityActivationInfo ActivationInfo) const override;
 
-	virtual bool CheckCooldown(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, OUT FGameplayTagContainer* OptionalRelevantTags /* = nullptr */) const override;
-	
-	virtual const FGameplayTagContainer* GetCooldownTags()  const override;
-	
-	virtual void CommitExecute(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo);
+	virtual bool CheckCooldown(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
+	                           OUT FGameplayTagContainer* OptionalRelevantTags /* = nullptr */) const override;
+
+	virtual const FGameplayTagContainer* GetCooldownTags() const override;
+
+	virtual void CommitExecute(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
+	                           const FGameplayAbilityActivationInfo ActivationInfo) override;
 
 	virtual void OnCooldownTagEventCallback(const FGameplayTag CallbackTag, int32 NewCount);
 
 	// Allows C++ and Blueprint abilities to override how cost is checked in case they don't use a GE like weapon ammo
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ability")
 	bool ARTCheckCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo& ActorInfo) const;
-	virtual bool ARTCheckCost_Implementation(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo& ActorInfo) const;
+	virtual bool ARTCheckCost_Implementation(const FGameplayAbilitySpecHandle Handle,
+	                                         const FGameplayAbilityActorInfo& ActorInfo) const;
 
-	virtual void ApplyCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo) const override;
+	virtual void ApplyCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
+	                       const FGameplayAbilityActivationInfo ActivationInfo) const override;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Ability")
 	int32 GetCurrentCharge();
 
 	// Allows C++ and Blueprint abilities to override how cost is applied in case they don't use a GE like weapon ammo
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ability")
-	void ARTApplyCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo& ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo) const;
-	virtual void ARTApplyCost_Implementation(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo& ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo) const {};
+	void ARTApplyCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo& ActorInfo,
+	                  const FGameplayAbilityActivationInfo ActivationInfo) const;
+
+	virtual void ARTApplyCost_Implementation(const FGameplayAbilitySpecHandle Handle,
+	                                         const FGameplayAbilityActorInfo& ActorInfo,
+	                                         const FGameplayAbilityActivationInfo ActivationInfo) const
+	{
+	};
 
 	UFUNCTION(BlueprintCallable, Category = "Ability")
 	virtual void SetHUDReticle(TSubclassOf<class UARTHUDReticle> ReticleClass);
@@ -224,10 +248,12 @@ public:
 
 	/** Applies a gameplay effect container, by creating and then applying the spec */
 	UFUNCTION(BlueprintCallable, Category = Ability, meta = (AutoCreateRefTerm = "EventData"))
-	virtual TArray<FActiveGameplayEffectHandle> ApplyEffectContainer(FGameplayTag ContainerTag, const FGameplayEventData& EventData, int32 OverrideGameplayLevel = -1);
+	virtual TArray<FActiveGameplayEffectHandle> ApplyEffectContainer(FGameplayTag ContainerTag,
+	                                                                 const FGameplayEventData& EventData,
+	                                                                 int32 OverrideGameplayLevel = -1);
 
 protected:
-	
+
 	int32 CurrentCharges = 0;
 
 	FGameplayTag InteractingTag;

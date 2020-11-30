@@ -14,15 +14,15 @@ UCLASS()
 class ART_API APickup : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	APickup();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Instanced)
 	UItem* ItemTemplate;
 
-	void InitializePickup(const	TSubclassOf<UItem> ItemClass, const int32 Quantity);
+	void InitializePickup(const TSubclassOf<UItem> ItemClass, const int32 Quantity);
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void AlignWithGround();
@@ -47,10 +47,10 @@ protected:
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const;
-	bool ReplicateSubobjects(UActorChannel *Channel, FOutBunch *Bunch, FReplicationFlags *RepFlags) override;
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	bool ReplicateSubobjects(UActorChannel* Channel, FOutBunch* Bunch, FReplicationFlags* RepFlags) override;
 
 #if WITH_EDITOR
-		virtual void PostEditChangeProperty(FPropertyChangedEvent & PropertyChangedEvent);
+	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
 #endif
 };

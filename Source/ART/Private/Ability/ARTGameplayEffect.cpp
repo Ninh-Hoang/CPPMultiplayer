@@ -15,37 +15,46 @@
 	GETCURVE_REPORTERROR_WITHPATHNAME(Handle, PathNameString);
 #endif // WITH_EDITOR
 
-bool FGameplayEffectEvent::AttemptCalculateMagnitude(const FGameplayEffectSpec& InRelevantSpec, OUT float& OutCalculatedMagnitude, bool WarnIfSetByCallerFail /*= true*/, float DefaultSetbyCaller /*= 0.f*/) const
+bool FGameplayEffectEvent::AttemptCalculateMagnitude(const FGameplayEffectSpec& InRelevantSpec,
+                                                     OUT float& OutCalculatedMagnitude,
+                                                     bool WarnIfSetByCallerFail /*= true*/,
+                                                     float DefaultSetbyCaller /*= 0.f*/) const
 {
-	FString ContextString = FString::Printf(TEXT("FGameplayEffectModifierMagnitude::AttemptCalculateMagnitude from effect %s"), *InRelevantSpec.ToSimpleString());
+	FString ContextString = FString::Printf(
+		TEXT("FGameplayEffectModifierMagnitude::AttemptCalculateMagnitude from effect %s"),
+		*InRelevantSpec.ToSimpleString());
 
 	switch (GameplayEventMagnitudeCalculation)
 	{
 	case EGameplayEffectEventMagnitude::ScalableFloat:
-	{
-		OutCalculatedMagnitude = ScalableFloatEventMagnitude.GetValueAtLevel(InRelevantSpec.GetLevel(), &ContextString);
-	}
-	break;
+		{
+			OutCalculatedMagnitude = ScalableFloatEventMagnitude.GetValueAtLevel(
+				InRelevantSpec.GetLevel(), &ContextString);
+		}
+		break;
 
 	case EGameplayEffectEventMagnitude::SetByCaller:
-	{
-		if (SetByCallerEventMagnitude.DataTag.IsValid())
 		{
-			OutCalculatedMagnitude = InRelevantSpec.GetSetByCallerMagnitude(SetByCallerEventMagnitude.DataTag, WarnIfSetByCallerFail, DefaultSetbyCaller);
-		}
-		else
-		{
-			PRAGMA_DISABLE_DEPRECATION_WARNINGS
+			if (SetByCallerEventMagnitude.DataTag.IsValid())
+			{
+				OutCalculatedMagnitude = InRelevantSpec.GetSetByCallerMagnitude(
+					SetByCallerEventMagnitude.DataTag, WarnIfSetByCallerFail, DefaultSetbyCaller);
+			}
+			else
+			{
+				PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
-				OutCalculatedMagnitude = InRelevantSpec.GetSetByCallerMagnitude(SetByCallerEventMagnitude.DataName, WarnIfSetByCallerFail, DefaultSetbyCaller);
+				OutCalculatedMagnitude = InRelevantSpec.GetSetByCallerMagnitude(
+					SetByCallerEventMagnitude.DataName, WarnIfSetByCallerFail, DefaultSetbyCaller);
 
-			PRAGMA_ENABLE_DEPRECATION_WARNINGS
+				PRAGMA_ENABLE_DEPRECATION_WARNINGS
+			}
 		}
-	}
-	break;
+		break;
 
 	default:
-		ABILITY_LOG(Error, TEXT("Unknown MagnitudeCalculationType %d in AttemptCalculateMagnitude"), (int32)GameplayEventMagnitudeCalculation);
+		ABILITY_LOG(Error, TEXT("Unknown MagnitudeCalculationType %d in AttemptCalculateMagnitude"),
+		            static_cast<int32>(GameplayEventMagnitudeCalculation));
 		OutCalculatedMagnitude = 0.f;
 		break;
 	}
@@ -53,26 +62,31 @@ bool FGameplayEffectEvent::AttemptCalculateMagnitude(const FGameplayEffectSpec& 
 	return true;
 }
 
-bool FGameplayEffectEvent::AttemptReturnGameplayEventTags(const FGameplayTagContainer* InstigatorTags, const FGameplayTagContainer* TargetTags, OUT FGameplayTag& InEventTag, OUT FGameplayTagContainer& InInstigatorTags, OUT FGameplayTagContainer& InTargetTags)
+bool FGameplayEffectEvent::AttemptReturnGameplayEventTags(const FGameplayTagContainer* InstigatorTags,
+                                                          const FGameplayTagContainer* TargetTags,
+                                                          OUT FGameplayTag& InEventTag,
+                                                          OUT FGameplayTagContainer& InInstigatorTags,
+                                                          OUT FGameplayTagContainer& InTargetTags)
 {
 	InEventTag = GameplayEventTag;
 	switch (GameplayEventDirection)
 	{
 	case EGameplayEffectEventDirection::SourceToTarget:
-	{
-		UE_LOG(LogTemp, Warning, TEXT("setting"));
-		InInstigatorTags = *InstigatorTags;
-		InTargetTags = *TargetTags;
-	}
-	break;
+		{
+			UE_LOG(LogTemp, Warning, TEXT("setting"));
+			InInstigatorTags = *InstigatorTags;
+			InTargetTags = *TargetTags;
+		}
+		break;
 	case EGameplayEffectEventDirection::TargetToSource:
-	{
-		InInstigatorTags = *TargetTags;
-		InTargetTags = *InstigatorTags;
-	}
-	break;
+		{
+			InInstigatorTags = *TargetTags;
+			InTargetTags = *InstigatorTags;
+		}
+		break;
 	default:
-		ABILITY_LOG(Error, TEXT("Unknown GameplayEffectEventDirection %d in AttempAssignGameplayEventDataActors"), (int32)GameplayEventDirection);
+		ABILITY_LOG(Error, TEXT("Unknown GameplayEffectEventDirection %d in AttempAssignGameplayEventDataActors"),
+		            static_cast<int32>(GameplayEventDirection));
 		InInstigatorTags = *InstigatorTags;
 		InTargetTags = *TargetTags;
 		break;
@@ -80,24 +94,26 @@ bool FGameplayEffectEvent::AttemptReturnGameplayEventTags(const FGameplayTagCont
 	return true;
 }
 
-bool FGameplayEffectEvent::AttempAssignGameplayEventDataActors(AActor* SourceActor, AActor* TargetActor, OUT AActor*& Instigator, OUT AActor*& Target)
+bool FGameplayEffectEvent::AttempAssignGameplayEventDataActors(AActor* SourceActor, AActor* TargetActor,
+                                                               OUT AActor*& Instigator, OUT AActor*& Target)
 {
 	switch (GameplayEventDirection)
 	{
 	case EGameplayEffectEventDirection::SourceToTarget:
-	{ 
-		Instigator = SourceActor;
-		Target = TargetActor;
-	}
-	break;
+		{
+			Instigator = SourceActor;
+			Target = TargetActor;
+		}
+		break;
 	case EGameplayEffectEventDirection::TargetToSource:
-	{
-		Instigator = TargetActor;
-		Target = SourceActor;
-	}
-	break;
+		{
+			Instigator = TargetActor;
+			Target = SourceActor;
+		}
+		break;
 	default:
-		ABILITY_LOG(Error, TEXT("Unknown GameplayEffectEventDirection %d in AttempAssignGameplayEventDataActors"), (int32)GameplayEventDirection);
+		ABILITY_LOG(Error, TEXT("Unknown GameplayEffectEventDirection %d in AttempAssignGameplayEventDataActors"),
+		            static_cast<int32>(GameplayEventDirection));
 		Instigator = SourceActor;
 		Target = TargetActor;
 		break;
@@ -106,7 +122,8 @@ bool FGameplayEffectEvent::AttempAssignGameplayEventDataActors(AActor* SourceAct
 	return true;
 }
 
-bool FGameplayEffectEvent::GetStaticMagnitudeIfPossible(float InLevel, float& OutMagnitude, const FString* ContextString /*= nullptr*/) const
+bool FGameplayEffectEvent::GetStaticMagnitudeIfPossible(float InLevel, float& OutMagnitude,
+                                                        const FString* ContextString /*= nullptr*/) const
 {
 	if (GameplayEventMagnitudeCalculation == EGameplayEffectEventMagnitude::ScalableFloat)
 	{
@@ -154,7 +171,9 @@ FText FGameplayEffectEvent::GetValueForEditorDisplay() const
 	switch (GameplayEventMagnitudeCalculation)
 	{
 	case EGameplayEffectEventMagnitude::ScalableFloat:
-		return FText::Format(NSLOCTEXT("GameplayEffect", "ScalableFloatModifierMagnitude", "{0} s"), FText::AsNumber(ScalableFloatEventMagnitude.Value));
+		return FText::Format(
+			NSLOCTEXT("GameplayEffect", "ScalableFloatModifierMagnitude", "{0} s"),
+			FText::AsNumber(ScalableFloatEventMagnitude.Value));
 
 	case EGameplayEffectEventMagnitude::SetByCaller:
 		return NSLOCTEXT("GameplayEffect", "SetByCallerModifierMagnitude", "Set by Caller");

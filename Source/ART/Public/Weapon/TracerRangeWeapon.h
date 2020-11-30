@@ -14,18 +14,19 @@ class AGATA_LineTrace;
 class UARTAbilitySystemComponent;
 
 USTRUCT()
-struct FHitScanTrace {
+struct FHitScanTrace
+{
 	GENERATED_BODY()
 
 public:
 	UPROPERTY()
-		TEnumAsByte<EPhysicalSurface> SurfaceType;
+	TEnumAsByte<EPhysicalSurface> SurfaceType;
 
 	UPROPERTY()
-		FVector_NetQuantize TraceTo;
+	FVector_NetQuantize TraceTo;
 
 	UPROPERTY()
-		uint8 StructIncreasement;
+	uint8 StructIncreasement;
 };
 
 UCLASS(Blueprintable, BlueprintType)

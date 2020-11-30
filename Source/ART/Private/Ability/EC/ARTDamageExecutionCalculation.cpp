@@ -53,7 +53,9 @@ UARTDamageExecutionCalculation::UARTDamageExecutionCalculation()
 	RelevantAttributesToCapture.Add(DamageStatics().ShieldDef);
 }
 
-void UARTDamageExecutionCalculation::Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams, OUT FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const
+void UARTDamageExecutionCalculation::Execute_Implementation(
+	const FGameplayEffectCustomExecutionParameters& ExecutionParams,
+	OUT FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const
 {
 	UAbilitySystemComponent* TargetAbilitySystemComponent = ExecutionParams.GetTargetAbilitySystemComponent();
 	UAbilitySystemComponent* SourceAbilitySystemComponent = ExecutionParams.GetSourceAbilitySystemComponent();
@@ -74,7 +76,8 @@ void UARTDamageExecutionCalculation::Execute_Implementation(const FGameplayEffec
 	EvaluationParameters.TargetTags = TargetTags;
 
 	float AttackPower = 1.f;
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().AttackPowerDef, EvaluationParameters, AttackPower);
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().AttackPowerDef, EvaluationParameters,
+	                                                           AttackPower);
 	AttackPower = FMath::Max<float>(AttackPower, 0.0f);
 
 	float Armor = 0.0f;
@@ -85,13 +88,15 @@ void UARTDamageExecutionCalculation::Execute_Implementation(const FGameplayEffec
 	Shield = FMath::Max<float>(Shield, 0.0f);
 
 	// SetByCaller Damage
-	float Damage = FMath::Max<float>(Spec.GetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Data.Damage")), false, -1.0f), 0.0f);
+	float Damage = FMath::Max<float>(
+		Spec.GetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Data.Damage")), false, -1.0f), 0.0f);
 
 	float UnmitigatedDamage = Damage * AttackPower; // Can multiply any damage boosters here
 
 	// Check for crit. There's only one character mesh here, but you could have a function on your Character class to return the head bone name
 	const FHitResult* Hit = Spec.GetContext().GetHitResult();
-	if (AssetTags.HasTagExact(FGameplayTag::RequestGameplayTag(FName("Effect.Damage.CanCrit"))) && Hit && Hit->BoneName == "b_head")
+	if (AssetTags.HasTagExact(FGameplayTag::RequestGameplayTag(FName("Effect.Damage.CanCrit"))) && Hit && Hit->BoneName
+		== "b_head")
 	{
 		UnmitigatedDamage *= CritMultiplier;
 		FGameplayEffectSpec* MutableSpec = ExecutionParams.GetOwningSpecForPreExecuteMod();
@@ -102,13 +107,15 @@ void UARTDamageExecutionCalculation::Execute_Implementation(const FGameplayEffec
 	float MitigatedDamage = UnmitigatedDamage;
 
 	//if Damage exceed shield, calculate damage to health with armor modification
-	if (MitigatedDamage > Shield) {
+	if (MitigatedDamage > Shield)
+	{
 		MitigatedDamage = Shield + (MitigatedDamage - Shield) * (100 / (Armor + 100));
 	}
 
 	if (MitigatedDamage > 0.f)
 	{
 		// Set the Target's damage meta attribute
-		OutExecutionOutput.AddOutputModifier(FGameplayModifierEvaluatedData(DamageStatics().DamageProperty, EGameplayModOp::Additive, MitigatedDamage));
+		OutExecutionOutput.AddOutputModifier(
+			FGameplayModifierEvaluatedData(DamageStatics().DamageProperty, EGameplayModOp::Additive, MitigatedDamage));
 	}
 }

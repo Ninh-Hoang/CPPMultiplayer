@@ -15,5 +15,4 @@ UCLASS()
 class ART_API ASGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
-
 };

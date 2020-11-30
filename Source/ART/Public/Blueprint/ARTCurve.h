@@ -32,11 +32,13 @@ struct FARTCurveData : public FCurviestCurveData
 	{
 		this->Color = FLinearColor::White;
 	}
+
 	FARTCurveData(FName Name, FLinearColor Color)
 	{
 		this->Name = Name;
 		this->Color = Color;
 	}
+
 public:
 };
 
@@ -69,7 +71,7 @@ public:
 	virtual bool IsValidCurve(FRichCurveEditInfo CurveInfo) override;
 
 	/** Determine if Curve is the same */
-	bool operator == (const UARTCurve& Curve) const;
+	bool operator ==(const UARTCurve& Curve) const;
 
 #if WITH_EDITOR
 	void MakeCurveNameUnique(int CurveIdx);
@@ -81,5 +83,4 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "ARTCurviest")
 	TArray<FARTCurveData> ARTCurveData;
-
 };

@@ -14,7 +14,7 @@ UCLASS()
 class ART_API UARTHUDReticle : public UUserWidget
 {
 	GENERATED_BODY()
-	
+
 public:
 	// Essentially an interface that all child classes in Blueprint will have to fill out
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)

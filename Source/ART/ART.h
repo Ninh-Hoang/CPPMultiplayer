@@ -1,4 +1,4 @@
-	// Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
+// Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -25,42 +25,42 @@ UENUM(BlueprintType)
 enum class EARTHitReactDirection : uint8
 {
 	// 0
-	None			UMETA(DisplayName = "None"),
+	None UMETA(DisplayName = "None"),
 	// 1
-	Left 			UMETA(DisplayName = "Left"),
+	Left UMETA(DisplayName = "Left"),
 	// 2
-	Front 			UMETA(DisplayName = "Front"),
+	Front UMETA(DisplayName = "Front"),
 	// 3
-	Right			UMETA(DisplayName = "Right"),
+	Right UMETA(DisplayName = "Right"),
 	// 4
-	Back			UMETA(DisplayName = "Back")
+	Back UMETA(DisplayName = "Back")
 };
 
 UENUM(BlueprintType)
 enum class EARTAbilityInputID : uint8
 {
 	// 0 None
-	None			UMETA(DisplayName = "None"),
+	None UMETA(DisplayName = "None"),
 	// 1 Confirm
-	Confirm			UMETA(DisplayName = "Confirm"),
+	Confirm UMETA(DisplayName = "Confirm"),
 	// 2 Cancel
-	Cancel			UMETA(DisplayName = "Cancel"),
+	Cancel UMETA(DisplayName = "Cancel"),
 	// 3 Q
-	Q				UMETA(DisplayName = "Q"),
+	Q UMETA(DisplayName = "Q"),
 	// 4 E
-	E				UMETA(DisplayName = "E"),
+	E UMETA(DisplayName = "E"),
 	// 5 R
-	R				UMETA(DisplayName = "R"),
+	R UMETA(DisplayName = "R"),
 	// 6 F
-	F				UMETA(DisplayName = "F"),
+	F UMETA(DisplayName = "F"),
 	// 7 G
-	G				UMETA(DisplayName = "G"),
+	G UMETA(DisplayName = "G"),
 	// 9 LMB	
-	LMB				UMETA(DisplayName = "LMB"),
+	LMB UMETA(DisplayName = "LMB"),
 	// 10 RMB	
-	RMB				UMETA(DisplayName = "RMB	"),
+	RMB UMETA(DisplayName = "RMB	"),
 	// 11 Sprint
-	Shift			UMETA(DisplayName = "Shift"),
+	Shift UMETA(DisplayName = "Shift"),
 	// 12 Jump
-	Space			UMETA(DisplayName = "Space")
+	Space UMETA(DisplayName = "Space")
 };

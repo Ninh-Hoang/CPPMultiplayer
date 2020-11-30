@@ -12,7 +12,7 @@ void UInventorySet::InitInventory(class UInventoryComponent* InventoryComponent)
 		return;
 	}
 
-	for (const FItemApplicationInfo& Item: StartInventory)
+	for (const FItemApplicationInfo& Item : StartInventory)
 	{
 		if (Item.ItemClass)
 		{
@@ -20,4 +20,3 @@ void UInventorySet::InitInventory(class UInventoryComponent* InventoryComponent)
 		}
 	}
 }
-

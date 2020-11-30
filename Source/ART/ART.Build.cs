@@ -7,33 +7,37 @@ public class ART : ModuleRules
 	public ART(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-	
-		PublicDependencyModuleNames.AddRange(new string[] { 
+
+		PublicDependencyModuleNames.AddRange(new[]
+		{
 			"Core",
 			"CoreUObject",
 			"Engine",
-			"InputCore",
+			"InputCore"
+		});
+
+		//DynamicallyLoadedModuleNames.Add("OnlineSubsystemSteam");
+
+		PrivateDependencyModuleNames.AddRange(new[]
+		{
+			"Slate",
+			"SlateCore",
+			"GameplayAbilities",
+			"GameplayTags",
+			"GameplayTasks",
+			"Paper2D",
 			"NavigationSystem",
 			"OnlineSubsystem",
 			"OnlineSubsystemUtils",
 			"Steamworks",
 			"Networking",
-			"Voxel"});
-
-		DynamicallyLoadedModuleNames.Add("OnlineSubsystemSteam");
-
-        PrivateDependencyModuleNames.AddRange(new string[] {
-            "Slate",
-            "SlateCore",
-            "GameplayAbilities",
-			"GameplayTags",
-			"GameplayTasks",
-			"Paper2D"});
+			"Voxel"
+		});
 
 
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
-		
+
 		// Uncomment if you are using online features
 		PrivateDependencyModuleNames.Add("OnlineSubsystem");
 

@@ -28,13 +28,16 @@ public:
 	 */
 
 	UFUNCTION(BlueprintCallable, Category = "Ability")
-	static UARTGameplayAbility* GetPrimaryAbilityInstanceFromHandle(UAbilitySystemComponent* AbilitySystemComponent, FGameplayAbilitySpecHandle Handle);
+	static UARTGameplayAbility* GetPrimaryAbilityInstanceFromHandle(UAbilitySystemComponent* AbilitySystemComponent,
+	                                                                FGameplayAbilitySpecHandle Handle);
 
 	UFUNCTION(BlueprintCallable, Category = "Ability")
-	static UARTGameplayAbility* GetPrimaryAbilityInstanceFromClass(UAbilitySystemComponent* AbilitySystemComponent, TSubclassOf<UGameplayAbility> InAbilityClass);
+	static UARTGameplayAbility* GetPrimaryAbilityInstanceFromClass(UAbilitySystemComponent* AbilitySystemComponent,
+	                                                               TSubclassOf<UGameplayAbility> InAbilityClass);
 
 	UFUNCTION(BlueprintCallable, Category = "Ability")
-	static bool IsPrimaryAbilityInstanceActive(UAbilitySystemComponent* AbilitySystemComponent, FGameplayAbilitySpecHandle Handle);
+	static bool IsPrimaryAbilityInstanceActive(UAbilitySystemComponent* AbilitySystemComponent,
+	                                           FGameplayAbilitySpecHandle Handle);
 
 
 	/*
@@ -61,12 +64,17 @@ public:
 	static void ClearEffectContainerSpecTargets(UPARAM(ref) FARTGameplayEffectContainerSpec& ContainerSpec);
 
 	// Adds targets to a copy of the passed in effect container spec and returns it
-	UFUNCTION(BlueprintCallable, Category = "Ability|Container", Meta = (AutoCreateRefTerm = "TargetData, HitResults, TargetActors"))
-	static void AddTargetsToEffectContainerSpec(UPARAM(ref) FARTGameplayEffectContainerSpec& ContainerSpec, const TArray<FGameplayAbilityTargetDataHandle>& TargetData, const TArray<FHitResult>& HitResults, const TArray<AActor*>& TargetActors);
+	UFUNCTION(BlueprintCallable, Category = "Ability|Container", Meta = (AutoCreateRefTerm =
+		"TargetData, HitResults, TargetActors"))
+	static void AddTargetsToEffectContainerSpec(UPARAM(ref) FARTGameplayEffectContainerSpec& ContainerSpec,
+	                                            const TArray<FGameplayAbilityTargetDataHandle>& TargetData,
+	                                            const TArray<FHitResult>& HitResults,
+	                                            const TArray<AActor*>& TargetActors);
 
 	// Applies container spec that was made from an ability
 	UFUNCTION(BlueprintCallable, Category = "Ability|Container")
-	static TArray<FActiveGameplayEffectHandle> ApplyExternalEffectContainerSpec(const FARTGameplayEffectContainerSpec& ContainerSpec);
+	static TArray<FActiveGameplayEffectHandle> ApplyExternalEffectContainerSpec(
+		const FARTGameplayEffectContainerSpec& ContainerSpec);
 
 	/**
 	* FARTGameplayEffectContext
@@ -78,7 +86,8 @@ public:
 
 	// Adds TargetData
 	UFUNCTION(BlueprintCallable, Category = "Ability|EffectContext", Meta = (DisplayName = "AddTargetData"))
-	static void EffectContextAddTargetData(FGameplayEffectContextHandle EffectContextHandle, const FGameplayAbilityTargetDataHandle& TargetData);
+	static void EffectContextAddTargetData(FGameplayEffectContextHandle EffectContextHandle,
+	                                       const FGameplayAbilityTargetDataHandle& TargetData);
 
 	/**
 	* FGameplayAbilityTargetDataHandle
@@ -89,24 +98,33 @@ public:
 	/*
 	* FARTTargetFilterHandle filter by type
 	*/
-	UFUNCTION(BlueprintPure, Category = "Ability|TargetData", Meta = (DisplayName = "Make Target Data Filter by Target Type"))
-	static FGameplayTargetDataFilterHandle MakeTargetDataFilterByActorType(AActor* FilterActor, AActor* InSourceActor, 
-	TEnumAsByte<EARTTargetSelectionFilter::Type> InTargetTypeFilter,
-	TEnumAsByte<ETargetDataFilterSelf::Type> InSelfFilter, TSubclassOf<AActor> InRequiredActorClass, bool InReverseFilter);
+	UFUNCTION(BlueprintPure, Category = "Ability|TargetData", Meta = (DisplayName =
+		"Make Target Data Filter by Target Type"))
+	static FGameplayTargetDataFilterHandle MakeTargetDataFilterByActorType(AActor* FilterActor, AActor* InSourceActor,
+	                                                                       TEnumAsByte<EARTTargetSelectionFilter::Type>
+	                                                                       InTargetTypeFilter,
+	                                                                       TEnumAsByte<ETargetDataFilterSelf::Type>
+	                                                                       InSelfFilter,
+	                                                                       TSubclassOf<AActor> InRequiredActorClass,
+	                                                                       bool InReverseFilter);
 
 	/*
 	* FARTTargetFilterHandle filter by TeamAttitude
 	*/
-	UFUNCTION(BlueprintPure, Category = "Ability|TargetData", Meta = (DisplayName = "Make Target Data Filter by Team Attitude"))
-	static FGameplayTargetDataFilterHandle MakeTargetDataFilterByTeamAttitude(AActor* FilterActor, AActor* InSourceActor,
+	UFUNCTION(BlueprintPure, Category = "Ability|TargetData", Meta = (DisplayName =
+		"Make Target Data Filter by Team Attitude"))
+	static FGameplayTargetDataFilterHandle MakeTargetDataFilterByTeamAttitude(
+		AActor* FilterActor, AActor* InSourceActor,
 		TEnumAsByte<ETeamAttitude::Type> InTeamAttitude,
-		TEnumAsByte<ETargetDataFilterSelf::Type> InSelfFilter, TSubclassOf<AActor> InRequiredActorClass, bool InReverseFilter);
+		TEnumAsByte<ETargetDataFilterSelf::Type> InSelfFilter, TSubclassOf<AActor> InRequiredActorClass,
+		bool InReverseFilter);
 	/*
 	* Filter Bulk TargetData
 	*/
 	UFUNCTION(BlueprintPure, Category = "Ability|TargetData", Meta = (DisplayName = "Filter Target Data Array"))
-	static TArray<FGameplayAbilityTargetDataHandle> FilterTargetDataArray(TArray<FGameplayAbilityTargetDataHandle> TargetDataArray,
-	FGameplayTargetDataFilterHandle Filterhandle);
+	static TArray<FGameplayAbilityTargetDataHandle> FilterTargetDataArray(
+		TArray<FGameplayAbilityTargetDataHandle> TargetDataArray,
+		FGameplayTargetDataFilterHandle Filterhandle);
 
 	/*
 	* turn HitResult in to TargetData
@@ -123,25 +141,30 @@ public:
 	/*
 	* GameplayTagBlueprintPropertyMap ultilities
 	*/
-	static void InitializePropertyMap(FGameplayTagBlueprintPropertyMap& InMap, UObject* Owner, UAbilitySystemComponent* ASC);
+	static void InitializePropertyMap(FGameplayTagBlueprintPropertyMap& InMap, UObject* Owner,
+	                                  UAbilitySystemComponent* ASC);
 
 	/*
 	* Get Tag caller Mag
 	*/
 	UFUNCTION(BlueprintCallable, Category = "Ability|ActiveEffect")
-	static float GetTagCallerMag(UAbilitySystemComponent* InASC, FActiveGameplayEffectHandle& InActiveHandle, FGameplayTag CallerTag);
+	static float GetTagCallerMag(UAbilitySystemComponent* InASC, FActiveGameplayEffectHandle& InActiveHandle,
+	                             FGameplayTag CallerTag);
 
 	/*
 	* Get UI information from GameplayEffect Handle, or Spec?
 	*/
 
-	UFUNCTION(BlueprintCallable, Category = "Ability|ActiveEffect", Meta = (DisplayName = "Get GE UI Data from Active Handle"))
-	static  UARTGameplayEffectUIData* GetGameplayEffectUIDataFromActiveHandle(const FActiveGameplayEffectHandle& InActiveHandle);
+	UFUNCTION(BlueprintCallable, Category = "Ability|ActiveEffect", Meta = (DisplayName =
+		"Get GE UI Data from Active Handle"))
+	static UARTGameplayEffectUIData* GetGameplayEffectUIDataFromActiveHandle(
+		const FActiveGameplayEffectHandle& InActiveHandle);
 
 	/*
 	* Get UI information from Ability Input, Spec, or Handle?
 	*/
 
 	UFUNCTION(BlueprintCallable, Category = "Ability|ActiveAbility", Meta = (DisplayName = "Get GA UI Data from Input"))
-	static UARTGameplayAbilityUIData* GetGameplayAbilityUIDataFromInput(UAbilitySystemComponent* InASC, const EARTAbilityInputID Input);
+	static UARTGameplayAbilityUIData* GetGameplayAbilityUIDataFromInput(UAbilitySystemComponent* InASC,
+	                                                                    const EARTAbilityInputID Input);
 };

@@ -16,10 +16,12 @@ class ART_API UAT_ServerWaitForClientTargetData : public UAbilityTask
 	GENERATED_UCLASS_BODY()
 
 	UPROPERTY(BlueprintAssignable)
-	FWaitTargetDataDelegate	ValidData;
+	FWaitTargetDataDelegate ValidData;
 
-	UFUNCTION(BlueprintCallable, meta = (HidePin = "OwningAbility", DefaultToSelf = "OwningAbility", BlueprintInternalUseOnly = "true", HideSpawnParms = "Instigator"), Category = "Ability|Tasks")
-	static UAT_ServerWaitForClientTargetData* ServerWaitForClientTargetData(UGameplayAbility* OwningAbility, FName TaskInstanceName, bool TriggerOnce);
+	UFUNCTION(BlueprintCallable, meta = (HidePin = "OwningAbility", DefaultToSelf = "OwningAbility",
+		BlueprintInternalUseOnly = "true", HideSpawnParms = "Instigator"), Category = "Ability|Tasks")
+	static UAT_ServerWaitForClientTargetData* ServerWaitForClientTargetData(
+		UGameplayAbility* OwningAbility, FName TaskInstanceName, bool TriggerOnce);
 
 	virtual void Activate() override;
 

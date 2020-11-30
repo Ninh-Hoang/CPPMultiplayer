@@ -6,14 +6,16 @@
 #include "Ability/ARTAbilitySystemComponent.h"
 
 // Declare the attributes to capture and define how we want to capture them from the Source and Target.
-struct ARTHealingStatics {
+struct ARTHealingStatics
+{
 	DECLARE_ATTRIBUTE_CAPTUREDEF(Health);
 
 	// Meta attribute that we're passing into the ExecCalc via SetByCaller on the GESpec so we don't capture it.
 	// We still need to declare and define it so that we can output to it.
 	DECLARE_ATTRIBUTE_CAPTUREDEF(Healing);
 
-	ARTHealingStatics() {
+	ARTHealingStatics()
+	{
 		// Snapshot happens at time of GESpec creation
 
 		// here could be like HealingPower attributes that you might want.
@@ -23,22 +25,25 @@ struct ARTHealingStatics {
 
 		//the target's receive Healing. This is the value of health that will apply on target. We are not capturing this
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UARTCharacterAttributeSet, Healing, Target, false);
-
 	}
 };
 
-static const ARTHealingStatics& HealingStatics() {
+static const ARTHealingStatics& HealingStatics()
+{
 	static ARTHealingStatics HStatics;
 	return HStatics;
 }
 
-UARTHealingExecutionCalculation::UARTHealingExecutionCalculation() {
+UARTHealingExecutionCalculation::UARTHealingExecutionCalculation()
+{
 	CritMultiplier = 1.5;
 
 	RelevantAttributesToCapture.Add(HealingStatics().HealthDef);
 }
 
-void UARTHealingExecutionCalculation::Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams, OUT FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const
+void UARTHealingExecutionCalculation::Execute_Implementation(
+	const FGameplayEffectCustomExecutionParameters& ExecutionParams,
+	OUT FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const
 {
 	UAbilitySystemComponent* TargetAbilitySystemComponent = ExecutionParams.GetTargetAbilitySystemComponent();
 	UAbilitySystemComponent* SourceAbilitySystemComponent = ExecutionParams.GetSourceAbilitySystemComponent();
@@ -59,11 +64,13 @@ void UARTHealingExecutionCalculation::Execute_Implementation(const FGameplayEffe
 	EvaluationParameters.TargetTags = TargetTags;
 
 	float Health = 0.0f;
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(HealingStatics().HealthDef, EvaluationParameters, Health);
+	ExecutionParams.
+		AttemptCalculateCapturedAttributeMagnitude(HealingStatics().HealthDef, EvaluationParameters, Health);
 	Health = FMath::Max<float>(Health, 0.0f);
 
 	//SetByCaller Healing, healing amount is -1 if data not found, thus negate later calculation due condition > 0
-	float Healing = FMath::Max<float>(Spec.GetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Data.Healing")), false, -1.0f), 0.0f);
+	float Healing = FMath::Max<float>(
+		Spec.GetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Data.Healing")), false, -1.0f), 0.0f);
 
 	float UnModifiedHealing = Healing; //can apply healing booster here
 
@@ -71,8 +78,11 @@ void UARTHealingExecutionCalculation::Execute_Implementation(const FGameplayEffe
 
 	float ModifiedHealing = UnModifiedHealing;
 
-	if (ModifiedHealing > 0.f) {
+	if (ModifiedHealing > 0.f)
+	{
 		//Set the Target's healing meta attribute
-		OutExecutionOutput.AddOutputModifier(FGameplayModifierEvaluatedData(HealingStatics().HealingProperty, EGameplayModOp::Additive, ModifiedHealing));
+		OutExecutionOutput.AddOutputModifier(
+			FGameplayModifierEvaluatedData(HealingStatics().HealingProperty, EGameplayModOp::Additive,
+			                               ModifiedHealing));
 	}
 }

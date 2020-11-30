@@ -2,4 +2,3 @@
 
 
 #include "Widget/ARTFloatingStatusBarWidget.h"
-

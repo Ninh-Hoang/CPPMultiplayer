@@ -13,12 +13,10 @@ UCLASS()
 class ART_API AGrenadeLauncher : public AWeaponActor
 {
 	GENERATED_BODY()
-	
+
 
 protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
 	TSubclassOf<AActor> ProjectileClass;
 };
-
-

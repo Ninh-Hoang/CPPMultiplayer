@@ -10,8 +10,8 @@ UCLASS()
 class ART_API AMeleeWeapon : public AWeapon
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AMeleeWeapon();
 	~AMeleeWeapon();
@@ -19,7 +19,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 WeaponStartLength = 20;

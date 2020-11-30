@@ -128,11 +128,15 @@ void AGATA_Trace::CancelTargeting()
 	UAbilitySystemComponent* ASC = (ActorInfo ? ActorInfo->AbilitySystemComponent.Get() : nullptr);
 	if (ASC)
 	{
-		ASC->AbilityReplicatedEventDelegate(EAbilityGenericReplicatedEvent::GenericCancel, OwningAbility->GetCurrentAbilitySpecHandle(), OwningAbility->GetCurrentActivationInfo().GetActivationPredictionKey()).Remove(GenericCancelHandle);
+		ASC->AbilityReplicatedEventDelegate(EAbilityGenericReplicatedEvent::GenericCancel,
+		                                    OwningAbility->GetCurrentAbilitySpecHandle(),
+		                                    OwningAbility->GetCurrentActivationInfo().GetActivationPredictionKey()).
+		     Remove(GenericCancelHandle);
 	}
 	else
 	{
-		ABILITY_LOG(Warning, TEXT("AGameplayAbilityTargetActor::CancelTargeting called with null ASC! Actor %s"), *GetName());
+		ABILITY_LOG(Warning, TEXT("AGameplayAbilityTargetActor::CancelTargeting called with null ASC! Actor %s"),
+		            *GetName());
 	}
 
 	CanceledDelegate.Broadcast(FGameplayAbilityTargetDataHandle());
@@ -180,7 +184,9 @@ void AGATA_Trace::Tick(float DeltaSeconds)
 #endif
 }
 
-void AGATA_Trace::LineTraceWithFilter(TArray<FHitResult>& OutHitResults, const UWorld* World, const FGameplayTargetDataFilterHandle FilterHandle, const FVector& Start, const FVector& End, FName ProfileName, const FCollisionQueryParams Params)
+void AGATA_Trace::LineTraceWithFilter(TArray<FHitResult>& OutHitResults, const UWorld* World,
+                                      const FGameplayTargetDataFilterHandle FilterHandle, const FVector& Start,
+                                      const FVector& End, FName ProfileName, const FCollisionQueryParams Params)
 {
 	check(World);
 
@@ -206,11 +212,10 @@ void AGATA_Trace::LineTraceWithFilter(TArray<FHitResult>& OutHitResults, const U
 	}
 
 	OutHitResults = FilteredHitResults;
-
-	return;
 }
 
-void AGATA_Trace::AimWithPlayerController(const AActor* InSourceActor, FCollisionQueryParams Params, const FVector& TraceStart, FVector& OutTraceEnd, bool bIgnorePitch)
+void AGATA_Trace::AimWithPlayerController(const AActor* InSourceActor, FCollisionQueryParams Params,
+                                          const FVector& TraceStart, FVector& OutTraceEnd, bool bIgnorePitch)
 {
 	if (!OwningAbility) // Server and launching client only
 	{
@@ -237,16 +242,19 @@ void AGATA_Trace::AimWithPlayerController(const AActor* InSourceActor, FCollisio
 
 	CurrentTargetingSpread = FMath::Min(TargetingSpreadMax, CurrentTargetingSpread + TargetingSpreadIncrement);
 
-	const bool bUseTraceResult = HitResults.Num() > 0 && (FVector::DistSquared(TraceStart, HitResults[0].Location) <= (MaxRange * MaxRange));
+	const bool bUseTraceResult = HitResults.Num() > 0 && (FVector::DistSquared(TraceStart, HitResults[0].Location) <= (
+		MaxRange * MaxRange));
 
 	const FVector AdjustedEnd = (bUseTraceResult) ? HitResults[0].Location : ViewEnd;
-	
+
 	FVector AdjustedAimDir;
 
-	if (bTraceWithPawnOrientation && MasterPC) {
+	if (bTraceWithPawnOrientation && MasterPC)
+	{
 		AdjustedAimDir = MasterPC->GetPawn()->GetActorForwardVector();
 	}
-	else {
+	else
+	{
 		AdjustedAimDir = (AdjustedEnd - TraceStart).GetSafeNormal();
 	}
 
@@ -281,19 +289,23 @@ void AGATA_Trace::AimWithPlayerController(const AActor* InSourceActor, FCollisio
 	OutTraceEnd = TraceStart + (ShootDir * MaxRange);
 }
 
-bool AGATA_Trace::ClipCameraRayToAbilityRange(FVector CameraLocation, FVector CameraDirection, FVector AbilityCenter, float AbilityRange, FVector& ClippedPosition)
+bool AGATA_Trace::ClipCameraRayToAbilityRange(FVector CameraLocation, FVector CameraDirection, FVector AbilityCenter,
+                                              float AbilityRange, FVector& ClippedPosition)
 {
 	FVector CameraToCenter = AbilityCenter - CameraLocation;
 	float DotToCenter = FVector::DotProduct(CameraToCenter, CameraDirection);
-	if (DotToCenter >= 0)		//If this fails, we're pointed away from the center, but we might be inside the sphere and able to find a good exit point.
+	if (DotToCenter >= 0)
+		//If this fails, we're pointed away from the center, but we might be inside the sphere and able to find a good exit point.
 	{
 		float DistanceSquared = CameraToCenter.SizeSquared() - (DotToCenter * DotToCenter);
 		float RadiusSquared = (AbilityRange * AbilityRange);
 		if (DistanceSquared <= RadiusSquared)
 		{
 			float DistanceFromCamera = FMath::Sqrt(RadiusSquared - DistanceSquared);
-			float DistanceAlongRay = DotToCenter + DistanceFromCamera;						//Subtracting instead of adding will get the other intersection point
-			ClippedPosition = CameraLocation + (DistanceAlongRay * CameraDirection);		//Cam aim point clipped to range sphere
+			float DistanceAlongRay = DotToCenter + DistanceFromCamera;
+			//Subtracting instead of adding will get the other intersection point
+			ClippedPosition = CameraLocation + (DistanceAlongRay * CameraDirection);
+			//Cam aim point clipped to range sphere
 			return true;
 		}
 	}
@@ -312,8 +324,10 @@ void AGATA_Trace::StopTargeting()
 
 	if (GenericDelegateBoundASC)
 	{
-		GenericDelegateBoundASC->GenericLocalConfirmCallbacks.RemoveDynamic(this, &AGameplayAbilityTargetActor::ConfirmTargeting);
-		GenericDelegateBoundASC->GenericLocalCancelCallbacks.RemoveDynamic(this, &AGameplayAbilityTargetActor::CancelTargeting);
+		GenericDelegateBoundASC->GenericLocalConfirmCallbacks.RemoveDynamic(
+			this, &AGameplayAbilityTargetActor::ConfirmTargeting);
+		GenericDelegateBoundASC->GenericLocalCancelCallbacks.RemoveDynamic(
+			this, &AGameplayAbilityTargetActor::CancelTargeting);
 		GenericDelegateBoundASC = nullptr;
 	}
 }
@@ -368,7 +382,8 @@ TArray<FHitResult> AGATA_Trace::PerformTrace(AActor* InSourceActor)
 		{
 			FHitResult& HitResult = PersistentHitResults[i];
 
-			if (HitResult.bBlockingHit || !HitResult.Actor.IsValid() || FVector::DistSquared(TraceStart, HitResult.Actor.Get()->GetActorLocation()) > (MaxRange * MaxRange))
+			if (HitResult.bBlockingHit || !HitResult.Actor.IsValid() || FVector::DistSquared(
+				TraceStart, HitResult.Actor.Get()->GetActorLocation()) > (MaxRange * MaxRange))
 			{
 				PersistentHitResults.RemoveAt(i);
 			}
@@ -379,7 +394,8 @@ TArray<FHitResult> AGATA_Trace::PerformTrace(AActor* InSourceActor)
 
 	for (int32 TraceIndex = 0; TraceIndex < NumberOfTraces; TraceIndex++)
 	{
-		AimWithPlayerController(InSourceActor, Params, TraceStart, TraceEnd);		//Effective on server and launching client only
+		AimWithPlayerController(InSourceActor, Params, TraceStart, TraceEnd);
+		//Effective on server and launching client only
 
 		// ------------------------------------------------------
 
@@ -450,7 +466,9 @@ TArray<FHitResult> AGATA_Trace::PerformTrace(AActor* InSourceActor)
 						{
 							LocalReticleActor->SetActorHiddenInGame(false);
 
-							const FVector ReticleLocation = (bHitActor && LocalReticleActor->bSnapToTargetedActor) ? HitResult.Actor->GetActorLocation() : HitResult.Location;
+							const FVector ReticleLocation = (bHitActor && LocalReticleActor->bSnapToTargetedActor)
+								                                ? HitResult.Actor->GetActorLocation()
+								                                : HitResult.Location;
 
 							LocalReticleActor->SetActorLocation(ReticleLocation);
 							LocalReticleActor->SetIsTargetAnActor(bHitActor);
@@ -504,7 +522,8 @@ TArray<FHitResult> AGATA_Trace::PerformTrace(AActor* InSourceActor)
 	if (bUsePersistentHitResults && MaxHitResultsPerTrace > 0 && ReticleActors.Num() > 0)
 	{
 		// Handle ReticleActors
-		for (int32 PersistentHitResultIndex = 0; PersistentHitResultIndex < PersistentHitResults.Num(); PersistentHitResultIndex++)
+		for (int32 PersistentHitResultIndex = 0; PersistentHitResultIndex < PersistentHitResults.Num();
+		     PersistentHitResultIndex++)
 		{
 			FHitResult& HitResult = PersistentHitResults[PersistentHitResultIndex];
 
@@ -519,7 +538,9 @@ TArray<FHitResult> AGATA_Trace::PerformTrace(AActor* InSourceActor)
 				{
 					LocalReticleActor->SetActorHiddenInGame(false);
 
-					const FVector ReticleLocation = (bHitActor && LocalReticleActor->bSnapToTargetedActor) ? HitResult.Actor->GetActorLocation() : HitResult.Location;
+					const FVector ReticleLocation = (bHitActor && LocalReticleActor->bSnapToTargetedActor)
+						                                ? HitResult.Actor->GetActorLocation()
+						                                : HitResult.Location;
 
 					LocalReticleActor->SetActorLocation(ReticleLocation);
 					LocalReticleActor->SetIsTargetAnActor(bHitActor);
@@ -534,7 +555,8 @@ TArray<FHitResult> AGATA_Trace::PerformTrace(AActor* InSourceActor)
 		if (PersistentHitResults.Num() < ReticleActors.Num())
 		{
 			// We have less hit results than ReticleActors, hide the extra ones
-			for (int32 PersistentHitResultIndex = PersistentHitResults.Num(); PersistentHitResultIndex < ReticleActors.Num(); PersistentHitResultIndex++)
+			for (int32 PersistentHitResultIndex = PersistentHitResults.Num(); PersistentHitResultIndex < ReticleActors.
+			     Num(); PersistentHitResultIndex++)
 			{
 				if (AGameplayAbilityWorldReticle* LocalReticleActor = ReticleActors[PersistentHitResultIndex].Get())
 				{
@@ -554,7 +576,8 @@ AGameplayAbilityWorldReticle* AGATA_Trace::SpawnReticleActor(FVector Location, F
 {
 	if (ReticleClass)
 	{
-		AGameplayAbilityWorldReticle* SpawnedReticleActor = GetWorld()->SpawnActor<AGameplayAbilityWorldReticle>(ReticleClass, Location, Rotation);
+		AGameplayAbilityWorldReticle* SpawnedReticleActor = GetWorld()->SpawnActor<AGameplayAbilityWorldReticle>(
+			ReticleClass, Location, Rotation);
 		if (SpawnedReticleActor)
 		{
 			SpawnedReticleActor->InitializeReticle(this, MasterPC, ReticleParams);

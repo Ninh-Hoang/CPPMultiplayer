@@ -34,7 +34,7 @@ public:
 
 	virtual UScriptStruct* GetScriptStruct() const override
 	{
-		return FARTGameplayEffectContext::StaticStruct();
+		return StaticStruct();
 	}
 
 	virtual FARTGameplayEffectContext* Duplicate() const override
@@ -58,12 +58,12 @@ protected:
 	FGameplayAbilityTargetDataHandle TargetData;
 };
 
-template<>
+template <>
 struct TStructOpsTypeTraits<FARTGameplayEffectContext> : public TStructOpsTypeTraitsBase2<FARTGameplayEffectContext>
 {
 	enum
 	{
 		WithNetSerializer = true,
-		WithCopy = true		// Necessary so that TSharedPtr<FHitResult> Data is copied around
+		WithCopy = true // Necessary so that TSharedPtr<FHitResult> Data is copied around
 	};
 };

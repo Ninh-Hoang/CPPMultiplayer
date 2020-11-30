@@ -7,6 +7,7 @@
 #include "AT_WaitInputPressWithTags.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FInputPressWithTagsDelegate, float, TimeWaited);
+
 /**
  * Waits until the input is pressed from activating an ability and the ASC has the required tags and not the ignored tags.
  * This should be true immediately upon starting the ability, since the key was pressed to activate it. We expect server to
@@ -30,8 +31,12 @@ class ART_API UAT_WaitInputPressWithTags : public UAbilityTask
 	* @param IgnoredTags Ability Owner cannot have any of these tags otherwise the input is ignored.
 	*/
 
-	UFUNCTION(BlueprintCallable, Category = "Ability|Tasks", meta = (HidePin = "OwningAbility", DefaultToSelf = "OwningAbility", BlueprintInternalUseOnly = "TRUE"))
-	static UAT_WaitInputPressWithTags* WaitInputPressWithTags(UGameplayAbility* OwningAbility, FGameplayTagContainer RequiredTags, FGameplayTagContainer IgnoredTags, bool bTestAlreadyPressed = false);
+	UFUNCTION(BlueprintCallable, Category = "Ability|Tasks", meta = (HidePin = "OwningAbility", DefaultToSelf =
+		"OwningAbility", BlueprintInternalUseOnly = "TRUE"))
+	static UAT_WaitInputPressWithTags* WaitInputPressWithTags(UGameplayAbility* OwningAbility,
+	                                                          FGameplayTagContainer RequiredTags,
+	                                                          FGameplayTagContainer IgnoredTags,
+	                                                          bool bTestAlreadyPressed = false);
 
 	virtual void Activate() override;
 

@@ -27,7 +27,10 @@ UARTGameplayAbility::UARTGameplayAbility()
 	InteractingRemovalTag = FGameplayTag::RequestGameplayTag("State.InteractingRemoval");
 }
 
-void UARTGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled)
+void UARTGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle,
+                                     const FGameplayAbilityActorInfo* ActorInfo,
+                                     const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility,
+                                     bool bWasCancelled)
 {
 	Super::EndAbility(Handle, ActorInfo, ActivationInfo, bReplicateEndAbility, bWasCancelled);
 	AbilityEnd.Broadcast();
@@ -39,7 +42,8 @@ void UARTGameplayAbility::OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo
 
 	if (bActivateAbilityOnGranted)
 	{
-		bool ActivatedAbility = ActorInfo->AbilitySystemComponent->TryActivateAbility(Spec.Handle, bAllowRemoteGrantingActivation);
+		bool ActivatedAbility = ActorInfo->AbilitySystemComponent->TryActivateAbility(
+			Spec.Handle, bAllowRemoteGrantingActivation);
 	}
 
 	//for charged ability
@@ -49,10 +53,12 @@ void UARTGameplayAbility::OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo
 	}
 
 	const FGameplayTagContainer* CDTags = GetCooldownTags();
-	if (CDTags) {
+	if (CDTags)
+	{
 		UAbilitySystemComponent* const AbilitySystemComponent = ActorInfo->AbilitySystemComponent.Get();
 		check(AbilitySystemComponent != nullptr);
-		AbilitySystemComponent->RegisterGameplayTagEvent(CDTags->GetByIndex(0), EGameplayTagEventType::AnyCountChange).AddUObject(this, &UARTGameplayAbility::OnCooldownTagEventCallback);
+		AbilitySystemComponent->RegisterGameplayTagEvent(CDTags->GetByIndex(0), EGameplayTagEventType::AnyCountChange).
+		                        AddUObject(this, &UARTGameplayAbility::OnCooldownTagEventCallback);
 	}
 
 	//re-check ability trigger when given, this is needed if the ability is given via a GameplayEffect and need to recheck trigger conditions
@@ -64,16 +70,17 @@ void UARTGameplayAbility::OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo
 
 		if (TriggerData.TriggerSource != EGameplayAbilityTriggerSource::GameplayEvent)
 		{
-
 			if (ActorInfo->AbilitySystemComponent->GetTagCount(TriggerData.TriggerTag))
 			{
-				bool ActivatedAbility = ActorInfo->AbilitySystemComponent->TryActivateAbility(Spec.Handle, bAllowRemoteGrantingActivation);
+				bool ActivatedAbility = ActorInfo->AbilitySystemComponent->TryActivateAbility(
+					Spec.Handle, bAllowRemoteGrantingActivation);
 			}
 		}
 	}
 }
 
-FGameplayAbilityTargetDataHandle UARTGameplayAbility::MakeGameplayAbilityTargetDataHandleFromActorArray(const TArray<AActor*> TargetActors)
+FGameplayAbilityTargetDataHandle UARTGameplayAbility::MakeGameplayAbilityTargetDataHandleFromActorArray(
+	const TArray<AActor*> TargetActors)
 {
 	if (TargetActors.Num() > 0)
 	{
@@ -85,7 +92,8 @@ FGameplayAbilityTargetDataHandle UARTGameplayAbility::MakeGameplayAbilityTargetD
 	return FGameplayAbilityTargetDataHandle();
 }
 
-FGameplayAbilityTargetDataHandle UARTGameplayAbility::MakeGameplayAbilityTargetDataHandleFromHitResults(const TArray<FHitResult> HitResults)
+FGameplayAbilityTargetDataHandle UARTGameplayAbility::MakeGameplayAbilityTargetDataHandleFromHitResults(
+	const TArray<FHitResult> HitResults)
 {
 	FGameplayAbilityTargetDataHandle TargetData;
 
@@ -98,7 +106,8 @@ FGameplayAbilityTargetDataHandle UARTGameplayAbility::MakeGameplayAbilityTargetD
 	return TargetData;
 }
 
-FARTGameplayEffectContainerSpec UARTGameplayAbility::MakeEffectContainerSpecFromContainer(const FARTGameplayEffectContainer& Container, const FGameplayEventData& EventData, int32 OverrideGameplayLevel)
+FARTGameplayEffectContainerSpec UARTGameplayAbility::MakeEffectContainerSpecFromContainer(
+	const FARTGameplayEffectContainer& Container, const FGameplayEventData& EventData, int32 OverrideGameplayLevel)
 {
 	// First figure out our actor info
 	FARTGameplayEffectContainerSpec ReturnSpec;
@@ -130,13 +139,15 @@ FARTGameplayEffectContainerSpec UARTGameplayAbility::MakeEffectContainerSpecFrom
 		// Build GameplayEffectSpecs for each applied effect
 		for (const TSubclassOf<UGameplayEffect>& EffectClass : Container.TargetGameplayEffectClasses)
 		{
-			ReturnSpec.TargetGameplayEffectSpecs.Add(MakeOutgoingGameplayEffectSpec(EffectClass, OverrideGameplayLevel));
+			ReturnSpec.TargetGameplayEffectSpecs.
+			           Add(MakeOutgoingGameplayEffectSpec(EffectClass, OverrideGameplayLevel));
 		}
 	}
 	return ReturnSpec;
 }
 
-FARTGameplayEffectContainerSpec UARTGameplayAbility::MakeEffectContainerSpec(FGameplayTag ContainerTag, const FGameplayEventData& EventData, int32 OverrideGameplayLevel)
+FARTGameplayEffectContainerSpec UARTGameplayAbility::MakeEffectContainerSpec(
+	FGameplayTag ContainerTag, const FGameplayEventData& EventData, int32 OverrideGameplayLevel)
 {
 	FARTGameplayEffectContainer* FoundContainer = EffectContainerMap.Find(ContainerTag);
 
@@ -147,7 +158,8 @@ FARTGameplayEffectContainerSpec UARTGameplayAbility::MakeEffectContainerSpec(FGa
 	return FARTGameplayEffectContainerSpec();
 }
 
-TArray<FActiveGameplayEffectHandle> UARTGameplayAbility::ApplyEffectContainerSpec(const FARTGameplayEffectContainerSpec& ContainerSpec)
+TArray<FActiveGameplayEffectHandle> UARTGameplayAbility::ApplyEffectContainerSpec(
+	const FARTGameplayEffectContainerSpec& ContainerSpec)
 {
 	TArray<FActiveGameplayEffectHandle> AllEffects;
 
@@ -159,12 +171,14 @@ TArray<FActiveGameplayEffectHandle> UARTGameplayAbility::ApplyEffectContainerSpe
 	return AllEffects;
 }
 
-UObject* UARTGameplayAbility::K2_GetSourceObject(FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo& ActorInfo) const
+UObject* UARTGameplayAbility::K2_GetSourceObject(FGameplayAbilitySpecHandle Handle,
+                                                 const FGameplayAbilityActorInfo& ActorInfo) const
 {
 	return GetSourceObject(Handle, &ActorInfo);
 }
 
-bool UARTGameplayAbility::BatchRPCTryActivateAbility(FGameplayAbilitySpecHandle InAbilityHandle, bool EndAbilityImmediately)
+bool UARTGameplayAbility::BatchRPCTryActivateAbility(FGameplayAbilitySpecHandle InAbilityHandle,
+                                                     bool EndAbilityImmediately)
 {
 	UARTAbilitySystemComponent* GSASC = Cast<UARTAbilitySystemComponent>(GetAbilitySystemComponentFromActorInfo());
 	if (GSASC)
@@ -187,7 +201,8 @@ void UARTGameplayAbility::ExternalEndAbility()
 FString UARTGameplayAbility::GetCurrentPredictionKeyStatus()
 {
 	UAbilitySystemComponent* ASC = GetAbilitySystemComponentFromActorInfo();
-	return ASC->ScopedPredictionKey.ToString() + " is valid for more prediction: " + (ASC->ScopedPredictionKey.IsValidForMorePrediction() ? TEXT("true") : TEXT("false"));
+	return ASC->ScopedPredictionKey.ToString() + " is valid for more prediction: " + (
+		ASC->ScopedPredictionKey.IsValidForMorePrediction() ? TEXT("true") : TEXT("false"));
 }
 
 bool UARTGameplayAbility::IsPredictionKeyValidForMorePrediction() const
@@ -196,7 +211,11 @@ bool UARTGameplayAbility::IsPredictionKeyValidForMorePrediction() const
 	return ASC->ScopedPredictionKey.IsValidForMorePrediction();
 }
 
-bool UARTGameplayAbility::CanActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayTagContainer* SourceTAART, const FGameplayTagContainer* TargetTAART, OUT FGameplayTagContainer* OptionalRelevantTAART) const
+bool UARTGameplayAbility::CanActivateAbility(const FGameplayAbilitySpecHandle Handle,
+                                             const FGameplayAbilityActorInfo* ActorInfo,
+                                             const FGameplayTagContainer* SourceTAART,
+                                             const FGameplayTagContainer* TargetTAART,
+                                             OUT FGameplayTagContainer* OptionalRelevantTAART) const
 {
 	if (bCannotActivateWhileInteracting)
 	{
@@ -211,36 +230,41 @@ bool UARTGameplayAbility::CanActivateAbility(const FGameplayAbilitySpecHandle Ha
 	{
 		AARTSurvivor* Hero = Cast<AARTSurvivor>(ActorInfo->AvatarActor);
 
-		if (Hero && Hero->GetCurrentWeapon() && (UObject*)Hero->GetCurrentWeapon() == GetSourceObject(Handle, ActorInfo))
+		if (Hero && Hero->GetCurrentWeapon() && static_cast<UObject*>(Hero->GetCurrentWeapon()) == GetSourceObject(
+			Handle, ActorInfo))
 		{
 			return Super::CanActivateAbility(Handle, ActorInfo, SourceTAART, TargetTAART, OptionalRelevantTAART);
 		}
-		else
-		{
-			return false;
-		}
+		return false;
 	}
 	return Super::CanActivateAbility(Handle, ActorInfo, SourceTAART, TargetTAART, OptionalRelevantTAART);
 }
 
-bool UARTGameplayAbility::CheckCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, OUT FGameplayTagContainer* OptionalRelevantTAART) const
+bool UARTGameplayAbility::CheckCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
+                                    OUT FGameplayTagContainer* OptionalRelevantTAART) const
 {
 	return Super::CheckCost(Handle, ActorInfo, OptionalRelevantTAART) && ARTCheckCost(Handle, *ActorInfo);
 }
 
-void UARTGameplayAbility::ApplyCooldown(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo) const
+void UARTGameplayAbility::ApplyCooldown(const FGameplayAbilitySpecHandle Handle,
+                                        const FGameplayAbilityActorInfo* ActorInfo,
+                                        const FGameplayAbilityActivationInfo ActivationInfo) const
 {
 	UGameplayEffect* CooldownGE = GetCooldownGameplayEffect();
 	if (CooldownGE)
 	{
-		FGameplayEffectSpecHandle SpecHandle = MakeOutgoingGameplayEffectSpec(CooldownGE->GetClass(), GetAbilityLevel());
+		FGameplayEffectSpecHandle SpecHandle =
+			MakeOutgoingGameplayEffectSpec(CooldownGE->GetClass(), GetAbilityLevel());
 		SpecHandle.Data.Get()->DynamicGrantedTags.AppendTags(CooldownTags);
-		SpecHandle.Data.Get()->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Data.Cooldown")), CooldownDuration.GetValueAtLevel(GetAbilityLevel()));
+		SpecHandle.Data.Get()->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Data.Cooldown")),
+		                                               CooldownDuration.GetValueAtLevel(GetAbilityLevel()));
 		ApplyGameplayEffectSpecToOwner(Handle, ActorInfo, ActivationInfo, SpecHandle);
 	}
 }
 
-bool UARTGameplayAbility::CheckCooldown(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, OUT FGameplayTagContainer* OptionalRelevantTags /* = nullptr */) const
+bool UARTGameplayAbility::CheckCooldown(const FGameplayAbilitySpecHandle Handle,
+                                        const FGameplayAbilityActorInfo* ActorInfo,
+                                        OUT FGameplayTagContainer* OptionalRelevantTags /* = nullptr */) const
 {
 	if (AbilityCharge > 1)
 	{
@@ -262,7 +286,7 @@ bool UARTGameplayAbility::CheckCooldown(const FGameplayAbilitySpecHandle Handle,
 		}
 		return true;
 	}
-	
+
 	return Super::CheckCooldown(Handle, ActorInfo, OptionalRelevantTags);
 }
 
@@ -278,9 +302,12 @@ const FGameplayTagContainer* UARTGameplayAbility::GetCooldownTags() const
 	return MutableTags;
 }
 
-void UARTGameplayAbility::CommitExecute(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo)
+void UARTGameplayAbility::CommitExecute(const FGameplayAbilitySpecHandle Handle,
+                                        const FGameplayAbilityActorInfo* ActorInfo,
+                                        const FGameplayAbilityActivationInfo ActivationInfo)
 {
-	if (CurrentCharges > 0) {
+	if (CurrentCharges > 0)
+	{
 		CurrentCharges -= 1;
 	}
 	Super::CommitExecute(Handle, ActorInfo, ActivationInfo);
@@ -297,12 +324,14 @@ void UARTGameplayAbility::OnCooldownTagEventCallback(const FGameplayTag Callback
 	}
 }
 
-bool UARTGameplayAbility::ARTCheckCost_Implementation(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo& ActorInfo) const
+bool UARTGameplayAbility::ARTCheckCost_Implementation(const FGameplayAbilitySpecHandle Handle,
+                                                      const FGameplayAbilityActorInfo& ActorInfo) const
 {
 	return true;
 }
 
-void UARTGameplayAbility::ApplyCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo) const
+void UARTGameplayAbility::ApplyCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
+                                    const FGameplayAbilityActivationInfo ActivationInfo) const
 {
 	ARTApplyCost(Handle, *ActorInfo, ActivationInfo);
 	Super::ApplyCost(Handle, ActorInfo, ActivationInfo);
@@ -346,7 +375,7 @@ void UARTGameplayAbility::SendTargetDataToServer(const FGameplayAbilityTargetDat
 		UAbilitySystemComponent* ASC = CurrentActorInfo->AbilitySystemComponent.Get();
 		check(ASC);
 
-		FScopedPredictionWindow	ScopedPrediction(ASC, IsPredictingClient());
+		FScopedPredictionWindow ScopedPrediction(ASC, IsPredictingClient());
 
 		FGameplayTag ApplicationTag; // Fixme: where would this be useful?
 		CurrentActorInfo->AbilitySystemComponent->CallServerSetReplicatedTargetData(CurrentSpecHandle,
@@ -386,13 +415,15 @@ void UARTGameplayAbility::SetCurrentMontageForMesh(USkeletalMeshComponent* InMes
 	}
 }
 
-TArray<FActiveGameplayEffectHandle> UARTGameplayAbility::ApplyEffectContainer(FGameplayTag ContainerTag, const FGameplayEventData& EventData, int32 OverrideGameplayLevel /*= -1*/)
+TArray<FActiveGameplayEffectHandle> UARTGameplayAbility::ApplyEffectContainer(
+	FGameplayTag ContainerTag, const FGameplayEventData& EventData, int32 OverrideGameplayLevel /*= -1*/)
 {
 	FARTGameplayEffectContainerSpec Spec = MakeEffectContainerSpec(ContainerTag, EventData, OverrideGameplayLevel);
 	return ApplyEffectContainerSpec(Spec);
 }
 
-bool UARTGameplayAbility::FindAbillityMeshMontage(USkeletalMeshComponent* InMesh, FAbilityMeshMontage& InAbilityMeshMontage)
+bool UARTGameplayAbility::FindAbillityMeshMontage(USkeletalMeshComponent* InMesh,
+                                                  FAbilityMeshMontage& InAbilityMeshMontage)
 {
 	for (FAbilityMeshMontage& MeshMontage : CurrentAbilityMeshMontages)
 	{
@@ -410,18 +441,21 @@ void UARTGameplayAbility::MontageJumpToSectionForMesh(USkeletalMeshComponent* In
 {
 	check(CurrentActorInfo);
 
-	UARTAbilitySystemComponent* const AbilitySystemComponent = Cast<UARTAbilitySystemComponent>(GetAbilitySystemComponentFromActorInfo_Checked());
+	UARTAbilitySystemComponent* const AbilitySystemComponent = Cast<UARTAbilitySystemComponent>(
+		GetAbilitySystemComponentFromActorInfo_Checked());
 	if (AbilitySystemComponent->IsAnimatingAbilityForAnyMesh(this))
 	{
 		AbilitySystemComponent->CurrentMontageJumpToSectionForMesh(InMesh, SectionName);
 	}
 }
 
-void UARTGameplayAbility::MontageSetNextSectionNameForMesh(USkeletalMeshComponent* InMesh, FName FromSectionName, FName ToSectionName)
+void UARTGameplayAbility::MontageSetNextSectionNameForMesh(USkeletalMeshComponent* InMesh, FName FromSectionName,
+                                                           FName ToSectionName)
 {
 	check(CurrentActorInfo);
 
-	UARTAbilitySystemComponent* const AbilitySystemComponent = Cast<UARTAbilitySystemComponent>(GetAbilitySystemComponentFromActorInfo_Checked());
+	UARTAbilitySystemComponent* const AbilitySystemComponent = Cast<UARTAbilitySystemComponent>(
+		GetAbilitySystemComponentFromActorInfo_Checked());
 	if (AbilitySystemComponent->IsAnimatingAbilityForAnyMesh(this))
 	{
 		AbilitySystemComponent->CurrentMontageSetNextSectionNameForMesh(InMesh, FromSectionName, ToSectionName);
@@ -432,7 +466,8 @@ void UARTGameplayAbility::MontageStopForMesh(USkeletalMeshComponent* InMesh, flo
 {
 	check(CurrentActorInfo);
 
-	UARTAbilitySystemComponent* const AbilitySystemComponent = Cast<UARTAbilitySystemComponent>(CurrentActorInfo->AbilitySystemComponent.Get());
+	UARTAbilitySystemComponent* const AbilitySystemComponent = Cast<UARTAbilitySystemComponent>(
+		CurrentActorInfo->AbilitySystemComponent.Get());
 	if (AbilitySystemComponent != nullptr)
 	{
 		// We should only stop the current montage if we are the animating ability
@@ -447,7 +482,8 @@ void UARTGameplayAbility::MontageStopForAllMeshes(float OverrideBlendOutTime)
 {
 	check(CurrentActorInfo);
 
-	UARTAbilitySystemComponent* const AbilitySystemComponent = Cast<UARTAbilitySystemComponent>(CurrentActorInfo->AbilitySystemComponent.Get());
+	UARTAbilitySystemComponent* const AbilitySystemComponent = Cast<UARTAbilitySystemComponent>(
+		CurrentActorInfo->AbilitySystemComponent.Get());
 	if (AbilitySystemComponent != nullptr)
 	{
 		if (AbilitySystemComponent->IsAnimatingAbilityForAnyMesh(this))

@@ -11,21 +11,32 @@ class UItem;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnInventoryUpdated);
 
 UENUM(BlueprintType)
-enum class EItemAddResult : uint8 {
+enum class EItemAddResult : uint8
+{
 	IAR_NoItemAdded UMETA(DisplayName = "No items added"),
 	IAR_SomeItemAdded UMETA(DisplayName = "Some items added"),
 	IAR_AllItemAdded UMETA(DisplayName = "All items added")
 };
 
 USTRUCT(BlueprintType)
-struct FItemAddResult {
+struct FItemAddResult
+{
 	GENERATED_BODY()
 
 public:
 
-	FItemAddResult() {};
-	FItemAddResult(int32 InItemQuantity) : AmountToGive(InItemQuantity), ActualAmountGiven(0) {};
-	FItemAddResult(int32 InItemQuantity, int32 InQuantityAdded) : AmountToGive(InItemQuantity), ActualAmountGiven(InQuantityAdded) {};
+	FItemAddResult()
+	{
+	};
+
+	FItemAddResult(int32 InItemQuantity) : AmountToGive(InItemQuantity), ActualAmountGiven(0)
+	{
+	};
+
+	FItemAddResult(int32 InItemQuantity, int32 InQuantityAdded) : AmountToGive(InItemQuantity),
+	                                                              ActualAmountGiven(InQuantityAdded)
+	{
+	};
 
 	UPROPERTY(BlueprintReadOnly, Category = "Item Add Result")
 	int32 AmountToGive;
@@ -39,14 +50,16 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Item Add Result")
 	FText ErrorText;
 
-	static FItemAddResult AddedNone(const int32 InItemQuantity, const FText& ErrorText) {
+	static FItemAddResult AddedNone(const int32 InItemQuantity, const FText& ErrorText)
+	{
 		FItemAddResult AddedNonResult(InItemQuantity);
 		AddedNonResult.Result = EItemAddResult::IAR_NoItemAdded;
 		AddedNonResult.ErrorText = ErrorText;
 		return AddedNonResult;
 	}
 
-	static FItemAddResult AddedSome(const int32 InItemQuantity, const int32 ActualAmountGiven, const FText& ErrorText) {
+	static FItemAddResult AddedSome(const int32 InItemQuantity, const int32 ActualAmountGiven, const FText& ErrorText)
+	{
 		FItemAddResult AddedSomeResult(InItemQuantity, ActualAmountGiven);
 		AddedSomeResult.Result = EItemAddResult::IAR_SomeItemAdded;
 		AddedSomeResult.ErrorText = ErrorText;
@@ -54,7 +67,8 @@ public:
 		return AddedSomeResult;
 	}
 
-	static FItemAddResult AddedAll(const int32 InItemQuantity) {
+	static FItemAddResult AddedAll(const int32 InItemQuantity)
+	{
 		FItemAddResult AddedAllResult(InItemQuantity, InItemQuantity);
 		AddedAllResult.Result = EItemAddResult::IAR_AllItemAdded;
 
@@ -85,8 +99,9 @@ protected:
 
 protected:
 
-	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const;
-	virtual bool ReplicateSubobjects(class UActorChannel* Channel, class FOutBunch* Bunch, FReplicationFlags* RepFlags);
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual bool ReplicateSubobjects(class UActorChannel* Channel, class FOutBunch* Bunch,
+	                                 FReplicationFlags* RepFlags) override;
 
 public:
 	UInventoryComponent();
@@ -116,7 +131,7 @@ public:
 	TArray<UItem*> FindItemsByClass(TSubclassOf<UItem> ItemClass) const;
 
 	UFUNCTION(BlueprintPure, Category = "Inventory")
-	FORCEINLINE float  GetWeightCapacity() const { return WeightCapacity;};
+	FORCEINLINE float GetWeightCapacity() const { return WeightCapacity; };
 
 	UFUNCTION(BlueprintPure, Category = "Inventory")
 	FORCEINLINE int32 GetCapacity() const { return Capacity; };
@@ -136,7 +151,7 @@ public:
 	UFUNCTION(Client, Reliable)
 	void ClientRefreshInventory();
 
-private: 
+private:
 	UPROPERTY()
 	int32 ReplicatedItemsKey;
 

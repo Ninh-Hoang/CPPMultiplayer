@@ -3,7 +3,8 @@
 
 #include "Blueprint/AsyncTaskEffectStackChanged.h"
 
-UAsyncTaskEffectStackChanged* UAsyncTaskEffectStackChanged::ListenForGameplayEffectStackChange(UAbilitySystemComponent* AbilitySystemComponent, FGameplayTagContainer InEffectGameplayTags)
+UAsyncTaskEffectStackChanged* UAsyncTaskEffectStackChanged::ListenForGameplayEffectStackChange(
+	UAbilitySystemComponent* AbilitySystemComponent, FGameplayTagContainer InEffectGameplayTags)
 {
 	UAsyncTaskEffectStackChanged* ListenForGameplayEffectStackChange = NewObject<UAsyncTaskEffectStackChanged>();
 	ListenForGameplayEffectStackChange->ASC = AbilitySystemComponent;
@@ -15,7 +16,8 @@ UAsyncTaskEffectStackChanged* UAsyncTaskEffectStackChanged::ListenForGameplayEff
 		return nullptr;
 	}
 
-	AbilitySystemComponent->OnActiveGameplayEffectAddedDelegateToSelf.AddUObject(ListenForGameplayEffectStackChange, &UAsyncTaskEffectStackChanged::OnActiveGameplayEffectAddedCallback);
+	AbilitySystemComponent->OnActiveGameplayEffectAddedDelegateToSelf.AddUObject(
+		ListenForGameplayEffectStackChange, &UAsyncTaskEffectStackChanged::OnActiveGameplayEffectAddedCallback);
 	//AbilitySystemComponent->OnAnyGameplayEffectRemovedDelegate().AddUObject(ListenForGameplayEffectStackChange, &UAsyncTaskEffectStackChanged::OnRemoveGameplayEffectCallback);
 
 	return ListenForGameplayEffectStackChange;
@@ -33,7 +35,9 @@ void UAsyncTaskEffectStackChanged::EndTask()
 	MarkPendingKill();
 }
 
-void UAsyncTaskEffectStackChanged::OnActiveGameplayEffectAddedCallback(UAbilitySystemComponent* Target, const FGameplayEffectSpec& SpecApplied, FActiveGameplayEffectHandle ActiveHandle)
+void UAsyncTaskEffectStackChanged::OnActiveGameplayEffectAddedCallback(UAbilitySystemComponent* Target,
+                                                                       const FGameplayEffectSpec& SpecApplied,
+                                                                       FActiveGameplayEffectHandle ActiveHandle)
 {
 	FGameplayTagContainer AssetTags;
 	SpecApplied.GetAllAssetTags(AssetTags);
@@ -44,7 +48,8 @@ void UAsyncTaskEffectStackChanged::OnActiveGameplayEffectAddedCallback(UAbilityS
 	{
 		if (AssetTags.HasTagExact(EffectGameplayTag) || GrantedTags.HasTagExact(EffectGameplayTag))
 		{
-			ASC->OnGameplayEffectStackChangeDelegate(ActiveHandle)->AddUObject(this, &UAsyncTaskEffectStackChanged::GameplayEffectStackChanged);
+			ASC->OnGameplayEffectStackChangeDelegate(ActiveHandle)->AddUObject(
+				this, &UAsyncTaskEffectStackChanged::GameplayEffectStackChanged);
 			HandleTagMap.Add(ActiveHandle, EffectGameplayTag);
 			OnGameplayEffectStackChange.Broadcast(EffectGameplayTag, ActiveHandle, 1, 0);
 		}
@@ -69,7 +74,8 @@ void UAsyncTaskEffectStackChanged::OnRemoveGameplayEffectCallback(const FActiveG
 }
 
 
-void UAsyncTaskEffectStackChanged::GameplayEffectStackChanged(FActiveGameplayEffectHandle EffectHandle, int32 NewStackCount, int32 PreviousStackCount)
+void UAsyncTaskEffectStackChanged::GameplayEffectStackChanged(FActiveGameplayEffectHandle EffectHandle,
+                                                              int32 NewStackCount, int32 PreviousStackCount)
 {
 	//THIS PIECE OF CODE IS KEPT INCASE Using TMap with struct is weird, the first method might be handy later
 	FGameplayTagContainer Tags;

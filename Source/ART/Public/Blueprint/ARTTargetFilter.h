@@ -14,18 +14,18 @@
  * 
  */
 
- /** Set rather it is possible to target self */
+/** Set rather it is possible to target self */
 UENUM(BlueprintType)
 namespace EARTTargetSelectionFilter
 {
 	enum Type
 	{
-		Everything			UMETA(DisplayName = "Target Everything"),
-		Damageable		    UMETA(DisplayName = "Targe Damageable"),
-		Pawns	            UMETA(DisplayName = "Target Pawns"),
-		Players				UMETA(DisplayName = "Target Players"),
-		AIPawns				UMETA(DisplayName = "Target AI Pawns"),
-		Instigator			UMETA(DisplayName = "Target Self")
+		Everything UMETA(DisplayName = "Target Everything"),
+		Damageable UMETA(DisplayName = "Targe Damageable"),
+		Pawns UMETA(DisplayName = "Target Pawns"),
+		Players UMETA(DisplayName = "Target Players"),
+		AIPawns UMETA(DisplayName = "Target AI Pawns"),
+		Instigator UMETA(DisplayName = "Target Self")
 	};
 }
 
@@ -35,15 +35,15 @@ struct ART_API FARTTargetFilter : public FGameplayTargetDataFilter
 {
 	GENERATED_USTRUCT_BODY()
 
-		virtual ~FARTTargetFilter()
+	virtual ~FARTTargetFilter()
 	{
 	}
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (ExposeOnSpawn = true), Category = Filter)
-		AActor* SourceActor;
+	AActor* SourceActor;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (ExposeOnSpawn = true), Category = Filter)
-		TEnumAsByte<EARTTargetSelectionFilter::Type> ActorTypeFilter;
+	TEnumAsByte<EARTTargetSelectionFilter::Type> ActorTypeFilter;
 
 	virtual bool FilterPassesForActor(const AActor* ActorToBeFiltered) const override
 	{
@@ -53,13 +53,15 @@ struct ART_API FARTTargetFilter : public FGameplayTargetDataFilter
 	/** Returns true if the actor passes the filter and will be targeted */
 	bool TargetPassesFilter(const AActor* TargetActor) const
 	{
-		if (!SelfActor || !TargetActor) {
+		if (!SelfActor || !TargetActor)
+		{
 			return false;
 		}
 
 		bool bPassFilter = true;
 
-		if (RequiredActorClass != nullptr) {
+		if (RequiredActorClass != nullptr)
+		{
 			bPassFilter = RequiredActorClass == TargetActor->GetClass();
 		}
 
@@ -132,7 +134,8 @@ struct ART_API FARTTargetFilterTeamID : public FGameplayTargetDataFilter
 	{
 		bool bPassFilter = true;
 
-		if (RequiredActorClass != nullptr) {
+		if (RequiredActorClass != nullptr)
+		{
 			bPassFilter = RequiredActorClass == TargetActor->GetClass();
 		}
 
@@ -140,7 +143,7 @@ struct ART_API FARTTargetFilterTeamID : public FGameplayTargetDataFilter
 		{
 			bPassFilter = false;
 		}
-		else 
+		else
 		{
 			AARTCharacterBase* SourceCharacter = Cast<AARTCharacterBase>(SourceActor);
 			if (TeamAttitude != (SourceCharacter->GetTeamAttitudeTowards(*TargetActor)))
@@ -171,4 +174,3 @@ struct ART_API FARTTargetFilterTeamID : public FGameplayTargetDataFilter
 		return bReverseFilter ^ bPassFilter;
 	}
 };
-

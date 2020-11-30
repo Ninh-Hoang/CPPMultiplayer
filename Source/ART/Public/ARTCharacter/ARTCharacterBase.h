@@ -19,11 +19,13 @@ struct ART_API FARTDamageNumber
 {
 	GENERATED_USTRUCT_BODY()
 
-		float DamageAmount;
+	float DamageAmount;
 
 	FGameplayTagContainer Tags;
 
-	FARTDamageNumber() {}
+	FARTDamageNumber()
+	{
+	}
 
 	FARTDamageNumber(float InDamageAmount, FGameplayTagContainer InTags) : DamageAmount(InDamageAmount)
 	{
@@ -33,7 +35,8 @@ struct ART_API FARTDamageNumber
 };
 
 UCLASS()
-class ART_API AARTCharacterBase : public AVoxelCharacter, public IAbilitySystemInterface, public IGenericTeamAgentInterface
+class ART_API AARTCharacterBase : public AVoxelCharacter, public IAbilitySystemInterface,
+                                  public IGenericTeamAgentInterface
 {
 	GENERATED_BODY()
 
@@ -154,7 +157,7 @@ protected:
 	//movement
 	void MoveForward(float AxisValue);
 	void MoveRight(float AxisValue);
-	void Jump();
+	virtual void Jump() override;
 
 	//camera control
 	void LookRight(float AxisValue);
@@ -162,9 +165,8 @@ protected:
 
 	//crouch
 	void BeginCrouch();
-	void EndCrouch();	
+	void EndCrouch();
 
-	
 
 	//bind ASC input
 	bool ASCInputBound = false;
@@ -172,7 +174,7 @@ protected:
 
 	virtual void Restart() override;
 
-public:	
+public:
 	// Switch on AbilityID to return individual ability levels. Hardcoded to 1 for every ability in this project.
 	UFUNCTION(BlueprintCallable, Category = "ART|Character")
 	virtual int32 GetAbilityLevel(EARTAbilityInputID AbilityID) const;

@@ -11,7 +11,8 @@
  */
 
 UENUM(BlueprintType)
-enum class EWaveState : uint8 {
+enum class EWaveState : uint8
+{
 	WaitingToStart,
 	WaveInProgress,
 

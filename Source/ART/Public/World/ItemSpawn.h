@@ -15,7 +15,8 @@ class UDataTable;
 class APickup;
 
 USTRUCT(BlueprintType)
-struct FLootTableRow : public FTableRowBase {
+struct FLootTableRow : public FTableRowBase
+{
 	GENERATED_BODY()
 
 public:
@@ -33,7 +34,7 @@ class ART_API AItemSpawn : public ATargetPoint
 
 public:
 	AItemSpawn();
-	
+
 	UPROPERTY(EditAnywhere, Category = "Loot")
 	UDataTable* LootTable;
 
@@ -57,5 +58,4 @@ protected:
 
 	UFUNCTION()
 	void OnItemTaken(AActor* DestroyedActor);
-
 };

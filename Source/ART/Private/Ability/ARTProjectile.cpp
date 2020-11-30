@@ -18,7 +18,4 @@ AARTProjectile::AARTProjectile()
 
 	//TODO change this to a better value
 	NetUpdateFrequency = 100.0f;
-
 }
-
-

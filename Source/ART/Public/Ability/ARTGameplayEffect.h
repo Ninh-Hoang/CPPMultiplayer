@@ -40,18 +40,20 @@ public:
 
 	/** Default Constructor */
 	FGameplayEffectEvent()
-		:GameplayEventMagnitudeCalculation(EGameplayEffectEventMagnitude::ScalableFloat)
+		: GameplayEventMagnitudeCalculation(EGameplayEffectEventMagnitude::ScalableFloat)
 	{
 	}
+
 	/** Constructors for setting value in code (for automation tests) */
 	FGameplayEffectEvent(const FScalableFloat& Value)
-		:GameplayEventMagnitudeCalculation(EGameplayEffectEventMagnitude::ScalableFloat)
-		, ScalableFloatEventMagnitude(Value)
+		: GameplayEventMagnitudeCalculation(EGameplayEffectEventMagnitude::ScalableFloat)
+		  , ScalableFloatEventMagnitude(Value)
 	{
 	}
+
 	FGameplayEffectEvent(const FSetByCallerFloat& Value)
 		: GameplayEventMagnitudeCalculation(EGameplayEffectEventMagnitude::SetByCaller)
-		, SetByCallerEventMagnitude(Value)
+		  , SetByCallerEventMagnitude(Value)
 	{
 	}
 
@@ -65,11 +67,16 @@ public:
 	 * @return True if the calculation was successful, false if it was not
 	 */
 
-	bool AttemptCalculateMagnitude(const FGameplayEffectSpec& InRelevantSpec, OUT float& OutCalculatedMagnitude, bool WarnIfSetByCallerFail = true, float DefaultSetbyCaller = 0.f) const;
+	bool AttemptCalculateMagnitude(const FGameplayEffectSpec& InRelevantSpec, OUT float& OutCalculatedMagnitude,
+	                               bool WarnIfSetByCallerFail = true, float DefaultSetbyCaller = 0.f) const;
 
-	bool AttemptReturnGameplayEventTags(const FGameplayTagContainer* InstigatorTags, const FGameplayTagContainer* TargetTags, OUT FGameplayTag& InEventTag, OUT FGameplayTagContainer& InInstigatorTags, OUT FGameplayTagContainer& InTargetTags);
+	bool AttemptReturnGameplayEventTags(const FGameplayTagContainer* InstigatorTags,
+	                                    const FGameplayTagContainer* TargetTags, OUT FGameplayTag& InEventTag,
+	                                    OUT FGameplayTagContainer& InInstigatorTags,
+	                                    OUT FGameplayTagContainer& InTargetTags);
 
-	bool AttempAssignGameplayEventDataActors(AActor* SourceActor, AActor* TargetActor, OUT AActor*& Instigator, OUT AActor*& Target);
+	bool AttempAssignGameplayEventDataActors(AActor* SourceActor, AActor* TargetActor, OUT AActor*& Instigator,
+	                                         OUT AActor*& Target);
 
 	/** Returns the magnitude as it was entered in data. Only applies to ScalableFloat or any other type that can return data without context */
 	bool GetStaticMagnitudeIfPossible(float InLevel, float& OutMagnitude, const FString* ContextString = nullptr) const;
@@ -79,7 +86,7 @@ public:
 
 	/** Returns SetByCaller data structure, for inspection purposes */
 	const FSetByCallerFloat& GetSetByCallerFloat() const { return SetByCallerEventMagnitude; }
-	
+
 	/** Implementing Serialize to clear references to assets that are not needed */
 	bool Serialize(FArchive& Ar);
 
@@ -126,6 +133,4 @@ public:
 	TArray<FGameplayEffectEvent> GameplayEvents;
 
 protected:
-
-
 };

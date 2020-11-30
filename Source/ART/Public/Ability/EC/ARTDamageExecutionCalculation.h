@@ -16,7 +16,8 @@ class ART_API UARTDamageExecutionCalculation : public UGameplayEffectExecutionCa
 public:
 	UARTDamageExecutionCalculation();
 
-	virtual void Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams, OUT FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const override;
+	virtual void Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams,
+	                                    OUT FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const override;
 
 protected:
 	float CritMultiplier;

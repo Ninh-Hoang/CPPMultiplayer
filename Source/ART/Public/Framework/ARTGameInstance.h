@@ -15,7 +15,7 @@ UCLASS()
 class ART_API UARTGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
-	
+
 
 protected:
 	IOnlineSessionPtr SessionInterface;
@@ -35,8 +35,8 @@ protected:
 	virtual void Init() override;
 
 	bool HostSession(TSharedPtr<const FUniqueNetId> UserId,
-		FName SessionName, bool bIsLAN, bool bIsPresence,
-		int32 MaxNumPlayers);
+	                 FName SessionName, bool bIsLAN, bool bIsPresence,
+	                 int32 MaxNumPlayers);
 
 	virtual void OnCreateSessionComplete(FName ServerName, bool Succeeded);
 	virtual void OnFindSessionsComplete(bool Succeeded);

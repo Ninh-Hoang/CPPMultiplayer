@@ -17,13 +17,15 @@ class UAnimInstance;
 class AARTCharacterBase;
 
 UENUM()
-enum class EWeaponType : uint8 {
+enum class EWeaponType : uint8
+{
 	WT_Range UMETA(DisplayName = "MeleeWeapon"),
 	WT_Melee UMETA(DisplayName = "RangeWeapon"),
 };
 
 UENUM()
-enum class EWeaponReadySlot: uint8 {
+enum class EWeaponReadySlot: uint8
+{
 	WRS_RightHandGun UMETA(DisplayName = "GunSocket"),
 	WRS_RightHandMelee UMETA(DisplayName = "MeleeSocket"),
 };
@@ -61,7 +63,7 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Animation")
 	UAnimMontage* EquipWeaponMontage;
-		
+
 	// Cache tags
 	FGameplayTag WeaponPrimaryInstantAbilityTag;
 	FGameplayTag WeaponSecondaryInstantAbilityTag;
@@ -70,7 +72,7 @@ protected:
 
 	virtual void BeginPlay() override;
 
-public: 
+public:
 	UFUNCTION(BlueprintCallable, Category = "ART|Animation")
 	UAnimMontage* GetEquipWeaponMontage() const;
 

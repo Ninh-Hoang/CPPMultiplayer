@@ -15,7 +15,9 @@ bool FARTGameplayEffectContainerSpec::HasValidTargets() const
 	return TargetData.Num() > 0;
 }
 
-void FARTGameplayEffectContainerSpec::AddTargets(const TArray<FGameplayAbilityTargetDataHandle>& InTargetData, const TArray<FHitResult>& HitResults, const TArray<AActor*>& TargetActors)
+void FARTGameplayEffectContainerSpec::AddTargets(const TArray<FGameplayAbilityTargetDataHandle>& InTargetData,
+                                                 const TArray<FHitResult>& HitResults,
+                                                 const TArray<AActor*>& TargetActors)
 {
 	for (const FGameplayAbilityTargetDataHandle& TD : InTargetData)
 	{
@@ -40,4 +42,3 @@ void FARTGameplayEffectContainerSpec::ClearTargets()
 {
 	TargetData.Clear();
 }
-

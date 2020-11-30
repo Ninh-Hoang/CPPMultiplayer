@@ -1,4 +1,4 @@
-	// Fill out your copyright notice in the Description page of Project Settings.
+// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "Ability/TargetActor/GATA_LineTrace.h"
@@ -64,12 +64,15 @@ void AGATA_LineTrace::Configure(
 	}
 }
 
-void AGATA_LineTrace::DoTrace(TArray<FHitResult>& HitResults, const UWorld* World, const FGameplayTargetDataFilterHandle FilterHandle, const FVector& Start, const FVector& End, FName ProfileName, const FCollisionQueryParams Params)
+void AGATA_LineTrace::DoTrace(TArray<FHitResult>& HitResults, const UWorld* World,
+                              const FGameplayTargetDataFilterHandle FilterHandle, const FVector& Start,
+                              const FVector& End, FName ProfileName, const FCollisionQueryParams Params)
 {
 	LineTraceWithFilter(HitResults, World, FilterHandle, Start, End, ProfileName, Params);
 }
 
-void AGATA_LineTrace::ShowDebugTrace(TArray<FHitResult>& HitResults, EDrawDebugTrace::Type DrawDebugType, float Duration)
+void AGATA_LineTrace::ShowDebugTrace(TArray<FHitResult>& HitResults, EDrawDebugTrace::Type DrawDebugType,
+                                     float Duration)
 {
 #if ENABLE_DRAW_DEBUG
 	if (bDebug)
@@ -87,14 +90,18 @@ void AGATA_LineTrace::ShowDebugTrace(TArray<FHitResult>& HitResults, EDrawDebugT
 			TraceEnd = CurrentTraceEnd;
 		}
 
-		DrawDebugLineTraceMulti(GetWorld(), ViewStart, TraceEnd, DrawDebugType, true, HitResults, FLinearColor::Green, FLinearColor::Red, Duration);
+		DrawDebugLineTraceMulti(GetWorld(), ViewStart, TraceEnd, DrawDebugType, true, HitResults, FLinearColor::Green,
+		                        FLinearColor::Red, Duration);
 	}
 #endif
 }
 
 #if ENABLE_DRAW_DEBUG
 // Copied from KismetTraceUtils.cpp
-void AGATA_LineTrace::DrawDebugLineTraceMulti(const UWorld* World, const FVector& Start, const FVector& End, EDrawDebugTrace::Type DrawDebugType, bool bHit, const TArray<FHitResult>& OutHits, FLinearColor TraceColor, FLinearColor TraceHitColor, float DrawTime)
+void AGATA_LineTrace::DrawDebugLineTraceMulti(const UWorld* World, const FVector& Start, const FVector& End,
+                                              EDrawDebugTrace::Type DrawDebugType, bool bHit,
+                                              const TArray<FHitResult>& OutHits, FLinearColor TraceColor,
+                                              FLinearColor TraceHitColor, float DrawTime)
 {
 	if (DrawDebugType != EDrawDebugTrace::None)
 	{
@@ -106,22 +113,23 @@ void AGATA_LineTrace::DrawDebugLineTraceMulti(const UWorld* World, const FVector
 		{
 			// Red up to the blocking hit, green thereafter
 			FVector const BlockingHitPoint = OutHits.Last().ImpactPoint;
-			::DrawDebugLine(World, Start, BlockingHitPoint, TraceColor.ToFColor(true), bPersistent, LifeTime);
-			::DrawDebugLine(World, BlockingHitPoint, End, TraceHitColor.ToFColor(true), bPersistent, LifeTime);
+			DrawDebugLine(World, Start, BlockingHitPoint, TraceColor.ToFColor(true), bPersistent, LifeTime);
+			DrawDebugLine(World, BlockingHitPoint, End, TraceHitColor.ToFColor(true), bPersistent, LifeTime);
 		}
 		else
 		{
 			// no hit means all red
-			::DrawDebugLine(World, Start, End, TraceColor.ToFColor(true), bPersistent, LifeTime);
+			DrawDebugLine(World, Start, End, TraceColor.ToFColor(true), bPersistent, LifeTime);
 		}
 
 		// draw hits
 		for (int32 HitIdx = 0; HitIdx < OutHits.Num(); ++HitIdx)
 		{
 			FHitResult const& Hit = OutHits[HitIdx];
-			::DrawDebugPoint(World, Hit.ImpactPoint, 16.0f, (Hit.bBlockingHit ? TraceColor.ToFColor(true) : TraceHitColor.ToFColor(true)), bPersistent, LifeTime);
+			DrawDebugPoint(World, Hit.ImpactPoint, 16.0f,
+			               (Hit.bBlockingHit ? TraceColor.ToFColor(true) : TraceHitColor.ToFColor(true)), bPersistent,
+			               LifeTime);
 		}
 	}
 }
 #endif // ENABLE_DRAW_DEBUG
-

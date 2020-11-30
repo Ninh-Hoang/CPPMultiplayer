@@ -12,8 +12,8 @@ UCLASS()
 class ART_API ALootBox : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ALootBox();
 
@@ -27,6 +27,4 @@ protected:
 
 	UFUNCTION(Server, Reliable, WithValidation)
 	void ServerSpawnItem();
-
-
 };

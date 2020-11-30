@@ -87,16 +87,26 @@ public:
 		UPARAM(DisplayName = "Number of Traces") int32 InNumberOfTraces = 1
 	);
 
-	virtual void SphereTraceWithFilter(TArray<FHitResult>& OutHitResults, const UWorld* World, const FGameplayTargetDataFilterHandle FilterHandle, const FVector& Start, const FVector& End, float Radius, FName ProfileName, const FCollisionQueryParams Params);
+	virtual void SphereTraceWithFilter(TArray<FHitResult>& OutHitResults, const UWorld* World,
+	                                   const FGameplayTargetDataFilterHandle FilterHandle, const FVector& Start,
+	                                   const FVector& End, float Radius, FName ProfileName,
+	                                   const FCollisionQueryParams Params);
 
 protected:
 
-	virtual void DoTrace(TArray<FHitResult>& HitResults, const UWorld* World, const FGameplayTargetDataFilterHandle FilterHandle, const FVector& Start, const FVector& End, FName ProfileName, const FCollisionQueryParams Params) override;
-	virtual void ShowDebugTrace(TArray<FHitResult>& HitResults, EDrawDebugTrace::Type DrawDebugType, float Duration = 2.0f) override;
+	virtual void DoTrace(TArray<FHitResult>& HitResults, const UWorld* World,
+	                     const FGameplayTargetDataFilterHandle FilterHandle, const FVector& Start, const FVector& End,
+	                     FName ProfileName, const FCollisionQueryParams Params) override;
+	virtual void ShowDebugTrace(TArray<FHitResult>& HitResults, EDrawDebugTrace::Type DrawDebugType,
+	                            float Duration = 2.0f) override;
 
 #if ENABLE_DRAW_DEBUG
 	// Utils for drawing result of multi line trace from KismetTraceUtils.h
-	void DrawDebugSweptSphere(const UWorld* InWorld, FVector const& Start, FVector const& End, float Radius, FColor const& Color, bool bPersistentLines = false, float LifeTime = -1.f, uint8 DepthPriority = 0);
-	void DrawDebugSphereTraceMulti(const UWorld* World, const FVector& Start, const FVector& End, float Radius, EDrawDebugTrace::Type DrawDebugType, bool bHit, const TArray<FHitResult>& OutHits, FLinearColor TraceColor, FLinearColor TraceHitColor, float DrawTime);
+	void DrawDebugSweptSphere(const UWorld* InWorld, FVector const& Start, FVector const& End, float Radius,
+	                          FColor const& Color, bool bPersistentLines = false, float LifeTime = -1.f,
+	                          uint8 DepthPriority = 0);
+	void DrawDebugSphereTraceMulti(const UWorld* World, const FVector& Start, const FVector& End, float Radius,
+	                               EDrawDebugTrace::Type DrawDebugType, bool bHit, const TArray<FHitResult>& OutHits,
+	                               FLinearColor TraceColor, FLinearColor TraceHitColor, float DrawTime);
 #endif // ENABLE_DRAW_DEBUG
 };

@@ -65,15 +65,19 @@ protected:
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	TArray<AActor*> MyTargets;
 
-	virtual void DoTrace(TArray<FHitResult>& HitResults, const UWorld* World, const FGameplayTargetDataFilterHandle FilterHandle, const FVector& Start, const FVector& End, FName ProfileName, const FCollisionQueryParams Params) override;
+	virtual void DoTrace(TArray<FHitResult>& HitResults, const UWorld* World,
+	                     const FGameplayTargetDataFilterHandle FilterHandle, const FVector& Start, const FVector& End,
+	                     FName ProfileName, const FCollisionQueryParams Params) override;
 	virtual void StartTargeting(UGameplayAbility* Ability) override;
-	virtual  TArray<FHitResult> PerformTrace(AActor* InSourceActor) override;
+	virtual TArray<FHitResult> PerformTrace(AActor* InSourceActor) override;
 
-	virtual void ShowDebugTrace(TArray<FHitResult>& HitResults, EDrawDebugTrace::Type DrawDebugType, float Duration = 2.0f) override;
+	virtual void ShowDebugTrace(TArray<FHitResult>& HitResults, EDrawDebugTrace::Type DrawDebugType,
+	                            float Duration = 2.0f) override;
 
 #if ENABLE_DRAW_DEBUG
 	// Util for drawing result of multi line trace from KismetTraceUtils.h
-	void DrawDebugLineTraceMulti(const UWorld* World, const FVector& Start, const FVector& End, EDrawDebugTrace::Type DrawDebugType, bool bHit, const TArray<FHitResult>& OutHits, FLinearColor TraceColor, FLinearColor TraceHitColor, float DrawTime);
+	void DrawDebugLineTraceMulti(const UWorld* World, const FVector& Start, const FVector& End,
+	                             EDrawDebugTrace::Type DrawDebugType, bool bHit, const TArray<FHitResult>& OutHits,
+	                             FLinearColor TraceColor, FLinearColor TraceHitColor, float DrawTime);
 #endif // ENABLE_DRAW_DEBUG
-
 };

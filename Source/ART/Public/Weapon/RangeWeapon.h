@@ -14,7 +14,8 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FWeaponAmmoChangedDelegate, int32, OldValue, int32, NewValue);
 
 UENUM()
-enum class ERangeWeaponType : uint8 {
+enum class ERangeWeaponType : uint8
+{
 	WT_Tracer UMETA(DisplayName = "TracerRangeWeapon"),
 	WT_Projectile UMETA(DisplayName = "ProjectileRangeWeapon"),
 };
@@ -111,17 +112,21 @@ protected:
 	FName MuzzleSocketName;
 
 	// How much ammo in the clip the gun starts with
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, ReplicatedUsing = OnRep_PrimaryClipAmmo, Category = "GASShooter|GSWeapon|Ammo")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, ReplicatedUsing = OnRep_PrimaryClipAmmo, Category =
+		"GASShooter|GSWeapon|Ammo")
 	int32 PrimaryClipAmmo;
 
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, ReplicatedUsing = OnRep_MaxPrimaryClipAmmo, Category = "GASShooter|GSWeapon|Ammo")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, ReplicatedUsing = OnRep_MaxPrimaryClipAmmo, Category =
+		"GASShooter|GSWeapon|Ammo")
 	int32 MaxPrimaryClipAmmo;
 
 	// How much ammo in the clip the gun starts with. Used for things like rifle grenades.
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, ReplicatedUsing = OnRep_SecondaryClipAmmo, Category = "GASShooter|GSWeapon|Ammo")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, ReplicatedUsing = OnRep_SecondaryClipAmmo, Category =
+		"GASShooter|GSWeapon|Ammo")
 	int32 SecondaryClipAmmo;
 
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, ReplicatedUsing = OnRep_MaxSecondaryClipAmmo, Category = "GASShooter|GSWeapon|Ammo")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, ReplicatedUsing = OnRep_MaxSecondaryClipAmmo, Category =
+		"GASShooter|GSWeapon|Ammo")
 	int32 MaxSecondaryClipAmmo;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "GASShooter|GSWeapon|Ammo")

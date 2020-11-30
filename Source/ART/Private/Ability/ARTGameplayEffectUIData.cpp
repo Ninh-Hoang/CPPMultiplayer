@@ -5,5 +5,4 @@
 UARTGameplayEffectUIData::UARTGameplayEffectUIData(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-
 }

@@ -107,7 +107,7 @@ protected:
 	void OnRep_Equipment();
 
 	//WEAPON STUFFS
-public: 
+public:
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	AWeapon* GetCurrentWeapon() const;
 
@@ -147,7 +147,7 @@ protected:
 
 	UFUNCTION(Server, Reliable, WithValidation)
 	void ServerAddWeaponToEquipment(TSubclassOf<AWeapon> WeaponClass);
-	
+
 	bool DoesWeaponExistInInventory(AWeapon* InWeapon);
 
 	//EQUIPMENT STUFFS

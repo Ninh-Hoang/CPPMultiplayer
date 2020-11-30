@@ -11,7 +11,8 @@
 /**
  * 
  */
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnCooldownChanged, FGameplayTag, CooldownTag, float, TimeRemaining, float, Duration, int32, Charge);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnCooldownChanged, FGameplayTag, CooldownTag, float, TimeRemaining,
+                                              float, Duration, int32, Charge);
 
 /**
  * Blueprint node to automatically register a listener for changes (Begin and End) to an array of Cooldown tags.
@@ -33,7 +34,9 @@ public:
 	// UseServerCooldown determines if the Sever's cooldown is returned in addition to the local predicted cooldown.
 	// If using ServerCooldown, TimeRemaining and Duration will return -1 to signal local predicted cooldown has begun.
 	UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true"))
-	static UAsyncTaskCooldownChanged* ListenForCooldownChange(UARTAbilitySystemComponent* AbilitySystemComponent, FGameplayTagContainer CooldownTags, bool UseServerCooldown);
+	static UAsyncTaskCooldownChanged* ListenForCooldownChange(UARTAbilitySystemComponent* AbilitySystemComponent,
+	                                                          FGameplayTagContainer CooldownTags,
+	                                                          bool UseServerCooldown);
 
 	// You must call this function manually when you want the AsyncTask to end.
 	// For UMG Widgets, you would call it in the Widget's Destruct event.
@@ -50,8 +53,11 @@ protected:
 
 	bool UseServerCooldown;
 
-	virtual void OnActiveGameplayEffectAddedCallback(UAbilitySystemComponent* Target, const FGameplayEffectSpec& SpecApplied, FActiveGameplayEffectHandle ActiveHandle);
+	virtual void OnActiveGameplayEffectAddedCallback(UAbilitySystemComponent* Target,
+	                                                 const FGameplayEffectSpec& SpecApplied,
+	                                                 FActiveGameplayEffectHandle ActiveHandle);
 	virtual void CooldownTagChanged(const FGameplayTag CooldownTag, int32 NewCount);
 
-	bool GetCooldownRemainingForTag(FGameplayTagContainer CooldownTags, float& TimeRemaining, float& CooldownDuration, int32& Charge);
+	bool GetCooldownRemainingForTag(FGameplayTagContainer CooldownTags, float& TimeRemaining, float& CooldownDuration,
+	                                int32& Charge);
 };

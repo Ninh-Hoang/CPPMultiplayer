@@ -22,14 +22,13 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 Quantity = 1;
-
 };
 
 UCLASS()
 class ART_API UInventorySet : public UPrimaryDataAsset
 {
 	GENERATED_BODY()
-	
+
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

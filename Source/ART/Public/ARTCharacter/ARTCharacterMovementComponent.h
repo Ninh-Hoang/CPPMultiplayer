@@ -31,7 +31,8 @@ class ART_API UARTCharacterMovementComponent : public UCharacterMovementComponen
 		virtual bool CanCombineWith(const FSavedMovePtr& NewMove, ACharacter* Character, float MaxDelta) const override;
 
 		///@brief Sets up the move before sending it to the server. 
-		virtual void SetMoveFor(ACharacter* Character, float InDeltaTime, FVector const& NewAccel, class FNetworkPredictionData_Client_Character& ClientData) override;
+		virtual void SetMoveFor(ACharacter* Character, float InDeltaTime, FVector const& NewAccel,
+		                        class FNetworkPredictionData_Client_Character& ClientData) override;
 		///@brief Sets variables on character movement component before making a predictive correction.
 		virtual void PrepMoveFor(class ACharacter* Character) override;
 

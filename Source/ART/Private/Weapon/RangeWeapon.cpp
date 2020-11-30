@@ -9,7 +9,8 @@
 #include "Ability/ARTAbilitySystemComponent.h"
 #include "ARTCharacter/ARTCharacterBase.h"
 
-ARangeWeapon::ARangeWeapon(){
+ARangeWeapon::ARangeWeapon()
+{
 	bAutomatic = true;
 	RateOfFire = 600.f;
 	Range = 10000.f;
@@ -48,8 +49,12 @@ void ARangeWeapon::PreReplication(IRepChangedPropertyTracker& ChangedPropertyTra
 {
 	Super::PreReplication(ChangedPropertyTracker);
 
-	DOREPLIFETIME_ACTIVE_OVERRIDE(ARangeWeapon, PrimaryClipAmmo, (AbilitySystemComponent && !AbilitySystemComponent->HasMatchingGameplayTag(WeaponIsFiringTag)));
-	DOREPLIFETIME_ACTIVE_OVERRIDE(ARangeWeapon, SecondaryClipAmmo, (AbilitySystemComponent && !AbilitySystemComponent->HasMatchingGameplayTag(WeaponIsFiringTag)));
+	DOREPLIFETIME_ACTIVE_OVERRIDE(ARangeWeapon, PrimaryClipAmmo,
+	                              (AbilitySystemComponent && !AbilitySystemComponent->HasMatchingGameplayTag(
+		                              WeaponIsFiringTag)));
+	DOREPLIFETIME_ACTIVE_OVERRIDE(ARangeWeapon, SecondaryClipAmmo,
+	                              (AbilitySystemComponent && !AbilitySystemComponent->HasMatchingGameplayTag(
+		                              WeaponIsFiringTag)));
 }
 
 int32 ARangeWeapon::GetPrimaryClipAmmo() const
@@ -105,7 +110,8 @@ bool ARangeWeapon::HasInfiniteAmmo() const
 	return bInfiniteAmmo;
 }
 
-void ARangeWeapon::BeginPlay(){
+void ARangeWeapon::BeginPlay()
+{
 	Super::BeginPlay();
 	TimeBetweenShot = 60 / RateOfFire;
 }
@@ -129,4 +135,3 @@ void ARangeWeapon::OnRep_MaxSecondaryClipAmmo(int32 OldMaxSecondaryClipAmmo)
 {
 	OnMaxSecondaryClipAmmoChanged.Broadcast(OldMaxSecondaryClipAmmo, MaxSecondaryClipAmmo);
 }
-

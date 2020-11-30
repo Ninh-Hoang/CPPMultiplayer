@@ -4,17 +4,27 @@
 #include "Blueprint/ARTTargetType.h"
 #include "ARTCharacter/ARTCharacterBase.h"
 
-void UARTTargetType::GetTargets_Implementation(AARTCharacterBase* TargetingCharacter, AActor* TargetingActor, FGameplayEventData EventData, TArray<FGameplayAbilityTargetDataHandle>& OutTargetData, TArray<FHitResult>& OutHitResults, TArray<AActor*>& OutActors) const
+void UARTTargetType::GetTargets_Implementation(AARTCharacterBase* TargetingCharacter, AActor* TargetingActor,
+                                               FGameplayEventData EventData,
+                                               TArray<FGameplayAbilityTargetDataHandle>& OutTargetData,
+                                               TArray<FHitResult>& OutHitResults, TArray<AActor*>& OutActors) const
 {
-	return;
 }
 
-void UARTTargetType_UseOwner::GetTargets_Implementation(AARTCharacterBase* TargetingCharacter, AActor* TargetingActor, FGameplayEventData EventData, TArray<FGameplayAbilityTargetDataHandle>& OutTargetData, TArray<FHitResult>& OutHitResults, TArray<AActor*>& OutActors) const
+void UARTTargetType_UseOwner::GetTargets_Implementation(AARTCharacterBase* TargetingCharacter, AActor* TargetingActor,
+                                                        FGameplayEventData EventData,
+                                                        TArray<FGameplayAbilityTargetDataHandle>& OutTargetData,
+                                                        TArray<FHitResult>& OutHitResults,
+                                                        TArray<AActor*>& OutActors) const
 {
 	OutActors.Add(TargetingCharacter);
 }
 
-void UARTTargetType_UseEventData::GetTargets_Implementation(AARTCharacterBase* TargetingCharacter, AActor* TargetingActor, FGameplayEventData EventData, TArray<FGameplayAbilityTargetDataHandle>& OutTargetData, TArray<FHitResult>& OutHitResults, TArray<AActor*>& OutActors) const
+void UARTTargetType_UseEventData::GetTargets_Implementation(AARTCharacterBase* TargetingCharacter,
+                                                            AActor* TargetingActor, FGameplayEventData EventData,
+                                                            TArray<FGameplayAbilityTargetDataHandle>& OutTargetData,
+                                                            TArray<FHitResult>& OutHitResults,
+                                                            TArray<AActor*>& OutActors) const
 {
 	const FHitResult* FoundHitResult = EventData.ContextHandle.GetHitResult();
 	if (FoundHitResult)

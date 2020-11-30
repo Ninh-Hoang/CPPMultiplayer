@@ -5,6 +5,4 @@
 
 AGATA_SphereTrace_Tick::AGATA_SphereTrace_Tick()
 {
-
 }
-

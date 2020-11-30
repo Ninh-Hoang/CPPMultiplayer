@@ -12,8 +12,8 @@ UCLASS()
 class ART_API AARTActorBase : public AActor, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AARTActorBase();
 
@@ -21,7 +21,7 @@ public:
 	virtual class UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 protected:
-	UPROPERTY() 
+	UPROPERTY()
 	class UARTAbilitySystemComponent* AbilitySystemComponent;
 
 	// Called when the game starts or when spawned

@@ -13,7 +13,7 @@ UCLASS()
 class ART_API UARTFloatingStatusBarWidget : public UUserWidget
 {
 	GENERATED_BODY()
-	
+
 public:
 	UPROPERTY(BlueprintReadOnly)
 	class AARTCharacterBase* OwningCharacter;
@@ -29,5 +29,4 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void SetCharacterName(const FText& NewName);
-
 };

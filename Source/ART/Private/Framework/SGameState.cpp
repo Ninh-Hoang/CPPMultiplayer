@@ -4,12 +4,15 @@
 #include "Framework/SGameState.h"
 #include "Net/UnrealNetwork.h"
 
-void ASGameState::OnRep_WaveState(EWaveState OldState){
+void ASGameState::OnRep_WaveState(EWaveState OldState)
+{
 	WaveStateChanged(WaveState, OldState);
 }
 
-void ASGameState::SetWaveState(EWaveState NewState){
-	if (HasAuthority()) {
+void ASGameState::SetWaveState(EWaveState NewState)
+{
+	if (HasAuthority())
+	{
 		EWaveState OldState = WaveState;
 
 		WaveState = NewState;
@@ -18,7 +21,8 @@ void ASGameState::SetWaveState(EWaveState NewState){
 	}
 }
 
-void ASGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const {
+void ASGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(ASGameState, WaveState)

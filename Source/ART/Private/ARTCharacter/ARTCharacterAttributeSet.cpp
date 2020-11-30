@@ -28,11 +28,13 @@ void UARTCharacterAttributeSet::PreAttributeChange(const FGameplayAttribute& Att
 	Super::PreAttributeChange(Attribute, NewValue);
 
 	// If a Max value changes, adjust current to keep Current % of Current to Max
-	if (Attribute == GetMaxShieldAttribute()) // GetMaxShieldAttribute comes from the Macros defined at the top of the header
+	if (Attribute == GetMaxShieldAttribute())
+		// GetMaxShieldAttribute comes from the Macros defined at the top of the header
 	{
 		AdjustAttributeForMaxChange(Shield, MaxShield, NewValue, GetShieldAttribute());
 	}
-	else if (Attribute == GetMaxHealthAttribute()) // GetMaxHealthAttribute comes from the Macros defined at the top of the header
+	else if (Attribute == GetMaxHealthAttribute())
+		// GetMaxHealthAttribute comes from the Macros defined at the top of the header
 	{
 		AdjustAttributeForMaxChange(Health, MaxHealth, NewValue, GetHealthAttribute());
 	}
@@ -82,39 +84,47 @@ void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
 	AController* SourceController = nullptr;
 	AARTCharacterBase* SourceCharacter = nullptr;
 
-	if (Source && Source->AbilityActorInfo.IsValid() && Source->AbilityActorInfo->AvatarActor.IsValid()) {
+	if (Source && Source->AbilityActorInfo.IsValid() && Source->AbilityActorInfo->AvatarActor.IsValid())
+	{
 		SourceActor = Source->AbilityActorInfo->AvatarActor.Get();
 		SourceController = Source->AbilityActorInfo->PlayerController.Get();
 		if (SourceController == nullptr && SourceActor == nullptr)
 		{
-			if (APawn* Pawn = Cast<APawn>(SourceActor)) {
+			if (APawn* Pawn = Cast<APawn>(SourceActor))
+			{
 				SourceController = Pawn->GetController();
 			}
 		}
 
 		//use the controller to find the source pawn
-		if (SourceController) {
+		if (SourceController)
+		{
 			SourceCharacter = Cast<AARTCharacterBase>(SourceController->GetPawn());
 		}
-		else {
+		else
+		{
 			SourceCharacter = Cast<AARTCharacterBase>(SourceActor);
 		}
 
-		if (Context.GetEffectCauser()) {
+		if (Context.GetEffectCauser())
+		{
 			SourceActor = Context.GetEffectCauser();
 		}
 	}
 
 	//damage
-	if (Data.EvaluatedData.Attribute == GetDamageAttribute()) {
+	if (Data.EvaluatedData.Attribute == GetDamageAttribute())
+	{
 		// Store a local copy of the amount of damage done and clear the damage attribute
 		const float LocalDamageDone = GetDamage();
 		SetDamage(0.f);
 
-		if (LocalDamageDone > 0.0f) {
+		if (LocalDamageDone > 0.0f)
+		{
 			bool WasAlive = true;
 
-			if (TargetCharacter) {
+			if (TargetCharacter)
+			{
 				WasAlive = TargetCharacter->IsAlive();
 			}
 
@@ -126,7 +136,8 @@ void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
 			//apply damage to shield first if exists
 			const float OldShield = GetShield();
 			float DamageAfterShield = LocalDamageDone - OldShield;
-			if (OldShield > 0) {
+			if (OldShield > 0)
+			{
 				float NewShield = OldShield - LocalDamageDone;
 				SetShield(FMath::Clamp<float>(NewShield, 0.0f, GetMaxShield()));
 			}
@@ -138,14 +149,17 @@ void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
 				SetHealth(FMath::Clamp(NewHealth, 0.0f, GetMaxHealth()));
 			}
 
-			if (TargetCharacter && WasAlive) {
+			if (TargetCharacter && WasAlive)
+			{
 				// This is the log statement for damage received. Turned off for live games.
 				//UE_LOG(LogTemp, Log, TEXT("%s() %s Damage Received: %f"), *FString(__FUNCTION__), *GetOwningActor()->GetName(), LocalDamageDone);
 
 				// Show damage number for the Source player unless it was self damage
-				if (SourceActor != TargetActor) {
+				if (SourceActor != TargetActor)
+				{
 					AARTPlayerController* PC = Cast<AARTPlayerController>(SourceController);
-					if (PC) {
+					if (PC)
+					{
 						FGameplayTagContainer DamageNumberTags;
 
 						PC->ShowDamageNumber(LocalDamageDone, TargetCharacter, DamageNumberTags);
@@ -153,13 +167,15 @@ void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
 				}
 			}
 
-			if (!TargetCharacter->IsAlive()) {
+			if (!TargetCharacter->IsAlive())
+			{
 				// TargetCharacter was alive before this damage and now is not alive, give reward if have to Source.
 				// Don't give reward to self.
 				if (SourceController != TargetController)
 				{
 					// Create a dynamic instant Gameplay Effect to give the reward
-					UGameplayEffect* GEBounty = NewObject<UGameplayEffect>(GetTransientPackage(), FName(TEXT("Bounty")));
+					UGameplayEffect* GEBounty = NewObject<UGameplayEffect
+					>(GetTransientPackage(), FName(TEXT("Bounty")));
 					GEBounty->DurationPolicy = EGameplayEffectDurationType::Instant;
 
 					int32 Idx = GEBounty->Modifiers.Num();
@@ -168,31 +184,32 @@ void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
 					FGameplayModifierInfo& InfoXP = GEBounty->Modifiers[Idx];
 					InfoXP.ModifierMagnitude = FScalableFloat(GetXPBounty());
 					InfoXP.ModifierOp = EGameplayModOp::Additive;
-					InfoXP.Attribute = UARTCharacterAttributeSet::GetXPAttribute();
+					InfoXP.Attribute = GetXPAttribute();
 
 					FGameplayModifierInfo& InfoGold = GEBounty->Modifiers[Idx + 1];
 					InfoGold.ModifierMagnitude = FScalableFloat(GetEnBounty());
 					InfoGold.ModifierOp = EGameplayModOp::Additive;
-					InfoGold.Attribute = UARTCharacterAttributeSet::GetEnAttribute();
+					InfoGold.Attribute = GetEnAttribute();
 
 					Source->ApplyGameplayEffectToSelf(GEBounty, 1.0f, Source->MakeEffectContext());
-
 				}
 			}
 		}
 	}
 
-	//healing
-	else if (Data.EvaluatedData.Attribute == GetHealingAttribute()) 
+		//healing
+	else if (Data.EvaluatedData.Attribute == GetHealingAttribute())
 	{
 		//store a local copy of amount of healing done, clear the healing attribute
 		const float LocalHealingDone = GetHealing();
 		SetHealing(0.0f);
 
-		if (LocalHealingDone > 0.0f) {
+		if (LocalHealingDone > 0.0f)
+		{
 			bool WasAlive = true;
 
-			if (TargetCharacter) {
+			if (TargetCharacter)
+			{
 				WasAlive = TargetCharacter->IsAlive();
 			}
 
@@ -205,14 +222,17 @@ void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
 			const float NewHealth = GetHealth() + LocalHealingDone;
 			SetHealth(FMath::Clamp(NewHealth, 0.0f, GetMaxHealth()));
 
-			if (TargetCharacter && WasAlive) {
+			if (TargetCharacter && WasAlive)
+			{
 				// This is the log statement for healing received. Turned off for live games.
 				//UE_LOG(LogTemp, Log, TEXT("%s() %s Healing Received: %f"), *FString(__FUNCTION__), *GetOwningActor()->GetName(), LocalHealingDone);
 
 				// Show healing number for the Source player unless it was self damage
-				if (SourceActor != TargetActor) {
+				if (SourceActor != TargetActor)
+				{
 					AARTPlayerController* PC = Cast<AARTPlayerController>(SourceController);
-					if (PC) {
+					if (PC)
+					{
 						FGameplayTagContainer HealingNumberTags;
 
 						//PC->ShowDamageNumber(LocalDamageDone, TargetCharacter, DamageNumberTags)
@@ -222,7 +242,7 @@ void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
 		}
 	}
 
-	// shield
+		// shield
 	else if (Data.EvaluatedData.Attribute == GetShieldAttribute())
 	{
 		// Handle shield changes.
@@ -310,7 +330,7 @@ void UARTCharacterAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimePrope
 }
 
 void UARTCharacterAttributeSet::OnAttributeAggregatorCreated(const FGameplayAttribute& Attribute,
-	FAggregator* NewAggregator) const
+                                                             FAggregator* NewAggregator) const
 {
 	Super::OnAttributeAggregatorCreated(Attribute, NewAggregator);
 
@@ -321,11 +341,15 @@ void UARTCharacterAttributeSet::OnAttributeAggregatorCreated(const FGameplayAttr
 
 	if (Attribute == GetMoveSpeedAttribute())
 	{
-		NewAggregator->EvaluationMetaData = &FARTAggregatorEvaluateMetaDataLibrary::MostNegativeMod_MostPositiveModPerClass;
+		NewAggregator->EvaluationMetaData = &
+			FARTAggregatorEvaluateMetaDataLibrary::MostNegativeMod_MostPositiveModPerClass;
 	}
 }
 
-void UARTCharacterAttributeSet::AdjustAttributeForMaxChange(FGameplayAttributeData& AffectedAttribute, const FGameplayAttributeData& MaxAttribute, float NewMaxValue, const FGameplayAttribute& AffectedAttributeProperty)
+void UARTCharacterAttributeSet::AdjustAttributeForMaxChange(FGameplayAttributeData& AffectedAttribute,
+                                                            const FGameplayAttributeData& MaxAttribute,
+                                                            float NewMaxValue,
+                                                            const FGameplayAttribute& AffectedAttributeProperty)
 {
 	UAbilitySystemComponent* AbilityComp = GetOwningAbilitySystemComponent();
 	const float CurrentMaxValue = MaxAttribute.GetCurrentValue();
@@ -333,7 +357,9 @@ void UARTCharacterAttributeSet::AdjustAttributeForMaxChange(FGameplayAttributeDa
 	{
 		// Change current value to maintain the current Val / Max percent
 		const float CurrentValue = AffectedAttribute.GetCurrentValue();
-		float NewDelta = (CurrentMaxValue > 0.f) ? (CurrentValue * NewMaxValue / CurrentMaxValue) - CurrentValue : NewMaxValue;
+		float NewDelta = (CurrentMaxValue > 0.f)
+			                 ? (CurrentValue * NewMaxValue / CurrentMaxValue) - CurrentValue
+			                 : NewMaxValue;
 
 		AbilityComp->ApplyModToAttributeUnsafe(AffectedAttributeProperty, EGameplayModOp::Additive, NewDelta);
 	}

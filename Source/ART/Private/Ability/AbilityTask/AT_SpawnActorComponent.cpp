@@ -18,13 +18,17 @@ void UAT_SpawnActorComponent::Activate()
 		CreatedComp->AttachToComponent(ActorToAttachTo->GetRootComponent(), AttachRule);
 		OnSuccess.Broadcast(CreatedComp);
 	}
-	else {
+	else
+	{
 		OnFail.Broadcast(CreatedComp);
 	}
 	EndTask();
 }
 
-UAT_SpawnActorComponent* UAT_SpawnActorComponent::SpawnActorComponent(UGameplayAbility* OwningAbility, TSubclassOf<USceneComponent> InActorComponentClass, FName InComponentName, AActor* InActorToAttachTo)
+UAT_SpawnActorComponent* UAT_SpawnActorComponent::SpawnActorComponent(UGameplayAbility* OwningAbility,
+                                                                      TSubclassOf<USceneComponent>
+                                                                      InActorComponentClass, FName InComponentName,
+                                                                      AActor* InActorToAttachTo)
 {
 	UAT_SpawnActorComponent* MyObj = NewAbilityTask<UAT_SpawnActorComponent>(OwningAbility);
 	MyObj->ActorComponentClass = InActorComponentClass;

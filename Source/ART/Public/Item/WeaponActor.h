@@ -13,7 +13,8 @@ class UMeshComponent;
 
 //contain weapon of LineTrace
 USTRUCT()
-struct FHitScanTrac {
+struct FHitScanTrac
+{
 	GENERATED_BODY()
 
 public:
@@ -56,7 +57,7 @@ protected:
 	float FirstShotDelay;
 
 	UPROPERTY(EditDefaultsOnly)
-	float FireRotationSpeed; 
+	float FireRotationSpeed;
 
 	float OwnerRotationSpeed;
 

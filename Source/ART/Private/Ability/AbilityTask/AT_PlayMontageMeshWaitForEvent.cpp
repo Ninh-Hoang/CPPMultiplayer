@@ -33,7 +33,8 @@ void UAT_PlayMontageMeshWaitForEvent::OnMontageBlendingOut(UAnimMontage* Montage
 			//reset AnimRootMotionTranslationScale
 			ACharacter* Character = Cast<ACharacter>(GetAvatarActor());
 			if (Character && (Character->GetLocalRole() == ROLE_Authority ||
-				(Character->GetLocalRole() == ROLE_AutonomousProxy && Ability->GetNetExecutionPolicy() == EGameplayAbilityNetExecutionPolicy::LocalPredicted)))
+				(Character->GetLocalRole() == ROLE_AutonomousProxy && Ability->GetNetExecutionPolicy() ==
+					EGameplayAbilityNetExecutionPolicy::LocalPredicted)))
 			{
 				Character->SetAnimRootMotionTranslationScale(1.f);
 			}
@@ -94,17 +95,18 @@ void UAT_PlayMontageMeshWaitForEvent::OnGameplayEvent(FGameplayTag EventTag, con
 }
 
 UAT_PlayMontageMeshWaitForEvent* UAT_PlayMontageMeshWaitForEvent::PlayMontageForMeshAndWaitForEvent(
-	UGameplayAbility* OwningAbility, FName TaskInstanceName, 
-	USkeletalMeshComponent* InMesh, UAnimMontage* MontageToPlay, 
-	FGameplayTagContainer EventTags, float Rate /*= 1.f*/, 
-	FName StartSection /*= NAME_None*/, bool bStopWhenAbilityEnds /*= true*/, 
-	float AnimRootMotionTranslationScale /*= 1.f*/, bool bReplicateMontage /*= true*/, 
-	float OverrideBlendOutTimeForCancelAbility /*= -1.f*/, 
+	UGameplayAbility* OwningAbility, FName TaskInstanceName,
+	USkeletalMeshComponent* InMesh, UAnimMontage* MontageToPlay,
+	FGameplayTagContainer EventTags, float Rate /*= 1.f*/,
+	FName StartSection /*= NAME_None*/, bool bStopWhenAbilityEnds /*= true*/,
+	float AnimRootMotionTranslationScale /*= 1.f*/, bool bReplicateMontage /*= true*/,
+	float OverrideBlendOutTimeForCancelAbility /*= -1.f*/,
 	float OverrideBlendOutTimeForStopWhenEndAbility /*= -1.f*/)
 {
 	UAbilitySystemGlobals::NonShipping_ApplyGlobalAbilityScaler_Rate(Rate);
 
-	UAT_PlayMontageMeshWaitForEvent* MyObj = NewAbilityTask<UAT_PlayMontageMeshWaitForEvent>(OwningAbility, TaskInstanceName);
+	UAT_PlayMontageMeshWaitForEvent* MyObj = NewAbilityTask<UAT_PlayMontageMeshWaitForEvent>(
+		OwningAbility, TaskInstanceName);
 	MyObj->Mesh = InMesh;
 	MyObj->MontageToPlay = MontageToPlay;
 	MyObj->EventTags = EventTags;
@@ -142,9 +144,13 @@ void UAT_PlayMontageMeshWaitForEvent::Activate()
 		if (AnimInstance != nullptr)
 		{
 			// Bind to event callback
-			EventHandle = ARTAbilitySystemComponent->AddGameplayEventTagContainerDelegate(EventTags, FGameplayEventTagMulticastDelegate::FDelegate::CreateUObject(this, &UAT_PlayMontageMeshWaitForEvent::OnGameplayEvent));
+			EventHandle = ARTAbilitySystemComponent->AddGameplayEventTagContainerDelegate(
+				EventTags, FGameplayEventTagMulticastDelegate::FDelegate::CreateUObject(
+					this, &UAT_PlayMontageMeshWaitForEvent::OnGameplayEvent));
 
-			if (ARTAbilitySystemComponent->PlayMontageForMesh(Ability, Mesh, Ability->GetCurrentActivationInfo(), MontageToPlay, Rate, StartSection, bReplicateMontage) > 0.f)
+			if (ARTAbilitySystemComponent->PlayMontageForMesh(Ability, Mesh, Ability->GetCurrentActivationInfo(),
+			                                                  MontageToPlay, Rate, StartSection,
+			                                                  bReplicateMontage) > 0.f)
 			{
 				// Playing a montage could potentially fire off a callback into game code which could kill this ability! Early out if we are  pending kill.
 				if (ShouldBroadcastAbilityTaskDelegates() == false)
@@ -152,7 +158,8 @@ void UAT_PlayMontageMeshWaitForEvent::Activate()
 					return;
 				}
 
-				CancelledHandle = Ability->OnGameplayAbilityCancelled.AddUObject(this, &UAT_PlayMontageMeshWaitForEvent::OnAbilityCancelled);
+				CancelledHandle = Ability->OnGameplayAbilityCancelled.AddUObject(
+					this, &UAT_PlayMontageMeshWaitForEvent::OnAbilityCancelled);
 
 				BlendingOutDelegate.BindUObject(this, &UAT_PlayMontageMeshWaitForEvent::OnMontageBlendingOut);
 				AnimInstance->Montage_SetBlendingOutDelegate(BlendingOutDelegate, MontageToPlay);
@@ -162,7 +169,8 @@ void UAT_PlayMontageMeshWaitForEvent::Activate()
 
 				ACharacter* Character = Cast<ACharacter>(GetAvatarActor());
 				if (Character && (Character->GetLocalRole() == ROLE_Authority ||
-					(Character->GetLocalRole() == ROLE_AutonomousProxy && Ability->GetNetExecutionPolicy() == EGameplayAbilityNetExecutionPolicy::LocalPredicted)))
+					(Character->GetLocalRole() == ROLE_AutonomousProxy && Ability->GetNetExecutionPolicy() ==
+						EGameplayAbilityNetExecutionPolicy::LocalPredicted)))
 				{
 					Character->SetAnimRootMotionTranslationScale(AnimRootMotionTranslationScale);
 				}
@@ -172,17 +180,22 @@ void UAT_PlayMontageMeshWaitForEvent::Activate()
 		}
 		else
 		{
-			UE_LOG(LogTemp, Warning, TEXT("UGSAbilityTask_PlayMontageForMeshAndWaitForEvent call to PlayMontage failed!"));
+			UE_LOG(LogTemp, Warning,
+			       TEXT("UGSAbilityTask_PlayMontageForMeshAndWaitForEvent call to PlayMontage failed!"));
 		}
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("UGSAbilityTask_PlayMontageForMeshAndWaitForEvent called on invalid AbilitySystemComponent"));
+		UE_LOG(LogTemp, Warning,
+		       TEXT("UGSAbilityTask_PlayMontageForMeshAndWaitForEvent called on invalid AbilitySystemComponent"));
 	}
 
 	if (!bPlayedMontage)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("UGSAbilityTask_PlayMontageForMeshAndWaitForEvent called in Ability %s failed to play montage %s; Task Instance Name %s."), *Ability->GetName(), *GetNameSafe(MontageToPlay), *InstanceName.ToString());
+		UE_LOG(LogTemp, Warning,
+		       TEXT(
+			       "UGSAbilityTask_PlayMontageForMeshAndWaitForEvent called in Ability %s failed to play montage %s; Task Instance Name %s."
+		       ), *Ability->GetName(), *GetNameSafe(MontageToPlay), *InstanceName.ToString());
 		if (ShouldBroadcastAbilityTaskDelegates())
 		{
 			//ABILITY_LOG(Display, TEXT("%s: OnCancelled"), *GetName());
@@ -283,10 +296,13 @@ FString UAT_PlayMontageMeshWaitForEvent::GetDebugString() const
 
 		if (AnimInstance != nullptr)
 		{
-			PlayingMontage = AnimInstance->Montage_IsActive(MontageToPlay) ? MontageToPlay : AnimInstance->GetCurrentActiveMontage();
+			PlayingMontage = AnimInstance->Montage_IsActive(MontageToPlay)
+				                 ? MontageToPlay
+				                 : AnimInstance->GetCurrentActiveMontage();
 		}
 	}
 
-	return FString::Printf(TEXT("PlayMontageAndWaitForEvent. MontageToPlay: %s  (Currently Playing): %s"), *GetNameSafe(MontageToPlay), *GetNameSafe(PlayingMontage));
+	return FString::Printf(
+		TEXT("PlayMontageAndWaitForEvent. MontageToPlay: %s  (Currently Playing): %s"), *GetNameSafe(MontageToPlay),
+		*GetNameSafe(PlayingMontage));
 }
-

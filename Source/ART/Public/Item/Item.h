@@ -7,6 +7,7 @@
 #include "Item.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnItemModified);
+
 /**
  * 
  */
@@ -17,25 +18,25 @@ class AARTSurvivor;
 class UItemTooltip;
 
 UENUM()
-enum class EItemRarity : uint8 {
-    IR_Common UMETA(DisplayName = "Common"),
-    IR_Uncommon UMETA(DisplayName = "Uncommon"),
-    IR_Rare UMETA(DisplayName = "Rare"),
-    IR_VeryRare UMETA(DisplayName = "Very Rare"),
-    IR_SuperRare UMETA(DisplayName = "Super Rare")
+enum class EItemRarity : uint8
+{
+	IR_Common UMETA(DisplayName = "Common"),
+	IR_Uncommon UMETA(DisplayName = "Uncommon"),
+	IR_Rare UMETA(DisplayName = "Rare"),
+	IR_VeryRare UMETA(DisplayName = "Very Rare"),
+	IR_SuperRare UMETA(DisplayName = "Super Rare")
 };
-
 
 
 UCLASS(Abstract, Blueprintable, BlueprintType, EditInlineNew, DefaultToInstanced)
 class ART_API UItem : public UPrimaryDataAsset
 {
 	GENERATED_BODY()
-	
+
 public:
-    UItem();
-    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
-    FText ItemDisplayName;
+	UItem();
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
+	FText ItemDisplayName;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Item")
 	UTexture2D* Thumbnail;
@@ -43,8 +44,8 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
 	UStaticMesh* PickupMesh;
 
-    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
-    FText UseActionText;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
+	FText UseActionText;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
 	EItemRarity Rarity;
@@ -55,7 +56,8 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
 	bool bStackable;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item", meta = (ClampMin = 2, EditCondition = bStackable))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item", meta = (ClampMin = 2, EditCondition = bStackable)
+	)
 	int32 MaxStackSize;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item", meta = (ClampMin = 0.0))
@@ -64,17 +66,18 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
 	TSubclassOf<UItemTooltip> ItemTooltip;
 
-    UPROPERTY(ReplicatedUsing=OnRep_Quantity, EditAnywhere, Category = "Item", meta = (UIMin = 1, EditCondition = bStackable))
-    int32 Quantity;
+	UPROPERTY(ReplicatedUsing=OnRep_Quantity, EditAnywhere, Category = "Item", meta = (UIMin = 1, EditCondition =
+		bStackable))
+	int32 Quantity;
 
-    UPROPERTY()
-    UInventoryComponent* OwningInventory;
+	UPROPERTY()
+	UInventoryComponent* OwningInventory;
 
-    UPROPERTY()
-    int32 RepKey;
+	UPROPERTY()
+	int32 RepKey;
 
-    UPROPERTY(BlueprintAssignable)
-    FOnItemModified OnItemModified;
+	UPROPERTY(BlueprintAssignable)
+	FOnItemModified OnItemModified;
 
 	//Gameplay Ability System
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ARTPickup")
@@ -84,11 +87,11 @@ public:
 	TArray<TSubclassOf<class UGameplayEffect>> EffectClasses;
 
 protected:
-    virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
-    virtual bool IsSupportedForNetworking() const override;
+	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual bool IsSupportedForNetworking() const override;
 
 #if WITH_EDITOR
-    virtual void PostEditChangeProperty(struct FPropertyChangedEvent& PropertyChangedEvent) override;
+	virtual void PostEditChangeProperty(struct FPropertyChangedEvent& PropertyChangedEvent) override;
 #endif
 
 public:

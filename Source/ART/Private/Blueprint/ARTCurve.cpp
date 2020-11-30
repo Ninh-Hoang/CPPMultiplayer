@@ -64,7 +64,6 @@ bool UARTCurve::operator==(const UARTCurve& Curve) const
 #if WITH_EDITOR
 
 
-
 void UARTCurve::MakeCurveNameUnique(int CurveIdx)
 {
 	FARTCurveData& Curve = ARTCurveData[CurveIdx];
@@ -110,7 +109,6 @@ void UARTCurve::PreEditChange(class FEditPropertyChain& PropertyAboutToChange)
 	Super::PreEditChange(PropertyAboutToChange);
 
 	OldCurveCount = ARTCurveData.Num();
-
 }
 
 void UARTCurve::PostEditChangeChainProperty(struct FPropertyChangedChainEvent& e)
@@ -153,14 +151,12 @@ void UARTCurve::PostEditChangeChainProperty(struct FPropertyChangedChainEvent& e
 			}
 			if (PropName == "CurveTag")
 			{
-				
 			}
 		}
 		break;
 
 	case EPropertyChangeType::ArrayClear:
 		break;
-
 	}
 
 	OnCurveMapChanged.Broadcast(this);

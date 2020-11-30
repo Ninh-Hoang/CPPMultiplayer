@@ -2,19 +2,8 @@
 
 
 #include "Item/WeaponActor.h"
-#include "Engine/World.h"
-#include "DrawDebugHelpers.h"
-#include "Components/ActorComponent.h"
-#include "Kismet/GameplayStatics.h"
-#include "Particles/ParticleSystem.h"
 #include "Components/MeshComponent.h"
-#include "Particles/ParticleSystemComponent.h"
-#include "PhysicalMaterials/PhysicalMaterial.h"
 #include "ART/ART.h"
-#include "TimerManager.h"
-#include "Net/UnrealNetwork.h"
-#include <Kismet/KismetSystemLibrary.h>
-#include <GameFramework/CharacterMovementComponent.h>
 
 static int32 DebugWeaponDrawing = 0;
 FAutoConsoleVariableRef CVARDebugWeaponDrawing(
@@ -26,7 +15,6 @@ FAutoConsoleVariableRef CVARDebugWeaponDrawing(
 // Sets default values
 AWeaponActor::AWeaponActor()
 {
-
 	RateOfFire = 600;
 
 	SetReplicates(true);
@@ -41,7 +29,8 @@ AWeaponActor::AWeaponActor()
 }
 
 // Called when the game starts or when spawned
-void AWeaponActor::BeginPlay(){
+void AWeaponActor::BeginPlay()
+{
 	Super::BeginPlay();
 
 	MuzzleSocketName = "MuzzleSocket";
@@ -51,8 +40,7 @@ void AWeaponActor::BeginPlay(){
 
 // Called every frame
 
-void AWeaponActor::Initialize(UMeshComponent* MeshComponentToSet){
+void AWeaponActor::Initialize(UMeshComponent* MeshComponentToSet)
+{
 	MeshComponent = MeshComponentToSet;
 }
-
-

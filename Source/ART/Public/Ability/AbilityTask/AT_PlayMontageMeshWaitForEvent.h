@@ -12,7 +12,8 @@
 
 class UARTAbilitySystemComponent;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FARTPlayMontageMeshWaitEventDelegate, FGameplayTag, EventTag, FGameplayEventData, EventData);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FARTPlayMontageMeshWaitEventDelegate, FGameplayTag, EventTag,
+                                             FGameplayEventData, EventData);
 
 UCLASS()
 class ART_API UAT_PlayMontageMeshWaitForEvent : public UAbilityTask
@@ -32,7 +33,7 @@ public:
 	virtual void ExternalCancel() override;
 	virtual FString GetDebugString() const override;
 	virtual void OnDestroy(bool AbilityEnded) override;
-	
+
 	/** The montage completely finished playing */
 	UPROPERTY(BlueprintAssignable)
 	FARTPlayMontageMeshWaitEventDelegate OnCompleted;
@@ -67,7 +68,8 @@ public:
 	 * @param AnimRootMotionTranslationScale Change to modify size of root motion or set to 0 to block it entirely
 	 */
 
-	UFUNCTION(BlueprintCallable, Category = "Ability|Tasks", meta = (HidePin = "OwningAbility", DefaultToSelf = "OwningAbility", BlueprintInternalUseOnly = "TRUE"))
+	UFUNCTION(BlueprintCallable, Category = "Ability|Tasks", meta = (HidePin = "OwningAbility", DefaultToSelf =
+		"OwningAbility", BlueprintInternalUseOnly = "TRUE"))
 	static UAT_PlayMontageMeshWaitForEvent* PlayMontageForMeshAndWaitForEvent(
 		UGameplayAbility* OwningAbility,
 		FName TaskInstanceName,

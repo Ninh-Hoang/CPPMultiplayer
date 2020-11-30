@@ -17,7 +17,8 @@ class UAbilitySystemComponent;
 class UARTAbilitySystemComponent;
 
 UENUM()
-enum class EEquipmentSlot: uint8 {
+enum class EEquipmentSlot: uint8
+{
 	ES_WeaponRest UMETA(DisplayName = "WeaponRestSocket"),
 	ES_Pelvis UMETA(DisplayName = "PelvisSocket"),
 	ES_Shield UMETA(DisplayName = "ShieldSocket"),
@@ -27,8 +28,8 @@ UCLASS(Abstract, Blueprintable, BlueprintType)
 class ART_API AEquipment : public AActor, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AEquipment();
 
@@ -96,7 +97,7 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "ART|Equipment")
 	EEquipmentSlot EquipmentSlot;
 
-public:	
+public:
 	//EQUIPMENT STUFFS
 	UPROPERTY(BlueprintReadWrite, VisibleInstanceOnly, Category = "ART|Equipment")
 	FText StatusText;

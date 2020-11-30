@@ -121,7 +121,8 @@ void AARTPlayerState::StopInteractionTimer()
 	}
 }
 
-bool AARTPlayerState::GetCooldownRemainingForTag(FGameplayTagContainer CooldownTags, float& TimeRemaining, float& CooldownDuration)
+bool AARTPlayerState::GetCooldownRemainingForTag(FGameplayTagContainer CooldownTags, float& TimeRemaining,
+                                                 float& CooldownDuration)
 {
 	if (AbilitySystemComponent && CooldownTags.Num() > 0)
 	{
@@ -129,7 +130,8 @@ bool AARTPlayerState::GetCooldownRemainingForTag(FGameplayTagContainer CooldownT
 		CooldownDuration = 0.f;
 
 		FGameplayEffectQuery const Query = FGameplayEffectQuery::MakeQuery_MatchAnyOwningTags(CooldownTags);
-		TArray< TPair<float, float> > DurationAndTimeRemaining = AbilitySystemComponent->GetActiveEffectsTimeRemainingAndDuration(Query);
+		TArray<TPair<float, float>> DurationAndTimeRemaining = AbilitySystemComponent->
+			GetActiveEffectsTimeRemainingAndDuration(Query);
 		if (DurationAndTimeRemaining.Num() > 0)
 		{
 			int32 BestIdx = 0;
@@ -380,7 +382,9 @@ void AARTPlayerState::BeginPlay()
 	if (AbilitySystemComponent)
 	{
 		// Attribute change callbacks
-		HealthChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSetBase->GetHealthAttribute()).AddUObject(this, &AARTPlayerState::HealthChanged);
+		HealthChangedDelegateHandle = AbilitySystemComponent->
+		                              GetGameplayAttributeValueChangeDelegate(AttributeSetBase->GetHealthAttribute()).
+		                              AddUObject(this, &AARTPlayerState::HealthChanged);
 	}
 
 	if (InventoryComponent)
@@ -391,7 +395,8 @@ void AARTPlayerState::BeginPlay()
 
 void AARTPlayerState::HealthChanged(const FOnAttributeChangeData& Data)
 {
-	if (!Survivor) {
+	if (!Survivor)
+	{
 		Survivor = Cast<AARTSurvivor>(GetPawn());
 	}
 

@@ -2,18 +2,19 @@
 
 
 #include "Item/ConsumableItem.h"
-#include "Item/InventoryComponent.h"
 #include "Ability/ARTGameplayAbility.h"
 #include "ARTCharacter/ARTSurvivor.h"
 #include <Ability/ARTAbilitySystemComponent.h>
 
 #define LOCTEXT_NAMESPACE "FoodItem"
 
-UConsumableItem::UConsumableItem(){
+UConsumableItem::UConsumableItem()
+{
 	UseActionText = LOCTEXT("ItemUseActionText", "Consume");
 }
 
-void UConsumableItem::Use(AARTSurvivor* Character){
+void UConsumableItem::Use(AARTSurvivor* Character)
+{
 	UARTAbilitySystemComponent* ASC = Cast<UARTAbilitySystemComponent>(Character->GetAbilitySystemComponent());
 	//UAbilitySystemComponent* ASC = Character->GetAbilitySystemComponent();
 	//UE_LOG(LogTemp, Warning, TEXT("Used"));
@@ -29,7 +30,9 @@ void UConsumableItem::Use(AARTSurvivor* Character){
 		{
 			continue;
 		}
-		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1, static_cast<int32>(AbilityClass.GetDefaultObject()->AbilityInputID), this);
+		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1,
+		                                                        static_cast<int32>(AbilityClass.GetDefaultObject()->
+			                                                        AbilityInputID), this);
 		ASC->GiveAbilityAndActivateOnce(AbilitySpec);
 	}
 
@@ -43,7 +46,8 @@ void UConsumableItem::Use(AARTSurvivor* Character){
 			continue;
 		}
 
-		FGameplayEffectSpecHandle NewHandle = ASC->MakeOutgoingSpec(EffectClass, Character->GetCharacterLevel(), EffectContext);
+		FGameplayEffectSpecHandle NewHandle = ASC->MakeOutgoingSpec(EffectClass, Character->GetCharacterLevel(),
+		                                                            EffectContext);
 
 		if (NewHandle.IsValid())
 		{

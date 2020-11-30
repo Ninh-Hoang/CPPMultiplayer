@@ -35,7 +35,8 @@ FString UARTBlueprintFunctionLibrary::GetPlayerEditorWindowRole(UWorld* World)
 	return Prefix;
 }
 
-UARTGameplayAbility* UARTBlueprintFunctionLibrary::GetPrimaryAbilityInstanceFromHandle(UAbilitySystemComponent* AbilitySystemComponent, FGameplayAbilitySpecHandle Handle)
+UARTGameplayAbility* UARTBlueprintFunctionLibrary::GetPrimaryAbilityInstanceFromHandle(
+	UAbilitySystemComponent* AbilitySystemComponent, FGameplayAbilitySpecHandle Handle)
 {
 	if (AbilitySystemComponent)
 	{
@@ -49,7 +50,8 @@ UARTGameplayAbility* UARTBlueprintFunctionLibrary::GetPrimaryAbilityInstanceFrom
 	return nullptr;
 }
 
-UARTGameplayAbility* UARTBlueprintFunctionLibrary::GetPrimaryAbilityInstanceFromClass(UAbilitySystemComponent* AbilitySystemComponent, TSubclassOf<UGameplayAbility> InAbilityClass)
+UARTGameplayAbility* UARTBlueprintFunctionLibrary::GetPrimaryAbilityInstanceFromClass(
+	UAbilitySystemComponent* AbilitySystemComponent, TSubclassOf<UGameplayAbility> InAbilityClass)
 {
 	if (AbilitySystemComponent)
 	{
@@ -63,7 +65,8 @@ UARTGameplayAbility* UARTBlueprintFunctionLibrary::GetPrimaryAbilityInstanceFrom
 	return nullptr;
 }
 
-bool UARTBlueprintFunctionLibrary::IsPrimaryAbilityInstanceActive(UAbilitySystemComponent* AbilitySystemComponent, FGameplayAbilitySpecHandle Handle)
+bool UARTBlueprintFunctionLibrary::IsPrimaryAbilityInstanceActive(UAbilitySystemComponent* AbilitySystemComponent,
+                                                                  FGameplayAbilitySpecHandle Handle)
 {
 	if (AbilitySystemComponent)
 	{
@@ -82,12 +85,14 @@ bool UARTBlueprintFunctionLibrary::IsAbilitySpecHandleValid(FGameplayAbilitySpec
 	return Handle.IsValid();
 }
 
-bool UARTBlueprintFunctionLibrary::DoesEffectContainerSpecHaveEffects(const FARTGameplayEffectContainerSpec& ContainerSpec)
+bool UARTBlueprintFunctionLibrary::DoesEffectContainerSpecHaveEffects(
+	const FARTGameplayEffectContainerSpec& ContainerSpec)
 {
 	return ContainerSpec.HasValidEffects();
 }
 
-bool UARTBlueprintFunctionLibrary::DoesEffectContainerSpecHaveTargets(const FARTGameplayEffectContainerSpec& ContainerSpec)
+bool UARTBlueprintFunctionLibrary::DoesEffectContainerSpecHaveTargets(
+	const FARTGameplayEffectContainerSpec& ContainerSpec)
 {
 	return ContainerSpec.HasValidTargets();
 }
@@ -97,12 +102,16 @@ void UARTBlueprintFunctionLibrary::ClearEffectContainerSpecTargets(FARTGameplayE
 	ContainerSpec.ClearTargets();
 }
 
-void UARTBlueprintFunctionLibrary::AddTargetsToEffectContainerSpec(FARTGameplayEffectContainerSpec& ContainerSpec, const TArray<FGameplayAbilityTargetDataHandle>& TargetData, const TArray<FHitResult>& HitResults, const TArray<AActor*>& TargetActors)
+void UARTBlueprintFunctionLibrary::AddTargetsToEffectContainerSpec(FARTGameplayEffectContainerSpec& ContainerSpec,
+                                                                   const TArray<FGameplayAbilityTargetDataHandle>&
+                                                                   TargetData, const TArray<FHitResult>& HitResults,
+                                                                   const TArray<AActor*>& TargetActors)
 {
 	ContainerSpec.AddTargets(TargetData, HitResults, TargetActors);
 }
 
-TArray<FActiveGameplayEffectHandle> UARTBlueprintFunctionLibrary::ApplyExternalEffectContainerSpec(const FARTGameplayEffectContainerSpec& ContainerSpec)
+TArray<FActiveGameplayEffectHandle> UARTBlueprintFunctionLibrary::ApplyExternalEffectContainerSpec(
+	const FARTGameplayEffectContainerSpec& ContainerSpec)
 {
 	TArray<FActiveGameplayEffectHandle> AllEffects;
 
@@ -121,9 +130,10 @@ TArray<FActiveGameplayEffectHandle> UARTBlueprintFunctionLibrary::ApplyExternalE
 	return AllEffects;
 }
 
-FGameplayAbilityTargetDataHandle UARTBlueprintFunctionLibrary::EffectContextGetTargetData(FGameplayEffectContextHandle EffectContextHandle)
+FGameplayAbilityTargetDataHandle UARTBlueprintFunctionLibrary::EffectContextGetTargetData(
+	FGameplayEffectContextHandle EffectContextHandle)
 {
-	FARTGameplayEffectContext* EffectContext = (FARTGameplayEffectContext*)EffectContextHandle.Get();
+	FARTGameplayEffectContext* EffectContext = static_cast<FARTGameplayEffectContext*>(EffectContextHandle.Get());
 	if (EffectContext)
 	{
 		return EffectContext->GetTargetData();
@@ -132,9 +142,10 @@ FGameplayAbilityTargetDataHandle UARTBlueprintFunctionLibrary::EffectContextGetT
 	return FGameplayAbilityTargetDataHandle();
 }
 
-void UARTBlueprintFunctionLibrary::EffectContextAddTargetData(FGameplayEffectContextHandle EffectContextHandle, const FGameplayAbilityTargetDataHandle& TargetData)
+void UARTBlueprintFunctionLibrary::EffectContextAddTargetData(FGameplayEffectContextHandle EffectContextHandle,
+                                                              const FGameplayAbilityTargetDataHandle& TargetData)
 {
-	FARTGameplayEffectContext* EffectContext = (FARTGameplayEffectContext*)EffectContextHandle.Get();
+	FARTGameplayEffectContext* EffectContext = static_cast<FARTGameplayEffectContext*>(EffectContextHandle.Get());
 	if (EffectContext)
 	{
 		EffectContext->AddTargetData(TargetData);
@@ -146,9 +157,9 @@ void UARTBlueprintFunctionLibrary::ClearTargetData(FGameplayAbilityTargetDataHan
 	TargetData.Clear();
 }
 
-FGameplayTargetDataFilterHandle UARTBlueprintFunctionLibrary::MakeTargetDataFilterByActorType(AActor* FilterActor, 
-	AActor* InSourceActor, TEnumAsByte<EARTTargetSelectionFilter::Type> InTargetTypeFilter, 
-	TEnumAsByte<ETargetDataFilterSelf::Type> InSelfFilter, TSubclassOf<AActor> InRequiredActorClass, 
+FGameplayTargetDataFilterHandle UARTBlueprintFunctionLibrary::MakeTargetDataFilterByActorType(AActor* FilterActor,
+	AActor* InSourceActor, TEnumAsByte<EARTTargetSelectionFilter::Type> InTargetTypeFilter,
+	TEnumAsByte<ETargetDataFilterSelf::Type> InSelfFilter, TSubclassOf<AActor> InRequiredActorClass,
 	bool InReverseFilter)
 {
 	FARTTargetFilter Filter;
@@ -166,9 +177,9 @@ FGameplayTargetDataFilterHandle UARTBlueprintFunctionLibrary::MakeTargetDataFilt
 	return FilterHandle;
 }
 
-FGameplayTargetDataFilterHandle UARTBlueprintFunctionLibrary::MakeTargetDataFilterByTeamAttitude(AActor* FilterActor, 
-	AActor* InSourceActor, TEnumAsByte<ETeamAttitude::Type> InTeamAttitude, 
-	TEnumAsByte<ETargetDataFilterSelf::Type> InSelfFilter, 
+FGameplayTargetDataFilterHandle UARTBlueprintFunctionLibrary::MakeTargetDataFilterByTeamAttitude(AActor* FilterActor,
+	AActor* InSourceActor, TEnumAsByte<ETeamAttitude::Type> InTeamAttitude,
+	TEnumAsByte<ETargetDataFilterSelf::Type> InSelfFilter,
 	TSubclassOf<AActor> InRequiredActorClass, bool InReverseFilter)
 {
 	FARTTargetFilterTeamID Filter;
@@ -186,7 +197,8 @@ FGameplayTargetDataFilterHandle UARTBlueprintFunctionLibrary::MakeTargetDataFilt
 	return FilterHandle;
 }
 
-TArray<FGameplayAbilityTargetDataHandle> UARTBlueprintFunctionLibrary::FilterTargetDataArray(TArray<FGameplayAbilityTargetDataHandle> TargetDataArray, FGameplayTargetDataFilterHandle Filterhandle)
+TArray<FGameplayAbilityTargetDataHandle> UARTBlueprintFunctionLibrary::FilterTargetDataArray(
+	TArray<FGameplayAbilityTargetDataHandle> TargetDataArray, FGameplayTargetDataFilterHandle Filterhandle)
 {
 	TArray<FGameplayAbilityTargetDataHandle> OutTargetDataArray;
 
@@ -223,7 +235,8 @@ FGameplayAbilityTargetDataHandle UARTBlueprintFunctionLibrary::MakeTargetDataFro
 	return ReturnDataHandle;
 }
 
-TArray<FGameplayAbilityTargetDataHandle> UARTBlueprintFunctionLibrary::MakeArrayTargetDataFromHitArray(TArray<FHitResult> HitResults)
+TArray<FGameplayAbilityTargetDataHandle> UARTBlueprintFunctionLibrary::MakeArrayTargetDataFromHitArray(
+	TArray<FHitResult> HitResults)
 {
 	TArray<FGameplayAbilityTargetDataHandle> ReturnDataHandles;
 
@@ -238,11 +251,13 @@ TArray<FGameplayAbilityTargetDataHandle> UARTBlueprintFunctionLibrary::MakeArray
 	return ReturnDataHandles;
 }
 
-void UARTBlueprintFunctionLibrary::InitializePropertyMap(FGameplayTagBlueprintPropertyMap& InMap, UObject* Owner, UAbilitySystemComponent* ASC)
+void UARTBlueprintFunctionLibrary::InitializePropertyMap(FGameplayTagBlueprintPropertyMap& InMap, UObject* Owner,
+                                                         UAbilitySystemComponent* ASC)
 {
 }
 
-float UARTBlueprintFunctionLibrary::GetTagCallerMag(UAbilitySystemComponent* InASC, FActiveGameplayEffectHandle& InActiveHandle, FGameplayTag CallerTag)
+float UARTBlueprintFunctionLibrary::GetTagCallerMag(UAbilitySystemComponent* InASC,
+                                                    FActiveGameplayEffectHandle& InActiveHandle, FGameplayTag CallerTag)
 {
 	if (InASC && InActiveHandle.IsValid())
 	{
@@ -252,7 +267,8 @@ float UARTBlueprintFunctionLibrary::GetTagCallerMag(UAbilitySystemComponent* InA
 	return 0.0f;
 }
 
-UARTGameplayEffectUIData* UARTBlueprintFunctionLibrary::GetGameplayEffectUIDataFromActiveHandle(const FActiveGameplayEffectHandle& InActiveHandle)
+UARTGameplayEffectUIData* UARTBlueprintFunctionLibrary::GetGameplayEffectUIDataFromActiveHandle(
+	const FActiveGameplayEffectHandle& InActiveHandle)
 {
 	if (InActiveHandle.IsValid())
 	{
@@ -266,7 +282,8 @@ UARTGameplayEffectUIData* UARTBlueprintFunctionLibrary::GetGameplayEffectUIDataF
 	return nullptr;
 }
 
-UARTGameplayAbilityUIData* UARTBlueprintFunctionLibrary::GetGameplayAbilityUIDataFromInput(UAbilitySystemComponent* InASC, const EARTAbilityInputID Input)
+UARTGameplayAbilityUIData* UARTBlueprintFunctionLibrary::GetGameplayAbilityUIDataFromInput(
+	UAbilitySystemComponent* InASC, const EARTAbilityInputID Input)
 {
 	if (InASC)
 	{

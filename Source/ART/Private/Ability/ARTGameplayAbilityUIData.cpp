@@ -6,5 +6,4 @@
 UARTGameplayAbilityUIData::UARTGameplayAbilityUIData(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-
 }

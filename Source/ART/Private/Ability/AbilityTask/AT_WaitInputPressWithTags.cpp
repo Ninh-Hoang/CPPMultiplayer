@@ -12,7 +12,9 @@ UAT_WaitInputPressWithTags::UAT_WaitInputPressWithTags(const FObjectInitializer&
 	bTestInitialState = false;
 }
 
-UAT_WaitInputPressWithTags* UAT_WaitInputPressWithTags::WaitInputPressWithTags(UGameplayAbility* OwningAbility, FGameplayTagContainer RequiredTags, FGameplayTagContainer IgnoredTags, bool bTestAlreadyPressed /*= false*/)
+UAT_WaitInputPressWithTags* UAT_WaitInputPressWithTags::WaitInputPressWithTags(
+	UGameplayAbility* OwningAbility, FGameplayTagContainer RequiredTags, FGameplayTagContainer IgnoredTags,
+	bool bTestAlreadyPressed /*= false*/)
 {
 	UAT_WaitInputPressWithTags* Task = NewAbilityTask<UAT_WaitInputPressWithTags>(OwningAbility);
 	Task->bTestInitialState = bTestAlreadyPressed;
@@ -36,10 +38,14 @@ void UAT_WaitInputPressWithTags::Activate()
 			}
 		}
 
-		DelegateHandle = AbilitySystemComponent->AbilityReplicatedEventDelegate(EAbilityGenericReplicatedEvent::InputPressed, GetAbilitySpecHandle(), GetActivationPredictionKey()).AddUObject(this, &UAT_WaitInputPressWithTags::OnPressCallback);
+		DelegateHandle = AbilitySystemComponent->AbilityReplicatedEventDelegate(
+			                                         EAbilityGenericReplicatedEvent::InputPressed,
+			                                         GetAbilitySpecHandle(), GetActivationPredictionKey()).
+		                                         AddUObject(this, &UAT_WaitInputPressWithTags::OnPressCallback);
 		if (IsForRemoteClient())
 		{
-			if (!AbilitySystemComponent->CallReplicatedEventDelegateIfSet(EAbilityGenericReplicatedEvent::InputPressed, GetAbilitySpecHandle(), GetActivationPredictionKey()))
+			if (!AbilitySystemComponent->CallReplicatedEventDelegateIfSet(
+				EAbilityGenericReplicatedEvent::InputPressed, GetAbilitySpecHandle(), GetActivationPredictionKey()))
 			{
 				SetWaitingOnRemotePlayerData();
 			}
@@ -58,7 +64,8 @@ void UAT_WaitInputPressWithTags::OnPressCallback()
 	}
 
 	//TODO move this into a tag query
-	if (AbilitySystemComponent->HasAnyMatchingGameplayTags(IgnoredTags) || !AbilitySystemComponent->HasAllMatchingGameplayTags(RequiredTags))
+	if (AbilitySystemComponent->HasAnyMatchingGameplayTags(IgnoredTags) || !AbilitySystemComponent->
+		HasAllMatchingGameplayTags(RequiredTags))
 	{
 		Reset();
 		return;
@@ -73,18 +80,23 @@ void UAT_WaitInputPressWithTags::OnPressCallback()
 		return;
 	}
 
-	AbilitySystemComponent->AbilityReplicatedEventDelegate(EAbilityGenericReplicatedEvent::InputPressed, GetAbilitySpecHandle(), GetActivationPredictionKey()).Remove(DelegateHandle);
+	AbilitySystemComponent->AbilityReplicatedEventDelegate(EAbilityGenericReplicatedEvent::InputPressed,
+	                                                       GetAbilitySpecHandle(), GetActivationPredictionKey()).Remove(
+		DelegateHandle);
 
 	FScopedPredictionWindow ScopedPrediction(AbilitySystemComponent, IsPredictingClient());
 
 	if (IsPredictingClient())
 	{
 		// Tell the server about this
-		AbilitySystemComponent->ServerSetReplicatedEvent(EAbilityGenericReplicatedEvent::InputPressed, GetAbilitySpecHandle(), GetActivationPredictionKey(), AbilitySystemComponent->ScopedPredictionKey);
+		AbilitySystemComponent->ServerSetReplicatedEvent(EAbilityGenericReplicatedEvent::InputPressed,
+		                                                 GetAbilitySpecHandle(), GetActivationPredictionKey(),
+		                                                 AbilitySystemComponent->ScopedPredictionKey);
 	}
 	else
 	{
-		AbilitySystemComponent->ConsumeGenericReplicatedEvent(EAbilityGenericReplicatedEvent::InputPressed, GetAbilitySpecHandle(), GetActivationPredictionKey());
+		AbilitySystemComponent->ConsumeGenericReplicatedEvent(EAbilityGenericReplicatedEvent::InputPressed,
+		                                                      GetAbilitySpecHandle(), GetActivationPredictionKey());
 	}
 
 	// We are done. Kill us so we don't keep getting broadcast messages
@@ -98,7 +110,9 @@ void UAT_WaitInputPressWithTags::OnPressCallback()
 
 void UAT_WaitInputPressWithTags::OnDestroy(bool AbilityEnded)
 {
-	AbilitySystemComponent->AbilityReplicatedEventDelegate(EAbilityGenericReplicatedEvent::InputPressed, GetAbilitySpecHandle(), GetActivationPredictionKey()).Remove(DelegateHandle);
+	AbilitySystemComponent->AbilityReplicatedEventDelegate(EAbilityGenericReplicatedEvent::InputPressed,
+	                                                       GetAbilitySpecHandle(), GetActivationPredictionKey()).Remove(
+		DelegateHandle);
 
 	ClearWaitingOnRemotePlayerData();
 
@@ -107,12 +121,18 @@ void UAT_WaitInputPressWithTags::OnDestroy(bool AbilityEnded)
 
 void UAT_WaitInputPressWithTags::Reset()
 {
-	AbilitySystemComponent->AbilityReplicatedEventDelegate(EAbilityGenericReplicatedEvent::InputPressed, GetAbilitySpecHandle(), GetActivationPredictionKey()).Remove(DelegateHandle);
+	AbilitySystemComponent->AbilityReplicatedEventDelegate(EAbilityGenericReplicatedEvent::InputPressed,
+	                                                       GetAbilitySpecHandle(), GetActivationPredictionKey()).Remove(
+		DelegateHandle);
 
-	DelegateHandle = AbilitySystemComponent->AbilityReplicatedEventDelegate(EAbilityGenericReplicatedEvent::InputPressed, GetAbilitySpecHandle(), GetActivationPredictionKey()).AddUObject(this, &UAT_WaitInputPressWithTags::OnPressCallback);
+	DelegateHandle = AbilitySystemComponent->AbilityReplicatedEventDelegate(
+		EAbilityGenericReplicatedEvent::InputPressed, GetAbilitySpecHandle(), GetActivationPredictionKey()).AddUObject(
+		this, &UAT_WaitInputPressWithTags::OnPressCallback);
 	if (IsForRemoteClient())
 	{
-		if (!AbilitySystemComponent->CallReplicatedEventDelegateIfSet(EAbilityGenericReplicatedEvent::InputPressed, GetAbilitySpecHandle(), GetActivationPredictionKey()))
+		if (!AbilitySystemComponent->CallReplicatedEventDelegateIfSet(EAbilityGenericReplicatedEvent::InputPressed,
+		                                                              GetAbilitySpecHandle(),
+		                                                              GetActivationPredictionKey()))
 		{
 			SetWaitingOnRemotePlayerData();
 		}

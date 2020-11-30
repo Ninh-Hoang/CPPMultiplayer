@@ -12,7 +12,8 @@ UARTAbilityCost_MMC::UARTAbilityCost_MMC()
 
 float UARTAbilityCost_MMC::CalculateBaseMagnitude_Implementation(const FGameplayEffectSpec& Spec) const
 {
-	const UARTGameplayAbility* Ability = Cast<UARTGameplayAbility>(Spec.GetContext().GetAbilityInstance_NotReplicated());
+	const UARTGameplayAbility* Ability = Cast<UARTGameplayAbility
+	>(Spec.GetContext().GetAbilityInstance_NotReplicated());
 
 	if (!Ability)
 	{

@@ -10,7 +10,6 @@
 #include "ARTCharacter/AI/ARTNavigationInvokerComponent.h"
 
 
-
 AARTCharacterAI::AARTCharacterAI(const class FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
 	//Create Nav Invoker
@@ -35,7 +34,7 @@ AARTCharacterAI::AARTCharacterAI(const class FObjectInitializer& ObjectInitializ
 	AttributeSetBase = HardRefAttributeSetBase;
 
 	//set collision
-	GetCapsuleComponent()->SetCollisionResponseToChannel(ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Ignore);
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
 
 	//setup floating status bar
 	UIFloatingStatusBarComponent = CreateDefaultSubobject<UWidgetComponent>(FName("UIFloatingStatusBarComponent"));
@@ -59,8 +58,9 @@ void AARTCharacterAI::BeginPlay()
 		InitializeTagResponseTable();
 
 		// Attribute change callbacks
-		HealthChangedDelegateHandle = AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSetBase->GetHealthAttribute()).AddUObject(this, &AARTCharacterAI::HealthChanged);
-
+		HealthChangedDelegateHandle = AbilitySystemComponent->
+		                              GetGameplayAttributeValueChangeDelegate(AttributeSetBase->GetHealthAttribute()).
+		                              AddUObject(this, &AARTCharacterAI::HealthChanged);
 	}
 
 	// Setup FloatingStatusBar UI for Locally Owned Players only, not AI or the server's copy of the PlayerControllers
@@ -94,7 +94,7 @@ void AARTCharacterAI::HealthChanged(const FOnAttributeChangeData& Data)
 	}
 
 	// If the minion died, handle death
-	if (!IsAlive() &&  !AbilitySystemComponent->HasMatchingGameplayTag(DeadTag))
+	if (!IsAlive() && !AbilitySystemComponent->HasMatchingGameplayTag(DeadTag))
 	{
 		Die();
 	}

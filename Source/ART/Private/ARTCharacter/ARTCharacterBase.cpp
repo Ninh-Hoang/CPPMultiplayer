@@ -30,7 +30,7 @@
 
 // Sets default values
 AARTCharacterBase::AARTCharacterBase(const class FObjectInitializer& ObjectInitializer) :
-	Super(ObjectInitializer.SetDefaultSubobjectClass<UARTCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
+	Super(ObjectInitializer.SetDefaultSubobjectClass<UARTCharacterMovementComponent>(CharacterMovementComponentName))
 {
 	PrimaryActorTick.bCanEverTick = true;
 	SetReplicates(true);
@@ -53,20 +53,21 @@ FGenericTeamId AARTCharacterBase::GetGenericTeamId() const
 
 ETeamAttitude::Type AARTCharacterBase::GetTeamAttitudeTowards(const AActor& Other) const
 {
-	if (const AARTCharacterBase* OtherPawn = Cast<AARTCharacterBase>(&Other)) {
+	if (const AARTCharacterBase* OtherPawn = Cast<AARTCharacterBase>(&Other))
+	{
 		//Create an alliance with Team with ID 10 and set all the other teams as Hostiles:
 		FGenericTeamId OtherTeamID = OtherPawn->GetGenericTeamId();
-		if (OtherTeamID == FGenericTeamId(TeamNumber)) {
+		if (OtherTeamID == FGenericTeamId(TeamNumber))
+		{
 			return ETeamAttitude::Friendly;
 		}
-		else {
-			return ETeamAttitude::Hostile;
-		}
+		return ETeamAttitude::Hostile;
 	}
 	return ETeamAttitude::Neutral;
 }
 
-EARTHitReactDirection AARTCharacterBase::GetHitReactDirectionVector(const FVector& ImpactPoint, const AActor* AttackingActor)
+EARTHitReactDirection AARTCharacterBase::GetHitReactDirectionVector(const FVector& ImpactPoint,
+                                                                    const AActor* AttackingActor)
 {
 	const FVector& ActorLocation = GetActorLocation();
 	FVector ImpactVector;
@@ -94,24 +95,15 @@ EARTHitReactDirection AARTCharacterBase::GetHitReactDirectionVector(const FVecto
 		{
 			return EARTHitReactDirection::Front;
 		}
-		else
-		{
-			return EARTHitReactDirection::Back;
-		}	
+		return EARTHitReactDirection::Back;
 	}
-	else
-	{
-		// Determine if Right or Left
+	// Determine if Right or Left
 
-		if (DistanceToFrontBackPlane >= 0)
-		{
-			return EARTHitReactDirection::Right;
-		}
-		else
-		{
-			return EARTHitReactDirection::Left;
-		}
+	if (DistanceToFrontBackPlane >= 0)
+	{
+		return EARTHitReactDirection::Right;
 	}
+	return EARTHitReactDirection::Left;
 
 	return EARTHitReactDirection::Front;
 }
@@ -124,7 +116,8 @@ UAbilitySystemComponent* AARTCharacterBase::GetAbilitySystemComponent() const
 
 void AARTCharacterBase::RemoveCharacterAbilities()
 {
-	if (GetLocalRole() != ROLE_Authority || !IsValid(AbilitySystemComponent) || !AbilitySystemComponent->CharacterAbilitiesGiven)
+	if (GetLocalRole() != ROLE_Authority || !IsValid(AbilitySystemComponent) || !AbilitySystemComponent->
+		CharacterAbilitiesGiven)
 	{
 		return;
 	}
@@ -157,7 +150,8 @@ void AARTCharacterBase::RemoveCharacterAbilities()
 void AARTCharacterBase::Die()
 {
 	// Only runs on Server
-	if (!HasAuthority()) {
+	if (!HasAuthority())
+	{
 		return;
 	}
 
@@ -171,7 +165,8 @@ void AARTCharacterBase::Die()
 		EffectTagsToRemove.AddTag(EffectRemoveOnDeathTag);
 		int32 NumEffectsRemoved = AbilitySystemComponent->RemoveActiveEffectsWithTags(EffectTagsToRemove);
 
-		AbilitySystemComponent->ApplyGameplayEffectToSelf(Cast<UGameplayEffect>(DeathEffect->GetDefaultObject()), 1.0f, AbilitySystemComponent->MakeEffectContext());
+		AbilitySystemComponent->ApplyGameplayEffectToSelf(Cast<UGameplayEffect>(DeathEffect->GetDefaultObject()), 1.0f,
+		                                                  AbilitySystemComponent->MakeEffectContext());
 
 		AbilitySystemComponent->AddLooseGameplayTag(DeadTag);
 	}
@@ -242,7 +237,8 @@ void AARTCharacterBase::InitializeAttributes()
 
 	if (!DefaultAttributes)
 	{
-		UE_LOG(LogTemp, Error, TEXT("%s() Missing DefaultAttributes for %s. Please fill in the character's Blueprint."), *FString(__FUNCTION__), *GetName());
+		UE_LOG(LogTemp, Error, TEXT("%s() Missing DefaultAttributes for %s. Please fill in the character's Blueprint."),
+		       *FString(__FUNCTION__), *GetName());
 		return;
 	}
 
@@ -250,10 +246,12 @@ void AARTCharacterBase::InitializeAttributes()
 	FGameplayEffectContextHandle EffectContext = AbilitySystemComponent->MakeEffectContext();
 	EffectContext.AddSourceObject(this);
 
-	FGameplayEffectSpecHandle NewHandle = AbilitySystemComponent->MakeOutgoingSpec(DefaultAttributes, GetCharacterLevel(), EffectContext);
+	FGameplayEffectSpecHandle NewHandle = AbilitySystemComponent->MakeOutgoingSpec(
+		DefaultAttributes, GetCharacterLevel(), EffectContext);
 	if (NewHandle.IsValid())
 	{
-		FActiveGameplayEffectHandle ActiveGEHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(), AbilitySystemComponent);
+		FActiveGameplayEffectHandle ActiveGEHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(
+			*NewHandle.Data.Get(), AbilitySystemComponent);
 	}
 }
 
@@ -302,7 +300,8 @@ void AARTCharacterBase::ShowDamageNumber()
 }
 
 //Mostly for AI
-bool AARTCharacterBase::ActivateAbilitiesWithTags(FGameplayTagContainer AbilityTags, bool bAllowRemoteActivation /*= true*/)
+bool AARTCharacterBase::ActivateAbilitiesWithTags(FGameplayTagContainer AbilityTags,
+                                                  bool bAllowRemoteActivation /*= true*/)
 {
 	if (AbilitySystemComponent)
 	{
@@ -312,7 +311,8 @@ bool AARTCharacterBase::ActivateAbilitiesWithTags(FGameplayTagContainer AbilityT
 	return false;
 }
 
-void AARTCharacterBase::GetActiveAbilitiesWithTags(FGameplayTagContainer AbilityTags, TArray<UARTGameplayAbility*>& ActiveAbilities)
+void AARTCharacterBase::GetActiveAbilitiesWithTags(FGameplayTagContainer AbilityTags,
+                                                   TArray<UARTGameplayAbility*>& ActiveAbilities)
 {
 	if (AbilitySystemComponent)
 	{
@@ -863,15 +863,19 @@ void AARTCharacterBase::SetStamina(float Stamina)
 void AARTCharacterBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 void AARTCharacterBase::BindASCInput()
 {
-	if (!ASCInputBound &&  AbilitySystemComponent && IsValid(InputComponent))
+	if (!ASCInputBound && AbilitySystemComponent && IsValid(InputComponent))
 	{
-		AbilitySystemComponent->BindAbilityActivationToInputComponent(InputComponent, FGameplayAbilityInputBinds(FString("ConfirmTarget"),
-			FString("CancelTarget"), FString("EARTAbilityInputID"), static_cast<int32>(EARTAbilityInputID::Confirm), static_cast<int32>(EARTAbilityInputID::Cancel)));
+		AbilitySystemComponent->BindAbilityActivationToInputComponent(InputComponent, FGameplayAbilityInputBinds(
+			                                                              FString("ConfirmTarget"),
+			                                                              FString("CancelTarget"),
+			                                                              FString("EARTAbilityInputID"),
+			                                                              static_cast<int32>(EARTAbilityInputID::Confirm
+			                                                              ), static_cast<int32>(
+				                                                              EARTAbilityInputID::Cancel)));
 
 		ASCInputBound = true;
 	}
@@ -880,18 +884,18 @@ void AARTCharacterBase::BindASCInput()
 void AARTCharacterBase::Restart()
 {
 	Super::Restart();
-	if (AARTPlayerController* PC = Cast<AARTPlayerController>(GetController())) {
+	if (AARTPlayerController* PC = Cast<AARTPlayerController>(GetController()))
+	{
 		//PC->ShowIngameUI();
 	}
 }
 
-bool AARTCharacterBase::IsAlive() const {
+bool AARTCharacterBase::IsAlive() const
+{
 	return GetHealth() > 0.0f;
 }
 
-/* Called every frame */ 
-void Tick(float DeltaTime) {
-
+/* Called every frame */
+void Tick(float DeltaTime)
+{
 }
-
-

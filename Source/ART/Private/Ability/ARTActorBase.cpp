@@ -26,6 +26,4 @@ class UAbilitySystemComponent* AARTActorBase::GetAbilitySystemComponent() const
 void AARTActorBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
-

@@ -58,7 +58,8 @@ UARTWaterDamage_EC::UARTWaterDamage_EC()
 	RelevantAttributesToCapture.Add(WaterDamageStatics().ShieldDef);
 }
 
-void UARTWaterDamage_EC::Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams, OUT FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const
+void UARTWaterDamage_EC::Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams,
+                                                OUT FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const
 {
 	UAbilitySystemComponent* TargetAbilitySystemComponent = ExecutionParams.GetTargetAbilitySystemComponent();
 	UAbilitySystemComponent* SourceAbilitySystemComponent = ExecutionParams.GetSourceAbilitySystemComponent();
@@ -79,21 +80,26 @@ void UARTWaterDamage_EC::Execute_Implementation(const FGameplayEffectCustomExecu
 	EvaluationParameters.TargetTags = TargetTags;
 
 	float AttackPower = 0.f;
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(WaterDamageStatics().AttackPowerDef, EvaluationParameters, AttackPower);
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(WaterDamageStatics().AttackPowerDef,
+	                                                           EvaluationParameters, AttackPower);
 	AttackPower = FMath::Max<float>(AttackPower, 0.0f);
 
 	float WaterBonus = 0.0f;
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(WaterDamageStatics().WaterBonusDef, EvaluationParameters, WaterBonus);
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(WaterDamageStatics().WaterBonusDef, EvaluationParameters,
+	                                                           WaterBonus);
 
 	float WaterRes = 0.0f;
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(WaterDamageStatics().WaterResDef, EvaluationParameters, WaterRes);
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(WaterDamageStatics().WaterResDef, EvaluationParameters,
+	                                                           WaterRes);
 
 	float Shield = 0.0f;
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(WaterDamageStatics().ShieldDef, EvaluationParameters, Shield);
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(WaterDamageStatics().ShieldDef, EvaluationParameters,
+	                                                           Shield);
 	Shield = FMath::Max<float>(Shield, 0.0f);
 
 	// SetByCaller Damage
-	float Damage = FMath::Max<float>(Spec.GetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Data.Damage.Water")), false, -1.0f), 0.0f);
+	float Damage = FMath::Max<float>(
+		Spec.GetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Data.Damage.Water")), false, -1.0f), 0.0f);
 
 	float BaseDamage = Damage * AttackPower;
 
@@ -103,20 +109,25 @@ void UARTWaterDamage_EC::Execute_Implementation(const FGameplayEffectCustomExecu
 	float MitigatedDamage = UnmitigatedDamage;
 
 	//if Damage exceed shield, calculate damage to health with armor modification
-	if (MitigatedDamage > Shield) {
+	if (MitigatedDamage > Shield)
+	{
 		MitigatedDamage = Shield + (MitigatedDamage - Shield) * (1 - WaterRes);
 	}
 
 	if (MitigatedDamage > 0.f)
 	{
 		// Set the Target's damage meta attribute
-		OutExecutionOutput.AddOutputModifier(FGameplayModifierEvaluatedData(WaterDamageStatics().DamageProperty, EGameplayModOp::Additive, MitigatedDamage));
+		OutExecutionOutput.AddOutputModifier(
+			FGameplayModifierEvaluatedData(WaterDamageStatics().DamageProperty, EGameplayModOp::Additive,
+			                               MitigatedDamage));
 
 		//send event to target that they just took Water damage
 		FGameplayEventData EventData;
 		EventData.Instigator = SourceActor;
 		EventData.Target = TargetActor;
 		EventData.EventMagnitude = BaseDamage;
-		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(TargetActor, FGameplayTag::RequestGameplayTag(FName("Data.Damage.Water"), false), EventData);
+		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(TargetActor,
+		                                                         FGameplayTag::RequestGameplayTag(
+			                                                         FName("Data.Damage.Water"), false), EventData);
 	}
 }

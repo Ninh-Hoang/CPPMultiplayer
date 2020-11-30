@@ -3,7 +3,8 @@
 
 #include "Blueprint/AsyncTaskCooldownChanged.h"
 
-UAsyncTaskCooldownChanged* UAsyncTaskCooldownChanged::ListenForCooldownChange(UARTAbilitySystemComponent* AbilitySystemComponent, FGameplayTagContainer InCooldownTags, bool InUseServerCooldown)
+UAsyncTaskCooldownChanged* UAsyncTaskCooldownChanged::ListenForCooldownChange(
+	UARTAbilitySystemComponent* AbilitySystemComponent, FGameplayTagContainer InCooldownTags, bool InUseServerCooldown)
 {
 	UAsyncTaskCooldownChanged* ListenForCooldownChange = NewObject<UAsyncTaskCooldownChanged>();
 	ListenForCooldownChange->ASC = AbilitySystemComponent;
@@ -16,14 +17,16 @@ UAsyncTaskCooldownChanged* UAsyncTaskCooldownChanged::ListenForCooldownChange(UA
 		return nullptr;
 	}
 
-	AbilitySystemComponent->OnActiveGameplayEffectAddedDelegateToSelf.AddUObject(ListenForCooldownChange, &UAsyncTaskCooldownChanged::OnActiveGameplayEffectAddedCallback);
+	AbilitySystemComponent->OnActiveGameplayEffectAddedDelegateToSelf.AddUObject(
+		ListenForCooldownChange, &UAsyncTaskCooldownChanged::OnActiveGameplayEffectAddedCallback);
 
 	TArray<FGameplayTag> CooldownTagArray;
 	InCooldownTags.GetGameplayTagArray(CooldownTagArray);
 
 	for (FGameplayTag CooldownTag : CooldownTagArray)
 	{
-		AbilitySystemComponent->RegisterGameplayTagEvent(CooldownTag, EGameplayTagEventType::AnyCountChange).AddUObject(ListenForCooldownChange, &UAsyncTaskCooldownChanged::CooldownTagChanged);
+		AbilitySystemComponent->RegisterGameplayTagEvent(CooldownTag, EGameplayTagEventType::AnyCountChange).AddUObject(
+			ListenForCooldownChange, &UAsyncTaskCooldownChanged::CooldownTagChanged);
 	}
 
 	return ListenForCooldownChange;
@@ -48,7 +51,9 @@ void UAsyncTaskCooldownChanged::EndTask()
 	MarkPendingKill();
 }
 
-void UAsyncTaskCooldownChanged::OnActiveGameplayEffectAddedCallback(UAbilitySystemComponent* Target, const FGameplayEffectSpec& SpecApplied, FActiveGameplayEffectHandle ActiveHandle)
+void UAsyncTaskCooldownChanged::OnActiveGameplayEffectAddedCallback(UAbilitySystemComponent* Target,
+                                                                    const FGameplayEffectSpec& SpecApplied,
+                                                                    FActiveGameplayEffectHandle ActiveHandle)
 {
 	FGameplayTagContainer AssetTags;
 	SpecApplied.GetAllAssetTags(AssetTags);
@@ -112,7 +117,8 @@ void UAsyncTaskCooldownChanged::CooldownTagChanged(const FGameplayTag CooldownTa
 	}*/
 }
 
-bool UAsyncTaskCooldownChanged::GetCooldownRemainingForTag(FGameplayTagContainer InCooldownTags, float& TimeRemaining, float& CooldownDuration, int32& Charge)
+bool UAsyncTaskCooldownChanged::GetCooldownRemainingForTag(FGameplayTagContainer InCooldownTags, float& TimeRemaining,
+                                                           float& CooldownDuration, int32& Charge)
 {
 	if (IsValid(ASC) && InCooldownTags.Num() > 0)
 	{
@@ -122,7 +128,7 @@ bool UAsyncTaskCooldownChanged::GetCooldownRemainingForTag(FGameplayTagContainer
 		//Charge = ASC->FindAbilityChargeViaCooldownTag(InCooldownTags);
 
 		FGameplayEffectQuery const Query = FGameplayEffectQuery::MakeQuery_MatchAnyOwningTags(InCooldownTags);
-		TArray< TPair<float, float> > DurationAndTimeRemaining = ASC->GetActiveEffectsTimeRemainingAndDuration(Query);
+		TArray<TPair<float, float>> DurationAndTimeRemaining = ASC->GetActiveEffectsTimeRemainingAndDuration(Query);
 		if (DurationAndTimeRemaining.Num() > 0)
 		{
 			int32 BestIdx = 0;

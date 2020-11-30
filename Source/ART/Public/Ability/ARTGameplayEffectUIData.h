@@ -26,5 +26,4 @@ class ART_API UARTGameplayEffectUIData : public UGameplayEffectUIData
 	/** Description of this effect. Can be shown in the UI. */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Data, meta = (MultiLine = "true"))
 	FText Description;
-	
 };

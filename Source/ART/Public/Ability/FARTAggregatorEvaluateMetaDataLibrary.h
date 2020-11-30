@@ -4,9 +4,9 @@
 
 #include "GameplayEffectAggregator.h"
 
-struct ART_API FARTAggregatorEvaluateMetaDataLibrary 
+struct ART_API FARTAggregatorEvaluateMetaDataLibrary
 {
 	static FAggregatorEvaluateMetaData MostNegativeMod_AllPositiveMods;
-	
+
 	static FAggregatorEvaluateMetaData MostNegativeMod_MostPositiveModPerClass;
 };

@@ -16,10 +16,11 @@ void UARTGameplayAbilitySet::GiveAbilities(UARTAbilitySystemComponent* AbilitySy
 		if (GameplayAbility.GameplayAbilityClass)
 		{
 			AbilitySystemComponent->GiveAbility(
-				FGameplayAbilitySpec(GameplayAbility.GameplayAbilityClass, 
-					(int32)GameplayAbility.Level,
-					static_cast<int32>(GameplayAbility.GameplayAbilityClass.GetDefaultObject()->AbilityInputID), 
-					AbilitySystemComponent->GetAvatarActor()));
+				FGameplayAbilitySpec(GameplayAbility.GameplayAbilityClass,
+				                     static_cast<int32>(GameplayAbility.Level),
+				                     static_cast<int32>(GameplayAbility.GameplayAbilityClass.GetDefaultObject()->
+				                                                        AbilityInputID),
+				                     AbilitySystemComponent->GetAvatarActor()));
 		}
 	}
 }
@@ -36,10 +37,12 @@ void UARTGameplayAbilitySet::AddStartupEffects(class UARTAbilitySystemComponent*
 
 	for (const FARTGameplayEffectApplicationInfo& GameplayEffect : StartupGameplayEffects)
 	{
-		FGameplayEffectSpecHandle NewHandle = AbilitySystemComponent->MakeOutgoingSpec(GameplayEffect.GameplayEffectClass, GameplayEffect.Level, EffectContext);
+		FGameplayEffectSpecHandle NewHandle = AbilitySystemComponent->MakeOutgoingSpec(
+			GameplayEffect.GameplayEffectClass, GameplayEffect.Level, EffectContext);
 		if (NewHandle.IsValid())
 		{
-			FActiveGameplayEffectHandle ActiveGEHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*NewHandle.Data.Get(), AbilitySystemComponent);
+			FActiveGameplayEffectHandle ActiveGEHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(
+				*NewHandle.Data.Get(), AbilitySystemComponent);
 		}
 	}
 

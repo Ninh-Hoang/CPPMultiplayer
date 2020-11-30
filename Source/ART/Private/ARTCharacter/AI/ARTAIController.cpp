@@ -10,7 +10,8 @@ AARTAIController::AARTAIController()
 
 class UAbilitySystemComponent* AARTAIController::GetAbilitySystemComponent() const
 {
-	if (GetPawn() && Cast<AARTCharacterBase>(GetPawn())) {
+	if (GetPawn() && Cast<AARTCharacterBase>(GetPawn()))
+	{
 		return Cast<AARTCharacterBase>(GetPawn())->GetAbilitySystemComponent();
 	}
 	return nullptr;
