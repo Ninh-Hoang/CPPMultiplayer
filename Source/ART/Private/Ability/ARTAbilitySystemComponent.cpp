@@ -497,6 +497,7 @@ bool UARTAbilitySystemComponent::AddGameplayEffectDurationHandle(FActiveGameplay
 	{
 		return false;
 	}
+	
 
 	FActiveGameplayEffect* AGE = const_cast<FActiveGameplayEffect*>(ActiveGameplayEffect);
 	if (AddDuration > 0.f)

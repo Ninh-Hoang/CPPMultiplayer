@@ -3,8 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AttributeSet.h"
 #include "AbilitySystemComponent.h"
+#include "ARTAttributeSetBase.h"
+
 #include "ARTCharacterAttributeSet.generated.h"
 
 /**
@@ -19,7 +20,7 @@
 	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
 UCLASS()
-class ART_API UARTCharacterAttributeSet : public UAttributeSet
+class ART_API UARTCharacterAttributeSet : public UARTAttributeSetBase
 {
 	GENERATED_BODY()
 
@@ -543,9 +544,4 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Healing", meta = (HideFromLevelInfos))
 	FGameplayAttributeData Healing;
 	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, Healing)
-
-protected:
-	void AdjustAttributeForMaxChange(FGameplayAttributeData& AffectedAttribute,
-	                                 const FGameplayAttributeData& MaxAttribute, float NewMaxValue,
-	                                 const FGameplayAttribute& AffectedAttributeProperty);
 };
