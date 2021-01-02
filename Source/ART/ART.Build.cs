@@ -22,6 +22,7 @@ public class ART : ModuleRules
 		{
 			"Slate",
 			"SlateCore",
+			"PhysicsCore",
 			"GameplayAbilities",
 			"GameplayTags",
 			"GameplayTasks",
@@ -31,7 +32,7 @@ public class ART : ModuleRules
 			"OnlineSubsystemUtils",
 			"Steamworks",
 			"Networking",
-			"Voxel"
+			//"Voxel"
 		});
 
 

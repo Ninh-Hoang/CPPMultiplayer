@@ -145,7 +145,7 @@ protected:
 	UParticleSystem* FleshImpactEffect;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
-	TSubclassOf<UCameraShake> FireCameraShake;
+	TSubclassOf<UMatineeCameraShake> FireCameraShake;
 
 	FTimerHandle TimerHandle_TimeBetweenShot;
 

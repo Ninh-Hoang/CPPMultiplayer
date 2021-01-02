@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "VoxelCharacter.h"
+//#include "VoxelCharacter.h"
 #include "AbilitySystemInterface.h"
 #include "ART/ART.h"
 #include "GameplayEffectTypes.h"
@@ -35,7 +35,7 @@ struct ART_API FARTDamageNumber
 };
 
 UCLASS()
-class ART_API AARTCharacterBase : public AVoxelCharacter, public IAbilitySystemInterface,
+class ART_API AARTCharacterBase : public ACharacter, public IAbilitySystemInterface,
                                   public IGenericTeamAgentInterface
 {
 	GENERATED_BODY()
@@ -302,16 +302,12 @@ public:
 	float GetRotateRate() const;
 
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
-	float GetXP() const;
+	float GetXPMod() const;
+
 
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
-	float GetXPBounty() const;
+	float GetEnMod() const;
 
-	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
-	float GetEn() const;
-
-	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
-	float GetEnBounty() const;
 
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
 	bool IsAlive() const;

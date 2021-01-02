@@ -178,16 +178,10 @@ public:
 	float GetRotateRate() const;
 
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
-	float GetXP() const;
+	float GetXPMod() const;
 
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
-	float GetXPBounty() const;
-
-	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
-	float GetEn() const;
-
-	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
-	float GetEnBounty() const;
+	float GetEnMod() const;
 
 protected:
 	UPROPERTY()

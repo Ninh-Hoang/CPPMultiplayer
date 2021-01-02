@@ -10,7 +10,6 @@ class UDamageType;
 class UParticleSystem;
 class UMeshComponent;
 
-
 //contain weapon of LineTrace
 USTRUCT()
 struct FHitScanTrac
@@ -86,7 +85,7 @@ protected:
 	UParticleSystem* TracerEffect;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
-	TSubclassOf<UCameraShake> FireCameraShake;
+	TSubclassOf<UMatineeCameraShake> FireCameraShake;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Component")
 	UMeshComponent* MeshComponent;

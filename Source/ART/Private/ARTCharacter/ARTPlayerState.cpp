@@ -157,7 +157,7 @@ bool AARTPlayerState::GetCooldownRemainingForTag(FGameplayTagContainer CooldownT
 
 int32 AARTPlayerState::GetCharacterLevel() const
 {
-	return AttributeSetBase->GetCharacterLevel();
+	return 1;
 }
 
 float AARTPlayerState::GetAttackPower() const
@@ -355,25 +355,16 @@ float AARTPlayerState::GetRotateRate() const
 	return AttributeSetBase->GetRotateRate();
 }
 
-float AARTPlayerState::GetXP() const
+float AARTPlayerState::GetXPMod() const
 {
-	return AttributeSetBase->GetXP();
+	return AttributeSetBase->GetXPMod();
 }
 
-float AARTPlayerState::GetXPBounty() const
+float AARTPlayerState::GetEnMod() const
 {
-	return AttributeSetBase->GetXPBounty();
+	return AttributeSetBase->GetEnMod();
 }
 
-float AARTPlayerState::GetEn() const
-{
-	return AttributeSetBase->GetEn();
-}
-
-float AARTPlayerState::GetEnBounty() const
-{
-	return AttributeSetBase->GetEnBounty();
-}
 
 void AARTPlayerState::BeginPlay()
 {

@@ -174,7 +174,7 @@ void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
 				if (SourceController != TargetController)
 				{
 					// Create a dynamic instant Gameplay Effect to give the reward
-					UGameplayEffect* GEBounty = NewObject<UGameplayEffect
+					/*UGameplayEffect* GEBounty = NewObject<UGameplayEffect
 					>(GetTransientPackage(), FName(TEXT("Bounty")));
 					GEBounty->DurationPolicy = EGameplayEffectDurationType::Instant;
 
@@ -191,7 +191,7 @@ void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
 					InfoGold.ModifierOp = EGameplayModOp::Additive;
 					InfoGold.Attribute = GetEnAttribute();
 
-					Source->ApplyGameplayEffectToSelf(GEBounty, 1.0f, Source->MakeEffectContext());
+					Source->ApplyGameplayEffectToSelf(GEBounty, 1.0f, Source->MakeEffectContext());*/
 				}
 			}
 		}
@@ -264,21 +264,6 @@ void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
 		// Handle stamina changes.
 		SetStamina(FMath::Clamp(GetStamina(), 0.0f, GetMaxStamina()));
 	}
-	else if (Data.EvaluatedData.Attribute == GetXPAttribute())
-	{
-		// Handle XP and level up.
-		if (GetXP() >= GetMaxXP())
-		{
-			//level up
-			SetCharacterLevel(GetCharacterLevel() + 1.0f);
-
-			//set XP to 0 + extra xp from level up
-			SetXP(GetXP() - GetMaxXP());
-
-			//TODO: Add MaxXP reading from curve
-		}
-		SetStamina(FMath::Clamp(GetStamina(), 0.0f, GetMaxStamina()));
-	}
 }
 
 void UARTCharacterAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -322,11 +307,8 @@ void UARTCharacterAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimePrope
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, StaminaRegen, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, MoveSpeed, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, RotateRate, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, XP, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, MaxXP, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, XPBounty, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, En, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, EnBounty, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, XPMod, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, EnMod, COND_None, REPNOTIFY_Always);
 }
 
 void UARTCharacterAttributeSet::OnAttributeAggregatorCreated(const FGameplayAttribute& Attribute,

@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "4.25",
+	"EngineAssociation": "4.26",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -14,7 +14,6 @@
 				"UMG",
 				"GameplayAbilities",
 				"AIModule",
-				"Voxel",
 				"NavigationSystem",
 				"TheCurviestCurve"
 			]
@@ -35,7 +34,7 @@
 		},
 		{
 			"Name": "VoxelPro",
-			"Enabled": true,
+			"Enabled": false,
 			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/b08e5581837e4bbca486b61cdf2751bb"
 		},
 		{

@@ -103,7 +103,6 @@ void AARTPlayerController::CreateHUD()
 	UIHUDWidget->SetMoveSpeed(PS->GetMoveSpeed());
 
 	UIHUDWidget->SetCharacterLevel(PS->GetCharacterLevel());
-	UIHUDWidget->SetEn(PS->GetEn());
 
 	AARTSurvivor* Survivor = GetPawn<AARTSurvivor>();
 	if (Survivor)

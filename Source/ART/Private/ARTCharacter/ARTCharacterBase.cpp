@@ -36,8 +36,8 @@ AARTCharacterBase::AARTCharacterBase(const class FObjectInitializer& ObjectIniti
 	SetReplicates(true);
 	SetReplicateMovement(true);
 
-	VoxelInvokerComponent = CreateDefaultSubobject<UARTSimpleInvokerComponent>(TEXT("VoxelInvoker"));
-	VoxelInvokerComponent->SetupAttachment(RootComponent);
+	//VoxelInvokerComponent = CreateDefaultSubobject<UARTSimpleInvokerComponent>(TEXT("VoxelInvoker"));
+	//VoxelInvokerComponent->SetupAttachment(RootComponent);
 
 	// Cache tags
 	DeadTag = FGameplayTag::RequestGameplayTag("State.Dead");
@@ -795,41 +795,21 @@ float AARTCharacterBase::GetRotateRate() const
 	return 0.0f;
 }
 
-float AARTCharacterBase::GetXP() const
+float AARTCharacterBase::GetXPMod() const
 {
 	if (AttributeSetBase)
 	{
-		return AttributeSetBase->GetXP();
+		return AttributeSetBase->GetXPMod();
 	}
 
 	return 0.0f;
 }
 
-float AARTCharacterBase::GetXPBounty() const
+float AARTCharacterBase::GetEnMod() const
 {
 	if (AttributeSetBase)
 	{
-		return AttributeSetBase->GetXPBounty();
-	}
-
-	return 0.0f;
-}
-
-float AARTCharacterBase::GetEn() const
-{
-	if (AttributeSetBase)
-	{
-		return AttributeSetBase->GetEn();
-	}
-
-	return 0.0f;
-}
-
-float AARTCharacterBase::GetEnBounty() const
-{
-	if (AttributeSetBase)
-	{
-		return AttributeSetBase->GetEnBounty();
+		return AttributeSetBase->GetEnMod();
 	}
 
 	return 0.0f;

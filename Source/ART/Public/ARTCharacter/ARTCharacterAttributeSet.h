@@ -466,72 +466,27 @@ public:
 		GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, RotateRate, OldRotateRate);
 	}
 
-	//character level
-	UPROPERTY(BlueprintReadOnly, Category = "Character Level", ReplicatedUsing = OnRep_CharacterLevel)
-	FGameplayAttributeData CharacterLevel;
-	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, CharacterLevel)
+	//XP mod
+	UPROPERTY(BlueprintReadOnly, Category = "XPMod", ReplicatedUsing = OnRep_XPMod)
+	FGameplayAttributeData XPMod;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, XPMod)
 
 	UFUNCTION()
-	void OnRep_CharacterLevel(const FGameplayAttributeData& OldCharacterLevel)
+	void OnRep_XPMod(const FGameplayAttributeData& OldXPMod)
 	{
-		GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, CharacterLevel, OldCharacterLevel);
+		GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, XPMod, OldXPMod);
 	}
 
-	// Experience points gained from killing enemies. Used to level up.
-	UPROPERTY(BlueprintReadOnly, Category = "XP", ReplicatedUsing = OnRep_XP)
-	FGameplayAttributeData XP;
-	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, XP)
+	//En mod
+	UPROPERTY(BlueprintReadOnly, Category = "EnMod", ReplicatedUsing = OnRep_EnMod)
+	FGameplayAttributeData EnMod;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, EnMod)
 
-	UFUNCTION()
-	void OnRep_XP(const FGameplayAttributeData& OldXP)
+    UFUNCTION()
+    void OnRep_EnMod(const FGameplayAttributeData& OldEnMod)
 	{
-		GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, XP, OldXP);
+		GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, XPMod, OldEnMod);
 	}
-
-	// MaxExperience, experience to level up
-	UPROPERTY(BlueprintReadOnly, Category = "XP", ReplicatedUsing = OnRep_MaxXP)
-	FGameplayAttributeData MaxXP;
-	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, MaxXP)
-
-	UFUNCTION()
-	void OnRep_MaxXP(const FGameplayAttributeData& OldMaxXP)
-	{
-		GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, MaxXP, MaxXP);
-	}
-
-	// Experience points awarded to the character's killers. Used to level up.
-	UPROPERTY(BlueprintReadOnly, Category = "XP", ReplicatedUsing = OnRep_XPBounty)
-	FGameplayAttributeData XPBounty;
-	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, XPBounty)
-
-	UFUNCTION()
-	void OnRep_XPBounty(const FGameplayAttributeData& OldXPBounty)
-	{
-		GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, XPBounty, OldXPBounty);
-	}
-
-	// En gained from killing enemies. Used to purchase items.
-	UPROPERTY(BlueprintReadOnly, Category = "En", ReplicatedUsing = OnRep_En)
-	FGameplayAttributeData En;
-	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, En)
-
-	UFUNCTION()
-	void OnRep_En(const FGameplayAttributeData& OldEn)
-	{
-		GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, En, OldEn);
-	}
-
-	// Gold awarded to the character's killer. Used to purchase items (not implemented in this project).
-	UPROPERTY(BlueprintReadOnly, Category = "En", ReplicatedUsing = OnRep_EnBounty)
-	FGameplayAttributeData EnBounty;
-	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, EnBounty)
-
-	UFUNCTION()
-	void OnRep_EnBounty(const FGameplayAttributeData& OldEnBounty)
-	{
-		GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, EnBounty, OldEnBounty);
-	}
-
 
 	// Damage is a meta attribute used by the DamageExecution to calculate final damage, which then turns into -Health
 	// Temporary value that only exists on the Server. Not replicated.
