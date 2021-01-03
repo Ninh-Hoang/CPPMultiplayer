@@ -6,35 +6,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="879561f1-dfda-4537-b838-a6709d37e8cc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/riderModule.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/riderModule.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ART.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/ART.uproject" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/BB_EnemyBase.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/BB_EnemyBase.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/Bulk/BP_Bulk.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Bulk/BP_Bulk.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/ItemAndEquipment/Consumable/ElementTestItem/GA_TestTagActivation.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/ItemAndEquipment/Consumable/ElementTestItem/GA_TestTagActivation.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/BP_Survivor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/BP_Survivor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Curve_SurvivorAttributeSet.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Curve_SurvivorAttributeSet.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/GE_SurvivorAttributeSet.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/GE_SurvivorAttributeSet.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Rifle/BP_TracerRifle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Rifle/BP_TracerRifle.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Share/GameplayEvent/BP_CamShakeRifleFire.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Share/GameplayEvent/BP_CamShakeRifleFire.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/VolumetricFog.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/VolumetricFog.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/ART.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/ART.Build.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterAttributeSet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterAttributeSet.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterBase.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTPlayerController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTPlayerState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTPlayerState.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/EC/ARTDamageExecutionCalculation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/EC/ARTDamageExecutionCalculation.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/EC/ARTElecDamage_EC.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/EC/ARTElecDamage_EC.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/EC/ARTHealingExecutionCalculation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/EC/ARTHealingExecutionCalculation.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/EC/ARTWaterDamage_EC.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/EC/ARTWaterDamage_EC.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterAttributeSet.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterAttributeSet.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterBase.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTPlayerState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTPlayerState.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/Voxel/ARTSimpleInvokerComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/Voxel/ARTSimpleInvokerComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Item/WeaponActor.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Item/WeaponActor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Weapon/RangeWeapon.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Weapon/RangeWeapon.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/AnimStarterPack/MX_Animation/DeathMontage.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/AnimStarterPack/MX_Animation/Dodge_Small_Forward_Roll.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/AnimStarterPack/MX_Animation/MT_leap_slam.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/AnimStarterPack/MX_Animation/MT_melee_attack_downward.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/AnimStarterPack/MX_Animation/QuickRoll.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/AnimStarterPack/MX_Animation/SmallRoll.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/AnimStarterPack/MX_Animation/mx_Quick_Roll_To_Run_Anim.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/AnimStarterPack/MX_Animation/mx_standing_melee_attack_downward.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/AnimStarterPack/MX_Animation/mx_standing_melee_run_jump_attack_Anim.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/AnimStarterPack/MX_Animation/mx_unarmed_equip_over_shoulder.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/AnimStarterPack/MX_Animation/mx_unarmed_equip_over_shoulder_Montage.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Animation/PolySha_Anim_Dodge_Anim_Dodge_Montage.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Animation/PolySha_Anim_Dodge_Anim_Dodge_Montage1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Animation/PolySha_Anim_Dodge_Anim_Dodge_Montage2.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Animation/PolySha_Anim_Dodge_Anim_Dodge_Montage3.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Cloth/PolySha_Alembic_HeavyCast.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/NakedBoiIK/naked_boi_skeleton.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/Concept/StartMenu.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Concept/StartMenu.umap" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -312,7 +301,7 @@
       <updated>1607062674544</updated>
       <workItem from="1607062710378" duration="11258000" />
       <workItem from="1607657007263" duration="786000" />
-      <workItem from="1609467370618" duration="4919000" />
+      <workItem from="1609467370618" duration="5640000" />
     </task>
     <servers />
   </component>
