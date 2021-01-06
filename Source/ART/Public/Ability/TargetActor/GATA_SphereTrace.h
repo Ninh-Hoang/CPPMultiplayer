@@ -67,7 +67,6 @@ public:
 		UPARAM(DisplayName = "Filter") FGameplayTargetDataFilterHandle InFilter,
 		UPARAM(DisplayName = "Reticle Class") TSubclassOf<AGameplayAbilityWorldReticle> InReticleClass,
 		UPARAM(DisplayName = "Reticle Params") FWorldReticleParameters InReticleParams,
-		UPARAM(DisplayName = "Tick?") bool bInTickingTargeting = false,
 		UPARAM(DisplayName = "Ignore Blocking Hits") bool bInIgnoreBlockingHits = false,
 		UPARAM(DisplayName = "Should Produce Target Data on Server") bool bInShouldProduceTargetDataOnServer = false,
 		UPARAM(DisplayName = "Use Persistent Hit Results") bool bInUsePersistentHitResults = false,

@@ -73,7 +73,7 @@ public:
 		UPARAM(DisplayName = "Use Persistent Hit Results") bool bInUsePersistentHitResults = false,
 		UPARAM(DisplayName = "Debug") bool bInDebug = false,
 		UPARAM(DisplayName = "Trace Affects Aim Pitch") bool bInTraceAffectsAimPitch = true,
-		UPARAM(DisplayName = "Trace with Pawn Orientation") bool bInTraceWithPawnOrientation = true,
+		UPARAM(DisplayName = "Trace with Pawn Orientation") bool bInTraceWithPawnOrientation = false,
 		UPARAM(DisplayName = "Trace From Player ViewPoint") bool bInTraceFromPlayerViewPoint = false,
 		UPARAM(DisplayName = "Use Aiming Spread Mod") bool bInUseAimingSpreadMod = false,
 		UPARAM(DisplayName = "Max Range") float InMaxRange = 999999.0f,

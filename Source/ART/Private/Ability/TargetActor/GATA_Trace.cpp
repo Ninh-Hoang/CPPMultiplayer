@@ -14,11 +14,10 @@ AGATA_Trace::AGATA_Trace()
 	PrimaryActorTick.TickGroup = TG_PostUpdateWork;
 	MaxHitResultsPerTrace = 1;
 	NumberOfTraces = 1;
-	bTickingTargeting = false;
 	bIgnoreBlockingHits = false;
 	bTraceAffectsAimPitch = true;
 	bTraceFromPlayerViewPoint = false;
-	bTraceWithPawnOrientation = true;
+	bTraceWithPawnOrientation = false;
 	MaxRange = 999999.0f;
 	bUseAimingSpreadMod = false;
 	BaseSpread = 0.0f;
@@ -78,7 +77,6 @@ void AGATA_Trace::StartTargeting(UGameplayAbility* Ability)
 	SetActorTickEnabled(true);
 
 	OwningAbility = Ability;
-	//SourceActor = Ability->GetCurrentActorInfo()->AvatarActor.Get();
 	SourceActor = Ability->GetAvatarActorFromActorInfo();
 
 	// This is a lazy way of emptying and repopulating the ReticleActors.
@@ -170,7 +168,7 @@ void AGATA_Trace::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 
 	TArray<FHitResult> HitResults;
-	if (bDebug || bUsePersistentHitResults || bTickingTargeting)
+	if (bDebug || bUsePersistentHitResults)
 	{
 		// Only need to trace on Tick if we're showing debug or if we use persistent hit results, otherwise we just use the confirmation trace
 		HitResults = PerformTrace(SourceActor);
@@ -233,7 +231,7 @@ void AGATA_Trace::AimWithPlayerController(const AActor* InSourceActor, FCollisio
 
 	const FVector ViewDir = ViewRot.Vector();
 	FVector ViewEnd = ViewStart + (ViewDir * MaxRange);
-
+	
 	ClipCameraRayToAbilityRange(ViewStart, ViewDir, TraceStart, MaxRange, ViewEnd);
 
 	// Use first hit
@@ -286,7 +284,7 @@ void AGATA_Trace::AimWithPlayerController(const AActor* InSourceActor, FCollisio
 	FRandomStream WeaponRandomStream(RandomSeed);
 	const FVector ShootDir = WeaponRandomStream.VRandCone(AdjustedAimDir, ConeHalfAngle, ConeHalfAngle);
 
-	OutTraceEnd = TraceStart + (ShootDir * MaxRange);
+	OutTraceEnd = TraceStart + (ShootDir  * MaxRange);
 }
 
 bool AGATA_Trace::ClipCameraRayToAbilityRange(FVector CameraLocation, FVector CameraDirection, FVector AbilityCenter,
@@ -394,8 +392,7 @@ TArray<FHitResult> AGATA_Trace::PerformTrace(AActor* InSourceActor)
 
 	for (int32 TraceIndex = 0; TraceIndex < NumberOfTraces; TraceIndex++)
 	{
-		AimWithPlayerController(InSourceActor, Params, TraceStart, TraceEnd);
-		//Effective on server and launching client only
+		AimWithPlayerController(InSourceActor, Params, TraceStart, TraceEnd); //Effective on server and launching client only
 
 		// ------------------------------------------------------
 

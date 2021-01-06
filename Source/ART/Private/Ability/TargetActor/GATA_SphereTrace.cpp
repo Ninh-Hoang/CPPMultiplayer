@@ -15,7 +15,7 @@ void AGATA_SphereTrace::Configure(const FGameplayAbilityTargetingLocationInfo& I
                                   FGameplayTag InAimingTag, FGameplayTag InAimingRemovalTag,
                                   FCollisionProfileName InTraceProfile, FGameplayTargetDataFilterHandle InFilter,
                                   TSubclassOf<AGameplayAbilityWorldReticle> InReticleClass,
-                                  FWorldReticleParameters InReticleParams, bool bInTickingTargeting /*= false*/,
+                                  FWorldReticleParameters InReticleParams,
                                   bool bInIgnoreBlockingHits /*= false*/,
                                   bool bInShouldProduceTargetDataOnServer /*= false*/,
                                   bool bInUsePersistentHitResults /*= false*/,
@@ -35,7 +35,6 @@ void AGATA_SphereTrace::Configure(const FGameplayAbilityTargetingLocationInfo& I
 	Filter = InFilter;
 	ReticleClass = InReticleClass;
 	ReticleParams = InReticleParams;
-	bTickingTargeting = bInTickingTargeting;
 	bIgnoreBlockingHits = bInIgnoreBlockingHits;
 	ShouldProduceTargetDataOnServer = bInShouldProduceTargetDataOnServer;
 	bUsePersistentHitResults = bInUsePersistentHitResults;

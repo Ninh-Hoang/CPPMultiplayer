@@ -7,18 +7,19 @@
   <component name="ChangeListManager">
     <list default="true" id="879561f1-dfda-4537-b838-a6709d37e8cc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Framework/BP_RougeGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Framework/BP_RougeGameMode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/BP_Survivor1.uasset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/DS_InitInventory.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/DS_InitInventory.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/DS_SurvivorAbilitySet.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/DS_SurvivorAbilitySet.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Roll/GA_Roll.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Roll/GA_Roll.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/BP_Sword.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/BP_Sword.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Aim/GA_Aim.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Aim/GA_Aim.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Rifle/BP_TracerRifle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Rifle/BP_TracerRifle.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Rifle/GA_RiflePrimary.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Rifle/GA_RiflePrimary.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Rifle/GA_RiflePrimaryInstant.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Rifle/GA_RiflePrimaryInstant.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GA_JumpSlash.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GA_JumpSlash.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GA_SlideSlash.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GA_SlideSlash.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/Mesh/SK_Mannequin.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/Mesh/SK_Mannequin.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/Concept/StartMenu.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Concept/StartMenu.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_MeleeWeaponTrace.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_MeleeWeaponTrace.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTBlueprintFunctionLibrary.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTBlueprintFunctionLibrary.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_SphereTrace.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_SphereTrace.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_Trace.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_Trace.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/TargetActor/GATA_LineTrace.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/TargetActor/GATA_LineTrace.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/TargetActor/GATA_SphereTrace.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/TargetActor/GATA_SphereTrace.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/TargetActor/GATA_Trace.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/TargetActor/GATA_Trace.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +33,9 @@
     <setting file="file://C:/Program Files/Epic Games/UE_4.25/Engine/Source/Runtime/Core/Public/Delegates/DelegateSignatureImpl.inl" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/PlayerState.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Editor/PropertyEditor/Private/SDetailsViewBase.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/UObject/UObjectArchetype.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Delegates/DelegateSignatureImpl.inl" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Actor.cpp" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
@@ -59,6 +62,11 @@
       <option value="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTBlueprintFunctionLibrary.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_MeleeWeaponTrace.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTAbilitySystemComponent.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/Ability/TargetActor/GATA_LineTrace.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_Trace.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/Ability/TargetActor/GATA_Trace.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/Ability/TargetActor/GATA_SphereTrace.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_SphereTrace.cpp" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1lBFe3M5fiXhaBDPEYgqBFdVSir" />
@@ -300,7 +308,7 @@
       <workItem from="1607062710378" duration="11258000" />
       <workItem from="1607657007263" duration="786000" />
       <workItem from="1609467370618" duration="13971000" />
-      <workItem from="1609833825376" duration="1906000" />
+      <workItem from="1609833825376" duration="8960000" />
     </task>
     <servers />
   </component>
