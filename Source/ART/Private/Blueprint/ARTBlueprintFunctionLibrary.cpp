@@ -287,9 +287,12 @@ UARTGameplayAbilityUIData* UARTBlueprintFunctionLibrary::GetGameplayAbilityUIDat
 {
 	if (InASC)
 	{
-		FGameplayAbilitySpec* Spec = InASC->FindAbilitySpecFromInputID(static_cast<int32>(Input));
-		UARTGameplayAbility* Ability = Cast<UARTGameplayAbility>(Spec->Ability);
-		return Cast<UARTGameplayAbilityUIData>(Ability->UIData);
+		if(FGameplayAbilitySpec* Spec = InASC->FindAbilitySpecFromInputID(static_cast<int32>(Input)))
+		{
+			UARTGameplayAbility* Ability = Cast<UARTGameplayAbility>(Spec->Ability);
+			return Cast<UARTGameplayAbilityUIData>(Ability->UIData);
+			
+		}
 	}
 	return nullptr;
 }

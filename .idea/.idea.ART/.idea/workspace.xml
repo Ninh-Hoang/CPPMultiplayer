@@ -6,24 +6,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="879561f1-dfda-4537-b838-a6709d37e8cc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Content/AnimStarterPack/MX_Animation/DeathMontage.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/AnimStarterPack/MX_Animation/Dodge_Small_Forward_Roll.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/AnimStarterPack/MX_Animation/MT_leap_slam.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/AnimStarterPack/MX_Animation/MT_melee_attack_downward.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/AnimStarterPack/MX_Animation/QuickRoll.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/AnimStarterPack/MX_Animation/SmallRoll.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/AnimStarterPack/MX_Animation/mx_Quick_Roll_To_Run_Anim.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/AnimStarterPack/MX_Animation/mx_standing_melee_attack_downward.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/AnimStarterPack/MX_Animation/mx_standing_melee_run_jump_attack_Anim.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/AnimStarterPack/MX_Animation/mx_unarmed_equip_over_shoulder.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/AnimStarterPack/MX_Animation/mx_unarmed_equip_over_shoulder_Montage.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Animation/PolySha_Anim_Dodge_Anim_Dodge_Montage.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Animation/PolySha_Anim_Dodge_Anim_Dodge_Montage1.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Animation/PolySha_Anim_Dodge_Anim_Dodge_Montage2.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Animation/PolySha_Anim_Dodge_Anim_Dodge_Montage3.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Cloth/PolySha_Alembic_HeavyCast.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/NakedBoiIK/naked_boi_skeleton.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Framework/BP_RougeGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Framework/BP_RougeGameMode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/DS_InitInventory.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/DS_InitInventory.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/DS_SurvivorAbilitySet.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/DS_SurvivorAbilitySet.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Roll/GA_Roll.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Roll/GA_Roll.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/BP_Sword.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/BP_Sword.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GA_JumpSlash.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GA_JumpSlash.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GA_SlideSlash.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GA_SlideSlash.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/Mesh/SK_Mannequin.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/Mesh/SK_Mannequin.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/Concept/StartMenu.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Concept/StartMenu.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_MeleeWeaponTrace.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_MeleeWeaponTrace.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTBlueprintFunctionLibrary.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTBlueprintFunctionLibrary.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +56,9 @@
       <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTPlayerState.h" />
       <option value="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTPlayerState.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTPlayerController.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTBlueprintFunctionLibrary.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_MeleeWeaponTrace.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTAbilitySystemComponent.cpp" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1lBFe3M5fiXhaBDPEYgqBFdVSir" />
@@ -301,7 +299,8 @@
       <updated>1607062674544</updated>
       <workItem from="1607062710378" duration="11258000" />
       <workItem from="1607657007263" duration="786000" />
-      <workItem from="1609467370618" duration="5640000" />
+      <workItem from="1609467370618" duration="13971000" />
+      <workItem from="1609833825376" duration="1906000" />
     </task>
     <servers />
   </component>

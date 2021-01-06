@@ -51,7 +51,7 @@ void AGATA_MeleeWeaponTrace::Configure(class AMeleeWeapon* InMeleeWeaponActor,
 	SocketLenght = InSocketLenght;
 }
 
-
+//do simple line trace, additional logic when trace here
 void AGATA_MeleeWeaponTrace::DoTrace(TArray<FHitResult>& HitResults, const UWorld* World,
                                      const FGameplayTargetDataFilterHandle FilterHandle, const FVector& Start,
                                      const FVector& End, FName ProfileName, const FCollisionQueryParams Params)
@@ -146,28 +146,28 @@ TArray<FHitResult> AGATA_MeleeWeaponTrace::PerformTrace(AActor* InSourceActor)
 		EndLenght = SocketLenght;
 	}
 
-	for (int i = StartLenght; i <= EndLenght; i += 20)
+	for (int i = StartLenght; i <= EndLenght; i += 10)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Length"));
-		const int32 size_ = (bUsePawnSocket) ? i : (i - MeleeWeaponActor->WeaponStartLength) / 10;
+		const int32 size = (bUsePawnSocket) ? i : (i - MeleeWeaponActor->WeaponStartLength) / 10;
 
 		if (MeleeWeaponActor)
 		{
-			CurrVecs[size_] = MeleeWeaponActor->GetActorLocation() + i * MeleeWeaponActor->GetActorUpVector();
+			CurrVecs[size] = MeleeWeaponActor->GetActorLocation() + i * MeleeWeaponActor->GetActorUpVector();
 		}
 		if (bUsePawnSocket)
 		{
-			CurrVecs[size_] = OwnerCharacter->GetMesh()->GetSocketLocation(MeleeSocketName) + i * FRotationMatrix(
+			CurrVecs[size] = OwnerCharacter->GetMesh()->GetSocketLocation(MeleeSocketName) + i * FRotationMatrix(
 				OwnerCharacter->GetMesh()->GetSocketRotation(MeleeSocketName)).GetScaledAxis(EAxis::Z);
 		}
 
 		TArray<FHitResult> TraceHitResultsBuffer;
-		DoTrace(TraceHitResultsBuffer, InSourceActor->GetWorld(), Filter, PrevVecs[size_], CurrVecs[size_],
+		DoTrace(TraceHitResultsBuffer, InSourceActor->GetWorld(), Filter, PrevVecs[size], CurrVecs[size],
 		        TraceProfile.Name, Params);
 
 		TraceHitResults.Append(TraceHitResultsBuffer);
 
-		DrawDebugLineTraceMulti(GetWorld(), PrevVecs[size_], CurrVecs[size_], EDrawDebugTrace::Type::ForDuration, true,
+		DrawDebugLineTraceMulti(GetWorld(), PrevVecs[size], CurrVecs[size], EDrawDebugTrace::Type::ForDuration, true,
 		                        TraceHitResults, FLinearColor::Red, FLinearColor::Green, 2.0f);
 	}
 
