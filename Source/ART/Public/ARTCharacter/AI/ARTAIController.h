@@ -13,7 +13,7 @@ UCLASS()
 class ART_API AARTAIController : public AAIController
 {
 	GENERATED_BODY()
-
+	
 	AARTAIController();
 
 	class UAbilitySystemComponent* GetAbilitySystemComponent() const;

@@ -49,7 +49,7 @@ void UARTCharacterAttributeSet::PreAttributeChange(const FGameplayAttribute& Att
 	else if (Attribute == GetMoveSpeedAttribute())
 	{
 		// Cannot slow less than 150 units/s and cannot boost more than 1000 units/s
-		NewValue = FMath::Clamp<float>(NewValue, 0, 1000);
+		NewValue = FMath::Clamp<float>(NewValue, 0, 5000);
 	}
 	else if (Attribute == GetRotateRateAttribute())
 	{
