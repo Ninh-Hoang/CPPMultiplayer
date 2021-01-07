@@ -133,21 +133,7 @@ void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
 				//UE_LOG(LogTemp, Warning, TEXT("%s() %s is NOT alive when receiving damage"), *FString(__FUNCTION__), *TargetCharacter->GetName());
 			}
 
-			//apply damage to shield first if exists
-			const float OldShield = GetShield();
-			float DamageAfterShield = LocalDamageDone - OldShield;
-			if (OldShield > 0)
-			{
-				float NewShield = OldShield - LocalDamageDone;
-				SetShield(FMath::Clamp<float>(NewShield, 0.0f, GetMaxShield()));
-			}
-
-			if (DamageAfterShield > 0)
-			{
-				// Apply the health change and then clamp it
-				const float NewHealth = GetHealth() - DamageAfterShield;
-				SetHealth(FMath::Clamp(NewHealth, 0.0f, GetMaxHealth()));
-			}
+			FinalDamageDealing(LocalDamageDone);
 
 			if (TargetCharacter && WasAlive)
 			{
@@ -266,6 +252,25 @@ void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
 	}
 }
 
+void UARTCharacterAttributeSet::FinalDamageDealing(float LocalDamage)
+{
+	//apply damage to shield first if exists
+	const float OldShield = GetShield();
+	float DamageAfterShield = LocalDamage - OldShield;
+	if (OldShield > 0)
+	{
+		float NewShield = OldShield - LocalDamage;
+		SetShield(FMath::Clamp<float>(NewShield, 0.0f, GetMaxShield()));
+	}
+
+	if (DamageAfterShield > 0)
+	{
+		// Apply the health change and then clamp it
+		const float NewHealth = GetHealth() - DamageAfterShield;
+		SetHealth(FMath::Clamp(NewHealth, 0.0f, GetMaxHealth()));
+	}
+}
+
 void UARTCharacterAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
@@ -299,6 +304,12 @@ void UARTCharacterAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimePrope
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, Health, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, HealthRegen, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, PartHealthA, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, PartHealthB, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, PartHealthC, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, PartHealthD, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, PartHealthE, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, PartHealthF, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, Energy, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, MaxEnergy, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UARTCharacterAttributeSet, EnergyRegen, COND_None, REPNOTIFY_Always);
@@ -327,3 +338,5 @@ void UARTCharacterAttributeSet::OnAttributeAggregatorCreated(const FGameplayAttr
 			FARTAggregatorEvaluateMetaDataLibrary::MostNegativeMod_MostPositiveModPerClass;
 	}
 }
+
+

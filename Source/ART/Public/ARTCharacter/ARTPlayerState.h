@@ -151,6 +151,24 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
 	float GetHealthRegen() const;
 
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
+    float GetPartHealthA() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
+    float GetPartHealthB() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
+    float GetPartHealthC() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
+    float GetPartHealthD() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
+    float GetPartHealthE() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
+    float GetPartHealthF() const;
+
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attributes")
 	float GetEnergy() const;
 

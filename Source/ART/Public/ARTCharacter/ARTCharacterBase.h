@@ -8,6 +8,9 @@
 #include "ART/ART.h"
 #include "GameplayEffectTypes.h"
 #include <GenericTeamAgentInterface.h>
+
+#include "ARTAttributeSetBase.h"
+
 #include "ARTCharacterBase.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCharacterDiedDelegate, AARTCharacterBase*, Character);
@@ -115,10 +118,10 @@ protected:
 
 	UPROPERTY()
 	class UARTCharacterAttributeSet* AttributeSetBase;
-
+	
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Abilities")
 	class UARTGameplayAbilitySet* AbilitySet;
-	
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ART|UI")
 	TSubclassOf<class UARTFloatingStatusBarWidget> UIFloatingStatusBarClass;
 
@@ -133,6 +136,7 @@ protected:
 
 	// Default attributes for a character for initializing on spawn/respawn.
 	// This is an instant GE that overrides the values for attributes that get reset on spawn/respawn.
+	
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Abilities")
 	TSubclassOf<class UGameplayEffect> DefaultAttributes;
 
@@ -285,6 +289,24 @@ public:
 	float GetHealthRegen() const;
 
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
+    float GetPartHealthA() const;
+    
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
+    float GetPartHealthB() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
+    float GetPartHealthC() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
+    float GetPartHealthD() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
+    float GetPartHealthE() const;
+
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
+    float GetPartHealthF() const;
+	
+	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
 	float GetEnergy() const;
 
 	UFUNCTION(BlueprintCallable, Category = "ART|ARTCharacter|Attribute")
@@ -330,5 +352,11 @@ public:
 	//ONLY USE THIS FOR RE/SPAWNING
 	virtual void SetShield(float Shield);
 	virtual void SetHealth(float Health);
+	virtual void SetPartHealthA(float Health);
+	virtual void SetPartHealthB(float Health);
+	virtual void SetPartHealthC(float Health);
+	virtual void SetPartHealthD(float Health);
+	virtual void SetPartHealthE(float Health);
+	virtual void SetPartHealthF(float Health);
 	virtual void SetStamina(float Stamina);
 };

@@ -722,6 +722,66 @@ float AARTCharacterBase::GetHealthRegen() const
 	return 0.0f;
 }
 
+float AARTCharacterBase::GetPartHealthA() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetPartHealthA();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetPartHealthB() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetPartHealthB();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetPartHealthC() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetPartHealthC();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetPartHealthD() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetPartHealthD();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetPartHealthE() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetPartHealthE();
+	}
+
+	return 0.0f;
+}
+
+float AARTCharacterBase::GetPartHealthF() const
+{
+	if (AttributeSetBase)
+	{
+		return AttributeSetBase->GetPartHealthF();
+	}
+
+	return 0.0f;
+}
+
 float AARTCharacterBase::GetEnergy() const
 {
 	if (AttributeSetBase)
@@ -835,6 +895,54 @@ void AARTCharacterBase::SetHealth(float Health)
 	if (AttributeSetBase)
 	{
 		AttributeSetBase->SetHealth(Health);
+	}
+}
+
+void AARTCharacterBase::SetPartHealthA(float Health)
+{
+	if (AttributeSetBase)
+	{
+		AttributeSetBase->SetPartHealthA(Health);
+	}
+}
+
+void AARTCharacterBase::SetPartHealthB(float Health)
+{
+	if (AttributeSetBase)
+	{
+		AttributeSetBase->SetPartHealthB(Health);
+	}
+}
+
+void AARTCharacterBase::SetPartHealthC(float Health)
+{
+	if (AttributeSetBase)
+	{
+		AttributeSetBase->SetPartHealthC(Health);
+	}
+}
+
+void AARTCharacterBase::SetPartHealthD(float Health)
+{
+	if (AttributeSetBase)
+	{
+		AttributeSetBase->SetPartHealthD(Health);
+	}
+}
+
+void AARTCharacterBase::SetPartHealthE(float Health)
+{
+	if (AttributeSetBase)
+	{
+		AttributeSetBase->SetPartHealthE(Health);
+	}
+}
+
+void AARTCharacterBase::SetPartHealthF(float Health)
+{
+	if (AttributeSetBase)
+	{
+		AttributeSetBase->SetPartHealthF(Health);
 	}
 }
 

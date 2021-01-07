@@ -315,6 +315,36 @@ float AARTPlayerState::GetHealthRegen() const
 	return AttributeSetBase->GetHealthRegen();
 }
 
+float AARTPlayerState::GetPartHealthA() const
+{
+	return AttributeSetBase->GetPartHealthA();
+}
+
+float AARTPlayerState::GetPartHealthB() const
+{
+	return AttributeSetBase->GetPartHealthB();
+}
+
+float AARTPlayerState::GetPartHealthC() const
+{
+	return AttributeSetBase->GetPartHealthC();
+}
+
+float AARTPlayerState::GetPartHealthD() const
+{
+	return AttributeSetBase->GetPartHealthD();
+}
+
+float AARTPlayerState::GetPartHealthE() const
+{
+	return AttributeSetBase->GetPartHealthE();
+}
+
+float AARTPlayerState::GetPartHealthF() const
+{
+	return AttributeSetBase->GetPartHealthF();
+}
+
 float AARTPlayerState::GetEnergy() const
 {
 	return AttributeSetBase->GetEnergy();

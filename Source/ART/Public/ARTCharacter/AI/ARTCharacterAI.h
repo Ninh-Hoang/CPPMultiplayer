@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "ARTCharacter/ARTCharacterBase.h"
 #include "GenericTeamAgentInterface.h"
+#include "ARTCharacter/ARTCharacterAttributeSet.h"
+
 #include "ARTCharacterAI.generated.h"
 
 
@@ -23,6 +25,9 @@ public:
 	virtual void BeginPlay() override;
 
 protected:
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Abilities")
+	class TSubclassOf<UARTAttributeSetBase> AttributeSetClass =  UARTCharacterAttributeSet::StaticClass();
+	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	class UARTNavigationInvokerComponent* NavInvoker;
 

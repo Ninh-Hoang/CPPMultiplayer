@@ -31,8 +31,15 @@ AARTCharacterAI::AARTCharacterAI(const class FObjectInitializer& ObjectInitializ
 	// Create the attribute set, this replicates by default
 	// Adding it as a subobject of the owning actor of an AbilitySystemComponent
 	// automatically registers the AttributeSet with the AbilitySystemComponent
-	HardRefAttributeSetBase = CreateDefaultSubobject<UARTCharacterAttributeSet>(TEXT("AttributeSetBase"));
-
+	if(AttributeSetClass)
+	{
+		HardRefAttributeSetBase = Cast<UARTCharacterAttributeSet>(CreateDefaultSubobject(TEXT("AttributeSetBase"), AttributeSetClass, AttributeSetClass, true, false, false));
+	}
+	else
+	{
+		HardRefAttributeSetBase = CreateDefaultSubobject<UARTCharacterAttributeSet>(TEXT("AttributeSetBase"));
+	}
+	
 	// Set our parent's TWeakObjectPtr
 	AttributeSetBase = HardRefAttributeSetBase;
 

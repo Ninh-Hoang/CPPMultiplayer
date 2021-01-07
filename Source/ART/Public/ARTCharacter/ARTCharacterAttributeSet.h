@@ -34,8 +34,10 @@ public:
 
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
-	virtual void
-	OnAttributeAggregatorCreated(const FGameplayAttribute& Attribute, FAggregator* NewAggregator) const override;
+	virtual void OnAttributeAggregatorCreated(const FGameplayAttribute& Attribute, FAggregator* NewAggregator) const override;
+
+	virtual void FinalDamageDealing(float LocalDamage);
+	
 
 	//AttackPower
 	UPROPERTY(BlueprintReadOnly, Category = "AttackPower", ReplicatedUsing = OnRep_AttackPower)
@@ -376,6 +378,72 @@ public:
 	void OnRep_HealthRegen(const FGameplayAttributeData& OldHealthRegen)
 	{
 		GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, HealthRegen, OldHealthRegen);
+	}
+
+	//PartHealthA
+	UPROPERTY(BlueprintReadOnly, Category = "PartHealthA", ReplicatedUsing = OnRep_PartHealthA)
+	FGameplayAttributeData PartHealthA;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, PartHealthA)
+
+    UFUNCTION()
+    void OnRep_PartHealthA(const FGameplayAttributeData& OldPartHealthA)
+	{
+		GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, Health, OldPartHealthA);
+	}
+
+	//PartHealthB
+	UPROPERTY(BlueprintReadOnly, Category = "PartHealthB", ReplicatedUsing = OnRep_PartHealthB)
+	FGameplayAttributeData PartHealthB;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, PartHealthB)
+
+    UFUNCTION()
+    void OnRep_PartHealthB(const FGameplayAttributeData& OldPartHealthB)
+	{
+		GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, Health, OldPartHealthB);
+	}
+
+	//PartHealthC
+	UPROPERTY(BlueprintReadOnly, Category = "PartHealthC", ReplicatedUsing = OnRep_PartHealthC)
+	FGameplayAttributeData PartHealthC;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, PartHealthC)
+
+    UFUNCTION()
+    void OnRep_PartHealthC(const FGameplayAttributeData& OldPartHealthC)
+	{
+		GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, Health, OldPartHealthC);
+	}
+
+	//PartHealthD
+	UPROPERTY(BlueprintReadOnly, Category = "PartHealthD", ReplicatedUsing = OnRep_PartHealthD)
+	FGameplayAttributeData PartHealthD;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, PartHealthD)
+
+    UFUNCTION()
+    void OnRep_PartHealthD(const FGameplayAttributeData& OldPartHealthD)
+	{
+		GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, Health, OldPartHealthD);
+	}
+
+	//PartHealthE
+	UPROPERTY(BlueprintReadOnly, Category = "PartHealthE", ReplicatedUsing = OnRep_PartHealthE)
+	FGameplayAttributeData PartHealthE;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, PartHealthE)
+
+    UFUNCTION()
+    void OnRep_PartHealthE(const FGameplayAttributeData& OldPartHealthE)
+	{
+		GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, Health, OldPartHealthE);
+	}
+
+	//PartHealthF
+	UPROPERTY(BlueprintReadOnly, Category = "PartHealthF", ReplicatedUsing = OnRep_PartHealthF)
+	FGameplayAttributeData PartHealthF;
+	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, PartHealthF)
+
+    UFUNCTION()
+    void OnRep_PartHealthF(const FGameplayAttributeData& OldPartHealthF)
+	{
+		GAMEPLAYATTRIBUTE_REPNOTIFY(UARTCharacterAttributeSet, Health, OldPartHealthF);
 	}
 
 	//Energy
