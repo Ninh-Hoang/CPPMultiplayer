@@ -38,12 +38,6 @@ AARTSurvivor::AARTSurvivor(const class FObjectInitializer& ObjectInitializer) : 
 		FName("Ability.Weapon.IsChangingDelayReplication"));
 
 	WeaponAbilityTag = FGameplayTag::RequestGameplayTag(FName("Ability.Weapon"));
-
-	UIFloatingStatusBarComponent = CreateDefaultSubobject<UWidgetComponent>(FName("UIFloatingStatusBarComponent"));
-	UIFloatingStatusBarComponent->SetupAttachment(RootComponent);
-	UIFloatingStatusBarComponent->SetRelativeLocation(FVector(0, 0, 120));
-	UIFloatingStatusBarComponent->SetWidgetSpace(EWidgetSpace::Screen);
-	UIFloatingStatusBarComponent->SetDrawSize(FVector2D(500, 500));
 }
 
 void AARTSurvivor::PossessedBy(AController* NewController)

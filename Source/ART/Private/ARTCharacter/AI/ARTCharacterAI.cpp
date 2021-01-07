@@ -12,6 +12,9 @@
 
 AARTCharacterAI::AARTCharacterAI(const class FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
+	//set auto possess
+	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
+	
 	//Create Nav Invoker
 	NavInvoker = CreateDefaultSubobject<UARTNavigationInvokerComponent>(TEXT("NavInvokerComp"));
 
@@ -35,13 +38,6 @@ AARTCharacterAI::AARTCharacterAI(const class FObjectInitializer& ObjectInitializ
 
 	//set collision
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
-
-	//setup floating status bar
-	UIFloatingStatusBarComponent = CreateDefaultSubobject<UWidgetComponent>(FName("UIFloatingStatusBarComponent"));
-	UIFloatingStatusBarComponent->SetupAttachment(RootComponent);
-	UIFloatingStatusBarComponent->SetRelativeLocation(FVector(0, 0, 120));
-	UIFloatingStatusBarComponent->SetWidgetSpace(EWidgetSpace::Screen);
-	UIFloatingStatusBarComponent->SetDrawSize(FVector2D(500, 500));
 }
 
 void AARTCharacterAI::BeginPlay()

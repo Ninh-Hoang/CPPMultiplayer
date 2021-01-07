@@ -86,14 +86,6 @@ public:
 	class UARTFloatingStatusBarWidget* GetFloatingStatusBar();
 
 protected:
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ART|UI")
-	TSubclassOf<class UARTFloatingStatusBarWidget> UIFloatingStatusBarClass;
-
-	UPROPERTY()
-	class UARTFloatingStatusBarWidget* UIFloatingStatusBar;
-
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "ART|UI")
-	class UWidgetComponent* UIFloatingStatusBarComponent;
 
 	virtual void InitializeFloatingStatusBar();
 

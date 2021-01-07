@@ -118,7 +118,16 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Abilities")
 	class UARTGameplayAbilitySet* AbilitySet;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "ART|UI")
+	TSubclassOf<class UARTFloatingStatusBarWidget> UIFloatingStatusBarClass;
 
+	UPROPERTY()
+	class UARTFloatingStatusBarWidget* UIFloatingStatusBar;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "ART|UI")
+	class UWidgetComponent* UIFloatingStatusBarComponent;
+	
 	UPROPERTY(EditAnywhere, Category = "ART|UI")
 	TSubclassOf<class UARTDamageTextWidgetComponent> DamageNumberClass;
 
