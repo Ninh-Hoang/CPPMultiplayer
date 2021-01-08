@@ -567,4 +567,20 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Healing", meta = (HideFromLevelInfos))
 	FGameplayAttributeData Healing;
 	ATTRIBUTE_ACCESSORS(UARTCharacterAttributeSet, Healing)
+
+protected:
+	//cache tags
+	FGameplayTag StunTag;
+	FGameplayTag PartABrokenStateTag;
+	FGameplayTag PartBBrokenStateTag;
+	FGameplayTag PartCBrokenStateTag;
+	FGameplayTag PartDBrokenStateTag;
+	FGameplayTag PartEBrokenStateTag;
+	FGameplayTag PartFBrokenStateTag;
+	FGameplayTag PartABrokenEventTag;
+	FGameplayTag PartBBrokenEventTag;
+	FGameplayTag PartCBrokenEventTag;
+	FGameplayTag PartDBrokenEventTag;
+	FGameplayTag PartEBrokenEventTag;
+	FGameplayTag PartFBrokenEventTag;
 };

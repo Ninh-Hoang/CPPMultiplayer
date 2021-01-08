@@ -6,9 +6,12 @@
 #include <GameplayEffectExtension.h>
 
 
+
+#include "AbilitySystemBlueprintLibrary.h"
 #include "Ability/FARTAggregatorEvaluateMetaDataLibrary.h"
 #include "ARTCharacter/ARTCharacterBase.h"
 #include "ARTCharacter/ARTPlayerController.h"
+#include "Blueprint/ARTBlueprintFunctionLibrary.h"
 
 UARTCharacterAttributeSet::UARTCharacterAttributeSet()
 {
@@ -18,6 +21,11 @@ UARTCharacterAttributeSet::UARTCharacterAttributeSet()
 	MaxStamina = 100.f;
 	MoveSpeed = 200.f;
 	MaxHealth = 200.f;*/
+
+	// Cache tags
+	StunTag = FGameplayTag::RequestGameplayTag(FName("State.Debuff.Stun"));
+	PartABrokenEventTag= FGameplayTag::RequestGameplayTag(FName("Event.Part.Break.PartA"));
+	PartBBrokenEventTag= FGameplayTag::RequestGameplayTag(FName("Event.Part.Break.PartB"));
 }
 
 void UARTCharacterAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
@@ -277,12 +285,16 @@ void UARTCharacterAttributeSet::FinalDamageDealing(float LocalDamage, const FHit
 			{
 				// Create a dynamic infinite Gameplay Effect 
 				UGameplayEffect* GEPartAProken = NewObject<UGameplayEffect
-				>(GetTransientPackage(), FName(TEXT("Bounty")));
+				>(GetTransientPackage(), FName(TEXT("PartABroken")));
 				GEPartAProken->DurationPolicy = EGameplayEffectDurationType::Infinite;
 				
 				GEPartAProken->InheritableOwnedTagsContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("State.LegBot.LeftGunBroken")));
 				
 				GetOwningAbilitySystemComponent()->ApplyGameplayEffectToSelf(GEPartAProken, 1.0f, GetOwningAbilitySystemComponent()->MakeEffectContext());
+				FGameplayEventData Payload;
+				
+				//Add info to playload here
+				GetOwningAbilitySystemComponent()->HandleGameplayEvent(PartABrokenEventTag, &Payload);
 			}
 		}
 		else
