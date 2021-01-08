@@ -36,7 +36,7 @@ public:
 
 	virtual void OnAttributeAggregatorCreated(const FGameplayAttribute& Attribute, FAggregator* NewAggregator) const override;
 
-	virtual void FinalDamageDealing(float LocalDamage);
+	virtual void FinalDamageDealing(float LocalDamage, const FHitResult* Hit);
 	
 
 	//AttackPower

@@ -40,9 +40,11 @@ void UARTGameplayAbility::OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo
 {
 	Super::OnAvatarSet(ActorInfo, Spec);
 
+	UAbilitySystemComponent* const AbilitySystemComponent = GetAbilitySystemComponentFromActorInfo();
+	
 	if (bActivateAbilityOnGranted)
 	{
-		bool ActivatedAbility = ActorInfo->AbilitySystemComponent->TryActivateAbility(
+		bool ActivatedAbility = AbilitySystemComponent->TryActivateAbility(
 			Spec.Handle, bAllowRemoteGrantingActivation);
 	}
 
@@ -55,8 +57,6 @@ void UARTGameplayAbility::OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo
 	const FGameplayTagContainer* CDTags = GetCooldownTags();
 	if (CDTags)
 	{
-		UAbilitySystemComponent* const AbilitySystemComponent = ActorInfo->AbilitySystemComponent.Get();
-		check(AbilitySystemComponent != nullptr);
 		AbilitySystemComponent->RegisterGameplayTagEvent(CDTags->GetByIndex(0), EGameplayTagEventType::AnyCountChange).
 		                        AddUObject(this, &UARTGameplayAbility::OnCooldownTagEventCallback);
 	}
@@ -70,12 +70,31 @@ void UARTGameplayAbility::OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo
 
 		if (TriggerData.TriggerSource != EGameplayAbilityTriggerSource::GameplayEvent)
 		{
-			if (ActorInfo->AbilitySystemComponent->GetTagCount(TriggerData.TriggerTag))
+			if (AbilitySystemComponent->GetTagCount(TriggerData.TriggerTag))
 			{
-				bool ActivatedAbility = ActorInfo->AbilitySystemComponent->TryActivateAbility(
+				bool ActivatedAbility = AbilitySystemComponent->TryActivateAbility(
 					Spec.Handle, bAllowRemoteGrantingActivation);
 			}
 		}
+	}
+}
+
+void UARTGameplayAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
+	const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo,
+	const FGameplayEventData* TriggerEventData)
+{
+	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
+
+	UAbilitySystemComponent* const ASC = GetAbilitySystemComponentFromActorInfo();
+	
+	//TODO: Should we register on ActivatedAbility or granted?
+	//for listen to ASC tag and cancel itself if match AbilityCancelTag
+	TArray<FGameplayTag> CancelTagArray;
+	AbilityCancelTag.GetGameplayTagArray(CancelTagArray);
+
+	for (FGameplayTag CancelTag : CancelTagArray)
+	{
+		ASC->RegisterGameplayTagEvent(CancelTag, EGameplayTagEventType::NewOrRemoved).AddUObject(this, &UARTGameplayAbility::OnCancelTagEventCallback);
 	}
 }
 
@@ -321,6 +340,24 @@ void UARTGameplayAbility::OnCooldownTagEventCallback(const FGameplayTag Callback
 		UAbilitySystemComponent* const AbilitySystemComponent = GetAbilitySystemComponentFromActorInfo();
 		FGameplayEffectQuery const Query = FGameplayEffectQuery::MakeQuery_MatchAnyOwningTags(*CDTags);
 		CurrentCharges = AbilityCharge - AbilitySystemComponent->GetAggregatedStackCount(Query);
+	}
+}
+
+void UARTGameplayAbility::OnCancelTagEventCallback(const FGameplayTag CallbackTag, int32 NewCount)
+{
+	if(NewCount>0) 
+	{
+		UAbilitySystemComponent* const ASC = GetAbilitySystemComponentFromActorInfo();
+		//for listen to ASC tag and cancel itself if match AbilityCancelTag
+		TArray<FGameplayTag> CancelTagArray;
+		AbilityCancelTag.GetGameplayTagArray(CancelTagArray);
+
+		for (const FGameplayTag CancelTag : CancelTagArray)
+		{
+			ASC->RegisterGameplayTagEvent(CancelTag, EGameplayTagEventType::NewOrRemoved).RemoveAll(this);
+		}
+		
+		EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, true);
 	}
 }
 

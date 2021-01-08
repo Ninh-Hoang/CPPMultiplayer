@@ -112,6 +112,10 @@ public:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Ability|Cost")
 	FScalableFloat Cost;
 
+	/** Ability will be cancel if these tag added on ASC */
+	UPROPERTY(EditDefaultsOnly, Category = Tags, meta=(Categories="AbilityTagCategory"))
+	FGameplayTagContainer AbilityCancelTag;
+
 	/** Data for the UI representation of this Ability. This should include things like text, icons, etc. Not available in server-only builds. */
 	UPROPERTY(EditDefaultsOnly, Instanced, BlueprintReadOnly, Category = "Ability|Display")
 	class UGameplayEffectUIData* UIData;
@@ -127,6 +131,9 @@ public:
 	// If an ability is marked as 'ActivateAbilityOnGranted', activate them immediately when given here
 	// Epic's comment: Projects may want to initiate passives or do other "BeginPlay" type of logic here.
 	virtual void OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec) override;
+
+	//Do not called this directly, this is only used for logic after ability is activated
+	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;
 
 	UFUNCTION(BlueprintCallable, Category = "Ability")
 	FGameplayAbilityTargetDataHandle MakeGameplayAbilityTargetDataHandleFromActorArray(
@@ -197,6 +204,8 @@ public:
 	                           const FGameplayAbilityActivationInfo ActivationInfo) override;
 
 	virtual void OnCooldownTagEventCallback(const FGameplayTag CallbackTag, int32 NewCount);
+
+	virtual void OnCancelTagEventCallback(const FGameplayTag CallbackTag, int32 NewCount);
 
 	// Allows C++ and Blueprint abilities to override how cost is checked in case they don't use a GE like weapon ammo
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Ability")

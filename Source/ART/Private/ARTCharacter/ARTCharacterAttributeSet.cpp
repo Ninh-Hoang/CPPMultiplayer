@@ -133,7 +133,9 @@ void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
 				//UE_LOG(LogTemp, Warning, TEXT("%s() %s is NOT alive when receiving damage"), *FString(__FUNCTION__), *TargetCharacter->GetName());
 			}
 
-			FinalDamageDealing(LocalDamageDone);
+			const FHitResult* Hit = Data.EffectSpec.GetContext().GetHitResult();
+			
+			FinalDamageDealing(LocalDamageDone, Hit);
 
 			if (TargetCharacter && WasAlive)
 			{
@@ -250,9 +252,9 @@ void UARTCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
 		// Handle stamina changes.
 		SetStamina(FMath::Clamp(GetStamina(), 0.0f, GetMaxStamina()));
 	}
-}
+} 
 
-void UARTCharacterAttributeSet::FinalDamageDealing(float LocalDamage)
+void UARTCharacterAttributeSet::FinalDamageDealing(float LocalDamage, const FHitResult* Hit)
 {
 	//apply damage to shield first if exists
 	const float OldShield = GetShield();
@@ -262,12 +264,33 @@ void UARTCharacterAttributeSet::FinalDamageDealing(float LocalDamage)
 		float NewShield = OldShield - LocalDamage;
 		SetShield(FMath::Clamp<float>(NewShield, 0.0f, GetMaxShield()));
 	}
-
+	
 	if (DamageAfterShield > 0)
 	{
-		// Apply the health change and then clamp it
-		const float NewHealth = GetHealth() - DamageAfterShield;
-		SetHealth(FMath::Clamp(NewHealth, 0.0f, GetMaxHealth()));
+		if(Hit && Hit->Component->ComponentHasTag(FName("PartA")))
+		{
+			// Apply the health change and then clamp it
+			const float NewHealth = GetPartHealthA() - DamageAfterShield;
+			SetPartHealthA(FMath::Clamp(NewHealth, 0.0f, 999999.f));
+
+			if(GetPartHealthA() <= 0.0f)
+			{
+				// Create a dynamic infinite Gameplay Effect 
+				UGameplayEffect* GEPartAProken = NewObject<UGameplayEffect
+				>(GetTransientPackage(), FName(TEXT("Bounty")));
+				GEPartAProken->DurationPolicy = EGameplayEffectDurationType::Infinite;
+				
+				GEPartAProken->InheritableOwnedTagsContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("State.LegBot.LeftGunBroken")));
+				
+				GetOwningAbilitySystemComponent()->ApplyGameplayEffectToSelf(GEPartAProken, 1.0f, GetOwningAbilitySystemComponent()->MakeEffectContext());
+			}
+		}
+		else
+		{
+			// Apply the health change and then clamp it
+			const float NewHealth = GetHealth() - DamageAfterShield;
+			SetHealth(FMath::Clamp(NewHealth, 0.0f, GetMaxHealth()));
+		}
 	}
 }
 

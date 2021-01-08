@@ -7,20 +7,16 @@
   <component name="ChangeListManager">
     <list default="true" id="879561f1-dfda-4537-b838-a6709d37e8cc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultGameplayTags.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGameplayTags.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/AI/LegBot_BT.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/AI/LegBot_BT.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/BP_LegBot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/BP_LegBot.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/Curve_LegBot_AttributeSet.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/Curve_LegBot_AttributeSet.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/GA_LegBot_Shoot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/GA_LegBot_Shoot.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/MeleeBot/BTTask_UseAbility.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/MeleeBot/BTTask_UseAbility.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/LegBot/LegBot_PhysicsAsset.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CustomAsset/LegBot/LegBot_PhysicsAsset.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/Concept/Tutorial.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Concept/Tutorial.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTCharacterAI.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTCharacterAI.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterAttributeSet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterAttributeSet.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterBase.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTPlayerState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTPlayerState.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/AI/ARTCharacterAI.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/AI/ARTCharacterAI.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterAttributeSet.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterAttributeSet.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterBase.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTPlayerState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTPlayerState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayAbility.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayAbility.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,14 +71,16 @@
       <option value="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTAIController.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/AI/ARTAIController.h" />
       <option value="$PROJECT_DIR$/Source/ART/Private/Weapon/Equipment.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterAttributeSet.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterAttributeSet.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/AI/ARTCharacterAI.h" />
       <option value="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTCharacterAI.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTPlayerState.h" />
       <option value="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTPlayerState.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterBase.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterBase.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterAttributeSet.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterAttributeSet.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayAbility.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1lBFe3M5fiXhaBDPEYgqBFdVSir" />
@@ -324,7 +322,7 @@
       <workItem from="1607062710378" duration="11258000" />
       <workItem from="1607657007263" duration="786000" />
       <workItem from="1609467370618" duration="13971000" />
-      <workItem from="1609833825376" duration="26728000" />
+      <workItem from="1609833825376" duration="35369000" />
     </task>
     <servers />
   </component>
