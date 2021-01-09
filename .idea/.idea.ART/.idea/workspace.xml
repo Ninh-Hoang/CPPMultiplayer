@@ -6,13 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="879561f1-dfda-4537-b838-a6709d37e8cc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultGameplayTags.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGameplayTags.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/BP_LegBot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/BP_LegBot.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/GA_PartBreak.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/GA_PartBreak.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/GE_Stun.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/GE_Stun.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/Concept/Tutorial.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Concept/Tutorial.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterAttributeSet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterAttributeSet.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterAttributeSet.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterAttributeSet.h" afterDir="false" />
@@ -31,6 +25,7 @@
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/GameplayTags/Private/GameplayTagContainer.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/UObject/UObjectGlobals.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/KismetSystemLibrary.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/GameplayTags/Private/GameplayTagsManager.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/AIController.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Editor/PropertyEditor/Private/SDetailsViewBase.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Delegates/DelegateSignatureImpl.inl" root0="FORCE_HIGHLIGHTING" />
