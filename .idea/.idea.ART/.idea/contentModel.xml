@@ -12556,6 +12556,42 @@
         </e>
       </e>
     </e>
+    <e p="C:\Program Files\Epic Games\UE_4.26\Engine\Plugins\Marketplace\EasyBallistics" t="Include">
+      <e p="EasyBallistics.uplugin" t="Include" />
+      <e p="Resources" t="Include">
+        <e p="Icon128.png" t="Include" />
+      </e>
+      <e p="Source" t="Include">
+        <e p="EasyBallistics" t="Include">
+          <e p="EasyBallistics.Build.cs" t="Include" />
+          <e p="Private" t="Include">
+            <e p="Acceleration.cpp" t="Include" />
+            <e p="BarrelEvents.cpp" t="Include" />
+            <e p="BarrelProxy.cpp" t="Include" />
+            <e p="BulletEvents.cpp" t="Include" />
+            <e p="BulletPredict.cpp" t="Include" />
+            <e p="CalcAimDirection.cpp" t="Include" />
+            <e p="CollisionFilter.cpp" t="Include" />
+            <e p="EasyBallistics.cpp" t="Include" />
+            <e p="EBBarrel.cpp" t="Include" />
+            <e p="EBBullet.cpp" t="Include" />
+            <e p="Environment.cpp" t="Include" />
+            <e p="Pentrace.cpp" t="Include" />
+            <e p="Pooling.cpp" t="Include" />
+            <e p="Predict.cpp" t="Include" />
+            <e p="Reload.cpp" t="Include" />
+            <e p="SafeLaunch.cpp" t="Include" />
+            <e p="Trace.cpp" t="Include" />
+          </e>
+          <e p="Public" t="Include">
+            <e p="EasyBallistics.h" t="Include" />
+            <e p="EBBarrel.h" t="Include" />
+            <e p="EBBullet.h" t="Include" />
+            <e p="EBMaterialResponseMap.h" t="Include" />
+          </e>
+        </e>
+      </e>
+    </e>
     <e p="C:\Program Files\Epic Games\UE_4.26\Engine\Plugins\Marketplace\PowerIK" t="Include">
       <e p="PowerIK.uplugin" t="Include" />
       <e p="Resources" t="Include">
@@ -50186,6 +50222,67 @@
       <e p="LaunchServer.bat" t="Include" />
       <e p="New Text Document.txt" t="Include" />
       <e p="packages" t="ExcludeRecursive" />
+      <e p="Plugins" t="Include">
+        <e p="PowerIK" t="Include">
+          <e p="PowerIK.uplugin" t="Include" />
+          <e p="Resources" t="Include">
+            <e p="Icon128.png" t="Include" />
+          </e>
+          <e p="Source" t="Include">
+            <e p="PowerIKRuntime" t="Include">
+              <e p="PowerIKRuntime.Build.cs" t="Include" />
+              <e p="Private" t="Include">
+                <e p="AnimNode_PowerIK.cpp" t="Include" />
+                <e p="AnimNode_PowerIK_Ground.cpp" t="Include" />
+                <e p="AnimNode_PowerIK_Walk.cpp" t="Include" />
+                <e p="PowerIK_UnrealCore.cpp" t="Include" />
+                <e p="PowerIKRuntimeModule.cpp" t="Include" />
+                <e p="RigUnit_PowerIK.cpp" t="Include" />
+              </e>
+              <e p="Public" t="Include">
+                <e p="AnimNode_PowerIK.h" t="Include" />
+                <e p="AnimNode_PowerIK_Ground.h" t="Include" />
+                <e p="AnimNode_PowerIK_Walk.h" t="Include" />
+                <e p="PowerIK_UnrealCore.h" t="Include" />
+                <e p="PowerIKRuntimeModule.h" t="Include" />
+                <e p="RigUnit_PowerIK.h" t="Include" />
+              </e>
+              <e p="sdk" t="Include">
+                <e p="include" t="Include">
+                  <e p="PowerIK.h" t="Include" />
+                  <e p="PowerIKGround.h" t="Include" />
+                  <e p="PowerIKMath.h" t="Include" />
+                  <e p="PowerIKSettings.h" t="Include" />
+                </e>
+                <e p="lib" t="Include">
+                  <e p="Linux" t="Include">
+                    <e p="libPOWERIK.a" t="Include" />
+                  </e>
+                  <e p="Win64" t="Include">
+                    <e p="POWERIK.dll" t="Include" />
+                    <e p="POWERIK.lib" t="Include" />
+                  </e>
+                </e>
+              </e>
+            </e>
+            <e p="PowerIKTool" t="Include">
+              <e p="PowerIKTool.Build.cs" t="Include" />
+              <e p="Private" t="Include">
+                <e p="AnimGraphNode_PowerIK.cpp" t="Include" />
+                <e p="AnimGraphNode_PowerIK_Ground.cpp" t="Include" />
+                <e p="AnimGraphNode_PowerIK_Walk.cpp" t="Include" />
+                <e p="PowerIKToolModule.cpp" t="Include" />
+              </e>
+              <e p="Public" t="Include">
+                <e p="AnimGraphNode_PowerIK.h" t="Include" />
+                <e p="AnimGraphNode_PowerIK_Ground.h" t="Include" />
+                <e p="AnimGraphNode_PowerIK_Walk.h" t="Include" />
+                <e p="PowerIKToolModule.h" t="Include" />
+              </e>
+            </e>
+          </e>
+        </e>
+      </e>
       <e p="README.md" t="Include" />
       <e p="Source" t="Include">
         <e p="ART" t="Include">
@@ -50281,6 +50378,7 @@
               <e p="WeaponActor.cpp" t="Include" />
             </e>
             <e p="Weapon" t="Include">
+              <e p="BallisticProjectile.cpp" t="Include" />
               <e p="Equipment.cpp" t="Include" />
               <e p="MeleeWeapon.cpp" t="Include" />
               <e p="ProjectileWeapon.cpp" t="Include" />
@@ -50393,6 +50491,7 @@
               <e p="WeaponActor.h" t="Include" />
             </e>
             <e p="Weapon" t="Include">
+              <e p="BallisticProjectile.h" t="Include" />
               <e p="Equipment.h" t="Include" />
               <e p="MeleeWeapon.h" t="Include" />
               <e p="ProjectileWeapon.h" t="Include" />

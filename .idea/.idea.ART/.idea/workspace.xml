@@ -6,10 +6,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="879561f1-dfda-4537-b838-a6709d37e8cc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterAttributeSet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterAttributeSet.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterAttributeSet.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterAttributeSet.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/riderModule.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/riderModule.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/AI/LegBot_BT.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/AI/LegBot_BT.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/AI/LegBot_Controller.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/AI/LegBot_Controller.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/AT_LegBot_AbilitySet.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/AT_LegBot_AbilitySet.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/GA_LegBot_Shoot.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/GA_PartBreak.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/GC_LegBot_Shoot.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/GE_LegBot_Shooting.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/GE_Stun.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/Concept/Tutorial.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Concept/Tutorial.umap" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,11 +35,13 @@
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/KismetSystemLibrary.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/GameplayTags/Private/GameplayTagsManager.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/AIController.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/Actor.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Editor/PropertyEditor/Private/SDetailsViewBase.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Delegates/DelegateSignatureImpl.inl" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Actor.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Public/UObject/Object.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Components/CharacterMovementComponent.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/EngineBaseTypes.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/GenericTeamAgentInterface.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/World.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/UObject/Class.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -76,6 +86,8 @@
       <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterAttributeSet.h" />
       <option value="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterAttributeSet.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/Weapon/BallisticProjectile.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Weapon/BallisticProjectile.cpp" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1lBFe3M5fiXhaBDPEYgqBFdVSir" />
