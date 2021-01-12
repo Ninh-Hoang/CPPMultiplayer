@@ -119,9 +119,11 @@ public:
 	//rebase
 	virtual void ApplyWorldOffset(const FVector& InOffset, bool bWorldShift) override;
 	
-protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	
+	// Called every frame
+    virtual void Tick(float DeltaTime) override;
 	
 	virtual void LifeSpanExpired() override;
 
@@ -162,9 +164,6 @@ protected:
 	
 	UFUNCTION(NetMulticast, Reliable)
     void DeactivationBroadcast();
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 private:
 	UPROPERTY() TArray<TWeakObjectPtr<ABallisticProjectile>> Pooled;

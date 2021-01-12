@@ -50380,6 +50380,7 @@
             <e p="Weapon" t="Include">
               <e p="BallisticProjectile.cpp" t="Include" />
               <e p="Equipment.cpp" t="Include" />
+              <e p="LauncherComponent.cpp" t="Include" />
               <e p="MeleeWeapon.cpp" t="Include" />
               <e p="ProjectileWeapon.cpp" t="Include" />
               <e p="RangeWeapon.cpp" t="Include" />
@@ -50493,6 +50494,7 @@
             <e p="Weapon" t="Include">
               <e p="BallisticProjectile.h" t="Include" />
               <e p="Equipment.h" t="Include" />
+              <e p="LauncherComponent.h" t="Include" />
               <e p="MeleeWeapon.h" t="Include" />
               <e p="ProjectileWeapon.h" t="Include" />
               <e p="RangeWeapon.h" t="Include" />
