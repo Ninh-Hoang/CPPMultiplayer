@@ -22,7 +22,7 @@ enum class EFireMode : uint8
     FM_Gatling UMETA(DisplayName = "Gatling")
 };
 
-UCLASS()
+UCLASS(Blueprintable, ClassGroup = (Custom), hidecategories = (Object, LOD, Physics, Lighting, TextureStreaming, Collision, HLOD, Mobile, VirtualTexture, ComponentReplication), editinlinenew, meta = (BlueprintSpawnableComponent))
 class ART_API ULauncherComponent : public UPrimitiveComponent
 {
 
@@ -112,7 +112,7 @@ public:
 	virtual FPrimitiveSceneProxy* CreateSceneProxy() override;
 #endif
 	
-	private:
+private:
 	void SpawnBullet(AActor* Owner, FVector LocalLocation, FVector LocalAim);
 
 	UFUNCTION(Server, Unreliable, WithValidation) void ClientAim(FVector_NetQuantize NewLocation, FVector_NetQuantizeNormal NewAim);

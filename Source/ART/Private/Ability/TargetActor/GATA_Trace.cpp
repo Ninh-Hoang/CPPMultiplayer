@@ -187,7 +187,7 @@ void AGATA_Trace::LineTraceWithFilter(TArray<FHitResult>& OutHitResults, const U
                                       const FVector& End, FName ProfileName, const FCollisionQueryParams Params)
 {
 	check(World);
-
+	
 	TArray<FHitResult> HitResults;
 	World->LineTraceMultiByProfile(HitResults, Start, End, ProfileName, Params);
 
@@ -403,6 +403,8 @@ TArray<FHitResult> AGATA_Trace::PerformTrace(AActor* InSourceActor)
 		TArray<FHitResult> TraceHitResults;
 		DoTrace(TraceHitResults, InSourceActor->GetWorld(), Filter, TraceStart, TraceEnd, TraceProfile.Name, Params);
 
+		TArray<AActor*> CacheHitActors;
+		
 		for (int32 j = TraceHitResults.Num() - 1; j >= 0; j--)
 		{
 			if (MaxHitResultsPerTrace >= 0 && j + 1 > MaxHitResultsPerTrace)

@@ -6,11 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="879561f1-dfda-4537-b838-a6709d37e8cc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Source/ART/Private/Weapon/LauncherComponent.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/ART/Public/Weapon/LauncherComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/Concept/Tutorial.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Concept/Tutorial.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Weapon/BallisticProjectile.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Weapon/BallisticProjectile.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,9 +77,9 @@
       <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterAttributeSet.h" />
       <option value="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterAttributeSet.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Private/Weapon/BallisticProjectile.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/Weapon/LauncherComponent.h" />
       <option value="$PROJECT_DIR$/Source/ART/Public/Weapon/BallisticProjectile.h" />
       <option value="$PROJECT_DIR$/Source/ART/Private/Weapon/LauncherComponent.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/Weapon/LauncherComponent.h" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1lBFe3M5fiXhaBDPEYgqBFdVSir" />
