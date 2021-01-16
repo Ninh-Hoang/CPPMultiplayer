@@ -316,7 +316,7 @@ bool UARTAbilitySystemComponent::BatchRPCTryActivateAbility(FGameplayAbilitySpec
 	bool AbilityActivated = false;
 	if (InAbilityHandle.IsValid())
 	{
-		FScopedServerAbilityRPCBatcher GSAbilityRPCBatcher(this, InAbilityHandle);
+		FScopedServerAbilityRPCBatcher AbilityRPCBatcher(this, InAbilityHandle);
 
 		AbilityActivated = TryActivateAbility(InAbilityHandle, true);
 
@@ -325,8 +325,8 @@ bool UARTAbilitySystemComponent::BatchRPCTryActivateAbility(FGameplayAbilitySpec
 			FGameplayAbilitySpec* AbilitySpec = FindAbilitySpecFromHandle(InAbilityHandle);
 			if (AbilitySpec)
 			{
-				UARTGameplayAbility* GSAbility = Cast<UARTGameplayAbility>(AbilitySpec->GetPrimaryInstance());
-				GSAbility->ExternalEndAbility();
+				UARTGameplayAbility* Ability = Cast<UARTGameplayAbility>(AbilitySpec->GetPrimaryInstance());
+				Ability->ExternalEndAbility();
 			}
 		}
 		return AbilityActivated;

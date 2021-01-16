@@ -199,10 +199,10 @@ UObject* UARTGameplayAbility::K2_GetSourceObject(FGameplayAbilitySpecHandle Hand
 bool UARTGameplayAbility::BatchRPCTryActivateAbility(FGameplayAbilitySpecHandle InAbilityHandle,
                                                      bool EndAbilityImmediately)
 {
-	UARTAbilitySystemComponent* GSASC = Cast<UARTAbilitySystemComponent>(GetAbilitySystemComponentFromActorInfo());
-	if (GSASC)
+	UARTAbilitySystemComponent* ASC = Cast<UARTAbilitySystemComponent>(GetAbilitySystemComponentFromActorInfo());
+	if (ASC)
 	{
-		return GSASC->BatchRPCTryActivateAbility(InAbilityHandle, EndAbilityImmediately);
+		return ASC->BatchRPCTryActivateAbility(InAbilityHandle, EndAbilityImmediately);
 	}
 
 	return false;

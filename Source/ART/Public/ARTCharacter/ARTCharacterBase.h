@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-//#include "VoxelCharacter.h"
+#include "VoxelCharacter.h"
 #include "AbilitySystemInterface.h"
 #include "ART/ART.h"
 #include "GameplayEffectTypes.h"

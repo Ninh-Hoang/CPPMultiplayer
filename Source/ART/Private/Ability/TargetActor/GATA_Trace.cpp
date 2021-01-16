@@ -404,17 +404,39 @@ TArray<FHitResult> AGATA_Trace::PerformTrace(AActor* InSourceActor)
 		DoTrace(TraceHitResults, InSourceActor->GetWorld(), Filter, TraceStart, TraceEnd, TraceProfile.Name, Params);
 
 		TArray<AActor*> CacheHitActors;
+		TArray<FHitResult> ClampedHitResults;
 		
-		for (int32 j = TraceHitResults.Num() - 1; j >= 0; j--)
+		//so cachehitActor is not null
+		CacheHitActors.Add(this);
+		
+		//clamp the hit result down to only maximum number of unique actor (MaxHitResultPerTrace)
+		for(int a = 0; a < TraceHitResults.Num(); a++)
 		{
-			if (MaxHitResultsPerTrace >= 0 && j + 1 > MaxHitResultsPerTrace)
+			bool bActorAlreadyInCache = false;
+			
+			for(int b = 0; b < CacheHitActors.Num(); b ++)
 			{
-				// Trim to MaxHitResultsPerTrace
-				TraceHitResults.RemoveAt(j);
+				FHitResult& HitResult = TraceHitResults[a];
+				
+				if(HitResult.Actor.Get() == CacheHitActors[b])
+				{
+					bActorAlreadyInCache = true;
+					break;
+				}
+			}
+			if(bActorAlreadyInCache)
+			{
 				continue;
 			}
 
-			FHitResult& HitResult = TraceHitResults[j];
+			CacheHitActors.Add(TraceHitResults[a].Actor.Get());
+			ClampedHitResults.Add(TraceHitResults[a]);
+		}
+		
+		for (int32 j = ClampedHitResults.Num() - 1; j >= 0; j--)
+		{
+
+			FHitResult& HitResult = ClampedHitResults[j];
 
 			// Reminder: if bUsePersistentHitResults, Number of Traces = 1
 			if (bUsePersistentHitResults)
@@ -483,10 +505,10 @@ TArray<FHitResult> AGATA_Trace::PerformTrace(AActor* InSourceActor)
 
 		if (!bUsePersistentHitResults)
 		{
-			if (TraceHitResults.Num() < ReticleActors.Num())
+			if (ClampedHitResults.Num() < ReticleActors.Num())
 			{
 				// We have less hit results than ReticleActors, hide the extra ones
-				for (int32 j = TraceHitResults.Num(); j < ReticleActors.Num(); j++)
+				for (int32 j = ClampedHitResults.Num(); j < ReticleActors.Num(); j++)
 				{
 					if (AGameplayAbilityWorldReticle* LocalReticleActor = ReticleActors[j].Get())
 					{
@@ -497,7 +519,7 @@ TArray<FHitResult> AGATA_Trace::PerformTrace(AActor* InSourceActor)
 			}
 		}
 
-		if (TraceHitResults.Num() < 1)
+		if (ClampedHitResults.Num() < MaxHitResultsPerTrace)
 		{
 			// If there were no hits, add a default HitResult at the end of the trace
 			FHitResult HitResult;
@@ -506,7 +528,7 @@ TArray<FHitResult> AGATA_Trace::PerformTrace(AActor* InSourceActor)
 			HitResult.TraceEnd = TraceEnd;
 			HitResult.Location = TraceEnd;
 			HitResult.ImpactPoint = TraceEnd;
-			TraceHitResults.Add(HitResult);
+			ClampedHitResults.Add(HitResult);
 
 			if (bUsePersistentHitResults && PersistentHitResults.Num() < 1)
 			{
@@ -514,7 +536,7 @@ TArray<FHitResult> AGATA_Trace::PerformTrace(AActor* InSourceActor)
 			}
 		}
 
-		ReturnHitResults.Append(TraceHitResults);
+		ReturnHitResults.Append(ClampedHitResults);
 	} // for NumberOfTraces
 
 	// Reminder: if bUsePersistentHitResults, Number of Traces = 1

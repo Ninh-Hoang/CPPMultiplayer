@@ -45,6 +45,12 @@ AARTCharacterAI::AARTCharacterAI(const class FObjectInitializer& ObjectInitializ
 
 	//set collision
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+
+	//affact navigation
+	SetCanAffectNavigationGeneration(true);
+
+	//not using controller Yaw, might want to change this
+	bUseControllerRotationYaw = false;
 }
 
 void AARTCharacterAI::BeginPlay()

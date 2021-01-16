@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Abilities/Tasks/AbilityTask.h"
+#include "Abilities/GameplayAbilityTargetActor.h"
+#include "GameplayTagContainer.h"
 #include "AT_WaitTargetDataUsingActor.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FWaitTargetDataUsingActorDelegate, const FGameplayAbilityTargetDataHandle&,

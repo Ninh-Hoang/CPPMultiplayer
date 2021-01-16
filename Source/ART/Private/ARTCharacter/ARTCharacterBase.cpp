@@ -33,11 +33,11 @@ AARTCharacterBase::AARTCharacterBase(const class FObjectInitializer& ObjectIniti
 	Super(ObjectInitializer.SetDefaultSubobjectClass<UARTCharacterMovementComponent>(CharacterMovementComponentName))
 {
 	PrimaryActorTick.bCanEverTick = true;
-	SetReplicates(true);
+	bReplicates = true;
 	SetReplicateMovement(true);
 
-	//VoxelInvokerComponent = CreateDefaultSubobject<UARTSimpleInvokerComponent>(TEXT("VoxelInvoker"));
-	//VoxelInvokerComponent->SetupAttachment(RootComponent);
+	VoxelInvokerComponent = CreateDefaultSubobject<UARTSimpleInvokerComponent>(TEXT("VoxelInvoker"));
+	VoxelInvokerComponent->SetupAttachment(RootComponent);
 
 	// Cache tags
 	DeadTag = FGameplayTag::RequestGameplayTag("State.Dead");

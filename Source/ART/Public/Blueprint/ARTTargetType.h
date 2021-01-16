@@ -37,6 +37,7 @@ public:
 	                                       FGameplayEventData EventData,
 	                                       TArray<FGameplayAbilityTargetDataHandle>& OutTargetData,
 	                                       TArray<FHitResult>& OutHitResults, TArray<AActor*>& OutActors) const;
+
 };
 
 /** Trivial target type that uses the owner */
