@@ -6,70 +6,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="879561f1-dfda-4537-b838-a6709d37e8cc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Interactable/BP_Teleporter_Map.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Interactable/BP_Teleporter_Tutorial.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Maps/Concept/Level.umap" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Maps/Concept/Material/ARTVoxel_LandScapeMat.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Maps/Concept/Material/GrassConfig.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Maps/Concept/Material/GrassSpawner.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Maps/Concept/Material/LandScape_2Mat.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Maps/Concept/Material/PM_Cel.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Maps/Concept/Material/RVTextureBase.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Maps/Concept/Material/RVTextureHeight.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Maps/Concept/Material/SpawerConfig.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Maps/Concept/Material/TerrainMat_Base.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Maps/Concept/RVTextureBase.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Maps/Concept/RVTextureHeight.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Maps/Concept/VoxelGraphGenerator.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Meshes/StylizedRocks/Materials/M_Grass_Inst.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ART.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/ART.uproject" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/Enforcer/BP_Enforcer_Mini.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Enforcer/BP_Enforcer_Mini.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/Enforcer/Enforcer_ControlRig.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Enforcer/Enforcer_ControlRig.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/AI/LegBot_BT.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/AI/LegBot_BT.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/AI/LegBot_Controller.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/AI/LegBot_Controller.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/AT_LegBot_AbilitySet.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/AT_LegBot_AbilitySet.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/Ability/GA_LegBot_Shoot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/Ability/GA_LegBot_Shoot.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/BP_LegBot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/BP_LegBot.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/Curve_LegBot_AttributeSet.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/Curve_LegBot_AttributeSet.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/GE_LegBot_AttributeSet.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/GE_LegBot_AttributeSet.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/MeleeBot/BTTask_UseAbility.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/MeleeBot/BTTask_UseAbility.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Framework/Networking/MultiplayerGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Framework/Networking/MultiplayerGameMode.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Interactable/BP_Teleporter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Interactable/BP_Teleporter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/BP_Survivor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/BP_Survivor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/GE_SurvivorAttributeSet.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/GE_SurvivorAttributeSet.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Rifle/BP_TracerRifle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Rifle/BP_TracerRifle.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Rifle/GA_RiflePrimary.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Rifle/GA_RiflePrimary.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Rifle/GA_RiflePrimaryInstant.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Rifle/GA_RiflePrimaryInstant.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Rifle/GC_RifleFire.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Rifle/GC_RifleFire.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Shotgun/GA_ShotgunPrimary.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Shotgun/GA_ShotgunPrimary.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Shotgun/GA_ShotgunPrimaryInstant.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Shotgun/GA_ShotgunPrimaryInstant.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Share/TargetType/TargetType_SphereTrace.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Share/TargetType/TargetType_SphereTrace.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Tree/Tree_LOD0.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/Tree_LOD0.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/FX/Emitter/BulletTracer/flame.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/FX/Emitter/BulletTracer/flame.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/FX/Emitter/BulletTracer/tracerglow.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/FX/Emitter/BulletTracer/tracerglow.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/Concept/Lobby.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Concept/Lobby.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/Concept/StartMenu.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Concept/StartMenu.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/Concept/Tutorial.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Concept/Tutorial.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/StartMenu.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/StartMenu.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/Voxel/SpawningSystem/Grass_VoxelMeshSpawner.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Voxel/SpawningSystem/Grass_VoxelMeshSpawner.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Meshes/Grass/DayGrass/DayGrass.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Meshes/Grass/DayGrass/DayGrass.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Meshes/Grass/DayGrass/LandscapeDayMat.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Meshes/Grass/DayGrass/LandscapeDayMat.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Meshes/Grass/DayGrass/LandscapeDayMat_Inst.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Meshes/Grass/DayGrass/LandscapeDayMat_Inst.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Meshes/Grass/DayGrass/M_DayGrass_Inst.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Meshes/Grass/DayGrass/M_DayGrass_Inst.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Meshes/Grass/NightGrass/M_NightGrass_Inst.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Meshes/Grass/NightGrass/M_NightGrass_Inst.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Meshes/Grass/NightGrass/SM_NightGrass_Stylized.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Meshes/Grass/NightGrass/SM_NightGrass_Stylized.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/LegBot_AnimBP.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/LegBot_AnimBP.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/LegBot_ControlerRig.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/LegBot_ControlerRig.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/UI/Player/PlayerHUD/UI_HUDStat.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/UI/Player/PlayerHUD/UI_HUDStat.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/Concept/Level.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Concept/Level.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/Concept/Material/SpawerConfig.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Concept/Material/SpawerConfig.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/Concept/Material/TreeSpawner.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Concept/Material/TreeSpawner.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/Voxel/SpawningSystem/Rock2_VoxelMeshSpawner.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Voxel/SpawningSystem/Rock2_VoxelMeshSpawner.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/Voxel/SpawningSystem/Rock3_VoxelMeshSpawner.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Voxel/SpawningSystem/Rock3_VoxelMeshSpawner.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Meshes/StylizedRocks/Materials/M_Grass.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Meshes/StylizedRocks/Materials/M_Grass.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Meshes/StylizedRocks/Sm_StylizedGrass.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Meshes/StylizedRocks/Sm_StylizedGrass.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/ART.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/ART.Build.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTCharacterAI.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTCharacterAI.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterBase.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTAbilitySystemComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTAbilitySystemComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_Trace.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_Trace.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterBase.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/Voxel/ARTSimpleInvokerComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/Voxel/ARTSimpleInvokerComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_WaitTargetDataUsingActor.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_WaitTargetDataUsingActor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTTargetType.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTTargetType.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Meshes/StylizedRocks/Materials/M_Grass_Inst.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Meshes/StylizedRocks/Materials/M_Grass_Inst.uasset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,28 +31,28 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://C:/Program Files/Epic Games/UE_4.25/Engine/Source/Runtime/Core/Public/Delegates/DelegateSignatureImpl.inl" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/PlayerState.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/GameplayTags/Private/GameplayTagContainer.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/UObject/UObjectGlobals.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/KismetSystemLibrary.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/GameplayTags/Private/GameplayTagsManager.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/AIController.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/Actor.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Editor/PropertyEditor/Private/SDetailsViewBase.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Containers/Array.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Delegates/DelegateSignatureImpl.inl" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Actor.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Public/UObject/Object.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Components/CharacterMovementComponent.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/EngineBaseTypes.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/GenericTeamAgentInterface.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/LevelActor.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Public/Templates/SubclassOf.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/World.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/UObject/Class.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/UObject/UObjectArchetype.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.25/Engine/Source/Runtime/Core/Public/Delegates/DelegateSignatureImpl.inl" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/AIController.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/EngineTypes.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/UObject/UObjectGlobals.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Editor/PropertyEditor/Private/SDetailsViewBase.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/GameplayTags/Private/GameplayTagContainer.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/GameplayTags/Private/GameplayTagsManager.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Delegates/DelegateSignatureImpl.inl" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/KismetSystemLibrary.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Containers/Array.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Public/UObject/Object.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/GenericTeamAgentInterface.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/EngineBaseTypes.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Actor.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Components/CharacterMovementComponent.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/World.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/UObject/UObjectArchetype.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Public/Templates/SubclassOf.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/UObject/Class.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/LevelActor.cpp" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
@@ -391,6 +342,7 @@
       <workItem from="1607657007263" duration="786000" />
       <workItem from="1609467370618" duration="13971000" />
       <workItem from="1609833825376" duration="39887000" />
+      <workItem from="1610951690237" duration="781000" />
     </task>
     <servers />
   </component>
