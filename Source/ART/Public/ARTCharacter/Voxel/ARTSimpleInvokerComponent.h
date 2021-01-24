@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "VoxelComponents/VoxelInvokerComponent.h"
+//#include "VoxelComponents/VoxelInvokerComponent.h"
 #include "ARTSimpleInvokerComponent.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class ART_API UARTSimpleInvokerComponent : public UVoxelSimpleInvokerComponent
+class ART_API UARTSimpleInvokerComponent : public UObject //UVoxelSimpleInvokerComponent
 {
 	GENERATED_BODY()
 };

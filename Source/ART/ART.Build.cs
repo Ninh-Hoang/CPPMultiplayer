@@ -32,7 +32,7 @@ public class ART : ModuleRules
 			"OnlineSubsystemUtils",
 			"Steamworks",
 			"Networking",
-			"Voxel"
+			//"Voxel"
 		});
 
 

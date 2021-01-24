@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class ART_API UARTNavigationInvokerComponent : public UNavigationInvokerComponent
+class ART_API UARTNavigationInvokerComponent : public UObject //UNavigationInvokerComponent
 {
 	GENERATED_BODY()
 };

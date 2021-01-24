@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "VoxelCharacter.h"
+//#include "VoxelCharacter.h"
 #include "AbilitySystemInterface.h"
 #include "ART/ART.h"
 #include "GameplayEffectTypes.h"
@@ -48,8 +48,8 @@ public:
 	// Sets default values for this character's properties
 	AARTCharacterBase(const class FObjectInitializer& ObjectInitializer);
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-	class UARTSimpleInvokerComponent* VoxelInvokerComponent;
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	//class UARTSimpleInvokerComponent* VoxelInvokerComponent;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Character")
 	FText CharacterName;
