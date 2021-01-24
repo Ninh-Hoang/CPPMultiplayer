@@ -33,7 +33,7 @@ void UARTGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle,
                                      bool bWasCancelled)
 {
 	Super::EndAbility(Handle, ActorInfo, ActivationInfo, bReplicateEndAbility, bWasCancelled);
-	AbilityEnd.Broadcast();
+	AbilityEnd.Broadcast(bWasCancelled);
 }
 
 void UARTGameplayAbility::OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)

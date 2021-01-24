@@ -11,7 +11,7 @@
 /**
  * 
  */
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FARTAbilityEvent);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FARTAbilityEvent, bool, WasCanceled);
 
 class USkeletalMeshComponent;
 
@@ -63,7 +63,7 @@ public:
 	virtual void EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
 	                        const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility,
 	                        bool bWasCancelled) override;
-
+	                        
 	// Abilities with this set will automatically activate when the input is pressed
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Ability|Input")
 	EARTAbilityInputID AbilityInputID = EARTAbilityInputID::None;
