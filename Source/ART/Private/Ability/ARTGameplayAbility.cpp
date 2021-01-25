@@ -534,3 +534,28 @@ bool UARTGameplayAbility::AreAbilityTasksActive() const
 {
 	return ActiveTasks.Num() > 0;
 }
+
+// ----------------------------------------------------------------------------------------------------------------
+//	ARTAvatarActorInfo Getter
+// ----------------------------------------------------------------------------------------------------------------
+
+ const FARTGameplayAbilityActorInfo* UARTGameplayAbility::GetARTActorInfo(const FGameplayAbilityActorInfo* InInfo) const
+{
+	return static_cast<const FARTGameplayAbilityActorInfo*>(InInfo);
+}
+
+FARTGameplayAbilityActorInfo UARTGameplayAbility::BP_GetARTActorInfo()
+{
+	return *GetARTActorInfo(CurrentActorInfo);
+}
+
+UAnimInstance* UARTGameplayAbility::GetAnimInstance() const
+{
+	return GetActorInfo().GetAnimInstance();
+}
+
+AWeapon* UARTGameplayAbility::BP_GetWeapon() const
+{
+	const FARTGameplayAbilityActorInfo* KaosActorInfo = GetARTActorInfo(CurrentActorInfo);
+	return KaosActorInfo ? KaosActorInfo->GetWeapon() : nullptr;
+}

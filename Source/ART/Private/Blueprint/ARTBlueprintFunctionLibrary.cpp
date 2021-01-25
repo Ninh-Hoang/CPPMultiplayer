@@ -5,6 +5,7 @@
 #include "AbilitySystemComponent.h"
 #include "Ability/ARTGameplayAbility.h"
 #include "Ability/ARTGameplayEffectTypes.h"
+#include "Ability/ARTGameplayAbilityTypes.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include <Ability/ARTGameplayEffectUIData.h>
 #include <Ability/ARTGameplayAbilityUIData.h>
@@ -133,23 +134,34 @@ TArray<FActiveGameplayEffectHandle> UARTBlueprintFunctionLibrary::ApplyExternalE
 FGameplayAbilityTargetDataHandle UARTBlueprintFunctionLibrary::EffectContextGetTargetData(
 	FGameplayEffectContextHandle EffectContextHandle)
 {
-	FARTGameplayEffectContext* EffectContext = static_cast<FARTGameplayEffectContext*>(EffectContextHandle.Get());
-	if (EffectContext)
+	FARTGameplayEffectContext* ARTContext = static_cast<FARTGameplayEffectContext*>(EffectContextHandle.Get());
+	if (ARTContext || ARTContext->GetTargetData())
 	{
-		return EffectContext->GetTargetData();
+		return *ARTContext->GetTargetData();
 	}
 
 	return FGameplayAbilityTargetDataHandle();
 }
 
-void UARTBlueprintFunctionLibrary::EffectContextAddTargetData(FGameplayEffectContextHandle EffectContextHandle,
-                                                              const FGameplayAbilityTargetDataHandle& TargetData)
+void UARTBlueprintFunctionLibrary::EffectContextAddTargetData(FGameplayEffectContextHandle EffectContext,
+                                                              const FGameplayAbilityTargetDataHandle& TargetData,
+                                                              bool Reset)
 {
-	FARTGameplayEffectContext* EffectContext = static_cast<FARTGameplayEffectContext*>(EffectContextHandle.Get());
-	if (EffectContext)
+	FARTGameplayEffectContext* ARTContext = static_cast<FARTGameplayEffectContext*>(EffectContext.Get());
+	if (ARTContext)
 	{
-		EffectContext->AddTargetData(TargetData);
+		ARTContext->AddTargetData(TargetData, Reset);
 	}
+}
+
+float UARTBlueprintFunctionLibrary::EffectContextGetSourceLevel(FGameplayEffectContextHandle EffectContext)
+{
+	FARTGameplayEffectContext* ARTContext = static_cast<FARTGameplayEffectContext*>(EffectContext.Get());
+	if (ARTContext)
+	{
+		return ARTContext->GetSourceLevel();
+	}
+	return 0.0f;
 }
 
 void UARTBlueprintFunctionLibrary::ClearTargetData(FGameplayAbilityTargetDataHandle& TargetData)

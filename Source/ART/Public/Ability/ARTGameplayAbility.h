@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Abilities/GameplayAbility.h"
-#include "Blueprint/ARTAbilityTypes.h"
+#include "Ability/ARTGameplayAbilityTypes.h"
 #include "ART/ART.h"
 #include "ARTGameplayAbility.generated.h"
 
@@ -309,4 +309,21 @@ protected:
 
 	/** Whether there are ability tasks active on this gameplay ability instance. */
 	bool AreAbilityTasksActive() const;
+
+public:
+	// ----------------------------------------------------------------------------------------------------------------
+	//	ARTAvatarActorInfo Getter
+	// ----------------------------------------------------------------------------------------------------------------
+	
+	const FARTGameplayAbilityActorInfo* GetARTActorInfo(const FGameplayAbilityActorInfo* Info) const;
+	
+	UFUNCTION(BlueprintPure, Category = "Ability|ActorInfo")
+	FARTGameplayAbilityActorInfo BP_GetARTActorInfo();
+	
+	UFUNCTION(BlueprintPure, Category = "Ability|ActorInfo")
+    UAnimInstance* GetAnimInstance() const;
+	
+	UFUNCTION(BlueprintPure, Category = "Ability|ActorInfo")
+    AWeapon* BP_GetWeapon() const;
 };
+

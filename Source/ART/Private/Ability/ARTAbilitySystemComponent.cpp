@@ -15,7 +15,7 @@
 #include <AbilitySystemBlueprintLibrary.h>
 
 UARTAbilitySystemComponent::UARTAbilitySystemComponent()
-{
+{ 
 }
 
 void UARTAbilitySystemComponent::BeginPlay()

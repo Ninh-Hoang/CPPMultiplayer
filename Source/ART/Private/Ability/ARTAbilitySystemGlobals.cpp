@@ -3,14 +3,10 @@
 
 #include "Ability/ARTAbilitySystemGlobals.h"
 #include <Ability/ARTGameplayEffectTypes.h>
+#include <Ability/ARTGameplayAbilityTypes.h>
 
 UARTAbilitySystemGlobals::UARTAbilitySystemGlobals()
 {
-}
-
-FGameplayEffectContext* UARTAbilitySystemGlobals::AllocGameplayEffectContext() const
-{
-	return new FARTGameplayEffectContext();
 }
 
 void UARTAbilitySystemGlobals::InitGlobalTags()
@@ -21,4 +17,14 @@ void UARTAbilitySystemGlobals::InitGlobalTags()
 	KnockedDownTag = FGameplayTag::RequestGameplayTag("State.KnockedDown");
 	InteractingTag = FGameplayTag::RequestGameplayTag("State.Interacting");
 	InteractingRemovalTag = FGameplayTag::RequestGameplayTag("State.InteractingRemoval");
+}
+
+FGameplayEffectContext* UARTAbilitySystemGlobals::AllocGameplayEffectContext() const
+{
+	return new FARTGameplayEffectContext();
+}
+
+FGameplayAbilityActorInfo* UARTAbilitySystemGlobals::AllocAbilityActorInfo() const
+{
+	return new FARTGameplayAbilityActorInfo();
 }

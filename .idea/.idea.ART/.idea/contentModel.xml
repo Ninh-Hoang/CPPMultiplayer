@@ -50305,6 +50305,7 @@
               <e p="ARTAbilitySystemGlobals.cpp" t="Include" />
               <e p="ARTActorBase.cpp" t="Include" />
               <e p="ARTGameplayAbility.cpp" t="Include" />
+              <e p="ARTGameplayAbilityTypes.h" t="Include" />
               <e p="ARTGameplayAbilityUIData.cpp" t="Include" />
               <e p="ARTGameplayCueManager.cpp" t="Include" />
               <e p="ARTGameplayEffect.cpp" t="Include" />
@@ -50353,7 +50354,6 @@
             </e>
             <e p="ARTEngineSubsystem.cpp" t="Include" />
             <e p="Blueprint" t="Include">
-              <e p="ARTAbilityTypes.cpp" t="Include" />
               <e p="ARTBlueprintFunctionLibrary.cpp" t="Include" />
               <e p="ARTCurve.cpp" t="Include" />
               <e p="ARTTargetFilter.cpp" t="Include" />
@@ -50419,6 +50419,7 @@
               <e p="ARTAbilitySystemGlobals.h" t="Include" />
               <e p="ARTActorBase.h" t="Include" />
               <e p="ARTGameplayAbility.h" t="Include" />
+              <e p="ARTGameplayAbilityTypes.cpp" t="Include" />
               <e p="ARTGameplayAbilityUIData.h" t="Include" />
               <e p="ARTGameplayCueManager.h" t="Include" />
               <e p="ARTGameplayEffect.h" t="Include" />
@@ -50467,7 +50468,6 @@
             </e>
             <e p="ARTEngineSubsystem.h" t="Include" />
             <e p="Blueprint" t="Include">
-              <e p="ARTAbilityTypes.h" t="Include" />
               <e p="ARTBlueprintFunctionLibrary.h" t="Include" />
               <e p="ARTCurve.h" t="Include" />
               <e p="ARTTargetFilter.h" t="Include" />

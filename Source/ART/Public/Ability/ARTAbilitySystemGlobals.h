@@ -39,9 +39,12 @@ public:
 	{
 		return dynamic_cast<UARTAbilitySystemGlobals&>(Get());
 	}
-
+	
+	virtual void InitGlobalTags() override;
+	
 	/** Should allocate a project specific GameplayEffectContext struct. Caller is responsible for deallocation */
 	virtual FGameplayEffectContext* AllocGameplayEffectContext() const override;
 
-	virtual void InitGlobalTags() override;
+	/** Should allocate a project specific GameplayAbilityActorInfo struct. Caller is responsible for deallocation */
+	virtual FGameplayAbilityActorInfo* AllocAbilityActorInfo() const override;
 };

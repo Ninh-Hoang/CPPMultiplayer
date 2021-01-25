@@ -3,7 +3,6 @@
 #pragma once
 
 #include "Abilities/GameplayAbilityTypes.h"
-#include "Blueprint/ARTAbilityTypes.h"
 #include "ARTTargetType.generated.h"
 
 class AARTCharacterBase;

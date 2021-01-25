@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
-#include "Blueprint/ARTAbilityTypes.h"
+#include "Ability/ARTGameplayAbilityTypes.h"
 #include "ARTTargetFilter.h"
 #include "ARTBlueprintFunctionLibrary.generated.h"
 
@@ -43,9 +43,9 @@ public:
 	/*
 	*FGameplayEffectSpecHandle
 	*/
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Ability")
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "GameplayEffectSpec")
 	static bool IsAbilitySpecHandleValid(FGameplayAbilitySpecHandle Handle);
-
+	
 	/*
 	*GameplayEffectContainerSpec
 	*/
@@ -81,14 +81,19 @@ public:
 	*/
 
 	// Returns TargetData
-	UFUNCTION(BlueprintCallable, Category = "Ability|EffectContext", Meta = (DisplayName = "GetTargetData"))
+	UFUNCTION(BlueprintPure, Category = "Ability|EffectContext", Meta = (DisplayName = "GetTargetData"))
 	static FGameplayAbilityTargetDataHandle EffectContextGetTargetData(FGameplayEffectContextHandle EffectContext);
 
 	// Adds TargetData
 	UFUNCTION(BlueprintCallable, Category = "Ability|EffectContext", Meta = (DisplayName = "AddTargetData"))
-	static void EffectContextAddTargetData(FGameplayEffectContextHandle EffectContextHandle,
-	                                       const FGameplayAbilityTargetDataHandle& TargetData);
+	static void EffectContextAddTargetData(FGameplayEffectContextHandle EffectContext,
+	                                       const FGameplayAbilityTargetDataHandle& TargetData, bool Reset);
 
+	// Returns SourceLevel
+	UFUNCTION(BlueprintPure, Category = "Ability|EffectContext", Meta = (DisplayName = "GetSourceLevel"))
+    static float EffectContextGetSourceLevel(FGameplayEffectContextHandle EffectContext);
+
+	
 	/**
 	* FGameplayAbilityTargetDataHandle
 	*/

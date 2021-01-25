@@ -18,15 +18,35 @@ struct ART_API FARTGameplayEffectContext : public FGameplayEffectContext
 
 public:
 
-	virtual FGameplayAbilityTargetDataHandle GetTargetData()
+	//targetdata
+	virtual const FGameplayAbilityTargetDataHandle* GetTargetData() const
 	{
-		return TargetData;
+		return const_cast<FARTGameplayEffectContext*>(this)->GetTargetData();
 	}
 
-	virtual void AddTargetData(const FGameplayAbilityTargetDataHandle& TargetDataHandle)
+	virtual FGameplayAbilityTargetDataHandle* GetTargetData()
 	{
-		TargetData.Append(TargetDataHandle);
+		return TargetData.Get();
 	}
+
+	virtual void AddTargetData(const FGameplayAbilityTargetDataHandle& InTargetData, bool bReset)
+	{
+		if(!TargetData.IsValid())
+		{
+			TargetData = MakeShared<FGameplayAbilityTargetDataHandle>();
+		}
+		if (bReset)
+		{
+			TargetData.Reset();
+		}
+
+		//check(!TargetData.IsValid());
+		TargetData->Append(InTargetData);
+	}
+
+	//source level
+	float GetSourceLevel() const { return SourceLevel; }
+	void SetSourceLevel(float InLevel) { SourceLevel = InLevel; }
 
 	/**
 	* Functions that subclasses of FGameplayEffectContext need to override
@@ -47,15 +67,24 @@ public:
 			// Does a deep copy of the hit result
 			NewContext->AddHitResult(*GetHitResult(), true);
 		}
+
+		if (GetTargetData())
+		{
+			// Does a deep copy of the target data
+			NewContext->AddTargetData(*GetTargetData(), true);
+		}
 		// Shallow copy of TargetData, is this okay?
-		NewContext->TargetData.Append(TargetData);
+		//NewContext->TargetData.Append(TargetData);
 		return NewContext;
 	}
 
 	virtual bool NetSerialize(FArchive& Ar, class UPackageMap* Map, bool& bOutSuccess) override;
 
 protected:
-	FGameplayAbilityTargetDataHandle TargetData;
+	TSharedPtr<FGameplayAbilityTargetDataHandle> TargetData;
+
+	UPROPERTY()
+	float SourceLevel;
 };
 
 template <>
