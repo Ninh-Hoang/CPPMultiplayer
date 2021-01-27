@@ -275,7 +275,7 @@ void UARTCharacterAttributeSet::FinalDamageDealing(float LocalDamage, const FHit
 	
 	if (DamageAfterShield > 0)
 	{
-		if(Hit && Hit->Component->ComponentHasTag(FName("PartA")))
+		if(Hit && Hit->GetComponent() && Hit->Component->ComponentHasTag(FName("PartA")))
 		{
 			// Apply the health change and then clamp it
 			const float NewHealth = GetPartHealthA() - DamageAfterShield;
