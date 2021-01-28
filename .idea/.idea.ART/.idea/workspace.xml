@@ -7,18 +7,13 @@
   <component name="ChangeListManager">
     <list default="true" id="879561f1-dfda-4537-b838-a6709d37e8cc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/Stalker/AI/Stalker_BT.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Stalker/AI/Stalker_BT.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/Stalker/Ability/GA_ShootRocket.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Stalker/Ability/GA_ShootRocket.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/Stalker/Ability/MissleBarrage_Projectile.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Stalker/Ability/MissleBarrage_Projectile.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/Stalker/BP_Stalker.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Stalker/BP_Stalker.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/Stalker/Stalker_Anim.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Stalker/Stalker_Anim.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/ItemAndEquipment/Consumable/ElementTestItem/Electro/GE_ElectroDamage.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/ItemAndEquipment/Consumable/ElementTestItem/Electro/GE_ElectroDamage.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/BP_Survivor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/BP_Survivor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Shotgun/GC_ShotgunFire.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Shotgun/GC_ShotgunFire.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Staff/ShadowBall/BP_ShadowBallProjectile.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Staff/ShadowBall/BP_ShadowBallProjectile.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprint/Share/TargetType/TargetType_SphereTrace.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Share/TargetType/TargetType_SphereTrace.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/Concept/Tutorial.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Concept/Tutorial.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterAttributeSet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterAttributeSet.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTAbilitySystemComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTAbilitySystemComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTBlueprintFunctionLibrary.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTBlueprintFunctionLibrary.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTBlueprintFunctionLibrary.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTBlueprintFunctionLibrary.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,8 +34,10 @@
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/GameplayTags/Private/GameplayTagContainer.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/GameplayTags/Private/GameplayTagsManager.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/KismetSystemLibrary.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Templates/SharedPointer.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Public/Templates/Casts.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/NetSerialization.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Kismet/BlueprintFunctionLibrary.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Components/ActorComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/LevelActor.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/AIController.h" root0="FORCE_HIGHLIGHTING" />
@@ -98,7 +95,6 @@
       <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbilityType.h" />
       <option value="$PROJECT_DIR$/Source/ART/Public/Ability/ARTAbilitySystemGlobals.h" />
       <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTAbilitySystemGlobals.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTAbilitySystemComponent.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbilityTypes.h" />
       <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayAbilityTypes.cpp" />
@@ -107,11 +103,12 @@
       <option value="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayAbility.h" />
       <option value="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTTargetType.h" />
       <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterBase.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTBlueprintFunctionLibrary.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTBlueprintFunctionLibrary.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayEffectTypes.h" />
       <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayEffectTypes.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterAttributeSet.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTAbilitySystemComponent.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTBlueprintFunctionLibrary.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTBlueprintFunctionLibrary.cpp" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1lBFe3M5fiXhaBDPEYgqBFdVSir" />
@@ -360,7 +357,8 @@
       <workItem from="1611316171002" duration="13356000" />
       <workItem from="1611569721850" duration="23303000" />
       <workItem from="1611613520291" duration="3002000" />
-      <workItem from="1611648068059" duration="4157000" />
+      <workItem from="1611648068059" duration="13017000" />
+      <workItem from="1611825407980" duration="3552000" />
     </task>
     <servers />
   </component>

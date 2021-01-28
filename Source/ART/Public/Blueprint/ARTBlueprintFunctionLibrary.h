@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Kismet/BlueprintFunctionLibrary.h"
+#include "AbilitySystemBlueprintLibrary.h"
 #include "Ability/ARTGameplayAbilityTypes.h"
 #include "ARTTargetFilter.h"
 #include "ARTBlueprintFunctionLibrary.generated.h"
@@ -13,29 +13,29 @@
  */
 
 UCLASS()
-class ART_API UARTBlueprintFunctionLibrary : public UBlueprintFunctionLibrary
+class ART_API UARTBlueprintFunctionLibrary : public UAbilitySystemBlueprintLibrary
 {
 	GENERATED_BODY()
 
 public:
 	//returns the player's editor window role - Server (listen host) or Client #
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintPure)
 	static FString GetPlayerEditorWindowRole(UWorld* World);
 
 	/**
 	 * Gameplay Ability Stuffs
 	 */
 
-	UFUNCTION(BlueprintCallable, Category = "Ability")
+	UFUNCTION(BlueprintPure, Category = "Ability")
 	static UARTGameplayAbility* GetPrimaryAbilityInstanceFromHandle(UAbilitySystemComponent* AbilitySystemComponent,
 	                                                                FGameplayAbilitySpecHandle Handle);
 
-	UFUNCTION(BlueprintCallable, Category = "Ability")
+	UFUNCTION(BlueprintPure, Category = "Ability")
 	static UARTGameplayAbility* GetPrimaryAbilityInstanceFromClass(UAbilitySystemComponent* AbilitySystemComponent,
 	                                                               TSubclassOf<UGameplayAbility> InAbilityClass);
 
-	UFUNCTION(BlueprintCallable, Category = "Ability")
+	UFUNCTION(BlueprintPure, Category = "Ability")
 	static bool IsPrimaryAbilityInstanceActive(UAbilitySystemComponent* AbilitySystemComponent,
 	                                           FGameplayAbilitySpecHandle Handle);
 
@@ -43,7 +43,7 @@ public:
 	/*
 	*FGameplayEffectSpecHandle
 	*/
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "GameplayEffectSpec")
+	UFUNCTION(BlueprintPure, BlueprintPure, Category = "GameplayEffectSpec")
 	static bool IsAbilitySpecHandleValid(FGameplayAbilitySpecHandle Handle);
 	
 	/*
@@ -134,14 +134,11 @@ public:
 	/*
 	* turn HitResult in to TargetData
 	*/
-	UFUNCTION(BlueprintCallable, Category = "Ability|TargetData")
-	static FGameplayAbilityTargetDataHandle MakeTargetDataFromHit(FHitResult HitResult);
+	UFUNCTION(BlueprintPure, Category = "Ability|TargetData", Meta = (DisplayName = "Ability Target Data from Hit Result Array"))
+	static FGameplayAbilityTargetDataHandle MakeTargetDataFromHitArray(TArray<FHitResult>& HitResults);
 
-	UFUNCTION(BlueprintCallable, Category = "Ability|TargetData")
-	static FGameplayAbilityTargetDataHandle MakeTargetDataFromHitArray(TArray<FHitResult> HitResults);
-
-	UFUNCTION(BlueprintCallable, Category = "Ability|TargetData")
-	static TArray<FGameplayAbilityTargetDataHandle> MakeArrayTargetDataFromHitArray(TArray<FHitResult> HitResults);
+	UFUNCTION(BlueprintPure, Category = "Ability|TargetData",  Meta = (DisplayName = "Ability Target Data Array from Hit Result Array"))
+	static TArray<FGameplayAbilityTargetDataHandle> MakeArrayTargetDataFromHitArray(TArray<FHitResult>& HitResults);
 
 	/*
 	* GameplayTagBlueprintPropertyMap ultilities
@@ -152,7 +149,7 @@ public:
 	/*
 	* Get Tag caller Mag
 	*/
-	UFUNCTION(BlueprintCallable, Category = "Ability|ActiveEffect")
+	UFUNCTION(BlueprintPure, Category = "Ability|ActiveEffect")
 	static float GetTagCallerMag(UAbilitySystemComponent* InASC, FActiveGameplayEffectHandle& InActiveHandle,
 	                             FGameplayTag CallerTag);
 
@@ -160,7 +157,7 @@ public:
 	* Get UI information from GameplayEffect Handle, or Spec?
 	*/
 
-	UFUNCTION(BlueprintCallable, Category = "Ability|ActiveEffect", Meta = (DisplayName =
+	UFUNCTION(BlueprintPure, Category = "Ability|ActiveEffect", Meta = (DisplayName =
 		"Get GE UI Data from Active Handle"))
 	static UARTGameplayEffectUIData* GetGameplayEffectUIDataFromActiveHandle(
 		const FActiveGameplayEffectHandle& InActiveHandle);
@@ -169,7 +166,7 @@ public:
 	* Get UI information from Ability Input, Spec, or Handle?
 	*/
 
-	UFUNCTION(BlueprintCallable, Category = "Ability|ActiveAbility", Meta = (DisplayName = "Get GA UI Data from Input"))
+	UFUNCTION(BlueprintPure, Category = "Ability|ActiveAbility", Meta = (DisplayName = "Get GA UI Data from Input"))
 	static UARTGameplayAbilityUIData* GetGameplayAbilityUIDataFromInput(UAbilitySystemComponent* InASC,
 	                                                                    const EARTAbilityInputID Input);
 };

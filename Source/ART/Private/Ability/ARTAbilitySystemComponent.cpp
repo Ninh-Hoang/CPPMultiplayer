@@ -61,7 +61,7 @@ void UARTAbilitySystemComponent::OnGameplayEffectAppliedToTargetCallback(
 
 		if (const FHitResult* Hit = SpecApplied.GetEffectContext().Get()->GetHitResult())
 		{
-			Data.TargetData = UARTBlueprintFunctionLibrary::MakeTargetDataFromHit(*Hit);
+			Data.TargetData = UARTBlueprintFunctionLibrary::AbilityTargetDataFromHitResult(*Hit);
 		}
 
 		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(EventTarget, GameplayEventTag, Data);
@@ -109,7 +109,7 @@ void UARTAbilitySystemComponent::OnActiveGameplayEffectAppliedToSelfCallback(
 
 		if (const FHitResult* Hit = SpecApplied.GetEffectContext().Get()->GetHitResult())
 		{
-			Data.TargetData = UARTBlueprintFunctionLibrary::MakeTargetDataFromHit(*Hit);
+			Data.TargetData = UARTBlueprintFunctionLibrary::AbilityTargetDataFromHitResult(*Hit);
 		}
 
 		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(EventTarget, GameplayEventTag, Data);

@@ -124,7 +124,22 @@ TArray<FActiveGameplayEffectHandle> UARTBlueprintFunctionLibrary::ApplyExternalE
 			// If effect is valid, iterate list of targets and apply to all
 			for (TSharedPtr<FGameplayAbilityTargetData> Data : ContainerSpec.TargetData.Data)
 			{
-				AllEffects.Append(Data->ApplyGameplayEffectSpec(*SpecHandle.Data.Get()));
+				//if instigator ASC still alive
+				if(SpecHandle.Data.Get()->GetContext().GetInstigatorAbilitySystemComponent()){
+					AllEffects.Append(Data->ApplyGameplayEffectSpec(*SpecHandle.Data.Get()));
+				}
+				//TODO: Optimize this loop
+				//apply gameplay effect to self instead
+				else
+				{
+					for(TWeakObjectPtr<AActor> Actor : Data->GetActors())
+					{
+						if(UAbilitySystemComponent* ASC = GetAbilitySystemComponent(Actor.Get()))
+						{
+							AllEffects.Add(ASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get()));
+						}
+					}
+				}
 			}
 		}
 	}
@@ -222,44 +237,26 @@ TArray<FGameplayAbilityTargetDataHandle> UARTBlueprintFunctionLibrary::FilterTar
 	return OutTargetDataArray;
 }
 
-FGameplayAbilityTargetDataHandle UARTBlueprintFunctionLibrary::MakeTargetDataFromHit(FHitResult HitResult)
-{
-	FGameplayAbilityTargetDataHandle ReturnDataHandle;
-	/** Note: These are cleaned up by the FGameplayAbilityTargetDataHandle (via an internal TSharedPtr) */
-	FGameplayAbilityTargetData_SingleTargetHit* ReturnData = new FGameplayAbilityTargetData_SingleTargetHit();
-	ReturnData->HitResult = HitResult;
-	ReturnDataHandle.Add(ReturnData);
-	return ReturnDataHandle;
-}
-
-FGameplayAbilityTargetDataHandle UARTBlueprintFunctionLibrary::MakeTargetDataFromHitArray(TArray<FHitResult> HitResults)
+FGameplayAbilityTargetDataHandle UARTBlueprintFunctionLibrary::MakeTargetDataFromHitArray(TArray<FHitResult>& HitResults)
 {
 	FGameplayAbilityTargetDataHandle ReturnDataHandle;
 
-	for (int32 i = 0; i < HitResults.Num(); i++)
+	for (FHitResult& Hit : HitResults)
 	{
-		/** Note: These are cleaned up by the FGameplayAbilityTargetDataHandle (via an internal TSharedPtr) */
-		FGameplayAbilityTargetData_SingleTargetHit* ReturnData = new FGameplayAbilityTargetData_SingleTargetHit();
-		ReturnData->HitResult = HitResults[i];
-		ReturnDataHandle.Add(ReturnData);
+		FGameplayAbilityTargetData_SingleTargetHit* TargetData = new FGameplayAbilityTargetData_SingleTargetHit(Hit);
+		ReturnDataHandle.Data.Add(TSharedPtr<FGameplayAbilityTargetData>(TargetData));
 	}
-
 	return ReturnDataHandle;
 }
 
-TArray<FGameplayAbilityTargetDataHandle> UARTBlueprintFunctionLibrary::MakeArrayTargetDataFromHitArray(
-	TArray<FHitResult> HitResults)
+TArray<FGameplayAbilityTargetDataHandle> UARTBlueprintFunctionLibrary::MakeArrayTargetDataFromHitArray(TArray<FHitResult>& HitResults)
 {
 	TArray<FGameplayAbilityTargetDataHandle> ReturnDataHandles;
 
-	for (int32 i = 0; i < HitResults.Num(); i++)
+	for (FHitResult& Hit : HitResults)
 	{
-		/** Note: These are cleaned up by the FGameplayAbilityTargetDataHandle (via an internal TSharedPtr) */
-		FGameplayAbilityTargetData_SingleTargetHit* ReturnData = new FGameplayAbilityTargetData_SingleTargetHit();
-		ReturnData->HitResult = HitResults[i];
-		ReturnDataHandles.Add(ReturnData);
+		ReturnDataHandles.Add(AbilityTargetDataFromHitResult(Hit));
 	}
-
 	return ReturnDataHandles;
 }
 
