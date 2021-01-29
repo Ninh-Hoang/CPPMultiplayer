@@ -118,10 +118,8 @@ struct ART_API FARTTargetFilterTeamID : public FGameplayTargetDataFilter
 	virtual ~FARTTargetFilterTeamID()
 	{
 	}
-
+	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (ExposeOnSpawn = true), Category = Filter)
-	AActor* SourceActor;
-
 	TEnumAsByte<ETeamAttitude::Type> TeamAttitude;
 
 	virtual bool FilterPassesForActor(const AActor* ActorToBeFiltered) const override
@@ -139,13 +137,13 @@ struct ART_API FARTTargetFilterTeamID : public FGameplayTargetDataFilter
 			bPassFilter = RequiredActorClass == TargetActor->GetClass();
 		}
 
-		if (SourceActor == nullptr || !TargetActor)
+		if (SelfActor == nullptr || !TargetActor)
 		{
 			bPassFilter = false;
 		}
 		else
 		{
-			AARTCharacterBase* SourceCharacter = Cast<AARTCharacterBase>(SourceActor);
+			AARTCharacterBase* SourceCharacter = Cast<AARTCharacterBase>(SelfActor);
 			if (TeamAttitude != (SourceCharacter->GetTeamAttitudeTowards(*TargetActor)))
 			{
 				bPassFilter = false;
@@ -155,13 +153,13 @@ struct ART_API FARTTargetFilterTeamID : public FGameplayTargetDataFilter
 		switch (SelfFilter.GetValue())
 		{
 		case ETargetDataFilterSelf::Type::TDFS_NoOthers:
-			if (TargetActor != SourceActor)
+			if (TargetActor != SelfActor)
 			{
 				bPassFilter = false;
 			}
 			break;
 		case ETargetDataFilterSelf::Type::TDFS_NoSelf:
-			if (TargetActor == SourceActor)
+			if (TargetActor == SelfActor)
 			{
 				bPassFilter = false;
 			}

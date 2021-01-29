@@ -2,9 +2,11 @@
 
 
 #include "ARTCharacter/AI/ARTAIController.h"
-#include <ARTCharacter/ARTCharacterBase.h>
+#include "Navigation/CrowdFollowingComponent.h"
+#include "ARTCharacter/ARTCharacterBase.h"
 
-AARTAIController::AARTAIController()
+AARTAIController::AARTAIController(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer.SetDefaultSubobjectClass<UCrowdFollowingComponent>(TEXT("PathFollowingComponent")))
 {
 }
 

@@ -7,7 +7,10 @@
 #include <Components/CapsuleComponent.h>
 #include <Components/WidgetComponent.h>
 #include <Widget/ARTFloatingStatusBarWidget.h>
+
+#include "AI/ARTAIManager.h"
 #include "ARTCharacter/AI/ARTNavigationInvokerComponent.h"
+#include "Framework/ARTGameMode.h"
 
 
 AARTCharacterAI::AARTCharacterAI(const class FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
@@ -56,6 +59,12 @@ AARTCharacterAI::AARTCharacterAI(const class FObjectInitializer& ObjectInitializ
 void AARTCharacterAI::BeginPlay()
 {
 	Super::BeginPlay();
+
+	//Add AI to Director if it was not load from map (drop in map)
+	if(!HasAnyFlags(RF_WasLoaded))
+	{
+		AARTGameMode::GetAIManager(this)->AddAIToList(this);
+	}
 
 	if (IsValid(AbilitySystemComponent))
 	{

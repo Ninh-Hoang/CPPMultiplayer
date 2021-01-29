@@ -60,9 +60,7 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Ability")
 	FARTAbilityEvent AbilityEnd;
 
-	virtual void EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
-	                        const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility,
-	                        bool bWasCancelled) override;
+	
 	                        
 	// Abilities with this set will automatically activate when the input is pressed
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Ability|Input")
@@ -135,14 +133,10 @@ public:
 	//Do not called this directly, this is only used for logic after ability is activated
 	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;
 
-	UFUNCTION(BlueprintCallable, Category = "Ability")
-	FGameplayAbilityTargetDataHandle MakeGameplayAbilityTargetDataHandleFromActorArray(
-		const TArray<AActor*> TargetActors);
-
-	UFUNCTION(BlueprintCallable, Category = "Ability")
-	FGameplayAbilityTargetDataHandle MakeGameplayAbilityTargetDataHandleFromHitResults(
-		const TArray<FHitResult> HitResults);
-
+	virtual void EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
+	                        const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility,
+	                        bool bWasCancelled) override;
+	
 	// Make gameplay effect container spec to be applied later, using the passed in container
 	UFUNCTION(BlueprintCallable, Category = Ability, meta = (AutoCreateRefTerm = "EventData"))
 	virtual FARTGameplayEffectContainerSpec MakeEffectContainerSpecFromContainer(
@@ -261,6 +255,10 @@ public:
 	                                                                 const FGameplayEventData& EventData,
 	                                                                 int32 OverrideGameplayLevel = -1);
 
+	//TODO: FIX this node
+	UFUNCTION(BlueprintCallable, Category = "Ability|GameplayEffect")
+	void ApplyAbilityTagsToGameplayEffectSpec(FGameplayEffectSpec& Spec, FGameplayAbilitySpec& AbilitySpec) const;
+	
 protected:
 
 	int32 CurrentCharges = 0;

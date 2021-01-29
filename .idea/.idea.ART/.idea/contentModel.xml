@@ -50334,6 +50334,10 @@
                 <e p="GATA_Trace.cpp" t="Include" />
               </e>
             </e>
+            <e p="AI" t="Include">
+              <e p="ARTAIManager.cpp" t="Include" />
+              <e p="EnvQueryTest_TakenPosition.cpp" t="Include" />
+            </e>
             <e p="ARTCharacter" t="Include">
               <e p="AI" t="Include">
                 <e p="ARTAIController.cpp" t="Include" />
@@ -50365,7 +50369,7 @@
             </e>
             <e p="Framework" t="Include">
               <e p="ARTGameInstance.cpp" t="Include" />
-              <e p="SGameMode.cpp" t="Include" />
+              <e p="ARTGameMode.cpp" t="Include" />
               <e p="SGameState.cpp" t="Include" />
               <e p="SteamSessionClass.cpp" t="Include" />
             </e>
@@ -50448,6 +50452,10 @@
                 <e p="GATA_Trace.h" t="Include" />
               </e>
             </e>
+            <e p="AI" t="Include">
+              <e p="ARTAIManager.h" t="Include" />
+              <e p="EnvQueryTest_TakenPosition.h" t="Include" />
+            </e>
             <e p="ARTCharacter" t="Include">
               <e p="AI" t="Include">
                 <e p="ARTAIController.h" t="Include" />
@@ -50479,7 +50487,7 @@
             </e>
             <e p="Framework" t="Include">
               <e p="ARTGameInstance.h" t="Include" />
-              <e p="SGameMode.h" t="Include" />
+              <e p="ARTGameMode.h" t="Include" />
               <e p="SGameState.h" t="Include" />
               <e p="SteamSessionClass.h" t="Include" />
             </e>

@@ -119,7 +119,7 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Ability|TargetData", Meta = (DisplayName =
 		"Make Target Data Filter by Team Attitude"))
 	static FGameplayTargetDataFilterHandle MakeTargetDataFilterByTeamAttitude(
-		AActor* FilterActor, AActor* InSourceActor,
+		AActor* FilterActor,
 		TEnumAsByte<ETeamAttitude::Type> InTeamAttitude,
 		TEnumAsByte<ETargetDataFilterSelf::Type> InSelfFilter, TSubclassOf<AActor> InRequiredActorClass,
 		bool InReverseFilter);

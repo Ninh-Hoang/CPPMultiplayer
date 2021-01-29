@@ -13,8 +13,9 @@ UCLASS()
 class ART_API AARTAIController : public AAIController
 {
 	GENERATED_BODY()
+public:
+	AARTAIController(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
 	
-	AARTAIController();
-
+private:
 	class UAbilitySystemComponent* GetAbilitySystemComponent() const;
 };

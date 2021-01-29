@@ -27,14 +27,6 @@ UARTGameplayAbility::UARTGameplayAbility()
 	InteractingRemovalTag = FGameplayTag::RequestGameplayTag("State.InteractingRemoval");
 }
 
-void UARTGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle,
-                                     const FGameplayAbilityActorInfo* ActorInfo,
-                                     const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility,
-                                     bool bWasCancelled)
-{
-	Super::EndAbility(Handle, ActorInfo, ActivationInfo, bReplicateEndAbility, bWasCancelled);
-	AbilityEnd.Broadcast(bWasCancelled);
-}
 
 void UARTGameplayAbility::OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
@@ -98,31 +90,13 @@ void UARTGameplayAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handl
 	}
 }
 
-FGameplayAbilityTargetDataHandle UARTGameplayAbility::MakeGameplayAbilityTargetDataHandleFromActorArray(
-	const TArray<AActor*> TargetActors)
+void UARTGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle,
+                                     const FGameplayAbilityActorInfo* ActorInfo,
+                                     const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility,
+                                     bool bWasCancelled)
 {
-	if (TargetActors.Num() > 0)
-	{
-		FGameplayAbilityTargetData_ActorArray* NewData = new FGameplayAbilityTargetData_ActorArray();
-		NewData->TargetActorArray.Append(TargetActors);
-		return FGameplayAbilityTargetDataHandle(NewData);
-	}
-
-	return FGameplayAbilityTargetDataHandle();
-}
-
-FGameplayAbilityTargetDataHandle UARTGameplayAbility::MakeGameplayAbilityTargetDataHandleFromHitResults(
-	const TArray<FHitResult> HitResults)
-{
-	FGameplayAbilityTargetDataHandle TargetData;
-
-	for (const FHitResult& HitResult : HitResults)
-	{
-		FGameplayAbilityTargetData_SingleTargetHit* NewData = new FGameplayAbilityTargetData_SingleTargetHit(HitResult);
-		TargetData.Add(NewData);
-	}
-
-	return TargetData;
+	Super::EndAbility(Handle, ActorInfo, ActivationInfo, bReplicateEndAbility, bWasCancelled);
+	AbilityEnd.Broadcast(bWasCancelled);
 }
 
 FARTGameplayEffectContainerSpec UARTGameplayAbility::MakeEffectContainerSpecFromContainer(
@@ -457,6 +431,29 @@ TArray<FActiveGameplayEffectHandle> UARTGameplayAbility::ApplyEffectContainer(
 {
 	FARTGameplayEffectContainerSpec Spec = MakeEffectContainerSpec(ContainerTag, EventData, OverrideGameplayLevel);
 	return ApplyEffectContainerSpec(Spec);
+}
+
+void UARTGameplayAbility::ApplyAbilityTagsToGameplayEffectSpec(FGameplayEffectSpec& Spec,
+	FGameplayAbilitySpec& AbilitySpec) const
+{
+	FGameplayTagContainer& CapturedSourceTags = Spec.CapturedSourceTags.GetSpecTags();
+ 
+	CapturedSourceTags.AppendTags(AbilityTags);
+     
+	// Allow the source object of the ability to propagate tags along as well
+	CapturedSourceTags.AppendTags(AbilitySpec.DynamicAbilityTags);
+     
+	const IGameplayTagAssetInterface* SourceObjAsTagInterface = Cast<IGameplayTagAssetInterface>(AbilitySpec.SourceObject);
+	if (SourceObjAsTagInterface)
+	{
+		FGameplayTagContainer SourceObjTags;
+		SourceObjAsTagInterface->GetOwnedGameplayTags(SourceObjTags);
+
+		CapturedSourceTags.AppendTags(SourceObjTags);
+	}
+
+	// Copy SetByCallerMagnitudes 
+	Spec.MergeSetByCallerMagnitudes(AbilitySpec.SetByCallerTagMagnitudes);
 }
 
 bool UARTGameplayAbility::FindAbillityMeshMontage(USkeletalMeshComponent* InMesh,

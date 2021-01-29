@@ -205,12 +205,11 @@ FGameplayTargetDataFilterHandle UARTBlueprintFunctionLibrary::MakeTargetDataFilt
 }
 
 FGameplayTargetDataFilterHandle UARTBlueprintFunctionLibrary::MakeTargetDataFilterByTeamAttitude(AActor* FilterActor,
-	AActor* InSourceActor, TEnumAsByte<ETeamAttitude::Type> InTeamAttitude,
+	TEnumAsByte<ETeamAttitude::Type> InTeamAttitude,
 	TEnumAsByte<ETargetDataFilterSelf::Type> InSelfFilter,
 	TSubclassOf<AActor> InRequiredActorClass, bool InReverseFilter)
 {
 	FARTTargetFilterTeamID Filter;
-	Filter.SourceActor = InSourceActor;
 	Filter.TeamAttitude = InTeamAttitude;
 	Filter.SelfFilter = InSelfFilter;
 	Filter.RequiredActorClass = InRequiredActorClass;
