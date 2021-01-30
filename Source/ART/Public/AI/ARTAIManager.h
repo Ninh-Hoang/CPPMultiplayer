@@ -39,6 +39,9 @@ public:
     void AddAIToList(AARTCharacterAI* AI);
 
 	UFUNCTION(BlueprintCallable, Category="AIManager")
+    void RemoveAIFromList(AARTCharacterAI* AI);
+
+	UFUNCTION(BlueprintCallable, Category="AIManager")
     void AddLocationToList(FVector Location);
 };
 

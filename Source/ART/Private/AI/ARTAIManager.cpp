@@ -41,10 +41,16 @@ TArray<FVector> UARTAIManager::GetAIMoveToLocation()const
 
 void UARTAIManager::AddAIToList(AARTCharacterAI* AI)
 {
-	if(AI && AI->IsPendingKillPending())
+	if(AI && !AI->IsPendingKillPending())
 	{
 		AIList.Add(AI);
 	}
+}
+
+void UARTAIManager::RemoveAIFromList(AARTCharacterAI* AI)
+{
+	AIList.RemoveSingle(AI);
+	ActorLocationMap.Remove(AI);
 }
 
 void UARTAIManager::AddLocationToList(FVector InLocation)

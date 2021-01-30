@@ -162,7 +162,7 @@ protected:
 
 	/** Returns a list of active abilities matching the specified tags. This only returns if the ability is currently running */
 	UFUNCTION(BlueprintCallable, Category = "Abilities")
-	void GetActiveAbilitiesWithTags(FGameplayTagContainer AbilityTags, TArray<UARTGameplayAbility*>& ActiveAbilities);
+	void GetActiveAbilitiesWithTags(FGameplayTagContainer AbilityTags, TArray<class UARTGameplayAbility*>& ActiveAbilities);
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

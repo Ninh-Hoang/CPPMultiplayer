@@ -24,6 +24,7 @@ public:
 
 	virtual void BeginPlay() override;
 
+	virtual void FinishDying() override;
 protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Abilities")
 	class TSubclassOf<UARTAttributeSetBase> AttributeSetClass =  UARTCharacterAttributeSet::StaticClass();

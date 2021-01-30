@@ -101,6 +101,13 @@ void AARTCharacterAI::BeginPlay()
 	}
 }
 
+void AARTCharacterAI::FinishDying()
+{
+	//remove from AIManager
+	AARTGameMode::GetAIManager(this)->RemoveAIFromList(this);
+	Super::FinishDying();
+}
+
 void AARTCharacterAI::HealthChanged(const FOnAttributeChangeData& Data)
 {
 	float Health = Data.NewValue;
