@@ -6,31 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="879561f1-dfda-4537-b838-a6709d37e8cc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/EnvironmentQuery/EQS_FindRandomLocationAround.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/EnvironmentQuery/EQS_FindSpawnLocationAroundPlayer.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Interactable/BP_Spawner.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/CustomMovement/BTTask_MoveToLocation.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/CustomMovement/BTTask_MoveToLocation.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/EQS_FindSpawnLocation.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/EQS_FindSpawnLocation.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/EnvironmentQuery/EQS_FindSpawnLocation.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/Stalker/AI/Stalker_BT.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Stalker/AI/Stalker_BT.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/Stalker/Ability/MissleBarrage_Projectile.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Stalker/Ability/MissleBarrage_Projectile.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Interactable/BP_Teleporter_Tutorial.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Interactable/BP_Teleporter_Tutorial.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/DS_SurvivorAbilitySet.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/DS_SurvivorAbilitySet.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Aim/GA_Aim.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Aim/GA_Aim.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Aim/GE_Aiming_NoWeapon.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Aim/GE_Aiming_NoWeapon.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Interacting/GA_InteractActive.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Interacting/GA_InteractActive.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Rifle/GA_RiflePrimary.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Rifle/GA_RiflePrimary.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Rifle/GA_RiflePrimaryInstant.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Rifle/GA_RiflePrimaryInstant.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/UI/Player/PlayerHUD/UI_Ability.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/UI/Player/PlayerHUD/UI_Ability.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/UI/Player/PlayerHUD/UI_HUDStat.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/UI/Player/PlayerHUD/UI_HUDStat.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/UI/Player/UI_DamageNumber.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/UI/Player/UI_DamageNumber.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/Concept/Tutorial.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Concept/Tutorial.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/AI/ARTAIManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/AI/ARTAIManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTCharacterAI.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTCharacterAI.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/AI/ARTAIManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/AI/ARTAIManager.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/AI/ARTCharacterAI.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/AI/ARTCharacterAI.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterBase.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -395,7 +371,7 @@
       <workItem from="1611569721850" duration="23303000" />
       <workItem from="1611613520291" duration="3002000" />
       <workItem from="1611648068059" duration="13017000" />
-      <workItem from="1611825407980" duration="30019000" />
+      <workItem from="1611825407980" duration="32084000" />
     </task>
     <servers />
   </component>
