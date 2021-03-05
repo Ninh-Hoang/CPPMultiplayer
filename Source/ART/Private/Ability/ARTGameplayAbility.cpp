@@ -96,6 +96,17 @@ void UARTGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle,
                                      bool bWasCancelled)
 {
 	Super::EndAbility(Handle, ActorInfo, ActivationInfo, bReplicateEndAbility, bWasCancelled);
+
+	UAbilitySystemComponent* const ASC = GetAbilitySystemComponentFromActorInfo();
+	//for listen to ASC tag and cancel itself if match AbilityCancelTag
+	TArray<FGameplayTag> CancelTagArray;
+	AbilityCancelTag.GetGameplayTagArray(CancelTagArray);
+
+	for (const FGameplayTag CancelTag : CancelTagArray)
+	{
+		ASC->RegisterGameplayTagEvent(CancelTag, EGameplayTagEventType::NewOrRemoved).RemoveAll(this);
+	}
+	
 	AbilityEnd.Broadcast(bWasCancelled);
 }
 
@@ -321,16 +332,6 @@ void UARTGameplayAbility::OnCancelTagEventCallback(const FGameplayTag CallbackTa
 {
 	if(NewCount>0) 
 	{
-		UAbilitySystemComponent* const ASC = GetAbilitySystemComponentFromActorInfo();
-		//for listen to ASC tag and cancel itself if match AbilityCancelTag
-		TArray<FGameplayTag> CancelTagArray;
-		AbilityCancelTag.GetGameplayTagArray(CancelTagArray);
-
-		for (const FGameplayTag CancelTag : CancelTagArray)
-		{
-			ASC->RegisterGameplayTagEvent(CancelTag, EGameplayTagEventType::NewOrRemoved).RemoveAll(this);
-		}
-		
 		EndAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true, true);
 	}
 }

@@ -89,10 +89,16 @@ public:
 	static void EffectContextAddTargetData(FGameplayEffectContextHandle EffectContext,
 	                                       const FGameplayAbilityTargetDataHandle& TargetData, bool Reset);
 
+	// Returns KnockBackStrength
+	UFUNCTION(BlueprintPure, Category = "Ability|EffectContext", Meta = (DisplayName = "GetKnockBackStrength"))
+    static float EffectContextGetKnockBackStrength(FGameplayEffectContextHandle EffectContext);
+
+	UFUNCTION(BlueprintCallable, Category = "Ability|EffectContext", Meta = (DisplayName = "SetKnockBackStrength"))
+    static void EffectContextSetKnockBackStrength(FGameplayEffectContextHandle EffectContext, float InKnockBackStrength);
+	
 	// Returns SourceLevel
 	UFUNCTION(BlueprintPure, Category = "Ability|EffectContext", Meta = (DisplayName = "GetSourceLevel"))
     static float EffectContextGetSourceLevel(FGameplayEffectContextHandle EffectContext);
-
 	
 	/**
 	* FGameplayAbilityTargetDataHandle
@@ -120,6 +126,8 @@ public:
 		"Make Target Data Filter by Team Attitude"))
 	static FGameplayTargetDataFilterHandle MakeTargetDataFilterByTeamAttitude(
 		AActor* FilterActor,
+		FGameplayTagContainer InFilterTagContainer,
+		bool InFilterTag,
 		TEnumAsByte<ETeamAttitude::Type> InTeamAttitude,
 		TEnumAsByte<ETargetDataFilterSelf::Type> InSelfFilter, TSubclassOf<AActor> InRequiredActorClass,
 		bool InReverseFilter);
@@ -153,6 +161,8 @@ public:
 	static float GetTagCallerMag(UAbilitySystemComponent* InASC, FActiveGameplayEffectHandle& InActiveHandle,
 	                             FGameplayTag CallerTag);
 
+	UFUNCTION(BlueprintPure, Category = "Ability|GameplayEffect")
+	static FGameplayTagContainer GetAssetTagFromSpec(FGameplayEffectSpecHandle SpecHandle);
 	/*
 	* Get UI information from GameplayEffect Handle, or Spec?
 	*/
@@ -169,4 +179,14 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Ability|ActiveAbility", Meta = (DisplayName = "Get GA UI Data from Input"))
 	static UARTGameplayAbilityUIData* GetGameplayAbilityUIDataFromInput(UAbilitySystemComponent* InASC,
 	                                                                    const EARTAbilityInputID Input);
+
+	/*
+	 * GetWorldLocation to Screen/Widget space
+	 */
+	 
+	UFUNCTION(BlueprintPure, Category = "UI Math")
+	static bool ProjectWorldToScreenBidirectional(APlayerController* Player, const FVector& WorldPosition, FVector2D& ScreenPosition, bool& bTargetBehindCamera, bool bPlayerViewportRelative = false);
+
+	UFUNCTION(BlueprintPure, Category = "UI Math")
+    static bool ProjectWorldToWidgetBidirectional(APlayerController* Player, const FVector& WorldPosition, FVector2D& ViewportPosition, bool& bTargetBehindCamera, bool bPlayerViewportRelative = false);
 };

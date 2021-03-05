@@ -41,6 +41,12 @@ class ART_API UARTCharacterMovementComponent : public UCharacterMovementComponen
 
 		// Aim Down Sights
 		uint8 SavedRequestToStartADS : 1;
+
+		// Aim Down Sights
+		uint8 SavedRequestToStartBlocking : 1;
+
+		// Aim Down Sights
+		uint8 SavedRequestToStartAttacking : 1;
 	};
 
 	class FARTNetworkPredictionData_Client : public FNetworkPredictionData_Client_Character
@@ -64,26 +70,58 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Aim Down Sights")
 	float ADSSpeedMultiplier;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blocking")
+	float BlockingSpeedMultiplier;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attacking")
+	float AttackingMultiplier;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sprinting")
+	bool IsSprinting;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Aiming")
+	bool IsAiming;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blocking")
+	bool IsBlocking;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attacking")
+	bool IsAttacking;
+
 	uint8 RequestToStartSprinting : 1;
 	uint8 RequestToStartADS : 1;
-
+	uint8 RequestToStartBlocking :1;
+	uint8 RequestToStartAttacking :1;
+	
 	virtual float GetMaxSpeed() const override;
 	virtual void UpdateFromCompressedFlags(uint8 Flags) override;
 	virtual class FNetworkPredictionData_Client* GetPredictionData_Client() const override;
 
+	//rotate stuffs
+	virtual FRotator GetDeltaRotation(float DeltaTime) const override;
+	float GetAxisDeltaRotation(float InAxisRotationRate, float DeltaTime) const;
+	
 	// Sprint
 	UFUNCTION(BlueprintCallable, Category = "Sprint")
 	void StartSprinting();
 	UFUNCTION(BlueprintCallable, Category = "Sprint")
 	void StopSprinting();
-
-	//rotate stuffs
-	virtual FRotator GetDeltaRotation(float DeltaTime) const override;
-	float GetAxisDeltaRotation(float InAxisRotationRate, float DeltaTime) const;
-
+	
 	// Aim Down Sights
 	UFUNCTION(BlueprintCallable, Category = "Aim Down Sights")
 	void StartAimDownSights();
 	UFUNCTION(BlueprintCallable, Category = "Aim Down Sights")
 	void StopAimDownSights();
+
+	//blocking
+	UFUNCTION(BlueprintCallable, Category = "Blocking")
+    void StartBlocking();
+	UFUNCTION(BlueprintCallable, Category = "Block")
+    void StopBlocking();
+
+	//attacking
+	UFUNCTION(BlueprintCallable, Category = "Blocking")
+    void StartAttacking();
+	UFUNCTION(BlueprintCallable, Category = "Block")
+    void StopAttacking();
 };

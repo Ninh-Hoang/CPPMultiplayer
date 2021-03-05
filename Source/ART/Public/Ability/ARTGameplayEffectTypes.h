@@ -44,6 +44,11 @@ public:
 		TargetData->Append(InTargetData);
 	}
 
+	//knock back strenght
+	float GetKnockBackStrength() const { return KnockBackStrength; }
+	void SetKnockBackStrength(float InKnockBackStrength) { KnockBackStrength = InKnockBackStrength; }
+	
+
 	//source level
 	float GetSourceLevel() const { return SourceLevel; }
 	void SetSourceLevel(float InLevel) { SourceLevel = InLevel; }
@@ -83,6 +88,9 @@ public:
 protected:
 	TSharedPtr<FGameplayAbilityTargetDataHandle> TargetData;
 
+	UPROPERTY()
+	float KnockBackStrength;
+	
 	UPROPERTY()
 	float SourceLevel;
 };

@@ -1,6 +1,629 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
+    <e p="C:\ART 4.26" t="IncludeFlat">
+      <e p=".gitignore" t="Include" />
+      <e p="ART.sln" t="IncludeFlat" />
+      <e p="ART.uproject" t="Include" />
+      <e p="Config" t="Include">
+        <e p="DefaultEditor.ini" t="Include" />
+        <e p="DefaultEngine.ini" t="Include" />
+        <e p="DefaultGame.ini" t="Include" />
+        <e p="DefaultGameplayTags.ini" t="Include" />
+        <e p="DefaultInput.ini" t="Include" />
+      </e>
+      <e p="Engine" t="Include" />
+      <e p="Games" t="Include" />
+      <e p="Intermediate\Build\Unused" t="ExcludeRecursive" />
+      <e p="Intermediate\ProjectFiles" t="IncludeRecursive">
+        <e p="ART.vcxproj" t="IncludeRecursive" />
+        <e p="UE4.vcxproj" t="IncludeRecursive" />
+      </e>
+      <e p="LaunchServer.bat" t="Include" />
+      <e p="New Text Document.txt" t="Include" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Plugins" t="Include">
+        <e p="HoudiniEngine" t="Include">
+          <e p="HoudiniEngine.uplugin" t="Include" />
+          <e p="Resources" t="Include">
+            <e p="hengine_banner.png" t="Include" />
+            <e p="hengine_banner_d.png" t="Include" />
+            <e p="hengine_logo_128.png" t="Include" />
+            <e p="hengine_recook_icon.png" t="Include" />
+            <e p="hengine_reload_icon.png" t="Include" />
+            <e p="hengine_resetparameters_icon.png" t="Include" />
+            <e p="Icon128.png" t="Include" />
+            <e p="Icons" t="Include">
+              <e p="asset_help16x16.png" t="Include" />
+              <e p="bake_all16x16.png" t="Include" />
+              <e p="bake_selected16x16.png" t="Include" />
+              <e p="clean_temp16x16.png" t="Include" />
+              <e p="cook_all16x16.png" t="Include" />
+              <e p="cook_log16x16.png" t="Include" />
+              <e p="cook_selected16x16.png" t="Include" />
+              <e p="digital_asset16x16.png" t="Include" />
+              <e p="houdini_digital_asset.png" t="Include" />
+              <e p="houdini_digital_asset_128.png" t="Include" />
+              <e p="icon_hengine_logo_128.png" t="Include" />
+              <e p="icon_hengine_logo_16.png" t="Include" />
+              <e p="icon_hengine_logo_40.png" t="Include" />
+              <e p="icon_houdini_logo_128.png" t="Include" />
+              <e p="icon_houdini_logo_16.png" t="Include" />
+              <e p="icon_houdini_logo_40.png" t="Include" />
+              <e p="online_forum16x16.png" t="Include" />
+              <e p="online_help16x16.png" t="Include" />
+              <e p="open_in_houdini16x16.png" t="Include" />
+              <e p="pause16x16.png" t="Include" />
+              <e p="pdg_cancel16x16.png" t="Include" />
+              <e p="pdg_dirty_all16x16.png" t="Include" />
+              <e p="pdg_dirty_node16x16.png" t="Include" />
+              <e p="pdg_link16x16.png" t="Include" />
+              <e p="pdg_pause16x16.png" t="Include" />
+              <e p="pdg_refresh16x16.png" t="Include" />
+              <e p="pdg_reset16x16.png" t="Include" />
+              <e p="rebuild_all16x16.png" t="Include" />
+              <e p="rebuild_selected16x16.png" t="Include" />
+              <e p="refine_all16x16.png" t="Include" />
+              <e p="refine_selected16x16.png" t="Include" />
+              <e p="report_bug16x16.png" t="Include" />
+              <e p="reset16x16.png" t="Include" />
+              <e p="reset_parameters16x16.png" t="Include" />
+              <e p="save_to_hip16x16.png" t="Include" />
+              <e p="session_connect16x16.png" t="Include" />
+              <e p="session_create16x16.png" t="Include" />
+              <e p="session_restart16x16.png" t="Include" />
+              <e p="session_stop16x16.png" t="Include" />
+              <e p="session_sync16x16.png" t="Include" />
+              <e p="session_sync_start16x16.png" t="Include" />
+              <e p="session_sync_stop16x16.png" t="Include" />
+              <e p="sync_unreal16x16.png" t="Include" />
+              <e p="viewport_sync16x16.png" t="Include" />
+              <e p="viewport_sync_both16x16.png" t="Include" />
+              <e p="viewport_sync_houdini16x16.png" t="Include" />
+              <e p="viewport_sync_off16x16.png" t="Include" />
+              <e p="viewport_sync_unreal16x16.png" t="Include" />
+            </e>
+          </e>
+          <e p="Source" t="Include">
+            <e p="HoudiniEngine" t="Include">
+              <e p="HoudiniEngine.Build.cs" t="Include" />
+              <e p="Private" t="Include">
+                <e p="HBSPOps.cpp" t="Include" />
+                <e p="HBSPOps.h" t="Include" />
+                <e p="HCsgUtils.cpp" t="Include" />
+                <e p="HCsgUtils.h" t="Include" />
+                <e p="HoudiniApi.cpp" t="Include" />
+                <e p="HoudiniEngine.cpp" t="Include" />
+                <e p="HoudiniEngine.h" t="Include" />
+                <e p="HoudiniEngineManager.cpp" t="Include" />
+                <e p="HoudiniEngineManager.h" t="Include" />
+                <e p="HoudiniEngineOutputStats.cpp" t="Include" />
+                <e p="HoudiniEngineOutputStats.h" t="Include" />
+                <e p="HoudiniEnginePrivatePCH.h" t="Include" />
+                <e p="HoudiniEngineScheduler.cpp" t="Include" />
+                <e p="HoudiniEngineScheduler.h" t="Include" />
+                <e p="HoudiniEngineString.cpp" t="Include" />
+                <e p="HoudiniEngineString.h" t="Include" />
+                <e p="HoudiniEngineTask.cpp" t="Include" />
+                <e p="HoudiniEngineTask.h" t="Include" />
+                <e p="HoudiniEngineTaskInfo.cpp" t="Include" />
+                <e p="HoudiniEngineTaskInfo.h" t="Include" />
+                <e p="HoudiniEngineUtils.cpp" t="Include" />
+                <e p="HoudiniEngineUtils.h" t="Include" />
+                <e p="HoudiniGeoImportCommandlet.cpp" t="Include" />
+                <e p="HoudiniGeoImportCommandlet.h" t="Include" />
+                <e p="HoudiniGeoImporter.cpp" t="Include" />
+                <e p="HoudiniGeoImporter.h" t="Include" />
+                <e p="HoudiniHandleTranslator.cpp" t="Include" />
+                <e p="HoudiniHandleTranslator.h" t="Include" />
+                <e p="HoudiniInputTranslator.cpp" t="Include" />
+                <e p="HoudiniInputTranslator.h" t="Include" />
+                <e p="HoudiniInstanceTranslator.cpp" t="Include" />
+                <e p="HoudiniInstanceTranslator.h" t="Include" />
+                <e p="HoudiniLandscapeTranslator.cpp" t="Include" />
+                <e p="HoudiniLandscapeTranslator.h" t="Include" />
+                <e p="HoudiniMaterialTranslator.cpp" t="Include" />
+                <e p="HoudiniMaterialTranslator.h" t="Include" />
+                <e p="HoudiniMeshTranslator.cpp" t="Include" />
+                <e p="HoudiniMeshTranslator.h" t="Include" />
+                <e p="HoudiniOutputTranslator.cpp" t="Include" />
+                <e p="HoudiniOutputTranslator.h" t="Include" />
+                <e p="HoudiniPackageParams.cpp" t="Include" />
+                <e p="HoudiniPackageParams.h" t="Include" />
+                <e p="HoudiniParameterTranslator.cpp" t="Include" />
+                <e p="HoudiniParameterTranslator.h" t="Include" />
+                <e p="HoudiniPDGImporterMessages.cpp" t="Include" />
+                <e p="HoudiniPDGImporterMessages.h" t="Include" />
+                <e p="HoudiniPDGManager.cpp" t="Include" />
+                <e p="HoudiniPDGManager.h" t="Include" />
+                <e p="HoudiniPDGTranslator.cpp" t="Include" />
+                <e p="HoudiniPDGTranslator.h" t="Include" />
+                <e p="HoudiniSplineTranslator.cpp" t="Include" />
+                <e p="HoudiniSplineTranslator.h" t="Include" />
+                <e p="HoudiniStringResolver.cpp" t="Include" />
+                <e p="HoudiniStringResolver.h" t="Include" />
+                <e p="SAssetSelectionWidget.cpp" t="Include" />
+                <e p="SAssetSelectionWidget.h" t="Include" />
+                <e p="UnrealBrushTranslator.cpp" t="Include" />
+                <e p="UnrealBrushTranslator.h" t="Include" />
+                <e p="UnrealInstanceTranslator.cpp" t="Include" />
+                <e p="UnrealInstanceTranslator.h" t="Include" />
+                <e p="UnrealLandscapeTranslator.cpp" t="Include" />
+                <e p="UnrealLandscapeTranslator.h" t="Include" />
+                <e p="UnrealMeshTranslator.cpp" t="Include" />
+                <e p="UnrealMeshTranslator.h" t="Include" />
+                <e p="UnrealSplineTranslator.cpp" t="Include" />
+                <e p="UnrealSplineTranslator.h" t="Include" />
+              </e>
+              <e p="Public" t="Include">
+                <e p="HAPI" t="Include">
+                  <e p="HAPI.h" t="Include" />
+                  <e p="HAPI_API.h" t="Include" />
+                  <e p="HAPI_Common.h" t="Include" />
+                  <e p="HAPI_Helpers.h" t="Include" />
+                  <e p="HAPI_Version.h" t="Include" />
+                </e>
+                <e p="HoudiniApi.h" t="Include" />
+              </e>
+            </e>
+            <e p="HoudiniEngineEditor" t="Include">
+              <e p="HoudiniEngineEditor.Build.cs" t="Include" />
+              <e p="Private" t="Include">
+                <e p="AssetTypeActions_HoudiniAsset.cpp" t="Include" />
+                <e p="AssetTypeActions_HoudiniAsset.h" t="Include" />
+                <e p="HoudiniAssetActorFactory.cpp" t="Include" />
+                <e p="HoudiniAssetActorFactory.h" t="Include" />
+                <e p="HoudiniAssetBroker.cpp" t="Include" />
+                <e p="HoudiniAssetBroker.h" t="Include" />
+                <e p="HoudiniAssetComponentDetails.cpp" t="Include" />
+                <e p="HoudiniAssetComponentDetails.h" t="Include" />
+                <e p="HoudiniAssetFactory.cpp" t="Include" />
+                <e p="HoudiniAssetFactory.h" t="Include" />
+                <e p="HoudiniEngineBakeUtils.cpp" t="Include" />
+                <e p="HoudiniEngineBakeUtils.h" t="Include" />
+                <e p="HoudiniEngineCommands.cpp" t="Include" />
+                <e p="HoudiniEngineCommands.h" t="Include" />
+                <e p="HoudiniEngineDetails.cpp" t="Include" />
+                <e p="HoudiniEngineDetails.h" t="Include" />
+                <e p="HoudiniEngineEditor.cpp" t="Include" />
+                <e p="HoudiniEngineEditor.h" t="Include" />
+                <e p="HoudiniEngineEditorPrivatePCH.h" t="Include" />
+                <e p="HoudiniEngineEditorUtils.cpp" t="Include" />
+                <e p="HoudiniEngineEditorUtils.h" t="Include" />
+                <e p="HoudiniEngineStyle.cpp" t="Include" />
+                <e p="HoudiniEngineStyle.h" t="Include" />
+                <e p="HoudiniGeoFactory.cpp" t="Include" />
+                <e p="HoudiniGeoFactory.h" t="Include" />
+                <e p="HoudiniHandleComponentVisualizer.cpp" t="Include" />
+                <e p="HoudiniHandleComponentVisualizer.h" t="Include" />
+                <e p="HoudiniHandleDetails.cpp" t="Include" />
+                <e p="HoudiniHandleDetails.h" t="Include" />
+                <e p="HoudiniInputDetails.cpp" t="Include" />
+                <e p="HoudiniInputDetails.h" t="Include" />
+                <e p="HoudiniOutputDetails.cpp" t="Include" />
+                <e p="HoudiniOutputDetails.h" t="Include" />
+                <e p="HoudiniParameterDetails.cpp" t="Include" />
+                <e p="HoudiniParameterDetails.h" t="Include" />
+                <e p="HoudiniPDGDetails.cpp" t="Include" />
+                <e p="HoudiniPDGDetails.h" t="Include" />
+                <e p="HoudiniRuntimeSettingsDetails.cpp" t="Include" />
+                <e p="HoudiniRuntimeSettingsDetails.h" t="Include" />
+                <e p="HoudiniSplineComponentVisualizer.cpp" t="Include" />
+                <e p="HoudiniSplineComponentVisualizer.h" t="Include" />
+                <e p="HoudiniTool.cpp" t="Include" />
+                <e p="HoudiniTool.h" t="Include" />
+                <e p="SNewFilePathPicker.cpp" t="Include" />
+                <e p="SNewFilePathPicker.h" t="Include" />
+              </e>
+              <e p="Public" t="Include">
+                <e p="IHoudiniEngineEditor.h" t="Include" />
+              </e>
+            </e>
+            <e p="HoudiniEngineRuntime" t="Include">
+              <e p="HoudiniEngineRuntime.Build.cs" t="Include" />
+              <e p="Private" t="Include">
+                <e p="HoudiniAsset.cpp" t="Include" />
+                <e p="HoudiniAsset.h" t="Include" />
+                <e p="HoudiniAssetActor.cpp" t="Include" />
+                <e p="HoudiniAssetActor.h" t="Include" />
+                <e p="HoudiniAssetBlueprintComponent.cpp" t="Include" />
+                <e p="HoudiniAssetBlueprintComponent.h" t="Include" />
+                <e p="HoudiniAssetComponent.cpp" t="Include" />
+                <e p="HoudiniAssetComponent.h" t="Include" />
+                <e p="HoudiniCompatibilityHelpers.cpp" t="Include" />
+                <e p="HoudiniCompatibilityHelpers.h" t="Include" />
+                <e p="HoudiniEngineCopyPropertiesInterface.cpp" t="Include" />
+                <e p="HoudiniEngineCopyPropertiesInterface.h" t="Include" />
+                <e p="HoudiniEngineRuntime.cpp" t="Include" />
+                <e p="HoudiniEngineRuntime.h" t="Include" />
+                <e p="HoudiniEngineRuntimePrivatePCH.h" t="Include" />
+                <e p="HoudiniEngineRuntimeUtils.cpp" t="Include" />
+                <e p="HoudiniEngineRuntimeUtils.h" t="Include" />
+                <e p="HoudiniGenericAttribute.cpp" t="Include" />
+                <e p="HoudiniGenericAttribute.h" t="Include" />
+                <e p="HoudiniGeoPartObject.cpp" t="Include" />
+                <e p="HoudiniGeoPartObject.h" t="Include" />
+                <e p="HoudiniHandleComponent.cpp" t="Include" />
+                <e p="HoudiniHandleComponent.h" t="Include" />
+                <e p="HoudiniInput.cpp" t="Include" />
+                <e p="HoudiniInput.h" t="Include" />
+                <e p="HoudiniInputObject.cpp" t="Include" />
+                <e p="HoudiniInputObject.h" t="Include" />
+                <e p="HoudiniInputTypes.h" t="Include" />
+                <e p="HoudiniInstancedActorComponent.cpp" t="Include" />
+                <e p="HoudiniInstancedActorComponent.h" t="Include" />
+                <e p="HoudiniMeshSplitInstancerComponent.cpp" t="Include" />
+                <e p="HoudiniMeshSplitInstancerComponent.h" t="Include" />
+                <e p="HoudiniOutput.cpp" t="Include" />
+                <e p="HoudiniOutput.h" t="Include" />
+                <e p="HoudiniParameter.cpp" t="Include" />
+                <e p="HoudiniParameter.h" t="Include" />
+                <e p="HoudiniParameterButton.cpp" t="Include" />
+                <e p="HoudiniParameterButton.h" t="Include" />
+                <e p="HoudiniParameterButtonStrip.cpp" t="Include" />
+                <e p="HoudiniParameterButtonStrip.h" t="Include" />
+                <e p="HoudiniParameterChoice.cpp" t="Include" />
+                <e p="HoudiniParameterChoice.h" t="Include" />
+                <e p="HoudiniParameterColor.cpp" t="Include" />
+                <e p="HoudiniParameterColor.h" t="Include" />
+                <e p="HoudiniParameterFile.cpp" t="Include" />
+                <e p="HoudiniParameterFile.h" t="Include" />
+                <e p="HoudiniParameterFloat.cpp" t="Include" />
+                <e p="HoudiniParameterFloat.h" t="Include" />
+                <e p="HoudiniParameterFolder.cpp" t="Include" />
+                <e p="HoudiniParameterFolder.h" t="Include" />
+                <e p="HoudiniParameterFolderList.cpp" t="Include" />
+                <e p="HoudiniParameterFolderList.h" t="Include" />
+                <e p="HoudiniParameterInt.cpp" t="Include" />
+                <e p="HoudiniParameterInt.h" t="Include" />
+                <e p="HoudiniParameterLabel.cpp" t="Include" />
+                <e p="HoudiniParameterLabel.h" t="Include" />
+                <e p="HoudiniParameterMultiParm.cpp" t="Include" />
+                <e p="HoudiniParameterMultiParm.h" t="Include" />
+                <e p="HoudiniParameterOperatorPath.cpp" t="Include" />
+                <e p="HoudiniParameterOperatorPath.h" t="Include" />
+                <e p="HoudiniParameterRamp.cpp" t="Include" />
+                <e p="HoudiniParameterRamp.h" t="Include" />
+                <e p="HoudiniParameterSeparator.cpp" t="Include" />
+                <e p="HoudiniParameterSeparator.h" t="Include" />
+                <e p="HoudiniParameterString.cpp" t="Include" />
+                <e p="HoudiniParameterString.h" t="Include" />
+                <e p="HoudiniParameterToggle.cpp" t="Include" />
+                <e p="HoudiniParameterToggle.h" t="Include" />
+                <e p="HoudiniPDGAssetLink.cpp" t="Include" />
+                <e p="HoudiniPDGAssetLink.h" t="Include" />
+                <e p="HoudiniPluginSerializationVersion.cpp" t="Include" />
+                <e p="HoudiniPluginSerializationVersion.h" t="Include" />
+                <e p="HoudiniRuntimeSettings.cpp" t="Include" />
+                <e p="HoudiniRuntimeSettings.h" t="Include" />
+                <e p="HoudiniSplineComponent.cpp" t="Include" />
+                <e p="HoudiniSplineComponent.h" t="Include" />
+                <e p="HoudiniStaticMesh.cpp" t="Include" />
+                <e p="HoudiniStaticMesh.h" t="Include" />
+                <e p="HoudiniStaticMeshComponent.cpp" t="Include" />
+                <e p="HoudiniStaticMeshComponent.h" t="Include" />
+                <e p="HoudiniStaticMeshSceneProxy.cpp" t="Include" />
+                <e p="HoudiniStaticMeshSceneProxy.h" t="Include" />
+                <e p="HoudiniTranslatorTypes.cpp" t="Include" />
+                <e p="HoudiniTranslatorTypes.h" t="Include" />
+              </e>
+            </e>
+          </e>
+        </e>
+        <e p="PowerIK" t="Include">
+          <e p="PowerIK.uplugin" t="Include" />
+          <e p="Resources" t="Include">
+            <e p="Icon128.png" t="Include" />
+          </e>
+          <e p="Source" t="Include">
+            <e p="PowerIKRuntime" t="Include">
+              <e p="PowerIKRuntime.Build.cs" t="Include" />
+              <e p="Private" t="Include">
+                <e p="AnimNode_PowerIK.cpp" t="Include" />
+                <e p="AnimNode_PowerIK_Ground.cpp" t="Include" />
+                <e p="AnimNode_PowerIK_Walk.cpp" t="Include" />
+                <e p="PowerIK_UnrealCore.cpp" t="Include" />
+                <e p="PowerIKRuntimeModule.cpp" t="Include" />
+                <e p="RigUnit_PowerIK.cpp" t="Include" />
+              </e>
+              <e p="Public" t="Include">
+                <e p="AnimNode_PowerIK.h" t="Include" />
+                <e p="AnimNode_PowerIK_Ground.h" t="Include" />
+                <e p="AnimNode_PowerIK_Walk.h" t="Include" />
+                <e p="PowerIK_UnrealCore.h" t="Include" />
+                <e p="PowerIKRuntimeModule.h" t="Include" />
+                <e p="RigUnit_PowerIK.h" t="Include" />
+              </e>
+              <e p="sdk" t="Include">
+                <e p="include" t="Include">
+                  <e p="PowerIK.h" t="Include" />
+                  <e p="PowerIKGround.h" t="Include" />
+                  <e p="PowerIKMath.h" t="Include" />
+                  <e p="PowerIKSettings.h" t="Include" />
+                </e>
+                <e p="lib" t="Include">
+                  <e p="Linux" t="Include">
+                    <e p="libPOWERIK.a" t="Include" />
+                  </e>
+                  <e p="Win64" t="Include">
+                    <e p="POWERIK.dll" t="Include" />
+                    <e p="POWERIK.lib" t="Include" />
+                  </e>
+                </e>
+              </e>
+            </e>
+            <e p="PowerIKTool" t="Include">
+              <e p="PowerIKTool.Build.cs" t="Include" />
+              <e p="Private" t="Include">
+                <e p="AnimGraphNode_PowerIK.cpp" t="Include" />
+                <e p="AnimGraphNode_PowerIK_Ground.cpp" t="Include" />
+                <e p="AnimGraphNode_PowerIK_Walk.cpp" t="Include" />
+                <e p="PowerIKToolModule.cpp" t="Include" />
+              </e>
+              <e p="Public" t="Include">
+                <e p="AnimGraphNode_PowerIK.h" t="Include" />
+                <e p="AnimGraphNode_PowerIK_Ground.h" t="Include" />
+                <e p="AnimGraphNode_PowerIK_Walk.h" t="Include" />
+                <e p="PowerIKToolModule.h" t="Include" />
+              </e>
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="README.md" t="Include" />
+      <e p="Source" t="Include">
+        <e p="ART" t="Include">
+          <e p="ART.Build.cs" t="Include" />
+          <e p="ART.cpp" t="Include" />
+          <e p="ART.h" t="Include" />
+          <e p="Private" t="Include">
+            <e p="Ability" t="Include">
+              <e p="AbilityTask" t="Include">
+                <e p="AT_LookAtCursor.cpp" t="Include" />
+                <e p="AT_PlayMontageMeshWaitForEvent.cpp" t="Include" />
+                <e p="AT_ServerWaitForClientTargetData.cpp" t="Include" />
+                <e p="AT_SpawnActorComponent.cpp" t="Include" />
+                <e p="AT_WaitDelayOneFrame.cpp" t="Include" />
+                <e p="AT_WaitGEAppliedSelf_Local.cpp" t="Include" />
+                <e p="AT_WaitInputPressWithTags.cpp" t="Include" />
+                <e p="AT_WaitInteractableTarget.cpp" t="Include" />
+                <e p="AT_WaitTargetDataUsingActor.cpp" t="Include" />
+              </e>
+              <e p="ARTAbilitySystemComponent.cpp" t="Include" />
+              <e p="ARTAbilitySystemGlobals.cpp" t="Include" />
+              <e p="ARTActorBase.cpp" t="Include" />
+              <e p="ARTGameplayAbility.cpp" t="Include" />
+              <e p="ARTGameplayAbilityTypes.h" t="Include" />
+              <e p="ARTGameplayAbilityUIData.cpp" t="Include" />
+              <e p="ARTGameplayCueManager.cpp" t="Include" />
+              <e p="ARTGameplayEffect.cpp" t="Include" />
+              <e p="ARTGameplayEffectTypes.cpp" t="Include" />
+              <e p="ARTGameplayEffectUIData.cpp" t="Include" />
+              <e p="ARTProjectile.cpp" t="Include" />
+              <e p="EC" t="Include">
+                <e p="ARTDamageExecutionCalculation.cpp" t="Include" />
+                <e p="ARTElecDamage_EC.cpp" t="Include" />
+                <e p="ARTHealingExecutionCalculation.cpp" t="Include" />
+                <e p="ARTWaterDamage_EC.cpp" t="Include" />
+              </e>
+              <e p="FARTAggregatorEvaluateMetaDataLibrary.cpp" t="Include" />
+              <e p="Interface" t="Include">
+                <e p="ARTInteractable.cpp" t="Include" />
+              </e>
+              <e p="MMC" t="Include">
+                <e p="ARTAbilityCost_MMC.cpp" t="Include" />
+                <e p="ARTKnockBackForce_MMC.cpp" t="Include" />
+              </e>
+              <e p="TargetActor" t="Include">
+                <e p="GATA_AoeTrace.cpp" t="Include" />
+                <e p="GATA_LineTrace.cpp" t="Include" />
+                <e p="GATA_MeleeWeaponTrace.cpp" t="Include" />
+                <e p="GATA_SphereTrace.cpp" t="Include" />
+                <e p="GATA_SphereTrace_Tick.cpp" t="Include" />
+                <e p="GATA_Trace.cpp" t="Include" />
+              </e>
+            </e>
+            <e p="AI" t="Include">
+              <e p="ARTAIManager.cpp" t="Include" />
+              <e p="EnvQueryTest_TakenPosition.cpp" t="Include" />
+            </e>
+            <e p="ARTCharacter" t="Include">
+              <e p="AI" t="Include">
+                <e p="ARTAIController.cpp" t="Include" />
+                <e p="ARTCharacterAI.cpp" t="Include" />
+                <e p="ARTNavigationInvokerComponent.cpp" t="Include" />
+              </e>
+              <e p="ARTAttributeSetBase.cpp" t="Include" />
+              <e p="ARTCharacterAttributeSet.cpp" t="Include" />
+              <e p="ARTCharacterBase.cpp" t="Include" />
+              <e p="ARTCharacterMovementComponent.cpp" t="Include" />
+              <e p="ARTGameplayAbilitySet.cpp" t="Include" />
+              <e p="ARTPlayerController.cpp" t="Include" />
+              <e p="ARTPlayerState.cpp" t="Include" />
+              <e p="ARTSurvivor.cpp" t="Include" />
+              <e p="Voxel" t="Include">
+                <e p="ARTSimpleInvokerComponent.cpp" t="Include" />
+              </e>
+            </e>
+            <e p="ARTEngineSubsystem.cpp" t="Include" />
+            <e p="Blueprint" t="Include">
+              <e p="ARTBlueprintFunctionLibrary.cpp" t="Include" />
+              <e p="ARTCurve.cpp" t="Include" />
+              <e p="ARTTargetFilter.cpp" t="Include" />
+              <e p="ARTTargetType.cpp" t="Include" />
+              <e p="AsyncTaskAttributeChanged.cpp" t="Include" />
+              <e p="AsyncTaskCooldownChanged.cpp" t="Include" />
+              <e p="AsyncTaskEffectStackChanged.cpp" t="Include" />
+              <e p="AsyncTaskGameplayTagAddedRemoved.cpp" t="Include" />
+            </e>
+            <e p="Framework" t="Include">
+              <e p="ARTGameInstance.cpp" t="Include" />
+              <e p="ARTGameMode.cpp" t="Include" />
+              <e p="SGameState.cpp" t="Include" />
+              <e p="SteamSessionClass.cpp" t="Include" />
+            </e>
+            <e p="Item" t="Include">
+              <e p="ConsumableItem.cpp" t="Include" />
+              <e p="GrenadeLauncher.cpp" t="Include" />
+              <e p="InventoryComponent.cpp" t="Include" />
+              <e p="InventorySet.cpp" t="Include" />
+              <e p="Item.cpp" t="Include" />
+              <e p="WeaponActor.cpp" t="Include" />
+            </e>
+            <e p="Weapon" t="Include">
+              <e p="BallisticProjectile.cpp" t="Include" />
+              <e p="Equipment.cpp" t="Include" />
+              <e p="LauncherComponent.cpp" t="Include" />
+              <e p="MeleeWeapon.cpp" t="Include" />
+              <e p="ProjectileWeapon.cpp" t="Include" />
+              <e p="RangeWeapon.cpp" t="Include" />
+              <e p="TracerRangeWeapon.cpp" t="Include" />
+              <e p="Weapon.cpp" t="Include" />
+            </e>
+            <e p="Widget" t="Include">
+              <e p="ARTDamageTextWidgetComponent.cpp" t="Include" />
+              <e p="ARTFloatingStatusBarWidget.cpp" t="Include" />
+              <e p="ARTHUDReticle.cpp" t="Include" />
+              <e p="ARTHUDWidget.cpp" t="Include" />
+              <e p="DeprojectWidget.cpp" t="Include" />
+              <e p="InteractionWidget.cpp" t="Include" />
+              <e p="InventoryItemWidget.cpp" t="Include" />
+              <e p="ItemTooltip.cpp" t="Include" />
+            </e>
+            <e p="World" t="Include">
+              <e p="ItemSpawn.cpp" t="Include" />
+              <e p="LootableActor.cpp" t="Include" />
+              <e p="LootBox.cpp" t="Include" />
+              <e p="Pickup.cpp" t="Include" />
+            </e>
+          </e>
+          <e p="Public" t="Include">
+            <e p="Ability" t="Include">
+              <e p="AbilityTask" t="Include">
+                <e p="AT_LookAtCursor.h" t="Include" />
+                <e p="AT_PlayMontageMeshWaitForEvent.h" t="Include" />
+                <e p="AT_ServerWaitForClientTargetData.h" t="Include" />
+                <e p="AT_SpawnActorComponent.h" t="Include" />
+                <e p="AT_WaitDelayOneFrame.h" t="Include" />
+                <e p="AT_WaitGEAppliedSelf_Local.h" t="Include" />
+                <e p="AT_WaitInputPressWithTags.h" t="Include" />
+                <e p="AT_WaitInteractableTarget.h" t="Include" />
+                <e p="AT_WaitTargetDataUsingActor.h" t="Include" />
+              </e>
+              <e p="ARTAbilitySystemComponent.h" t="Include" />
+              <e p="ARTAbilitySystemGlobals.h" t="Include" />
+              <e p="ARTActorBase.h" t="Include" />
+              <e p="ARTGameplayAbility.h" t="Include" />
+              <e p="ARTGameplayAbilityTypes.cpp" t="Include" />
+              <e p="ARTGameplayAbilityUIData.h" t="Include" />
+              <e p="ARTGameplayCueManager.h" t="Include" />
+              <e p="ARTGameplayEffect.h" t="Include" />
+              <e p="ARTGameplayEffectTypes.h" t="Include" />
+              <e p="ARTGameplayEffectUIData.h" t="Include" />
+              <e p="ARTProjectile.h" t="Include" />
+              <e p="EC" t="Include">
+                <e p="ARTDamageExecutionCalculation.h" t="Include" />
+                <e p="ARTElecDamage_EC.h" t="Include" />
+                <e p="ARTHealingExecutionCalculation.h" t="Include" />
+                <e p="ARTWaterDamage_EC.h" t="Include" />
+              </e>
+              <e p="FARTAggregatorEvaluateMetaDataLibrary.h" t="Include" />
+              <e p="Interface" t="Include">
+                <e p="ARTInteractable.h" t="Include" />
+              </e>
+              <e p="MMC" t="Include">
+                <e p="ARTAbilityCost_MMC.h" t="Include" />
+                <e p="ARTKnockBackForce_MMC.h" t="Include" />
+              </e>
+              <e p="TargetActor" t="Include">
+                <e p="GATA_AoeTrace.h" t="Include" />
+                <e p="GATA_LineTrace.h" t="Include" />
+                <e p="GATA_MeleeWeaponTrace.h" t="Include" />
+                <e p="GATA_SphereTrace.h" t="Include" />
+                <e p="GATA_SphereTrace_Tick.h" t="Include" />
+                <e p="GATA_Trace.h" t="Include" />
+              </e>
+            </e>
+            <e p="AI" t="Include">
+              <e p="ARTAIManager.h" t="Include" />
+              <e p="EnvQueryTest_TakenPosition.h" t="Include" />
+            </e>
+            <e p="ARTCharacter" t="Include">
+              <e p="AI" t="Include">
+                <e p="ARTAIController.h" t="Include" />
+                <e p="ARTCharacterAI.h" t="Include" />
+                <e p="ARTNavigationInvokerComponent.h" t="Include" />
+              </e>
+              <e p="ARTAttributeSetBase.h" t="Include" />
+              <e p="ARTCharacterAttributeSet.h" t="Include" />
+              <e p="ARTCharacterBase.h" t="Include" />
+              <e p="ARTCharacterMovementComponent.h" t="Include" />
+              <e p="ARTGameplayAbilitySet.h" t="Include" />
+              <e p="ARTPlayerController.h" t="Include" />
+              <e p="ARTPlayerState.h" t="Include" />
+              <e p="ARTSurvivor.h" t="Include" />
+              <e p="Voxel" t="Include">
+                <e p="ARTSimpleInvokerComponent.h" t="Include" />
+              </e>
+            </e>
+            <e p="ARTEngineSubsystem.h" t="Include" />
+            <e p="Blueprint" t="Include">
+              <e p="ARTBlueprintFunctionLibrary.h" t="Include" />
+              <e p="ARTCurve.h" t="Include" />
+              <e p="ARTTargetFilter.h" t="Include" />
+              <e p="ARTTargetType.h" t="Include" />
+              <e p="AsyncTaskAttributeChanged.h" t="Include" />
+              <e p="AsyncTaskCooldownChanged.h" t="Include" />
+              <e p="AsyncTaskEffectStackChanged.h" t="Include" />
+              <e p="AsyncTaskGameplayTagAddedRemoved.h" t="Include" />
+            </e>
+            <e p="Framework" t="Include">
+              <e p="ARTGameInstance.h" t="Include" />
+              <e p="ARTGameMode.h" t="Include" />
+              <e p="SGameState.h" t="Include" />
+              <e p="SteamSessionClass.h" t="Include" />
+            </e>
+            <e p="Item" t="Include">
+              <e p="ConsumableItem.h" t="Include" />
+              <e p="GrenadeLauncher.h" t="Include" />
+              <e p="InventoryComponent.h" t="Include" />
+              <e p="InventorySet.h" t="Include" />
+              <e p="Item.h" t="Include" />
+              <e p="WeaponActor.h" t="Include" />
+            </e>
+            <e p="Weapon" t="Include">
+              <e p="BallisticProjectile.h" t="Include" />
+              <e p="Equipment.h" t="Include" />
+              <e p="LauncherComponent.h" t="Include" />
+              <e p="MeleeWeapon.h" t="Include" />
+              <e p="ProjectileWeapon.h" t="Include" />
+              <e p="RangeWeapon.h" t="Include" />
+              <e p="TracerRangeWeapon.h" t="Include" />
+              <e p="Weapon.h" t="Include" />
+            </e>
+            <e p="Widget" t="Include">
+              <e p="ARTDamageTextWidgetComponent.h" t="Include" />
+              <e p="ARTFloatingStatusBarWidget.h" t="Include" />
+              <e p="ARTHUDReticle.h" t="Include" />
+              <e p="ARTHUDWidget.h" t="Include" />
+              <e p="DeprojectWidget.h" t="Include" />
+              <e p="InteractionWidget.h" t="Include" />
+              <e p="InventoryItemWidget.h" t="Include" />
+              <e p="ItemTooltip.h" t="Include" />
+            </e>
+            <e p="World" t="Include">
+              <e p="ItemSpawn.h" t="Include" />
+              <e p="LootableActor.h" t="Include" />
+              <e p="LootBox.h" t="Include" />
+              <e p="Pickup.h" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="ART.Target.cs" t="Include" />
+        <e p="ARTEditor.Target.cs" t="Include" />
+      </e>
+      <e p="Visualizers" t="Include" />
+    </e>
     <e p="C:\Program Files\Epic Games\UE_4.26\Engine\Config" t="Include">
       <e p="Android" t="Include">
         <e p="AndroidEngine.ini" t="Include" />
@@ -11092,6 +11715,344 @@
       <e p="NiagaraExtras.uplugin" t="Include" />
       <e p="Resources" t="Include">
         <e p="Icon128.png" t="Include" />
+      </e>
+    </e>
+    <e p="C:\Program Files\Epic Games\UE_4.26\Engine\Plugins\HoudiniEngine" t="Include">
+      <e p="HoudiniEngine.uplugin" t="Include" />
+      <e p="Resources" t="Include">
+        <e p="hengine_banner.png" t="Include" />
+        <e p="hengine_banner_d.png" t="Include" />
+        <e p="hengine_logo_128.png" t="Include" />
+        <e p="hengine_recook_icon.png" t="Include" />
+        <e p="hengine_reload_icon.png" t="Include" />
+        <e p="hengine_resetparameters_icon.png" t="Include" />
+        <e p="Icon128.png" t="Include" />
+        <e p="Icons" t="Include">
+          <e p="asset_help16x16.png" t="Include" />
+          <e p="bake_all16x16.png" t="Include" />
+          <e p="bake_selected16x16.png" t="Include" />
+          <e p="clean_temp16x16.png" t="Include" />
+          <e p="cook_all16x16.png" t="Include" />
+          <e p="cook_log16x16.png" t="Include" />
+          <e p="cook_selected16x16.png" t="Include" />
+          <e p="digital_asset16x16.png" t="Include" />
+          <e p="houdini_digital_asset.png" t="Include" />
+          <e p="houdini_digital_asset_128.png" t="Include" />
+          <e p="icon_hengine_logo_128.png" t="Include" />
+          <e p="icon_hengine_logo_16.png" t="Include" />
+          <e p="icon_hengine_logo_40.png" t="Include" />
+          <e p="icon_houdini_logo_128.png" t="Include" />
+          <e p="icon_houdini_logo_16.png" t="Include" />
+          <e p="icon_houdini_logo_40.png" t="Include" />
+          <e p="online_forum16x16.png" t="Include" />
+          <e p="online_help16x16.png" t="Include" />
+          <e p="open_in_houdini16x16.png" t="Include" />
+          <e p="pause16x16.png" t="Include" />
+          <e p="pdg_cancel16x16.png" t="Include" />
+          <e p="pdg_dirty_all16x16.png" t="Include" />
+          <e p="pdg_dirty_node16x16.png" t="Include" />
+          <e p="pdg_link16x16.png" t="Include" />
+          <e p="pdg_pause16x16.png" t="Include" />
+          <e p="pdg_refresh16x16.png" t="Include" />
+          <e p="pdg_reset16x16.png" t="Include" />
+          <e p="rebuild_all16x16.png" t="Include" />
+          <e p="rebuild_selected16x16.png" t="Include" />
+          <e p="refine_all16x16.png" t="Include" />
+          <e p="refine_selected16x16.png" t="Include" />
+          <e p="report_bug16x16.png" t="Include" />
+          <e p="reset16x16.png" t="Include" />
+          <e p="reset_parameters16x16.png" t="Include" />
+          <e p="save_to_hip16x16.png" t="Include" />
+          <e p="session_connect16x16.png" t="Include" />
+          <e p="session_create16x16.png" t="Include" />
+          <e p="session_restart16x16.png" t="Include" />
+          <e p="session_stop16x16.png" t="Include" />
+          <e p="session_sync16x16.png" t="Include" />
+          <e p="session_sync_start16x16.png" t="Include" />
+          <e p="session_sync_stop16x16.png" t="Include" />
+          <e p="sync_unreal16x16.png" t="Include" />
+          <e p="viewport_sync16x16.png" t="Include" />
+          <e p="viewport_sync_both16x16.png" t="Include" />
+          <e p="viewport_sync_houdini16x16.png" t="Include" />
+          <e p="viewport_sync_off16x16.png" t="Include" />
+          <e p="viewport_sync_unreal16x16.png" t="Include" />
+        </e>
+      </e>
+      <e p="Source" t="Include">
+        <e p="HoudiniEngine" t="Include">
+          <e p="HoudiniEngine.Build.cs" t="Include" />
+          <e p="Private" t="Include">
+            <e p="HBSPOps.cpp" t="Include" />
+            <e p="HBSPOps.h" t="Include" />
+            <e p="HCsgUtils.cpp" t="Include" />
+            <e p="HCsgUtils.h" t="Include" />
+            <e p="HoudiniApi.cpp" t="Include" />
+            <e p="HoudiniEngine.cpp" t="Include" />
+            <e p="HoudiniEngine.h" t="Include" />
+            <e p="HoudiniEngineManager.cpp" t="Include" />
+            <e p="HoudiniEngineManager.h" t="Include" />
+            <e p="HoudiniEngineOutputStats.cpp" t="Include" />
+            <e p="HoudiniEngineOutputStats.h" t="Include" />
+            <e p="HoudiniEnginePrivatePCH.h" t="Include" />
+            <e p="HoudiniEngineScheduler.cpp" t="Include" />
+            <e p="HoudiniEngineScheduler.h" t="Include" />
+            <e p="HoudiniEngineString.cpp" t="Include" />
+            <e p="HoudiniEngineString.h" t="Include" />
+            <e p="HoudiniEngineTask.cpp" t="Include" />
+            <e p="HoudiniEngineTask.h" t="Include" />
+            <e p="HoudiniEngineTaskInfo.cpp" t="Include" />
+            <e p="HoudiniEngineTaskInfo.h" t="Include" />
+            <e p="HoudiniEngineUtils.cpp" t="Include" />
+            <e p="HoudiniEngineUtils.h" t="Include" />
+            <e p="HoudiniGeoImportCommandlet.cpp" t="Include" />
+            <e p="HoudiniGeoImportCommandlet.h" t="Include" />
+            <e p="HoudiniGeoImporter.cpp" t="Include" />
+            <e p="HoudiniGeoImporter.h" t="Include" />
+            <e p="HoudiniHandleTranslator.cpp" t="Include" />
+            <e p="HoudiniHandleTranslator.h" t="Include" />
+            <e p="HoudiniInputTranslator.cpp" t="Include" />
+            <e p="HoudiniInputTranslator.h" t="Include" />
+            <e p="HoudiniInstanceTranslator.cpp" t="Include" />
+            <e p="HoudiniInstanceTranslator.h" t="Include" />
+            <e p="HoudiniLandscapeTranslator.cpp" t="Include" />
+            <e p="HoudiniLandscapeTranslator.h" t="Include" />
+            <e p="HoudiniMaterialTranslator.cpp" t="Include" />
+            <e p="HoudiniMaterialTranslator.h" t="Include" />
+            <e p="HoudiniMeshTranslator.cpp" t="Include" />
+            <e p="HoudiniMeshTranslator.h" t="Include" />
+            <e p="HoudiniOutputTranslator.cpp" t="Include" />
+            <e p="HoudiniOutputTranslator.h" t="Include" />
+            <e p="HoudiniPackageParams.cpp" t="Include" />
+            <e p="HoudiniPackageParams.h" t="Include" />
+            <e p="HoudiniParameterTranslator.cpp" t="Include" />
+            <e p="HoudiniParameterTranslator.h" t="Include" />
+            <e p="HoudiniPDGImporterMessages.cpp" t="Include" />
+            <e p="HoudiniPDGImporterMessages.h" t="Include" />
+            <e p="HoudiniPDGManager.cpp" t="Include" />
+            <e p="HoudiniPDGManager.h" t="Include" />
+            <e p="HoudiniPDGTranslator.cpp" t="Include" />
+            <e p="HoudiniPDGTranslator.h" t="Include" />
+            <e p="HoudiniSplineTranslator.cpp" t="Include" />
+            <e p="HoudiniSplineTranslator.h" t="Include" />
+            <e p="HoudiniStringResolver.cpp" t="Include" />
+            <e p="HoudiniStringResolver.h" t="Include" />
+            <e p="SAssetSelectionWidget.cpp" t="Include" />
+            <e p="SAssetSelectionWidget.h" t="Include" />
+            <e p="UnrealBrushTranslator.cpp" t="Include" />
+            <e p="UnrealBrushTranslator.h" t="Include" />
+            <e p="UnrealInstanceTranslator.cpp" t="Include" />
+            <e p="UnrealInstanceTranslator.h" t="Include" />
+            <e p="UnrealLandscapeTranslator.cpp" t="Include" />
+            <e p="UnrealLandscapeTranslator.h" t="Include" />
+            <e p="UnrealMeshTranslator.cpp" t="Include" />
+            <e p="UnrealMeshTranslator.h" t="Include" />
+            <e p="UnrealSplineTranslator.cpp" t="Include" />
+            <e p="UnrealSplineTranslator.h" t="Include" />
+          </e>
+          <e p="Public" t="Include">
+            <e p="HAPI" t="Include">
+              <e p="HAPI.h" t="Include" />
+              <e p="HAPI_API.h" t="Include" />
+              <e p="HAPI_Common.h" t="Include" />
+              <e p="HAPI_Helpers.h" t="Include" />
+              <e p="HAPI_Version.h" t="Include" />
+            </e>
+            <e p="HoudiniApi.h" t="Include" />
+          </e>
+        </e>
+        <e p="HoudiniEngineEditor" t="Include">
+          <e p="HoudiniEngineEditor.Build.cs" t="Include" />
+          <e p="Private" t="Include">
+            <e p="AssetTypeActions_HoudiniAsset.cpp" t="Include" />
+            <e p="AssetTypeActions_HoudiniAsset.h" t="Include" />
+            <e p="HoudiniAssetActorFactory.cpp" t="Include" />
+            <e p="HoudiniAssetActorFactory.h" t="Include" />
+            <e p="HoudiniAssetBroker.cpp" t="Include" />
+            <e p="HoudiniAssetBroker.h" t="Include" />
+            <e p="HoudiniAssetComponentDetails.cpp" t="Include" />
+            <e p="HoudiniAssetComponentDetails.h" t="Include" />
+            <e p="HoudiniAssetFactory.cpp" t="Include" />
+            <e p="HoudiniAssetFactory.h" t="Include" />
+            <e p="HoudiniEngineBakeUtils.cpp" t="Include" />
+            <e p="HoudiniEngineBakeUtils.h" t="Include" />
+            <e p="HoudiniEngineCommands.cpp" t="Include" />
+            <e p="HoudiniEngineCommands.h" t="Include" />
+            <e p="HoudiniEngineDetails.cpp" t="Include" />
+            <e p="HoudiniEngineDetails.h" t="Include" />
+            <e p="HoudiniEngineEditor.cpp" t="Include" />
+            <e p="HoudiniEngineEditor.h" t="Include" />
+            <e p="HoudiniEngineEditorPrivatePCH.h" t="Include" />
+            <e p="HoudiniEngineEditorUtils.cpp" t="Include" />
+            <e p="HoudiniEngineEditorUtils.h" t="Include" />
+            <e p="HoudiniEngineStyle.cpp" t="Include" />
+            <e p="HoudiniEngineStyle.h" t="Include" />
+            <e p="HoudiniGeoFactory.cpp" t="Include" />
+            <e p="HoudiniGeoFactory.h" t="Include" />
+            <e p="HoudiniHandleComponentVisualizer.cpp" t="Include" />
+            <e p="HoudiniHandleComponentVisualizer.h" t="Include" />
+            <e p="HoudiniHandleDetails.cpp" t="Include" />
+            <e p="HoudiniHandleDetails.h" t="Include" />
+            <e p="HoudiniInputDetails.cpp" t="Include" />
+            <e p="HoudiniInputDetails.h" t="Include" />
+            <e p="HoudiniOutputDetails.cpp" t="Include" />
+            <e p="HoudiniOutputDetails.h" t="Include" />
+            <e p="HoudiniParameterDetails.cpp" t="Include" />
+            <e p="HoudiniParameterDetails.h" t="Include" />
+            <e p="HoudiniPDGDetails.cpp" t="Include" />
+            <e p="HoudiniPDGDetails.h" t="Include" />
+            <e p="HoudiniRuntimeSettingsDetails.cpp" t="Include" />
+            <e p="HoudiniRuntimeSettingsDetails.h" t="Include" />
+            <e p="HoudiniSplineComponentVisualizer.cpp" t="Include" />
+            <e p="HoudiniSplineComponentVisualizer.h" t="Include" />
+            <e p="HoudiniTool.cpp" t="Include" />
+            <e p="HoudiniTool.h" t="Include" />
+            <e p="SNewFilePathPicker.cpp" t="Include" />
+            <e p="SNewFilePathPicker.h" t="Include" />
+          </e>
+          <e p="Public" t="Include">
+            <e p="IHoudiniEngineEditor.h" t="Include" />
+          </e>
+        </e>
+        <e p="HoudiniEngineRuntime" t="Include">
+          <e p="HoudiniEngineRuntime.Build.cs" t="Include" />
+          <e p="Private" t="Include">
+            <e p="HoudiniAsset.cpp" t="Include" />
+            <e p="HoudiniAsset.h" t="Include" />
+            <e p="HoudiniAssetActor.cpp" t="Include" />
+            <e p="HoudiniAssetActor.h" t="Include" />
+            <e p="HoudiniAssetBlueprintComponent.cpp" t="Include" />
+            <e p="HoudiniAssetBlueprintComponent.h" t="Include" />
+            <e p="HoudiniAssetComponent.cpp" t="Include" />
+            <e p="HoudiniAssetComponent.h" t="Include" />
+            <e p="HoudiniCompatibilityHelpers.cpp" t="Include" />
+            <e p="HoudiniCompatibilityHelpers.h" t="Include" />
+            <e p="HoudiniEngineCopyPropertiesInterface.cpp" t="Include" />
+            <e p="HoudiniEngineCopyPropertiesInterface.h" t="Include" />
+            <e p="HoudiniEngineRuntime.cpp" t="Include" />
+            <e p="HoudiniEngineRuntime.h" t="Include" />
+            <e p="HoudiniEngineRuntimePrivatePCH.h" t="Include" />
+            <e p="HoudiniEngineRuntimeUtils.cpp" t="Include" />
+            <e p="HoudiniEngineRuntimeUtils.h" t="Include" />
+            <e p="HoudiniGenericAttribute.cpp" t="Include" />
+            <e p="HoudiniGenericAttribute.h" t="Include" />
+            <e p="HoudiniGeoPartObject.cpp" t="Include" />
+            <e p="HoudiniGeoPartObject.h" t="Include" />
+            <e p="HoudiniHandleComponent.cpp" t="Include" />
+            <e p="HoudiniHandleComponent.h" t="Include" />
+            <e p="HoudiniInput.cpp" t="Include" />
+            <e p="HoudiniInput.h" t="Include" />
+            <e p="HoudiniInputObject.cpp" t="Include" />
+            <e p="HoudiniInputObject.h" t="Include" />
+            <e p="HoudiniInputTypes.h" t="Include" />
+            <e p="HoudiniInstancedActorComponent.cpp" t="Include" />
+            <e p="HoudiniInstancedActorComponent.h" t="Include" />
+            <e p="HoudiniMeshSplitInstancerComponent.cpp" t="Include" />
+            <e p="HoudiniMeshSplitInstancerComponent.h" t="Include" />
+            <e p="HoudiniOutput.cpp" t="Include" />
+            <e p="HoudiniOutput.h" t="Include" />
+            <e p="HoudiniParameter.cpp" t="Include" />
+            <e p="HoudiniParameter.h" t="Include" />
+            <e p="HoudiniParameterButton.cpp" t="Include" />
+            <e p="HoudiniParameterButton.h" t="Include" />
+            <e p="HoudiniParameterButtonStrip.cpp" t="Include" />
+            <e p="HoudiniParameterButtonStrip.h" t="Include" />
+            <e p="HoudiniParameterChoice.cpp" t="Include" />
+            <e p="HoudiniParameterChoice.h" t="Include" />
+            <e p="HoudiniParameterColor.cpp" t="Include" />
+            <e p="HoudiniParameterColor.h" t="Include" />
+            <e p="HoudiniParameterFile.cpp" t="Include" />
+            <e p="HoudiniParameterFile.h" t="Include" />
+            <e p="HoudiniParameterFloat.cpp" t="Include" />
+            <e p="HoudiniParameterFloat.h" t="Include" />
+            <e p="HoudiniParameterFolder.cpp" t="Include" />
+            <e p="HoudiniParameterFolder.h" t="Include" />
+            <e p="HoudiniParameterFolderList.cpp" t="Include" />
+            <e p="HoudiniParameterFolderList.h" t="Include" />
+            <e p="HoudiniParameterInt.cpp" t="Include" />
+            <e p="HoudiniParameterInt.h" t="Include" />
+            <e p="HoudiniParameterLabel.cpp" t="Include" />
+            <e p="HoudiniParameterLabel.h" t="Include" />
+            <e p="HoudiniParameterMultiParm.cpp" t="Include" />
+            <e p="HoudiniParameterMultiParm.h" t="Include" />
+            <e p="HoudiniParameterOperatorPath.cpp" t="Include" />
+            <e p="HoudiniParameterOperatorPath.h" t="Include" />
+            <e p="HoudiniParameterRamp.cpp" t="Include" />
+            <e p="HoudiniParameterRamp.h" t="Include" />
+            <e p="HoudiniParameterSeparator.cpp" t="Include" />
+            <e p="HoudiniParameterSeparator.h" t="Include" />
+            <e p="HoudiniParameterString.cpp" t="Include" />
+            <e p="HoudiniParameterString.h" t="Include" />
+            <e p="HoudiniParameterToggle.cpp" t="Include" />
+            <e p="HoudiniParameterToggle.h" t="Include" />
+            <e p="HoudiniPDGAssetLink.cpp" t="Include" />
+            <e p="HoudiniPDGAssetLink.h" t="Include" />
+            <e p="HoudiniPluginSerializationVersion.cpp" t="Include" />
+            <e p="HoudiniPluginSerializationVersion.h" t="Include" />
+            <e p="HoudiniRuntimeSettings.cpp" t="Include" />
+            <e p="HoudiniRuntimeSettings.h" t="Include" />
+            <e p="HoudiniSplineComponent.cpp" t="Include" />
+            <e p="HoudiniSplineComponent.h" t="Include" />
+            <e p="HoudiniStaticMesh.cpp" t="Include" />
+            <e p="HoudiniStaticMesh.h" t="Include" />
+            <e p="HoudiniStaticMeshComponent.cpp" t="Include" />
+            <e p="HoudiniStaticMeshComponent.h" t="Include" />
+            <e p="HoudiniStaticMeshSceneProxy.cpp" t="Include" />
+            <e p="HoudiniStaticMeshSceneProxy.h" t="Include" />
+            <e p="HoudiniTranslatorTypes.cpp" t="Include" />
+            <e p="HoudiniTranslatorTypes.h" t="Include" />
+          </e>
+        </e>
+      </e>
+    </e>
+    <e p="C:\Program Files\Epic Games\UE_4.26\Engine\Plugins\HoudiniNiagara" t="Include">
+      <e p="Config" t="Include">
+        <e p="BaseHoudiniNiagara.ini" t="Include" />
+        <e p="FilterPlugin.ini" t="Include" />
+      </e>
+      <e p="HoudiniNiagara.uplugin" t="Include" />
+      <e p="Resources" t="Include">
+        <e p="HCSVIcon128.png" t="Include" />
+        <e p="Icon128.png" t="Include" />
+      </e>
+      <e p="Source" t="Include">
+        <e p="HoudiniNiagara" t="Include">
+          <e p="Classes" t="Include">
+            <e p="NiagaraDataInterfaceHoudini.h" t="Include" />
+          </e>
+          <e p="HoudiniNiagara.Build.cs" t="Include" />
+          <e p="Private" t="Include">
+            <e p="HoudiniNiagara.cpp" t="Include" />
+            <e p="HoudiniPointCache.cpp" t="Include" />
+            <e p="HoudiniPointCacheLoader.cpp" t="Include" />
+            <e p="HoudiniPointCacheLoaderBJSON.cpp" t="Include" />
+            <e p="HoudiniPointCacheLoaderCSV.cpp" t="Include" />
+            <e p="HoudiniPointCacheLoaderJSON.cpp" t="Include" />
+            <e p="HoudiniPointCacheLoaderJSONBase.cpp" t="Include" />
+            <e p="NiagaraDataInterfaceHoudini.cpp" t="Include" />
+          </e>
+          <e p="Public" t="Include">
+            <e p="HoudiniNiagara.h" t="Include" />
+            <e p="HoudiniPointCache.h" t="Include" />
+            <e p="HoudiniPointCacheLoader.h" t="Include" />
+            <e p="HoudiniPointCacheLoaderBJSON.h" t="Include" />
+            <e p="HoudiniPointCacheLoaderCSV.h" t="Include" />
+            <e p="HoudiniPointCacheLoaderJSON.h" t="Include" />
+            <e p="HoudiniPointCacheLoaderJSONBase.h" t="Include" />
+          </e>
+        </e>
+        <e p="HoudiniNiagaraEditor" t="Include">
+          <e p="HoudiniNiagaraEditor.Build.cs" t="Include" />
+          <e p="Private" t="Include">
+            <e p="HoudiniNiagaraEditor.cpp" t="Include" />
+            <e p="HoudiniPointCacheAssetActions.cpp" t="Include" />
+            <e p="HoudiniPointCacheFactory.cpp" t="Include" />
+          </e>
+          <e p="Public" t="Include">
+            <e p="HoudiniNiagaraEditor.h" t="Include" />
+            <e p="HoudiniPointCacheAssetActions.h" t="Include" />
+            <e p="HoudiniPointCacheFactory.h" t="Include" />
+          </e>
+        </e>
       </e>
     </e>
     <e p="C:\Program Files\Epic Games\UE_4.26\Engine\Plugins\Importers\AlembicHairImporter" t="Include">
@@ -50200,336 +51161,6 @@
       <e p="UE4Game.Target.cs" t="Include" />
     </e>
     <e p="C:\Users\calli\AppData\Local\JetBrains\Rider2020.3\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\calli\AppData\Local\JetBrains\Rider2020.3\resharper-host\Local\Transient\Rider\v203\SolutionCaches\_ART.-682707091.00" t="ExcludeRecursive" />
-    <e p="D:\Unreal\repo\06_CPPMultiplayer\ART 4.26" t="IncludeFlat">
-      <e p=".gitignore" t="Include" />
-      <e p="ART.sln" t="IncludeFlat" />
-      <e p="ART.uproject" t="Include" />
-      <e p="Config" t="Include">
-        <e p="DefaultEditor.ini" t="Include" />
-        <e p="DefaultEngine.ini" t="Include" />
-        <e p="DefaultGame.ini" t="Include" />
-        <e p="DefaultGameplayTags.ini" t="Include" />
-        <e p="DefaultInput.ini" t="Include" />
-      </e>
-      <e p="Engine" t="Include" />
-      <e p="Games" t="Include" />
-      <e p="Intermediate\Build\Unused" t="ExcludeRecursive" />
-      <e p="Intermediate\ProjectFiles" t="IncludeRecursive">
-        <e p="ART.vcxproj" t="IncludeRecursive" />
-        <e p="UE4.vcxproj" t="IncludeRecursive" />
-      </e>
-      <e p="LaunchServer.bat" t="Include" />
-      <e p="New Text Document.txt" t="Include" />
-      <e p="packages" t="ExcludeRecursive" />
-      <e p="Plugins" t="Include">
-        <e p="PowerIK" t="Include">
-          <e p="PowerIK.uplugin" t="Include" />
-          <e p="Resources" t="Include">
-            <e p="Icon128.png" t="Include" />
-          </e>
-          <e p="Source" t="Include">
-            <e p="PowerIKRuntime" t="Include">
-              <e p="PowerIKRuntime.Build.cs" t="Include" />
-              <e p="Private" t="Include">
-                <e p="AnimNode_PowerIK.cpp" t="Include" />
-                <e p="AnimNode_PowerIK_Ground.cpp" t="Include" />
-                <e p="AnimNode_PowerIK_Walk.cpp" t="Include" />
-                <e p="PowerIK_UnrealCore.cpp" t="Include" />
-                <e p="PowerIKRuntimeModule.cpp" t="Include" />
-                <e p="RigUnit_PowerIK.cpp" t="Include" />
-              </e>
-              <e p="Public" t="Include">
-                <e p="AnimNode_PowerIK.h" t="Include" />
-                <e p="AnimNode_PowerIK_Ground.h" t="Include" />
-                <e p="AnimNode_PowerIK_Walk.h" t="Include" />
-                <e p="PowerIK_UnrealCore.h" t="Include" />
-                <e p="PowerIKRuntimeModule.h" t="Include" />
-                <e p="RigUnit_PowerIK.h" t="Include" />
-              </e>
-              <e p="sdk" t="Include">
-                <e p="include" t="Include">
-                  <e p="PowerIK.h" t="Include" />
-                  <e p="PowerIKGround.h" t="Include" />
-                  <e p="PowerIKMath.h" t="Include" />
-                  <e p="PowerIKSettings.h" t="Include" />
-                </e>
-                <e p="lib" t="Include">
-                  <e p="Linux" t="Include">
-                    <e p="libPOWERIK.a" t="Include" />
-                  </e>
-                  <e p="Win64" t="Include">
-                    <e p="POWERIK.dll" t="Include" />
-                    <e p="POWERIK.lib" t="Include" />
-                  </e>
-                </e>
-              </e>
-            </e>
-            <e p="PowerIKTool" t="Include">
-              <e p="PowerIKTool.Build.cs" t="Include" />
-              <e p="Private" t="Include">
-                <e p="AnimGraphNode_PowerIK.cpp" t="Include" />
-                <e p="AnimGraphNode_PowerIK_Ground.cpp" t="Include" />
-                <e p="AnimGraphNode_PowerIK_Walk.cpp" t="Include" />
-                <e p="PowerIKToolModule.cpp" t="Include" />
-              </e>
-              <e p="Public" t="Include">
-                <e p="AnimGraphNode_PowerIK.h" t="Include" />
-                <e p="AnimGraphNode_PowerIK_Ground.h" t="Include" />
-                <e p="AnimGraphNode_PowerIK_Walk.h" t="Include" />
-                <e p="PowerIKToolModule.h" t="Include" />
-              </e>
-            </e>
-          </e>
-        </e>
-      </e>
-      <e p="README.md" t="Include" />
-      <e p="Source" t="Include">
-        <e p="ART" t="Include">
-          <e p="ART.Build.cs" t="Include" />
-          <e p="ART.cpp" t="Include" />
-          <e p="ART.h" t="Include" />
-          <e p="Private" t="Include">
-            <e p="Ability" t="Include">
-              <e p="AbilityTask" t="Include">
-                <e p="AT_LookAtCursor.cpp" t="Include" />
-                <e p="AT_PlayMontageMeshWaitForEvent.cpp" t="Include" />
-                <e p="AT_ServerWaitForClientTargetData.cpp" t="Include" />
-                <e p="AT_SpawnActorComponent.cpp" t="Include" />
-                <e p="AT_WaitDelayOneFrame.cpp" t="Include" />
-                <e p="AT_WaitInputPressWithTags.cpp" t="Include" />
-                <e p="AT_WaitInteractableTarget.cpp" t="Include" />
-                <e p="AT_WaitTargetDataUsingActor.cpp" t="Include" />
-              </e>
-              <e p="ARTAbilitySystemComponent.cpp" t="Include" />
-              <e p="ARTAbilitySystemGlobals.cpp" t="Include" />
-              <e p="ARTActorBase.cpp" t="Include" />
-              <e p="ARTGameplayAbility.cpp" t="Include" />
-              <e p="ARTGameplayAbilityTypes.h" t="Include" />
-              <e p="ARTGameplayAbilityUIData.cpp" t="Include" />
-              <e p="ARTGameplayCueManager.cpp" t="Include" />
-              <e p="ARTGameplayEffect.cpp" t="Include" />
-              <e p="ARTGameplayEffectTypes.cpp" t="Include" />
-              <e p="ARTGameplayEffectUIData.cpp" t="Include" />
-              <e p="ARTProjectile.cpp" t="Include" />
-              <e p="EC" t="Include">
-                <e p="ARTDamageExecutionCalculation.cpp" t="Include" />
-                <e p="ARTElecDamage_EC.cpp" t="Include" />
-                <e p="ARTHealingExecutionCalculation.cpp" t="Include" />
-                <e p="ARTWaterDamage_EC.cpp" t="Include" />
-              </e>
-              <e p="FARTAggregatorEvaluateMetaDataLibrary.cpp" t="Include" />
-              <e p="Interface" t="Include">
-                <e p="ARTInteractable.cpp" t="Include" />
-              </e>
-              <e p="MMC" t="Include">
-                <e p="ARTAbilityCost_MMC.cpp" t="Include" />
-              </e>
-              <e p="TargetActor" t="Include">
-                <e p="GATA_AoeTrace.cpp" t="Include" />
-                <e p="GATA_LineTrace.cpp" t="Include" />
-                <e p="GATA_MeleeWeaponTrace.cpp" t="Include" />
-                <e p="GATA_SphereTrace.cpp" t="Include" />
-                <e p="GATA_SphereTrace_Tick.cpp" t="Include" />
-                <e p="GATA_Trace.cpp" t="Include" />
-              </e>
-            </e>
-            <e p="AI" t="Include">
-              <e p="ARTAIManager.cpp" t="Include" />
-              <e p="EnvQueryTest_TakenPosition.cpp" t="Include" />
-            </e>
-            <e p="ARTCharacter" t="Include">
-              <e p="AI" t="Include">
-                <e p="ARTAIController.cpp" t="Include" />
-                <e p="ARTCharacterAI.cpp" t="Include" />
-                <e p="ARTNavigationInvokerComponent.cpp" t="Include" />
-              </e>
-              <e p="ARTAttributeSetBase.cpp" t="Include" />
-              <e p="ARTCharacterAttributeSet.cpp" t="Include" />
-              <e p="ARTCharacterBase.cpp" t="Include" />
-              <e p="ARTCharacterMovementComponent.cpp" t="Include" />
-              <e p="ARTGameplayAbilitySet.cpp" t="Include" />
-              <e p="ARTPlayerController.cpp" t="Include" />
-              <e p="ARTPlayerState.cpp" t="Include" />
-              <e p="ARTSurvivor.cpp" t="Include" />
-              <e p="Voxel" t="Include">
-                <e p="ARTSimpleInvokerComponent.cpp" t="Include" />
-              </e>
-            </e>
-            <e p="ARTEngineSubsystem.cpp" t="Include" />
-            <e p="Blueprint" t="Include">
-              <e p="ARTBlueprintFunctionLibrary.cpp" t="Include" />
-              <e p="ARTCurve.cpp" t="Include" />
-              <e p="ARTTargetFilter.cpp" t="Include" />
-              <e p="ARTTargetType.cpp" t="Include" />
-              <e p="AsyncTaskAttributeChanged.cpp" t="Include" />
-              <e p="AsyncTaskCooldownChanged.cpp" t="Include" />
-              <e p="AsyncTaskEffectStackChanged.cpp" t="Include" />
-              <e p="AsyncTaskGameplayTagAddedRemoved.cpp" t="Include" />
-            </e>
-            <e p="Framework" t="Include">
-              <e p="ARTGameInstance.cpp" t="Include" />
-              <e p="ARTGameMode.cpp" t="Include" />
-              <e p="SGameState.cpp" t="Include" />
-              <e p="SteamSessionClass.cpp" t="Include" />
-            </e>
-            <e p="Item" t="Include">
-              <e p="ConsumableItem.cpp" t="Include" />
-              <e p="GrenadeLauncher.cpp" t="Include" />
-              <e p="InventoryComponent.cpp" t="Include" />
-              <e p="InventorySet.cpp" t="Include" />
-              <e p="Item.cpp" t="Include" />
-              <e p="WeaponActor.cpp" t="Include" />
-            </e>
-            <e p="Weapon" t="Include">
-              <e p="BallisticProjectile.cpp" t="Include" />
-              <e p="Equipment.cpp" t="Include" />
-              <e p="LauncherComponent.cpp" t="Include" />
-              <e p="MeleeWeapon.cpp" t="Include" />
-              <e p="ProjectileWeapon.cpp" t="Include" />
-              <e p="RangeWeapon.cpp" t="Include" />
-              <e p="TracerRangeWeapon.cpp" t="Include" />
-              <e p="Weapon.cpp" t="Include" />
-            </e>
-            <e p="Widget" t="Include">
-              <e p="ARTDamageTextWidgetComponent.cpp" t="Include" />
-              <e p="ARTFloatingStatusBarWidget.cpp" t="Include" />
-              <e p="ARTHUDReticle.cpp" t="Include" />
-              <e p="ARTHUDWidget.cpp" t="Include" />
-              <e p="InteractionWidget.cpp" t="Include" />
-              <e p="InventoryItemWidget.cpp" t="Include" />
-              <e p="ItemTooltip.cpp" t="Include" />
-            </e>
-            <e p="World" t="Include">
-              <e p="ItemSpawn.cpp" t="Include" />
-              <e p="LootableActor.cpp" t="Include" />
-              <e p="LootBox.cpp" t="Include" />
-              <e p="Pickup.cpp" t="Include" />
-            </e>
-          </e>
-          <e p="Public" t="Include">
-            <e p="Ability" t="Include">
-              <e p="AbilityTask" t="Include">
-                <e p="AT_LookAtCursor.h" t="Include" />
-                <e p="AT_PlayMontageMeshWaitForEvent.h" t="Include" />
-                <e p="AT_ServerWaitForClientTargetData.h" t="Include" />
-                <e p="AT_SpawnActorComponent.h" t="Include" />
-                <e p="AT_WaitDelayOneFrame.h" t="Include" />
-                <e p="AT_WaitInputPressWithTags.h" t="Include" />
-                <e p="AT_WaitInteractableTarget.h" t="Include" />
-                <e p="AT_WaitTargetDataUsingActor.h" t="Include" />
-              </e>
-              <e p="ARTAbilitySystemComponent.h" t="Include" />
-              <e p="ARTAbilitySystemGlobals.h" t="Include" />
-              <e p="ARTActorBase.h" t="Include" />
-              <e p="ARTGameplayAbility.h" t="Include" />
-              <e p="ARTGameplayAbilityTypes.cpp" t="Include" />
-              <e p="ARTGameplayAbilityUIData.h" t="Include" />
-              <e p="ARTGameplayCueManager.h" t="Include" />
-              <e p="ARTGameplayEffect.h" t="Include" />
-              <e p="ARTGameplayEffectTypes.h" t="Include" />
-              <e p="ARTGameplayEffectUIData.h" t="Include" />
-              <e p="ARTProjectile.h" t="Include" />
-              <e p="EC" t="Include">
-                <e p="ARTDamageExecutionCalculation.h" t="Include" />
-                <e p="ARTElecDamage_EC.h" t="Include" />
-                <e p="ARTHealingExecutionCalculation.h" t="Include" />
-                <e p="ARTWaterDamage_EC.h" t="Include" />
-              </e>
-              <e p="FARTAggregatorEvaluateMetaDataLibrary.h" t="Include" />
-              <e p="Interface" t="Include">
-                <e p="ARTInteractable.h" t="Include" />
-              </e>
-              <e p="MMC" t="Include">
-                <e p="ARTAbilityCost_MMC.h" t="Include" />
-              </e>
-              <e p="TargetActor" t="Include">
-                <e p="GATA_AoeTrace.h" t="Include" />
-                <e p="GATA_LineTrace.h" t="Include" />
-                <e p="GATA_MeleeWeaponTrace.h" t="Include" />
-                <e p="GATA_SphereTrace.h" t="Include" />
-                <e p="GATA_SphereTrace_Tick.h" t="Include" />
-                <e p="GATA_Trace.h" t="Include" />
-              </e>
-            </e>
-            <e p="AI" t="Include">
-              <e p="ARTAIManager.h" t="Include" />
-              <e p="EnvQueryTest_TakenPosition.h" t="Include" />
-            </e>
-            <e p="ARTCharacter" t="Include">
-              <e p="AI" t="Include">
-                <e p="ARTAIController.h" t="Include" />
-                <e p="ARTCharacterAI.h" t="Include" />
-                <e p="ARTNavigationInvokerComponent.h" t="Include" />
-              </e>
-              <e p="ARTAttributeSetBase.h" t="Include" />
-              <e p="ARTCharacterAttributeSet.h" t="Include" />
-              <e p="ARTCharacterBase.h" t="Include" />
-              <e p="ARTCharacterMovementComponent.h" t="Include" />
-              <e p="ARTGameplayAbilitySet.h" t="Include" />
-              <e p="ARTPlayerController.h" t="Include" />
-              <e p="ARTPlayerState.h" t="Include" />
-              <e p="ARTSurvivor.h" t="Include" />
-              <e p="Voxel" t="Include">
-                <e p="ARTSimpleInvokerComponent.h" t="Include" />
-              </e>
-            </e>
-            <e p="ARTEngineSubsystem.h" t="Include" />
-            <e p="Blueprint" t="Include">
-              <e p="ARTBlueprintFunctionLibrary.h" t="Include" />
-              <e p="ARTCurve.h" t="Include" />
-              <e p="ARTTargetFilter.h" t="Include" />
-              <e p="ARTTargetType.h" t="Include" />
-              <e p="AsyncTaskAttributeChanged.h" t="Include" />
-              <e p="AsyncTaskCooldownChanged.h" t="Include" />
-              <e p="AsyncTaskEffectStackChanged.h" t="Include" />
-              <e p="AsyncTaskGameplayTagAddedRemoved.h" t="Include" />
-            </e>
-            <e p="Framework" t="Include">
-              <e p="ARTGameInstance.h" t="Include" />
-              <e p="ARTGameMode.h" t="Include" />
-              <e p="SGameState.h" t="Include" />
-              <e p="SteamSessionClass.h" t="Include" />
-            </e>
-            <e p="Item" t="Include">
-              <e p="ConsumableItem.h" t="Include" />
-              <e p="GrenadeLauncher.h" t="Include" />
-              <e p="InventoryComponent.h" t="Include" />
-              <e p="InventorySet.h" t="Include" />
-              <e p="Item.h" t="Include" />
-              <e p="WeaponActor.h" t="Include" />
-            </e>
-            <e p="Weapon" t="Include">
-              <e p="BallisticProjectile.h" t="Include" />
-              <e p="Equipment.h" t="Include" />
-              <e p="LauncherComponent.h" t="Include" />
-              <e p="MeleeWeapon.h" t="Include" />
-              <e p="ProjectileWeapon.h" t="Include" />
-              <e p="RangeWeapon.h" t="Include" />
-              <e p="TracerRangeWeapon.h" t="Include" />
-              <e p="Weapon.h" t="Include" />
-            </e>
-            <e p="Widget" t="Include">
-              <e p="ARTDamageTextWidgetComponent.h" t="Include" />
-              <e p="ARTFloatingStatusBarWidget.h" t="Include" />
-              <e p="ARTHUDReticle.h" t="Include" />
-              <e p="ARTHUDWidget.h" t="Include" />
-              <e p="InteractionWidget.h" t="Include" />
-              <e p="InventoryItemWidget.h" t="Include" />
-              <e p="ItemTooltip.h" t="Include" />
-            </e>
-            <e p="World" t="Include">
-              <e p="ItemSpawn.h" t="Include" />
-              <e p="LootableActor.h" t="Include" />
-              <e p="LootBox.h" t="Include" />
-              <e p="Pickup.h" t="Include" />
-            </e>
-          </e>
-        </e>
-        <e p="ART.Target.cs" t="Include" />
-        <e p="ARTEditor.Target.cs" t="Include" />
-      </e>
-      <e p="Visualizers" t="Include" />
-    </e>
+    <e p="C:\Users\calli\AppData\Local\JetBrains\Rider2020.3\resharper-host\Local\Transient\Rider\v203\SolutionCaches\_ART.1543100475.00" t="ExcludeRecursive" />
   </component>
 </project>

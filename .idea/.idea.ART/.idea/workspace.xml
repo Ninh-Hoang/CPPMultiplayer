@@ -6,7 +6,655 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="879561f1-dfda-4537-b838-a6709d37e8cc" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/BlockOutAI/AI/BlockOut_BB.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/BlockOutAI/AI/BlockOut_BT.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/BlockOutAI/AI/BlockOut_Controller.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/BlockOutAI/AT_BlockOut_AbilitySet.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/BlockOutAI/Ability/GA_ZombieAttack.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/BlockOutAI/BP_BlockoutCharacter.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/BlockOutAI/Blockout_Anim.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/BlockOutAI/Curve_BlockOut_AttributeSet.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/BlockOutAI/GE_BlockOut_AttributeSet.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Player/BS_Jog.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Player/BlockOutSurvivor_BP.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Roll/GE_Invicility.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/BlockEase0_CurveVector.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GA_AxeBlock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GA_AxeCombo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GA_KnockBack_Instant.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GA_KnockBack_Listen.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GE_Blocking.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GE_KnockBack.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/UI/Player/UI_WayPoint.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/UI/Player/UI_WayPointIcon.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/UI/Player/WayPoint.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/UI/Player/WayPointActor.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/UI/Player/WayPointDirectionIndicator.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/UI/Player/arrow.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/crouch_idle.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/crouch_to_standing_idle.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_block_idle.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_block_react_large.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_block_react_large_Montage.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_disarm_over_shoulder.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_disarm_underarm.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_idle.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_idle_looking_ver__1.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_idle_looking_ver__2.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_melee_attack_360_high.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_melee_attack_360_low.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_melee_attack_backhand.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_melee_attack_backhand_Montage.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_melee_attack_downward.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_melee_attack_downward_Montage.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_melee_attack_horizontal.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_melee_attack_horizontal_Montage.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_melee_attack_kick_ver__1.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_melee_attack_kick_ver__2.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_melee_combo_attack_ver__1.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_melee_combo_attack_ver__2.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_melee_combo_attack_ver__2_Montage.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_melee_combo_attack_ver__3.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_melee_run_jump_attack.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_react_large_from_left.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_react_large_from_right.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_react_large_from_right_Montage.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_react_large_gut.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_run_back.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_run_forward.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_taunt_battlecry.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_taunt_chest_thump.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_turn_left_90.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_turn_right_90.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_walk_back.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_walk_forward.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_walk_left.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_walk_right.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/unarmed_equip_over_shoulder.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/unarmed_equip_underarm.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/unarmed_idle_looking_ver__1.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/unarmed_idle_looking_ver__2.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/unarmed_jump.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/unarmed_jump_running.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/unarmed_run_back.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/unarmed_run_forward.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/unarmed_turn_left_90.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/unarmed_turn_right_90.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/unarmed_walk_back.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/unarmed_walk_forward.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/BP_BlockoutCharacter.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/Random/Stand_To_Roll.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/Random/Stand_To_Roll_Montage.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/walking.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/walking__2_.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/zombie_agonizing.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/zombie_attack.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/zombie_attack_Montage.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/zombie_headbutt.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/zombie_idle.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/zombie_idle__2_.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/zombie_idle__3_.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/zombie_idle__4_.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/zombie_kicking.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/zombie_kicking__2_.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/zombie_punching.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/zombie_punching__2_.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/zombie_reaction_hit.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/zombie_reaction_hit__2_.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/zombie_running.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/zombie_scratch_idle.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/zombie_stand_up.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/zombie_stand_up__2_.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/zombie_stand_up__3_.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/zombie_stumbling.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/zombie_transition.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/zombie_transition__2_.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/ZombiePack/zombie_turn.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/blockout_character.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/blockout_character_PhysicsAsset.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/blockout_character_Skeleton.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Desert_PDG_1_0.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Desert_Terrain_1_0.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/HE_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/HE_Terrain_Tool.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/BP_PlayerStart.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Dry_Rocky_Ground_2x2_M_00/uhomdjolw_2K_AO.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Dry_Rocky_Ground_2x2_M_00/uhomdjolw_2K_Albedo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Dry_Rocky_Ground_2x2_M_00/uhomdjolw_2K_Displacement.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Dry_Rocky_Ground_2x2_M_00/uhomdjolw_2K_Normal.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Dry_Rocky_Ground_2x2_M_00/uhomdjolw_2K_Roughness.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/GrassWild/Grass_Wild_pftmA20_surface_Preview.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/GrassWild/pftmA2_2K_AO.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/GrassWild/pftmA2_2K_Albedo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/GrassWild/pftmA2_2K_Displacement.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/GrassWild/pftmA2_2K_Normal.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/GrassWild/pftmA2_2K_Roughness.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Grass_Dried/Grass_Dried_scmkkip0_surface_Preview.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Grass_Dried/scmkkip_2K_AO.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Grass_Dried/scmkkip_2K_Albedo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Grass_Dried/scmkkip_2K_Displacement.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Grass_Dried/scmkkip_2K_Normal.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Grass_Dried/scmkkip_2K_Roughness.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Landscape_Mat.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Landscape_Mat_Inst.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/MF_BeachSand.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/MF_CoastalRock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/MF_MossyG.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/MF_MossyGround.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/MF_SwamWater.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/MossyGround/Moss_Ground_umslfbsg_surface_Preview.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/MossyGround/umslfbsg_2K_AO.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/MossyGround/umslfbsg_2K_Albedo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/MossyGround/umslfbsg_2K_Displacement.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/MossyGround/umslfbsg_2K_Normal.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/MossyGround/umslfbsg_2K_Roughness.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/NordiCoastaRock/Rock_Smooth_ukohaj0mw_surface_Preview.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/NordiCoastaRock/ukohaj0mw_2K_AO.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/NordiCoastaRock/ukohaj0mw_2K_Albedo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/NordiCoastaRock/ukohaj0mw_2K_Displacement.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/NordiCoastaRock/ukohaj0mw_2K_Normal.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/NordiCoastaRock/ukohaj0mw_2K_Roughness.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Prop/Concious_Node.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Prop/lsysm_tree.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/SwamWater/Misc_tgmjffbqx_surface_Preview.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/SwamWater/tgmjffbqx_2K_AO.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/SwamWater/tgmjffbqx_2K_Albedo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/SwamWater/tgmjffbqx_2K_Displacement.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/SwamWater/tgmjffbqx_2K_Normal.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/SwamWater/tgmjffbqx_2K_Roughness.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Thai_Beach_Sand_2x2_M_00/tdsmeeko_2K_AO.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Thai_Beach_Sand_2x2_M_00/tdsmeeko_2K_Albedo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Thai_Beach_Sand_2x2_M_00/tdsmeeko_2K_Displacement.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Thai_Beach_Sand_2x2_M_00/tdsmeeko_2K_Normal.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Thai_Beach_Sand_2x2_M_00/tdsmeeko_2K_Roughness.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Thai_Beach_Sand_2x2_M_01/tgrhebdk_2K_AO.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Thai_Beach_Sand_2x2_M_01/tgrhebdk_2K_Albedo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Thai_Beach_Sand_2x2_M_01/tgrhebdk_2K_Displacement.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Thai_Beach_Sand_2x2_M_01/tgrhebdk_2K_Normal.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Thai_Beach_Sand_2x2_M_01/tgrhebdk_2K_Roughness.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Thai_Beach_Sand_2x2_M_02/Thai_Beach_Sand_2x2_M_02_inst.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Thai_Beach_Sand_2x2_M_02/tefgafrk_2K_AO.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Thai_Beach_Sand_2x2_M_02/tefgafrk_2K_Albedo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Thai_Beach_Sand_2x2_M_02/tefgafrk_2K_Cavity.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Thai_Beach_Sand_2x2_M_02/tefgafrk_2K_Displacement.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Thai_Beach_Sand_2x2_M_02/tefgafrk_2K_Gloss.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Thai_Beach_Sand_2x2_M_02/tefgafrk_2K_Normal.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Thai_Beach_Sand_2x2_M_02/tefgafrk_2K_Roughness.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Thai_Beach_Sand_2x2_M_02/tefgafrk_2K_Specular.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/WorldTerrain_Mat.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/WorldTerrain_Mat_Inst.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/calli_dev_world_grid_pdg_1_0.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/calli_procedural_highland.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/MaterialFunction/CelShader_MF.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/BranchCurveAtlas.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/LeafColorAtlas.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/Leaf_Color_1.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/Leaf_Color_2.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/Leaf_Color_3.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/Leaf_Color_4.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/Leaf_Color_5.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/TreeMat.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/TreeMat_Inst_BaseWind.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/TreeMat_RedLeaf.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/TreeMat_RedLeaf1.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/TreeTest.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/TrunkColor_1.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/TrunkColor_2.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/TrunkColor_3.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/TrunkTex.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/WindNoise.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/leaf_alpha_1.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/leaf_alpha_2.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/leaf_alpha_3.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/leaf_alpha_4.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/leaf_alpha_5.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/leaf_alpha_6.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/leaf_alpha_7.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Tree/treetex-norm.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_0_10_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_0_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_10_10_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_10_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_11_10_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_11_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_12_10_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_12_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_13_10_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_13_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_14_10_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_14_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_15_10_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_15_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_1_10_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_1_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_2_10_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_2_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_3_10_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_3_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_4_10_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_4_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_5_10_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_5_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_6_10_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_6_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_7_10_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_7_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_8_10_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_9_10_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_9_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_2_topnet1_SharedLandscape_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_2_topnet1_SharedLandscape_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/Desert_PDG_1_2_topnet1_SharedLandscape_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile0_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile0_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile0_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile0_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile10_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile10_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile10_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile10_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile11_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile11_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile11_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile11_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile12_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile12_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile12_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile12_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile13_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile13_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile13_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile13_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile14_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile14_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile14_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile14_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile15_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile15_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile15_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile15_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile1_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile1_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile1_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile1_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile2_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile2_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile2_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile2_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile3_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile3_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile3_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile3_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile4_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile4_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile4_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile4_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile5_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile5_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile5_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile5_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile6_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile6_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile6_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile6_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile7_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile7_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile7_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile7_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile8_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile8_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile8_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile8_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile9_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile9_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile9_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/615CB4B4/LandscapeTile9_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_0_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_10_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_11_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_12_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_13_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_14_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_15_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_1_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_2_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_3_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_4_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_5_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_6_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_7_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_8_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/Desert_PDG_1_0_topnet1_HE_OUT_Split_and_scatter_9_5_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/Desert_PDG_1_8_topnet1_SharedLandscape_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/Desert_PDG_1_8_topnet1_SharedLandscape_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/Desert_PDG_1_8_topnet1_SharedLandscape_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile0_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile0_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile0_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile10_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile10_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile10_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile11_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile11_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile11_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile12_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile12_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile12_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile13_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile13_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile13_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile14_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile14_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile14_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile15_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile15_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile15_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile1_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile1_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile1_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile2_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile2_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile2_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile3_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile3_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile3_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile4_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile4_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile4_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile5_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile5_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile5_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile6_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile6_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile6_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile7_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile7_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile7_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile8_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile8_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile8_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile9_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile9_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_PDG_1_0/BCB4DC4B/LandscapeTile9_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/GameJam_Tree/5DF4A1C8/GameJam_Tree_83_3_0_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/HE_Rock/1A0FA3C5/HE_Rock_14_13_1_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/HE_Rock/1A0FA3C5/HE_Rock_14_13_3_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/HE_Terrain_Tool/33954934/Landscape_Temp_layer_Layer_Cliffs.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/HE_Terrain_Tool/33954934/Landscape_Temp_layer_Layer_Grass.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/SpawnerTest/0AC5C4FD/SpawnerTest_3_0_0_main_geo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_dessert_terrain_1_0/CD24953F/Landscape_Temp_layer_Rock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_dessert_terrain_1_0/CD24953F/Landscape_Temp_layer_Sand01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_dessert_terrain_1_0/CD24953F/Landscape_Temp_layer_Sand02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile0_Temp_layer_BeachSand.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile0_Temp_layer_Soil.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile0_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile10_Temp_layer_BeachSand.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile10_Temp_layer_Soil.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile10_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile11_Temp_layer_BeachSand.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile11_Temp_layer_Soil.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile11_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile12_Temp_layer_BeachSand.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile12_Temp_layer_Soil.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile12_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile13_Temp_layer_BeachSand.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile13_Temp_layer_Soil.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile13_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile14_Temp_layer_BeachSand.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile14_Temp_layer_Soil.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile14_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile15_Temp_layer_BeachSand.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile15_Temp_layer_Soil.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile15_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile1_Temp_layer_BeachSand.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile1_Temp_layer_Soil.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile1_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile2_Temp_layer_BeachSand.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile2_Temp_layer_Soil.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile2_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile3_Temp_layer_BeachSand.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile3_Temp_layer_Soil.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile3_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile4_Temp_layer_BeachSand.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile4_Temp_layer_Soil.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile4_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile5_Temp_layer_BeachSand.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile5_Temp_layer_Soil.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile5_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile6_Temp_layer_BeachSand.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile6_Temp_layer_Soil.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile6_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile7_Temp_layer_BeachSand.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile7_Temp_layer_Soil.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile7_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile8_Temp_layer_BeachSand.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile8_Temp_layer_Soil.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile8_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile9_Temp_layer_BeachSand.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile9_Temp_layer_Soil.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/0406976D/LandscapeTile9_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/A7D6BEC4/LandscapeTile0_Temp_layer_BeachSand.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_world_grid_pdg_1_0/A7D6BEC4/LandscapeTile0_Temp_layer_Soil.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/62B71D6E/Landscape_Temp_layer_bedrock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/62B71D6E/Landscape_Temp_layer_cliffs.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/62B71D6E/Landscape_Temp_layer_debris.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/62B71D6E/Landscape_Temp_layer_flow.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/62B71D6E/Landscape_Temp_layer_flowdir_x.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/62B71D6E/Landscape_Temp_layer_flowdir_z.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/62B71D6E/Landscape_Temp_layer_mesa.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/62B71D6E/Landscape_Temp_layer_sediment.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/62B71D6E/Landscape_Temp_layer_water.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/BBF4FBA7/Landscape_Temp_layer_bedrock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/BBF4FBA7/Landscape_Temp_layer_cliffs.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/BBF4FBA7/Landscape_Temp_layer_debris.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/BBF4FBA7/Landscape_Temp_layer_flow.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/BBF4FBA7/Landscape_Temp_layer_flowdir_x.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/BBF4FBA7/Landscape_Temp_layer_flowdir_z.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/BBF4FBA7/Landscape_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/BBF4FBA7/Landscape_Temp_layer_mesa.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/BBF4FBA7/Landscape_Temp_layer_sediment.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/BBF4FBA7/Landscape_Temp_layer_water.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/DB162908/Landscape_Temp_layer_Cliffs.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/DB162908/Landscape_Temp_layer_Debris.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/DB162908/Landscape_Temp_layer_Mesa.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/DB162908/Landscape_Temp_layer_Sediment.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/DB162908/Landscape_Temp_layer_Water.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/DB162908/Landscape_Temp_layer_bedrock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/DB162908/Landscape_Temp_layer_flow.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/DB162908/Landscape_Temp_layer_flowdir_x.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/DB162908/Landscape_Temp_layer_flowdir_z.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_procedural_highland/DB162908/Landscape_Temp_layer_mask.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/highland/CE416E26/Landscape_Temp_layer_bedrock.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/highland/CE416E26/Landscape_Temp_layer_cliffs.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/highland/CE416E26/Landscape_Temp_layer_debris.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/highland/CE416E26/Landscape_Temp_layer_flow.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/highland/CE416E26/Landscape_Temp_layer_flowdir_x.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/highland/CE416E26/Landscape_Temp_layer_flowdir_z.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/highland/CE416E26/Landscape_Temp_layer_mesa.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/highland/CE416E26/Landscape_Temp_layer_sediment.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/highland/CE416E26/Landscape_Temp_layer_water.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Maps/Concept/Desert/Tutorial.umap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Maps/Concept/ProceduralDesert/ProceduralHighLand.umap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Maps/Concept/Rock_LayerInfo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Maps/Concept/Sand01_LayerInfo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Maps/Concept/Sand02_LayerInfo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Maps/Concept/TestHoudiniMap.umap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/AbilityTask/AT_WaitGEAppliedSelf_Local.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/MMC/ARTKnockBackForce_MMC.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/Widget/DeprojectWidget.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_WaitGEAppliedSelf_Local.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/MMC/ARTKnockBackForce_MMC.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/Widget/DeprojectWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/riderModule.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/riderModule.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ART.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/ART.uproject" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultGameplayTags.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGameplayTags.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/Bulk/Bulk_Skeleton_AnimBlueprint.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Bulk/Bulk_Skeleton_AnimBlueprint.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/Drifter/Melee/GA_DrifterMelee.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Drifter/Melee/GA_DrifterMelee.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/Drifter/Melee/GE_DrifterMeleeDamage.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Drifter/Melee/GE_DrifterMeleeDamage.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/Drifter/Melee/TargetType_DrifterMelee.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Drifter/Melee/TargetType_DrifterMelee.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/Eye/BP_EyeController.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Eye/BP_EyeController.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/Eye/Shoot/BP_EyeProjectile.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Eye/Shoot/BP_EyeProjectile.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/Ability/GA_LegBot_Shoot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/Ability/GA_LegBot_Shoot.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/BP_LegBot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/BP_LegBot.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Framework/Networking/MultiplayerGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Framework/Networking/MultiplayerGameMode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/BP_ARTPlayerController.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/BP_ARTPlayerController.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/BP_Survivor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/BP_Survivor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Curve_SurvivorAttributeSet.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Curve_SurvivorAttributeSet.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/DS_SurvivorAbilitySet.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/DS_SurvivorAbilitySet.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Rifle/GA_RiflePrimary.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Rifle/GA_RiflePrimary.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Roll/GA_Roll.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Roll/GA_Roll.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sprint/GA_Sprint.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sprint/GA_Sprint.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sprint/GE_StandardSprint.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sprint/GE_StandardSprint.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/BP_Sword.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/BP_Sword.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GA_JumpSlash.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GA_JumpSlash.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Share/AbilityAndEffectBase/GA_AbilityBase.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Share/AbilityAndEffectBase/GA_AbilityBase.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Share/GameplayEvent/AN_GenericEventByTag.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Share/GameplayEvent/AN_GenericEventByTag.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Share/TargetType/TargetType_SphereTrace.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Share/TargetType/TargetType_SphereTrace.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/UI/Player/PlayerHUD/UI_HUDStat.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/UI/Player/PlayerHUD/UI_HUDStat.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/UI/WBP_Inventory.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/UI/WBP_Inventory.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/UI/WBP_ItemDragAndDropVisual.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/UI/WBP_ItemDragAndDropVisual.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4ASP_HeroTPP_AnimBlueprint.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4ASP_HeroTPP_AnimBlueprint.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/CelShader_MF.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Terrain_Material.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Terrain_Material.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Terrain_Material_Inst.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Terrain_Material_Inst.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/Thai_Beach_Sand_2x2_M_00_inst.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/tdsmeeko_2K_Albedo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/tdsmeeko_2K_Displacement.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/tdsmeeko_2K_Normal.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/tdsmeeko_2K_Roughness.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/tefgafrk_2K_Albedo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/tefgafrk_2K_Displacement.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/tefgafrk_2K_Normal.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/tefgafrk_2K_Roughness.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/tgrhebdk_2K_Albedo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/tgrhebdk_2K_Displacement.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/tgrhebdk_2K_Normal.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/tgrhebdk_2K_Roughness.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/uhomdjolw_2K_Albedo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/uhomdjolw_2K_Displacement.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/uhomdjolw_2K_Normal.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Landscape/uhomdjolw_2K_Roughness.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Houdini/NewBlueprint.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/NewBlueprint.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Houdini/Stair_tool.hda" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Houdini/calli_dev_dessert_terrain_1_0.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CustomAsset/Houdini/calli_dev_dessert_terrain_1_0.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Houdini/calli_dev_subnet_1_0.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/Tree/branches.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Bake/Cable_tool_3_0_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Bake/Stair_tool_120_3_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Banner_tool/243D0E41/Banner_tool_7975_7771_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Banner_tool/C15D0439/Banner_tool_7772_7771_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Cable_tool/F5F32A6A/Cable_tool_6866_2574_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_Terrain_1_0/4FEBBD1A/Landscape_Temp_layer_Layer_01.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_Terrain_1_0/4FEBBD1A/Landscape_Temp_layer_Layer_02.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_Terrain_1_0/4FEBBD1A/Landscape_Temp_layer_Layer_03.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_Terrain_1_0/85114E65/Landscape_Temp_layer_Layer_01.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_Terrain_1_0/85114E65/Landscape_Temp_layer_Layer_02.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Desert_Terrain_1_0/85114E65/Landscape_Temp_layer_Layer_03.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Door_tool_practice_/035DD908/Door_tool_practice__2012_2406_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Door_tool_practice_/035DD908/Door_tool_practice__2404_2407_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Door_tool_practice_/035DD908/Door_tool_practice__2405_2408_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Door_tool_practice_/035DD908/Door_tool_practice__795_914_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Door_tool_practice_/035DD908/Door_tool_practice__913_915_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/GameJam_Edge_Damage/05C04A6F/GameJam_Edge_Damage_3_0_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/GameJam_Edge_Damage/16401984/GameJam_Edge_Damage_21437_21436_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/GameJam_Edge_Damage/37F2E288/GameJam_Edge_Damage_3_0_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/GameJam_Edge_Damage/46D59F1F/GameJam_Edge_Damage_11465_11464_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/GameJam_Edge_Damage/670491F2/GameJam_Edge_Damage_3_0_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/GameJam_Edge_Damage/AFCBE188/GameJam_Edge_Damage_10342_11459_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/GameJam_Edge_Damage/C86AFB2D/GameJam_Edge_Damage_10343_10342_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Sci_fi_Door_Tutorial/8351DF20/Sci_fi_Door_Tutorial_2575_4170_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Sci_fi_Door_Tutorial/8351DF20/Sci_fi_Door_Tutorial_2575_4170_0_rendered_collision_geo_simple_box.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Sci_fi_Door_Tutorial/8351DF20/Sci_fi_Door_Tutorial_4167_4171_0_rendered_collision_geo_simple_box.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Sci_fi_Door_Tutorial/8351DF20/Sci_fi_Door_Tutorial_4168_4172_0_collision_geo_.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Sci_fi_Door_Tutorial/8351DF20/Sci_fi_Door_Tutorial_4168_4172_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Sci_fi_Door_Tutorial/AD1CA447/Sci_fi_Door_Tutorial_4077_4875_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Sci_fi_Door_Tutorial/AD1CA447/Sci_fi_Door_Tutorial_4077_4875_0_rendered_collision_geo_simple_box.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Sci_fi_Door_Tutorial/AD1CA447/Sci_fi_Door_Tutorial_4872_4876_0_rendered_collision_geo_simple_box.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Sci_fi_Door_Tutorial/AD1CA447/Sci_fi_Door_Tutorial_4873_4877_0_collision_geo_.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Sci_fi_Door_Tutorial/AD1CA447/Sci_fi_Door_Tutorial_4873_4877_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/SpawnerPDGTest/667C8C7D/SpawnerPDGTest_topnet1_HE_OUT_hdaprocessor1_0_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/SpawnerTest/24472F5D/SpawnerTest_37856_37935_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/SpawnerTest/844521DD/SpawnerTest_37856_37939_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/SpawnerTest/B14E5698/SpawnerTest_37856_37855_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/SpawnerTest/B272C98A/SpawnerTest_37939_37938_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/SpawnerTest/B4982AA3/SpawnerTest_37786_37785_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Stair_tool/EF40057F/Stair_tool_0_794_0_rendered_collision_geo_.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/Stair_tool/EF40057F/Stair_tool_3_0_0_main_geo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_dessert_terrain_1_0/09004339/Landscape_Temp_layer_Layer_01.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_dessert_terrain_1_0/09004339/Landscape_Temp_layer_Layer_02.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_dessert_terrain_1_0/09004339/Landscape_Temp_layer_Layer_03.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_dessert_terrain_1_0/87C2F897/Landscape_Temp_layer_Layer_01.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_dessert_terrain_1_0/87C2F897/Landscape_Temp_layer_Layer_02.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_dessert_terrain_1_0/87C2F897/Landscape_Temp_layer_Layer_03.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_dessert_terrain_1_0/C18DDA37/Landscape_Temp_layer_Layer_01.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_dessert_terrain_1_0/C18DDA37/Landscape_Temp_layer_Layer_02.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_dessert_terrain_1_0/C18DDA37/Landscape_Temp_layer_Layer_03.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile0_Temp_layer_Layer_01.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile0_Temp_layer_Layer_02.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile0_Temp_layer_Layer_03.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile10_Temp_layer_Layer_01.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile10_Temp_layer_Layer_02.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile10_Temp_layer_Layer_03.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile11_Temp_layer_Layer_01.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile11_Temp_layer_Layer_02.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile11_Temp_layer_Layer_03.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile12_Temp_layer_Layer_01.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile12_Temp_layer_Layer_02.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile12_Temp_layer_Layer_03.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile13_Temp_layer_Layer_01.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile13_Temp_layer_Layer_02.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile13_Temp_layer_Layer_03.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile14_Temp_layer_Layer_01.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile14_Temp_layer_Layer_02.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile14_Temp_layer_Layer_03.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile15_Temp_layer_Layer_01.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile15_Temp_layer_Layer_02.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile15_Temp_layer_Layer_03.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile1_Temp_layer_Layer_01.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile1_Temp_layer_Layer_02.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile1_Temp_layer_Layer_03.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile2_Temp_layer_Layer_01.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile2_Temp_layer_Layer_02.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile2_Temp_layer_Layer_03.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile3_Temp_layer_Layer_01.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile3_Temp_layer_Layer_02.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile3_Temp_layer_Layer_03.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile4_Temp_layer_Layer_01.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile4_Temp_layer_Layer_02.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile4_Temp_layer_Layer_03.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile5_Temp_layer_Layer_01.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile5_Temp_layer_Layer_02.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile5_Temp_layer_Layer_03.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile6_Temp_layer_Layer_01.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile6_Temp_layer_Layer_02.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile6_Temp_layer_Layer_03.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile7_Temp_layer_Layer_01.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile7_Temp_layer_Layer_02.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile7_Temp_layer_Layer_03.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile8_Temp_layer_Layer_01.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile8_Temp_layer_Layer_02.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile8_Temp_layer_Layer_03.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile9_Temp_layer_Layer_01.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile9_Temp_layer_Layer_02.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/HoudiniEngine/Temp/calli_dev_subnet_1_0/BDE82F91/LandscapeTile9_Temp_layer_Layer_03.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/Concept/Level.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Concept/Level.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/Concept/Lobby.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Concept/Lobby.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/Concept/Tutorial.umap" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Meshes/Grass/NightGrass/NightGrass.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Meshes/Grass/NightGrass/NightGrass.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Meshes/LowPolyTree/Fbx/Material__28_001.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Meshes/LowPolyTree/Fbx/Material__28_001.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Meshes/StylizedRocks/Sm_StylizedGrass.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Meshes/StylizedRocks/Sm_StylizedGrass.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterMovementComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterMovementComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayEffectTypes.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayEffectTypes.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/EC/ARTDamageExecutionCalculation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/EC/ARTDamageExecutionCalculation.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTBlueprintFunctionLibrary.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTBlueprintFunctionLibrary.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterMovementComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterMovementComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayEffectTypes.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayEffectTypes.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTBlueprintFunctionLibrary.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTBlueprintFunctionLibrary.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTTargetFilter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTTargetFilter.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,73 +665,70 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/PlayerState.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/MovementComponent.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Containers/Map.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/Actor.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Components/ActorComponent.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.25/Engine/Source/Runtime/Core/Public/Delegates/DelegateSignatureImpl.inl" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Templates/PointerIsConvertibleFromTo.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/EngineTypes.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/UObject/UObjectGlobals.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/GameplayTags/Private/GameplayTagContainer.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/GameplayTags/Private/GameplayTagsManager.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/AI/Navigation/AvoidanceManager.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/PawnMovementComponent.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/KismetSystemLibrary.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Templates/SharedPointer.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Public/Templates/Casts.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/NetSerialization.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Kismet/BlueprintFunctionLibrary.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Components/ActorComponent.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/DataAsset.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/LevelActor.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/AIController.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/Misc/RedirectCollector.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/UObject/WeakObjectPtrTemplates.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/Info.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/EnvironmentQuery/EnvQueryTest.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/EnvironmentQuery/EnvQueryManager.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/HotSpots/AIHotSpotManager.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Editor/PropertyEditor/Private/SDetailsViewBase.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/GameModeBase.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/NavMovementComponent.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Delegates/DelegateSignatureImpl.inl" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Containers/Array.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Public/UObject/Object.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/GenericTeamAgentInterface.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Camera/PlayerCameraManager.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/EngineBaseTypes.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Templates/MemoryOps.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Actor.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Components/CharacterMovementComponent.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/World.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/UObject/ScriptCore.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/UObject/UObjectArchetype.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/EnvironmentQuery/Tests/EnvQueryTest_Dot.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Public/Templates/SubclassOf.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/UObject/Class.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/CharacterMovementComponent.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/BehaviorTree/Services/BTService_RunEQS.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/PlayerState.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/MovementComponent.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.25/Engine/Source/Runtime/Core/Public/Delegates/DelegateSignatureImpl.inl" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Templates/PointerIsConvertibleFromTo.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/EngineTypes.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/UObject/UObjectGlobals.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/GameplayTags/Private/GameplayTagContainer.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/GameplayTags/Private/GameplayTagsManager.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/AI/Navigation/AvoidanceManager.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/PawnMovementComponent.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/KismetSystemLibrary.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Templates/SharedPointer.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/NetSerialization.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Components/ActorComponent.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/GameplayTags/Classes/GameplayTagContainer.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/AIController.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/Misc/RedirectCollector.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/UObject/ScriptCore.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/GameplayStatics.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/BehaviorTree/Services/BTService_RunEQS.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Containers/Map.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/Actor.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Components/ActorComponent.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/UMG/Private/Components/TextBlock.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Public/Templates/Casts.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Kismet/BlueprintFunctionLibrary.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/DataAsset.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Math/Vector.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/LevelActor.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/UObject/WeakObjectPtrTemplates.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/Info.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/EnvironmentQuery/EnvQueryTest.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/UMG/Private/SlateBlueprintLibrary.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/EnvironmentQuery/EnvQueryManager.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/HotSpots/AIHotSpotManager.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Public/UnrealClient.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Editor/PropertyEditor/Private/SDetailsViewBase.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/GameModeBase.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/SceneView.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/NavMovementComponent.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/UMG/Private/WidgetLayoutLibrary.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Delegates/DelegateSignatureImpl.inl" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Containers/Array.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Public/UObject/Object.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/GenericTeamAgentInterface.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Camera/PlayerCameraManager.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/EngineBaseTypes.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Templates/MemoryOps.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Actor.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Components/CharacterMovementComponent.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/World.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/UObject/UObjectArchetype.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/EnvironmentQuery/Tests/EnvQueryTest_Dot.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Public/Templates/SubclassOf.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/UObject/Class.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/CharacterMovementComponent.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Source/ART/Private/Weapon/Equipment.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTPlayerState.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTPlayerState.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterAttributeSet.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/Weapon/BallisticProjectile.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/Weapon/BallisticProjectile.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/Weapon/LauncherComponent.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/Ability/TargetActor/GATA_Trace.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_WaitTargetDataUsingActor.h" />
       <option value="$PROJECT_DIR$/Source/ART/Private/Weapon/LauncherComponent.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Private/Ability/TargetActor/GATA_Trace.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/AI/ARTNavigationInvokerComponent.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterMovementComponent.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/ART.Build.cs" />
       <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/Voxel/ARTSimpleInvokerComponent.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/EC/ARTDamageExecutionCalculation.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Private/Ability/FARTGameplayAbilityActorInfo.h" />
       <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbilityType.h" />
       <option value="$PROJECT_DIR$/Source/ART/Public/Ability/ARTAbilitySystemGlobals.h" />
@@ -93,11 +738,8 @@
       <option value="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTAbilityTypes.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTAbilityTypes.h" />
       <option value="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTTargetType.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayEffectTypes.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayEffectTypes.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterAttributeSet.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTAbilitySystemComponent.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayAbility.h" />
       <option value="$PROJECT_DIR$/Source/ART/Public/Framework/SGameMode.h" />
       <option value="$PROJECT_DIR$/Source/ART/Private/Framework/SGameMode.cpp" />
@@ -109,16 +751,30 @@
       <option value="$PROJECT_DIR$/Source/ART/Public/Framework/ARTGameMode.h" />
       <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/AI/ARTAIController.h" />
       <option value="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTAIController.cpp" />
-      <option value="C:/Program Files/Epic Games/UE_4.26/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/Abilities/GameplayAbilityTargetDataFilter.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTTargetFilter.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTBlueprintFunctionLibrary.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTBlueprintFunctionLibrary.cpp" />
+      <option value="$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/Abilities/GameplayAbilityTargetDataFilter.h" />
       <option value="$PROJECT_DIR$/Source/ART/Public/AI/ARTAIManager.h" />
       <option value="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterBase.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterBase.h" />
       <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/AI/ARTCharacterAI.h" />
       <option value="$PROJECT_DIR$/Source/ART/Private/AI/ARTAIManager.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTCharacterAI.cpp" />
+      <option value="$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Private/AbilitySystemComponent.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/Widget/DeprojectWidget.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Widget/DeprojectWidget.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/Ability/MMC/ARTKnockBackForce_MMC.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/MMC/ARTKnockBackForce_MMC.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterMovementComponent.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterMovementComponent.cpp" />
+      <option value="$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Private/Abilities/GameplayAbility.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/EC/ARTDamageExecutionCalculation.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayEffectTypes.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayEffectTypes.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTTargetFilter.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTBlueprintFunctionLibrary.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTBlueprintFunctionLibrary.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_WaitGEAppliedSelf_Local.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/AbilityTask/AT_WaitGEAppliedSelf_Local.cpp" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1lBFe3M5fiXhaBDPEYgqBFdVSir" />
@@ -372,6 +1028,11 @@
       <workItem from="1611613520291" duration="3002000" />
       <workItem from="1611648068059" duration="13017000" />
       <workItem from="1611825407980" duration="32084000" />
+      <workItem from="1612431695614" duration="2144000" />
+      <workItem from="1613471195190" duration="796000" />
+      <workItem from="1613901465191" duration="2206000" />
+      <workItem from="1613956529100" duration="784000" />
+      <workItem from="1614082276378" duration="54687000" />
     </task>
     <servers />
   </component>
@@ -405,12 +1066,12 @@
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/DataAsset.h</url>
+          <url>file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/DataAsset.h</url>
           <line>4</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://C:/Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/MovementComponent.h</url>
+          <url>file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/MovementComponent.h</url>
           <line>8</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>

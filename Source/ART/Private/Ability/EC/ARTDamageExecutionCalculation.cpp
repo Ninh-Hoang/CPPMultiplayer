@@ -2,6 +2,10 @@
 
 
 #include "Ability/EC/ARTDamageExecutionCalculation.h"
+
+
+#include "AbilitySystemBlueprintLibrary.h"
+#include "GameplayAbilityBlueprint.h"
 #include "ARTCharacter/ARTCharacterAttributeSet.h"
 #include "Ability/ARTAbilitySystemComponent.h"
 
@@ -13,6 +17,8 @@ struct ARTDamageStatics
 	DECLARE_ATTRIBUTE_CAPTUREDEF(Armor);
 
 	DECLARE_ATTRIBUTE_CAPTUREDEF(Shield);
+
+	DECLARE_ATTRIBUTE_CAPTUREDEF(Stamina);
 
 	// Meta attribute that we're passing into the ExecCalc via SetByCaller on the GESpec so we don't capture it.
 	// We still need to declare and define it so that we can output to it.
@@ -33,6 +39,9 @@ struct ARTDamageStatics
 		// Capture the Target's Shield. Don't snapshot (the false).
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UARTCharacterAttributeSet, Shield, Target, false);
 
+		// Capture the Target's Stamina. Don't snapshot (the false).
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UARTCharacterAttributeSet, Stamina, Target, false);
+		
 		// The Target's received Damage. This is the value of health that will be subtracted on the Target. We're not capturing this.
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UARTCharacterAttributeSet, Damage, Target, false);
 	}
@@ -51,6 +60,7 @@ UARTDamageExecutionCalculation::UARTDamageExecutionCalculation()
 	RelevantAttributesToCapture.Add(DamageStatics().AttackPowerDef);
 	RelevantAttributesToCapture.Add(DamageStatics().ArmorDef);
 	RelevantAttributesToCapture.Add(DamageStatics().ShieldDef);
+	RelevantAttributesToCapture.Add(DamageStatics().StaminaDef);
 }
 
 void UARTDamageExecutionCalculation::Execute_Implementation(
@@ -87,6 +97,10 @@ void UARTDamageExecutionCalculation::Execute_Implementation(
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().ShieldDef, EvaluationParameters, Shield);
 	Shield = FMath::Max<float>(Shield, 0.0f);
 
+	float Stamina = 0.0f;
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().StaminaDef, EvaluationParameters, Stamina);
+	Stamina = FMath::Max<float>(Stamina, 0.0f);
+	
 	// SetByCaller Damage
 	float Damage = FMath::Max<float>(
 		Spec.GetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Data.Damage")), false, -1.0f), 0.0f);
@@ -106,16 +120,63 @@ void UARTDamageExecutionCalculation::Execute_Implementation(
 	//formular: only health is under armor mitigation from damage
 	float MitigatedDamage = UnmitigatedDamage;
 
+	//blocking check
+	bool blocking = TargetAbilitySystemComponent->HasMatchingGameplayTag(FGameplayTag::RequestGameplayTag(FName("State.WeaponAction.Blocking")));
+
+	if(blocking)
+	{
+		FVector TargetForward = TargetActor->GetActorForwardVector();
+		FVector SourceDirection = SourceActor->GetActorLocation() - TargetActor->GetActorLocation();
+		SourceDirection.Normalize();
+
+		float Rad = FMath::Acos(FVector::DotProduct(TargetForward, SourceDirection));
+		float Angle = FMath::RadiansToDegrees(Rad);
+
+		if(Angle <= 80.f)
+		{
+			float StaminaDamage = 0.0f;
+			if(MitigatedDamage > Stamina*10)
+			{
+				MitigatedDamage =  MitigatedDamage - Stamina*10;
+				StaminaDamage = Stamina;
+			}
+			else
+			{
+				StaminaDamage = MitigatedDamage/10.0f;
+				MitigatedDamage = 0.0f;
+			}
+			StaminaDamage = -StaminaDamage;
+		
+			//send event data
+			FGameplayEventData EventData;
+			EventData.Instigator = SourceActor;
+			EventData.Target = TargetActor;
+			EventData.EventMagnitude = -StaminaDamage;
+		
+			if(MitigatedDamage > 0.0f)
+			{
+				FGameplayTagContainer TargetTagContainer;
+				TargetTagContainer.AddTag(FGameplayTag::RequestGameplayTag("Event.Block.OutStamina"));
+				EventData.TargetTags = TargetTagContainer;
+			}
+		
+			OutExecutionOutput.AddOutputModifier(
+            FGameplayModifierEvaluatedData(DamageStatics().StaminaProperty, EGameplayModOp::Additive, StaminaDamage));
+
+			/*UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(TargetActor,
+                FGameplayTag::RequestGameplayTag("Event.Block.Knockback")
+                ,EventData);*/
+		}
+	}
+	
 	//if Damage exceed shield, calculate damage to health with armor modification
 	if (MitigatedDamage > Shield)
 	{
 		MitigatedDamage = Shield + (MitigatedDamage - Shield) * (100 / (Armor + 100));
 	}
 
-	if (MitigatedDamage > 0.f)
-	{
-		// Set the Target's damage meta attribute
-		OutExecutionOutput.AddOutputModifier(
-			FGameplayModifierEvaluatedData(DamageStatics().DamageProperty, EGameplayModOp::Additive, MitigatedDamage));
-	}
+	// Set the Target's damage meta attribute
+	OutExecutionOutput.AddOutputModifier(
+		FGameplayModifierEvaluatedData(DamageStatics().DamageProperty, EGameplayModOp::Additive, MitigatedDamage));
+	
 }

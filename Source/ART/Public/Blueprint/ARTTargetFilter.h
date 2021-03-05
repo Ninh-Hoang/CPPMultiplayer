@@ -8,6 +8,7 @@
 #include <ARTCharacter/ARTSurvivor.h>
 #include <ARTCharacter/AI/ARTCharacterAI.h>
 #include <ARTCharacter/ARTCharacterBase.h>
+
 #include "ARTTargetFilter.generated.h"
 
 /**
@@ -122,6 +123,12 @@ struct ART_API FARTTargetFilterTeamID : public FGameplayTargetDataFilter
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (ExposeOnSpawn = true), Category = Filter)
 	TEnumAsByte<ETeamAttitude::Type> TeamAttitude;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (ExposeOnSpawn = true), Category = Filter)
+	FGameplayTagContainer FilterTagContainer;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (ExposeOnSpawn = true), Category = Filter)
+	bool FilterTag;
+	
 	virtual bool FilterPassesForActor(const AActor* ActorToBeFiltered) const override
 	{
 		return TargetPassesFilter(ActorToBeFiltered);
@@ -131,7 +138,7 @@ struct ART_API FARTTargetFilterTeamID : public FGameplayTargetDataFilter
 	bool TargetPassesFilter(const AActor* TargetActor) const
 	{
 		bool bPassFilter = true;
-
+	
 		if (RequiredActorClass != nullptr)
 		{
 			bPassFilter = RequiredActorClass == TargetActor->GetClass();
@@ -144,6 +151,15 @@ struct ART_API FARTTargetFilterTeamID : public FGameplayTargetDataFilter
 		else
 		{
 			AARTCharacterBase* SourceCharacter = Cast<AARTCharacterBase>(SelfActor);
+			if(FilterTag)
+			{
+				UAbilitySystemComponent* ASC = Cast<AARTCharacterBase>(TargetActor)->GetAbilitySystemComponent();
+				if(ASC && ASC->HasAllMatchingGameplayTags(FilterTagContainer))
+				{
+					bPassFilter = false;
+				}
+				
+			}
 			if (TeamAttitude != (SourceCharacter->GetTeamAttitudeTowards(*TargetActor)))
 			{
 				bPassFilter = false;

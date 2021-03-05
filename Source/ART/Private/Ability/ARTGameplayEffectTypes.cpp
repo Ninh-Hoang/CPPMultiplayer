@@ -43,13 +43,17 @@ bool FARTGameplayEffectContext::NetSerialize(FArchive& Ar, UPackageMap* Map, boo
 		{
 			RepBits |= 1 << 7;
 		}
-		if (SourceLevel > 0)
+		if (KnockBackStrength > 0)
 		{
 			RepBits |= 1 << 8;
 		}
+		if (SourceLevel > 0)
+		{
+			RepBits |= 1 << 9;
+		}
 	}
 
-	Ar.SerializeBits(&RepBits, 8);
+	Ar.SerializeBits(&RepBits, 9);
 	
 	if (RepBits & (1 << 0))
    {
@@ -103,6 +107,10 @@ bool FARTGameplayEffectContext::NetSerialize(FArchive& Ar, UPackageMap* Map, boo
 		TargetData->NetSerialize(Ar, Map, bOutSuccess);
 	}
 	if (RepBits & (1 << 8))
+	{
+		Ar << KnockBackStrength;
+	}
+	if (RepBits & (1 << 9))
 	{
 		Ar << SourceLevel;
 	}

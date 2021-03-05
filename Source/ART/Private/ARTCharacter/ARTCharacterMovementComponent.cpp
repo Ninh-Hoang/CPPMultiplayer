@@ -10,6 +10,8 @@ UARTCharacterMovementComponent::UARTCharacterMovementComponent()
 {
 	SprintSpeedMultiplier = 2.0f;
 	ADSSpeedMultiplier = 0.5f;
+	BlockingSpeedMultiplier = 0.0f;
+	AttackingMultiplier = 0.0f;
 }
 
 float UARTCharacterMovementComponent::GetMaxSpeed() const
@@ -42,6 +44,16 @@ float UARTCharacterMovementComponent::GetMaxSpeed() const
 		return Owner->GetMoveSpeed() * ADSSpeedMultiplier;
 	}
 
+	if (RequestToStartBlocking)
+	{
+		return 0.0f;
+	}
+
+	if (RequestToStartAttacking)
+	{
+		return 0.0f;
+	}
+
 	return Owner->GetMoveSpeed();
 }
 
@@ -55,6 +67,10 @@ void UARTCharacterMovementComponent::UpdateFromCompressedFlags(uint8 Flags)
 	RequestToStartSprinting = (Flags & FSavedMove_Character::FLAG_Custom_0) != 0;
 
 	RequestToStartADS = (Flags & FSavedMove_Character::FLAG_Custom_1) != 0;
+
+	RequestToStartBlocking = (Flags & FSavedMove_Character::FLAG_Custom_2) != 0;
+
+	RequestToStartAttacking = (Flags & FSavedMove_Character::FLAG_Custom_3) != 0;
 }
 
 FNetworkPredictionData_Client* UARTCharacterMovementComponent::GetPredictionData_Client() const
@@ -71,16 +87,6 @@ FNetworkPredictionData_Client* UARTCharacterMovementComponent::GetPredictionData
 	}
 
 	return ClientPredictionData;
-}
-
-void UARTCharacterMovementComponent::StartSprinting()
-{
-	RequestToStartSprinting = true;
-}
-
-void UARTCharacterMovementComponent::StopSprinting()
-{
-	RequestToStartSprinting = false;
 }
 
 //rotate stuffs
@@ -108,15 +114,53 @@ float UARTCharacterMovementComponent::GetAxisDeltaRotation(float InAxisRotationR
 	return (InAxisRotationRate >= 0.f) ? (InAxisRotationRate * DeltaTime) : 360.f;
 }
 
+void UARTCharacterMovementComponent::StartSprinting()
+{
+	RequestToStartSprinting = true;
+	IsSprinting = true;
+}
+
+void UARTCharacterMovementComponent::StopSprinting()
+{
+	RequestToStartSprinting = false;
+	IsSprinting = false;
+}
+
 //aim stuffs
 void UARTCharacterMovementComponent::StartAimDownSights()
 {
 	RequestToStartADS = true;
+	IsAiming = true;
 }
 
 void UARTCharacterMovementComponent::StopAimDownSights()
 {
 	RequestToStartADS = false;
+	IsAiming = false;
+}
+
+void UARTCharacterMovementComponent::StartBlocking()
+{
+	RequestToStartBlocking = true;
+	IsBlocking = true;
+}
+
+void UARTCharacterMovementComponent::StopBlocking()
+{
+	RequestToStartBlocking = false;
+	IsBlocking = false;
+}
+
+void UARTCharacterMovementComponent::StartAttacking()
+{
+	RequestToStartAttacking = true;
+	IsAttacking = true;
+}
+
+void UARTCharacterMovementComponent::StopAttacking()
+{
+	RequestToStartAttacking = false;
+	IsAttacking = false;
 }
 
 void UARTCharacterMovementComponent::FARTSavedMove::Clear()
@@ -125,6 +169,8 @@ void UARTCharacterMovementComponent::FARTSavedMove::Clear()
 
 	SavedRequestToStartSprinting = false;
 	SavedRequestToStartADS = false;
+	SavedRequestToStartBlocking = false;
+	SavedRequestToStartAttacking = false;
 }
 
 uint8 UARTCharacterMovementComponent::FARTSavedMove::GetCompressedFlags() const
@@ -139,6 +185,16 @@ uint8 UARTCharacterMovementComponent::FARTSavedMove::GetCompressedFlags() const
 	if (SavedRequestToStartADS)
 	{
 		Result |= FLAG_Custom_1;
+	}
+
+	if (SavedRequestToStartBlocking)
+	{
+		Result |= FLAG_Custom_2;
+	}
+
+	if (SavedRequestToStartAttacking)
+	{
+		Result |= FLAG_Custom_3;
 	}
 
 	return Result;
@@ -158,6 +214,16 @@ bool UARTCharacterMovementComponent::FARTSavedMove::CanCombineWith(const FSavedM
 		return false;
 	}
 
+	if (SavedRequestToStartBlocking != ((FARTSavedMove*)&NewMove)->SavedRequestToStartBlocking)
+	{
+		return false;
+	}
+
+	if (SavedRequestToStartAttacking != ((FARTSavedMove*)&NewMove)->SavedRequestToStartAttacking)
+	{
+		return false;
+	}
+
 	return Super::CanCombineWith(NewMove, Character, MaxDelta);
 }
 
@@ -173,6 +239,8 @@ void UARTCharacterMovementComponent::FARTSavedMove::SetMoveFor(ACharacter* Chara
 	{
 		SavedRequestToStartSprinting = CharacterMovement->RequestToStartSprinting;
 		SavedRequestToStartADS = CharacterMovement->RequestToStartADS;
+		SavedRequestToStartBlocking = CharacterMovement->RequestToStartBlocking;
+		SavedRequestToStartAttacking = CharacterMovement->RequestToStartAttacking;
 	}
 }
 
