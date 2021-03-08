@@ -362,20 +362,14 @@ void AARTCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 //movement control
 void AARTCharacterBase::MoveForward(float AxisValue)
 {
-	/*if (CameraComponent) {
-		FVector ProjectedVector = UKismetMathLibrary::ProjectVectorOnToPlane(CameraComponent->GetForwardVector(), GetActorUpVector());
-		FVector ForwardDirection = ProjectedVector.GetSafeNormal();
-		AddMovementInput(ForwardDirection, AxisValue);
-	}*/
-	AddMovementInput(UKismetMathLibrary::GetForwardVector(FRotator(0, GetControlRotation().Yaw, 0)), AxisValue);
+	FRotator Rot = FRotator(0,GetControlRotation().Yaw, 0);
+	AddMovementInput(FRotationMatrix(Rot).GetScaledAxis( EAxis::X), AxisValue);
 }
 
 void AARTCharacterBase::MoveRight(float AxisValue)
 {
-	/*if (ensure(CameraComponent)) {
-		AddMovementInput(CameraComponent->GetRightVector() * AxisValue);
-	}*/
-	AddMovementInput(UKismetMathLibrary::GetRightVector(FRotator(0, GetControlRotation().Yaw, 0)), AxisValue);
+	FRotator Rot = FRotator(0,GetControlRotation().Yaw, 0);
+	AddMovementInput(FRotationMatrix(Rot).GetScaledAxis( EAxis::Y), AxisValue);
 }
 
 void AARTCharacterBase::Jump()

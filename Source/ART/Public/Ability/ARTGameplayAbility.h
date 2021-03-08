@@ -11,8 +11,6 @@
 /**
  * 
  */
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FARTAbilityEvent, bool, WasCanceled);
-
 class USkeletalMeshComponent;
 
 USTRUCT()
@@ -56,11 +54,6 @@ class ART_API UARTGameplayAbility : public UGameplayAbility
 
 public:
 	UARTGameplayAbility();
-
-	UPROPERTY(BlueprintAssignable, Category = "Ability")
-	FARTAbilityEvent AbilityEnd;
-
-	
 	                        
 	// Abilities with this set will automatically activate when the input is pressed
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Ability|Input")
@@ -177,7 +170,15 @@ public:
 	// ----------------------------------------------------------------------------------------------------------------
 	//	Override cooldown related function for dynamic cooldown GE
 	// ----------------------------------------------------------------------------------------------------------------
+	
+	/** Event for generating ultility score */
+	UFUNCTION(BlueprintImplementableEvent, Category = Ability, DisplayName="ScoreAbilityutility", meta=(ScriptName="ScoreAbilityutility"))
+    float K2_ScoreAbilityUtility(FGameplayAbilityActorInfo ActorInfo) const;
 
+	bool bHasBlueprintScoreUtility;
+	
+	virtual float ScoreAbilityUtility();
+	
 	virtual bool CanActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
 	                                const FGameplayTagContainer* SourceTags = nullptr,
 	                                const FGameplayTagContainer* TargetTags = nullptr,

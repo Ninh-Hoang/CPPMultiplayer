@@ -1,16 +1,16 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "AI/ARTAIManager.h"
+#include "AI/ARTAIConductor.h"
 #include "ARTCharacter/AI/ARTCharacterAI.h"
 #include "Kismet/GameplayStatics.h"
 
-UARTAIManager::UARTAIManager()
+UARTAIConductor::UARTAIConductor()
 {
 	SetAutoActivate(true);
 }
 
-void UARTAIManager::Activate(bool bNewAutoActivate)
+void UARTAIConductor::Activate(bool bNewAutoActivate)
 {
 	Super::Activate();
 	
@@ -29,17 +29,17 @@ void UARTAIManager::Activate(bool bNewAutoActivate)
 	UE_LOG(LogTemp, Warning, TEXT("Number of AI at Start: %i"), AIList.Num());
 }
 
-TArray<AARTCharacterAI*> UARTAIManager::GetAIList() const
+TArray<AARTCharacterAI*> UARTAIConductor::GetAIList() const
 {
 	return AIList;
 }
 
-TArray<FVector> UARTAIManager::GetAIMoveToLocation()const
+TArray<FVector> UARTAIConductor::GetAIMoveToLocation()const
 {
 	return MoveLocations;
 }
 
-void UARTAIManager::AddAIToList(AARTCharacterAI* AI)
+void UARTAIConductor::AddAIToList(AARTCharacterAI* AI)
 {
 	if(AI && !AI->IsPendingKillPending())
 	{
@@ -47,13 +47,13 @@ void UARTAIManager::AddAIToList(AARTCharacterAI* AI)
 	}
 }
 
-void UARTAIManager::RemoveAIFromList(AARTCharacterAI* AI)
+void UARTAIConductor::RemoveAIFromList(AARTCharacterAI* AI)
 {
 	AIList.RemoveSingle(AI);
 	ActorLocationMap.Remove(AI);
 }
 
-void UARTAIManager::AddLocationToList(FVector InLocation)
+void UARTAIConductor::AddLocationToList(FVector InLocation)
 {
 	MoveLocations.Add(InLocation);
 }

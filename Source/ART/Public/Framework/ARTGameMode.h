@@ -12,7 +12,7 @@
  */
 enum class EWaveState : uint8;
 
-class UARTAIManager;
+class UARTAIConductor;
 
 UCLASS()
 class ART_API AARTGameMode : public AGameMode
@@ -21,14 +21,9 @@ class ART_API AARTGameMode : public AGameMode
 
 	AARTGameMode();
 	
-	UPROPERTY()
-    UARTAIManager* AIManager;
-	
 	void BeginPlay() override;
 	
 public:
-	//Returns pointer to the AIDirector in the world
-	UFUNCTION(BlueprintPure, BlueprintAuthorityOnly, Meta = (WorldContext = "WorldContextObject", CompactNodeTitle = "AIManager"), Category = "Level|LevelManager")
-    static class UARTAIManager* GetAIManager(const UObject* WorldContextObject);
+
 };
  

@@ -11,6 +11,8 @@
  */
 
 class AWeapon;
+class AEquipment;
+class UItem;
 
 USTRUCT()
 struct ART_API FSurvivorEquipment

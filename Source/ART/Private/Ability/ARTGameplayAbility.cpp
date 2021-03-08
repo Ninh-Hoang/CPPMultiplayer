@@ -25,6 +25,17 @@ UARTGameplayAbility::UARTGameplayAbility()
 
 	InteractingTag = FGameplayTag::RequestGameplayTag("State.Interacting");
 	InteractingRemovalTag = FGameplayTag::RequestGameplayTag("State.InteractingRemoval");
+	
+	auto ImplementedInBlueprint = [](const UFunction* Func) -> bool
+	{
+		return Func && ensure(Func->GetOuter())
+            && (Func->GetOuter()->IsA(UBlueprintGeneratedClass::StaticClass()) || Func->GetOuter()->IsA(UDynamicClass::StaticClass()));
+	};
+	{
+		static FName FuncName = FName(TEXT("K2_ScoreAbilityUtility"));
+		UFunction* ScoreUtilityFunction = GetClass()->FindFunctionByName(FuncName);
+		bHasBlueprintScoreUtility = ImplementedInBlueprint(ScoreUtilityFunction);
+	}
 }
 
 
@@ -106,8 +117,6 @@ void UARTGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle,
 	{
 		ASC->RegisterGameplayTagEvent(CancelTag, EGameplayTagEventType::NewOrRemoved).RemoveAll(this);
 	}
-	
-	AbilityEnd.Broadcast(bWasCancelled);
 }
 
 FARTGameplayEffectContainerSpec UARTGameplayAbility::MakeEffectContainerSpecFromContainer(
@@ -213,6 +222,19 @@ bool UARTGameplayAbility::IsPredictionKeyValidForMorePrediction() const
 {
 	UAbilitySystemComponent* ASC = GetAbilitySystemComponentFromActorInfo();
 	return ASC->ScopedPredictionKey.IsValidForMorePrediction();
+}
+
+float UARTGameplayAbility::ScoreAbilityUtility()
+{
+	if (!ensure(CurrentActorInfo))
+	{
+		return 0.0f;
+	}
+	if (bHasBlueprintScoreUtility)
+	{
+		return K2_ScoreAbilityUtility(*CurrentActorInfo);
+	}
+	return 0.0f;
 }
 
 bool UARTGameplayAbility::CanActivateAbility(const FGameplayAbilitySpecHandle Handle,

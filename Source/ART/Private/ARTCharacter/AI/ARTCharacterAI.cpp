@@ -8,9 +8,9 @@
 #include <Components/WidgetComponent.h>
 #include <Widget/ARTFloatingStatusBarWidget.h>
 
-#include "AI/ARTAIManager.h"
+#include "AI/ARTAIConductor.h"
 #include "ARTCharacter/AI/ARTNavigationInvokerComponent.h"
-#include "Framework/ARTGameMode.h"
+#include "Framework/ARTGameState.h"
 
 
 AARTCharacterAI::AARTCharacterAI(const class FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
@@ -63,7 +63,7 @@ void AARTCharacterAI::BeginPlay()
 	//Add AI to Director if it was not load from map (drop in map)
 	if(!HasAnyFlags(RF_WasLoaded))
 	{
-		AARTGameMode::GetAIManager(this)->AddAIToList(this);
+		AARTGameState::GetAIConductor(this)->AddAIToList(this);
 	}
 
 	if (IsValid(AbilitySystemComponent))
@@ -104,7 +104,7 @@ void AARTCharacterAI::BeginPlay()
 void AARTCharacterAI::FinishDying()
 {
 	//remove from AIManager
-	AARTGameMode::GetAIManager(this)->RemoveAIFromList(this);
+	AARTGameState::GetAIConductor(this)->RemoveAIFromList(this);
 	Super::FinishDying();
 }
 

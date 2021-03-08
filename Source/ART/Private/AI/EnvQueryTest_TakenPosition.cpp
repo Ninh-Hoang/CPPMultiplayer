@@ -3,9 +3,9 @@
 
 #include "AI/EnvQueryTest_TakenPosition.h"
 
-#include "AI/ARTAIManager.h"
+#include "AI/ARTAIConductor.h"
 #include "EnvironmentQuery/Items/EnvQueryItemType_VectorBase.h"
-#include "Framework/ARTGameMode.h"
+#include "Framework/ARTGameState.h"
 
 #define ENVQUERYTEST_DISTANCE_NAN_DETECTION 1
 
@@ -66,7 +66,7 @@ void UEnvQueryTest_TakenPosition::RunTest(FEnvQueryInstance& QueryInstance) cons
 	FloatValueMax.BindData(QueryOwner, QueryInstance.QueryID);
 	float MaxThresholdValue = FloatValueMax.GetValue();
 
-	TArray<FVector> ContextLocations = AARTGameMode::GetAIManager(this)->GetAIMoveToLocation();
+	TArray<FVector> ContextLocations = AARTGameState::GetAIConductor(this)->GetAIMoveToLocation();
 
 	switch (TestMode)
 	{

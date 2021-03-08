@@ -393,7 +393,6 @@
               <e p="ARTAbilitySystemGlobals.cpp" t="Include" />
               <e p="ARTActorBase.cpp" t="Include" />
               <e p="ARTGameplayAbility.cpp" t="Include" />
-              <e p="ARTGameplayAbilityTypes.h" t="Include" />
               <e p="ARTGameplayAbilityUIData.cpp" t="Include" />
               <e p="ARTGameplayCueManager.cpp" t="Include" />
               <e p="ARTGameplayEffect.cpp" t="Include" />
@@ -424,8 +423,25 @@
               </e>
             </e>
             <e p="AI" t="Include">
-              <e p="ARTAIManager.cpp" t="Include" />
+              <e p="ARTAIConductor.cpp" t="Include" />
+              <e p="Composites" t="Include">
+                <e p="BTComposite_Utility.cpp" t="Include" />
+              </e>
+              <e p="Decorators" t="Include">
+                <e p="BTDecorator_UtilityAbility.cpp" t="Include" />
+                <e p="BTDecorator_UtilityConstant.cpp" t="Include" />
+                <e p="BTDecorator_UtilityFunction.cpp" t="Include" />
+              </e>
               <e p="EnvQueryTest_TakenPosition.cpp" t="Include" />
+              <e p="Tasks" t="Include">
+                <e p="BTTask_ActivateAbility.cpp" t="Include" />
+                <e p="BTTask_GameplayTagBase.cpp" t="Include" />
+              </e>
+              <e p="Utility" t="Include">
+                <e p="BTUtilitySelectionMethod.cpp" t="Include" />
+                <e p="BTUtilitySelectionMethod_Highest.cpp" t="Include" />
+                <e p="BTUtilitySelectionMethod_Proportional.cpp" t="Include" />
+              </e>
             </e>
             <e p="ARTCharacter" t="Include">
               <e p="AI" t="Include">
@@ -459,7 +475,7 @@
             <e p="Framework" t="Include">
               <e p="ARTGameInstance.cpp" t="Include" />
               <e p="ARTGameMode.cpp" t="Include" />
-              <e p="SGameState.cpp" t="Include" />
+              <e p="ARTGameState.cpp" t="Include" />
               <e p="SteamSessionClass.cpp" t="Include" />
             </e>
             <e p="Item" t="Include">
@@ -515,6 +531,7 @@
               <e p="ARTActorBase.h" t="Include" />
               <e p="ARTGameplayAbility.h" t="Include" />
               <e p="ARTGameplayAbilityTypes.cpp" t="Include" />
+              <e p="ARTGameplayAbilityTypes.h" t="Include" />
               <e p="ARTGameplayAbilityUIData.h" t="Include" />
               <e p="ARTGameplayCueManager.h" t="Include" />
               <e p="ARTGameplayEffect.h" t="Include" />
@@ -545,8 +562,26 @@
               </e>
             </e>
             <e p="AI" t="Include">
-              <e p="ARTAIManager.h" t="Include" />
+              <e p="ARTAIConductor.h" t="Include" />
+              <e p="Composites" t="Include">
+                <e p="BTComposite_Utility.h" t="Include" />
+              </e>
+              <e p="Decorators" t="Include">
+                <e p="BTDecorator_UtilityAbility.h" t="Include" />
+                <e p="BTDecorator_UtilityConstant.h" t="Include" />
+                <e p="BTDecorator_UtilityFunction.h" t="Include" />
+              </e>
               <e p="EnvQueryTest_TakenPosition.h" t="Include" />
+              <e p="Tasks" t="Include">
+                <e p="BTTask_ActivateAbility.h" t="Include" />
+                <e p="BTTask_GameplayTagBase.h" t="Include" />
+              </e>
+              <e p="Utility" t="Include">
+                <e p="BTUtilitySelectionMethod.h" t="Include" />
+                <e p="BTUtilitySelectionMethod_Highest.h" t="Include" />
+                <e p="BTUtilitySelectionMethod_Proportional.h" t="Include" />
+                <e p="BTUtilityTypes.h" t="Include" />
+              </e>
             </e>
             <e p="ARTCharacter" t="Include">
               <e p="AI" t="Include">
@@ -580,7 +615,7 @@
             <e p="Framework" t="Include">
               <e p="ARTGameInstance.h" t="Include" />
               <e p="ARTGameMode.h" t="Include" />
-              <e p="SGameState.h" t="Include" />
+              <e p="ARTGameState.h" t="Include" />
               <e p="SteamSessionClass.h" t="Include" />
             </e>
             <e p="Item" t="Include">

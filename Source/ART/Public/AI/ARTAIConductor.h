@@ -5,18 +5,18 @@
 #include "CoreMinimal.h"
 
 #include "Components/ActorComponent.h"
-#include "ARTAIManager.generated.h"
+#include "ARTAIConductor.generated.h"
 
 class AARTCharacterAI;
 
 UCLASS()
-class ART_API UARTAIManager : public UActorComponent
+class ART_API UARTAIConductor : public UActorComponent
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	UARTAIManager();
+	UARTAIConductor();
 
 	void Activate(bool bNewAutoActivate) override;
 

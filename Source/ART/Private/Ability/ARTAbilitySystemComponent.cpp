@@ -123,8 +123,10 @@ void UARTAbilitySystemComponent::ReceiveDamage(UARTAbilitySystemComponent* Sourc
 }
 
 static TAutoConsoleVariable<float> CVarReplayMontageErrorThreshold(
-	TEXT("replay.MontageErrorThreshold"), 0.5f,
-	TEXT("Tolerance level for when montage playback position correction occurs in replays"));
+    TEXT("GS.replay.MontageErrorThreshold"),
+    0.5f,
+    TEXT("Tolerance level for when montage playback position correction occurs in replays")
+);
 
 void UARTAbilitySystemComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {

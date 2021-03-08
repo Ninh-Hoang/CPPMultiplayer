@@ -156,14 +156,7 @@ protected:
 
 	virtual void ShowDamageNumber();
 
-	//FOR AI/Manual Blueprint Ability Activation
-	UFUNCTION(BlueprintCallable, Category = "Abilities")
-	bool ActivateAbilitiesWithTags(FGameplayTagContainer AbilityTags, bool bAllowRemoteActivation = true);
-
-	/** Returns a list of active abilities matching the specified tags. This only returns if the ability is currently running */
-	UFUNCTION(BlueprintCallable, Category = "Abilities")
-	void GetActiveAbilitiesWithTags(FGameplayTagContainer AbilityTags, TArray<class UARTGameplayAbility*>& ActiveAbilities);
-
+	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -188,6 +181,14 @@ protected:
 	virtual void Restart() override;
 
 public:
+	//FOR AI/Manual Blueprint Ability Activation
+    UFUNCTION(BlueprintCallable, Category = "Abilities")
+    bool ActivateAbilitiesWithTags(FGameplayTagContainer AbilityTags, bool bAllowRemoteActivation = true);
+       
+    /** Returns a list of active abilities matching the specified tags. This only returns if the ability is currently running */
+    UFUNCTION(BlueprintCallable, Category = "Abilities")
+    void GetActiveAbilitiesWithTags(FGameplayTagContainer AbilityTags, TArray<class UARTGameplayAbility*>& ActiveAbilities);
+
 	// Switch on AbilityID to return individual ability levels. Hardcoded to 1 for every ability in this project.
 	UFUNCTION(BlueprintCallable, Category = "ART|Character")
 	virtual int32 GetAbilityLevel(EARTAbilityInputID AbilityID) const;

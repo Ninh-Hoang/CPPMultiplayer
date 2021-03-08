@@ -92,6 +92,8 @@ FNetworkPredictionData_Client* UARTCharacterMovementComponent::GetPredictionData
 //rotate stuffs
 FRotator UARTCharacterMovementComponent::GetDeltaRotation(float DeltaTime) const
 {
+	//return Owner->GetMoveSpeed();
+	
 	float YawRotateRate = 0.0f;
 
 	AARTCharacterBase* Owner = Cast<AARTCharacterBase>(GetOwner());
@@ -103,6 +105,21 @@ FRotator UARTCharacterMovementComponent::GetDeltaRotation(float DeltaTime) const
 	{
 		UE_LOG(LogTemp, Error, TEXT("%s() No Owner"), *FString(__FUNCTION__));
 		YawRotateRate = RotationRate.Yaw;
+	}
+
+	if (!Owner->IsAlive())
+	{
+		YawRotateRate = 0.0f;
+	}
+	
+	if (RequestToStartBlocking)
+	{
+		YawRotateRate = 0.0f;
+	}
+
+	if (RequestToStartAttacking)
+	{
+		YawRotateRate = 0.0f;
 	}
 
 	return FRotator(GetAxisDeltaRotation(RotationRate.Pitch, DeltaTime), GetAxisDeltaRotation(YawRotateRate, DeltaTime),
@@ -204,22 +221,22 @@ bool UARTCharacterMovementComponent::FARTSavedMove::CanCombineWith(const FSavedM
                                                                    float MaxDelta) const
 {
 	//Set which moves can be combined together. This will depend on the bit flags that are used.
-	if (SavedRequestToStartSprinting != ((FARTSavedMove*)&NewMove)->SavedRequestToStartSprinting)
+	if (SavedRequestToStartSprinting != ((FARTSavedMove*)NewMove.Get())->SavedRequestToStartSprinting)
 	{
 		return false;
 	}
 
-	if (SavedRequestToStartADS != ((FARTSavedMove*)&NewMove)->SavedRequestToStartADS)
+	if (SavedRequestToStartADS != ((FARTSavedMove*)NewMove.Get())->SavedRequestToStartADS)
 	{
 		return false;
 	}
 
-	if (SavedRequestToStartBlocking != ((FARTSavedMove*)&NewMove)->SavedRequestToStartBlocking)
+	if (SavedRequestToStartBlocking != ((FARTSavedMove*)NewMove.Get())->SavedRequestToStartBlocking)
 	{
 		return false;
 	}
 
-	if (SavedRequestToStartAttacking != ((FARTSavedMove*)&NewMove)->SavedRequestToStartAttacking)
+	if (SavedRequestToStartAttacking != ((FARTSavedMove*)NewMove.Get())->SavedRequestToStartAttacking)
 	{
 		return false;
 	}
