@@ -429,6 +429,8 @@
               </e>
               <e p="Decorators" t="Include">
                 <e p="BTDecorator_UtilityAbility.cpp" t="Include" />
+                <e p="BTDecorator_UtilityBlackboard.cpp" t="Include" />
+                <e p="BTDecorator_UtilityBlueprintBase.cpp" t="Include" />
                 <e p="BTDecorator_UtilityConstant.cpp" t="Include" />
                 <e p="BTDecorator_UtilityFunction.cpp" t="Include" />
               </e>
@@ -568,6 +570,8 @@
               </e>
               <e p="Decorators" t="Include">
                 <e p="BTDecorator_UtilityAbility.h" t="Include" />
+                <e p="BTDecorator_UtilityBlackboard.h" t="Include" />
+                <e p="BTDecorator_UtilityBlueprintBase.h" t="Include" />
                 <e p="BTDecorator_UtilityConstant.h" t="Include" />
                 <e p="BTDecorator_UtilityFunction.h" t="Include" />
               </e>

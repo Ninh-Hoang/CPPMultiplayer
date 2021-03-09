@@ -14,7 +14,7 @@ UBTDecorator_UtilityAbility::UBTDecorator_UtilityAbility(const FObjectInitialize
 
 FString UBTDecorator_UtilityAbility::GetStaticDescription() const
 {
-	return FString::Printf(TEXT("Get Utility Score from Ability function."));
+	return FString::Printf(TEXT("Get Utility Score from Ability that: \n %s "), *CachedDescription);
 }
 
 void UBTDecorator_UtilityAbility::DescribeRuntimeValues(const UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory,
@@ -22,11 +22,9 @@ void UBTDecorator_UtilityAbility::DescribeRuntimeValues(const UBehaviorTreeCompo
 {
 	Super::DescribeRuntimeValues(OwnerComp, NodeMemory, Verbosity, Values);
 
-	FBTUtilityAbilityDecoratorMemory* MyMemory = (FBTUtilityAbilityDecoratorMemory*)NodeMemory;
-	if (MyMemory->UtilityScore)
-	{
-		Values.Add(FString::Printf(TEXT("Score: %s"), *FString::SanitizeFloat(MyMemory->UtilityScore)));
-	}
+	FBTUtilityAbilityDecoratorMemory* MyMemory = CastInstanceNodeMemory<FBTUtilityAbilityDecoratorMemory>(NodeMemory);
+
+	Values.Add(FString::Printf(TEXT("Ability Utility Score: %s"), *FString::SanitizeFloat(MyMemory->UtilityScore)));
 }
 
 void UBTDecorator_UtilityAbility::InitializeMemory(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory,
@@ -59,3 +57,21 @@ float UBTDecorator_UtilityAbility::CalculateUtilityValue(UBehaviorTreeComponent&
 	}
 	return 0.0f;
 }
+
+#if WITH_EDITOR
+void UBTDecorator_UtilityAbility::BuildDescription()
+{
+	CachedDescription = GameplayTagContainer.ToMatchingText(EGameplayContainerMatchType::All, IsInversed()).ToString();
+}
+
+void UBTDecorator_UtilityAbility::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
+{
+	Super::PostEditChangeProperty(PropertyChangedEvent);
+	if (PropertyChangedEvent.Property == NULL)
+	{
+		return;
+	}
+
+	BuildDescription();
+}
+#endif	// WITH_EDITOR

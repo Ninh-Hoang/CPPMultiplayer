@@ -22,3 +22,9 @@ float UBTDecorator_UtilityFunction::WrappedCalculateUtility(UBehaviorTreeCompone
 	return NodeOb ? NodeOb->CalculateUtilityValue(OwnerComp, NodeMemory) : 0.0f;
 }
 
+#if WITH_EDITOR
+FName UBTDecorator_UtilityFunction::GetNodeIconName() const
+{
+	return FName("BTEditor.Graph.BTNode.Decorator.ForceSuccess.Icon");
+}
+#endif	// WITH_EDITOR

@@ -6,129 +6,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="879561f1-dfda-4537-b838-a6709d37e8cc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/EnvironmentQuery/EnvQuery_AIConductor_LocationList.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Player/UE4Man_Survivor.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/crouch_idle.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/crouch_to_standing_idle.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_block_idle.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_block_react_large.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_block_react_large_Montage.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_disarm_over_shoulder.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_disarm_underarm.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_idle.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_idle_looking_ver__1.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_idle_looking_ver__2.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_jump.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_melee_attack_360_high.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_melee_attack_360_low.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_melee_attack_backhand.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_melee_attack_downward.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_melee_attack_horizontal.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_melee_attack_kick_ver__1.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_melee_attack_kick_ver__2.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_melee_combo_attack_ver__1.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_melee_combo_attack_ver__2.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_melee_combo_attack_ver__2_Montage.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_melee_combo_attack_ver__3.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_melee_run_jump_attack.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_react_large_from_left.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_react_large_from_right.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_react_large_from_right_Montage.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_react_large_gut.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_run_back.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_run_forward.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_taunt_battlecry.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_taunt_chest_thump.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_turn_left_90.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_turn_right_90.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_walk_back.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_walk_forward.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_walk_left.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_walk_right.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/unarmed_equip_over_shoulder.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/unarmed_equip_underarm.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/unarmed_idle.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/unarmed_idle_looking_ver__1.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/unarmed_idle_looking_ver__2.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/unarmed_jump.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/unarmed_jump_running.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/unarmed_run_back.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/unarmed_run_forward.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/unarmed_turn_left_90.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/unarmed_turn_right_90.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/unarmed_walk_back.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/unarmed_walk_forward.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/Random/Stand_To_Roll.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/Random/Stand_To_Roll_Montage.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/BS_Jog.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/BlockOutSurvivor_BP.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Composites/BTComposite_Utility.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Decorators/BTDecorator_UtilityAbility.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Decorators/BTDecorator_UtilityConstant.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Decorators/BTDecorator_UtilityFunction.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Tasks/BTTask_ActivateAbility.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Tasks/BTTask_GameplayTagBase.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Utility/BTUtilitySelectionMethod.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Utility/BTUtilitySelectionMethod_Highest.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Utility/BTUtilitySelectionMethod_Proportional.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Composites/BTComposite_Utility.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Decorators/BTDecorator_UtilityAbility.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Decorators/BTDecorator_UtilityConstant.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Decorators/BTDecorator_UtilityFunction.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Tasks/BTTask_ActivateAbility.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Tasks/BTTask_GameplayTagBase.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Utility/BTUtilitySelectionMethod.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Utility/BTUtilitySelectionMethod_Highest.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Utility/BTUtilitySelectionMethod_Proportional.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Utility/BTUtilityTypes.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/BlockOutAI/AI/Noice.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/BlockOutAI/AI/What.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Decorators/BTDecorator_UtilityBlackboard.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Decorators/BTDecorator_UtilityBlueprintBase.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Decorators/BTDecorator_UtilityBlackboard.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Decorators/BTDecorator_UtilityBlueprintBase.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Animation/UE_MX/UE_MX_Mannequin_Skeleton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Animation/UE_MX/UE_MX_Mannequin_Skeleton.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/BTTaskes/BTTask_UseAbility.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/BTTaskes/BTDecorator_ConeCheck.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/BTTaskes/BTDecorator_ConeCheck.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/BlockOutAI/AI/BlockOut_BT.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/BlockOutAI/AI/BlockOut_BT.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/BlockOutAI/Ability/GA_ZombieAttack.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/BlockOutAI/Ability/GA_ZombieAttack.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/EnvironmentQuery/EQS_Range.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/EnvironmentQuery/EQS_Range.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/EnvironmentQuery/EnvQuery_AIManagerLocationList.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Framework/BP_GameStateBase.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Framework/BP_GameStateBase.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Framework/Networking/MultiplayerGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Framework/Networking/MultiplayerGameMode.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/BP_ARTPlayerController.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/BP_ARTPlayerController.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/BP_Survivor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/BP_Survivor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/BS_Jog.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/BlockOutSurvivor_BP.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Curve_SurvivorAttributeSet.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Curve_SurvivorAttributeSet.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/DS_SurvivorAbilitySet.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/DS_SurvivorAbilitySet.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/GE_SurvivorAttributeSet.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/GE_SurvivorAttributeSet.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Roll/GA_Roll.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Roll/GA_Roll.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Staff/ShadowBall/GE_ShadowBall_Slow.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Staff/ShadowBall/GE_ShadowBall_Slow.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/BP_Sword.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/BP_Sword.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GA_AxeBlock.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GA_AxeBlock.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GA_AxeCombo.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GA_AxeCombo.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GA_KnockBack_Instant.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GA_KnockBack_Instant.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GA_KnockBack_Listen.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GA_KnockBack_Listen.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GE_Blocking.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GE_Blocking.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GE_KnockBack.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Sword/GE_KnockBack.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/BS_Jog.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/BS_Jog.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/MX_Animation/Converted/mx_Quick_Roll_To_Run_Anim.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/MX_Animation/Converted/mx_Quick_Roll_To_Run_Anim.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_melee_combo_attack_ver__2_Montage.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/AxePack/standing_melee_combo_attack_ver__2_Montage.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/Random/Stand_To_Roll.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/Random/Stand_To_Roll.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/Random/Stand_To_Roll_Montage.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CustomAsset/BlockOutCharacter/Random/Stand_To_Roll_Montage.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/Concept/Level.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Concept/Level.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/AI/ARTAIManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/AI/ARTAIConductor.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/AI/EnvQueryTest_TakenPosition.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/AI/EnvQueryTest_TakenPosition.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTCharacterAI.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTCharacterAI.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterBase.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterMovementComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterMovementComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTAbilitySystemComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTAbilitySystemComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbilityTypes.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayAbilityTypes.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Framework/ARTGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Framework/ARTGameMode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Framework/SGameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Framework/ARTGameState.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/AI/ARTAIManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/AI/ARTAIConductor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterBase.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTSurvivor.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTSurvivor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayAbility.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayAbility.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Framework/ARTGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Framework/ARTGameMode.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Framework/SGameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Framework/ARTGameState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/AI/Decorators/BTDecorator_UtilityAbility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Decorators/BTDecorator_UtilityAbility.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/AI/Decorators/BTDecorator_UtilityFunction.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Decorators/BTDecorator_UtilityFunction.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/AI/Decorators/BTDecorator_UtilityAbility.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Decorators/BTDecorator_UtilityAbility.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/AI/Decorators/BTDecorator_UtilityFunction.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Decorators/BTDecorator_UtilityFunction.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,6 +47,7 @@
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Templates/SharedPointer.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/NetSerialization.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Components/ActorComponent.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/BehaviorTree/BTDecorator.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/GameplayTags/Classes/GameplayTagContainer.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/AIController.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/Misc/RedirectCollector.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -191,6 +85,7 @@
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Containers/Array.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Private/BehaviorTree/Tasks/BTTask_BlueprintBase.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Public/UObject/Object.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Private/HAL/MallocTBB.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/GenericTeamAgentInterface.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Camera/PlayerCameraManager.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/EngineBaseTypes.h" root0="FORCE_HIGHLIGHTING" />
@@ -206,11 +101,6 @@
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayEffectTypes.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayEffectTypes.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTTargetFilter.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTBlueprintFunctionLibrary.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTBlueprintFunctionLibrary.h" />
       <option value="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_WaitGEAppliedSelf_Local.h" />
       <option value="$PROJECT_DIR$/Source/ART/Private/Ability/AbilityTask/AT_WaitGEAppliedSelf_Local.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTAbilitySystemComponent.cpp" />
@@ -244,19 +134,24 @@
       <option value="$PROJECT_DIR$/Source/ART/Public/AI/Composites/BTComposite_Utility.h" />
       <option value="$PROJECT_DIR$/Source/ART/Private/AI/Utility/BTComposite_Utility.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Private/AI/Tasks/BTTask_GameplayTagBase.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Decorators/BTDecorator_UtilityFunction.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterBase.h" />
       <option value="$PROJECT_DIR$/Source/ART/Public/AI/Tasks/BTTask_GameplayTagBase.h" />
       <option value="$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/Abilities/GameplayAbility.h" />
       <option value="$PROJECT_DIR$/Source/ART/Public/AI/Tasks/BTTask_ActivateAbility.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Tasks/BTTask_ActivateAbility.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayAbility.h" />
       <option value="$PROJECT_DIR$/Source/ART/Private/AI/Composites/BTComposite_Utility.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Private/AI/Decorators/BTDecorator_UtilityConstant.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Tasks/BTTask_ActivateAbility.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Decorators/BTDecorator_UtilityBlackboard.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Public/AI/Decorators/BTDecorator_UtilityConstant.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Decorators/BTDecorator_UtilityBlackboard.h" />
       <option value="$PROJECT_DIR$/Source/ART/Public/AI/Decorators/BTDecorator_UtilityAbility.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Decorators/BTDecorator_UtilityFunction.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Decorators/BTDecorator_UtilityFunction.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Private/AI/Decorators/BTDecorator_UtilityAbility.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Decorators/BTDecorator_UtilityBlueprintBase.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Decorators/BTDecorator_UtilityBlueprintBase.cpp" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1lBFe3M5fiXhaBDPEYgqBFdVSir" />
@@ -275,6 +170,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="XThreadsFramesViewSplitterKey" value="0.31682447" />
+    <property name="settings.editor.selected.configurable" value="CodeLensConfigurable" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="C++ Project.ART">
@@ -515,7 +411,7 @@
       <workItem from="1613901465191" duration="2206000" />
       <workItem from="1613956529100" duration="784000" />
       <workItem from="1614082276378" duration="54687000" />
-      <workItem from="1614924544293" duration="26442000" />
+      <workItem from="1614924544293" duration="36362000" />
     </task>
     <servers />
   </component>

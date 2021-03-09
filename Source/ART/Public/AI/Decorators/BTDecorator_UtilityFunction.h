@@ -18,8 +18,12 @@ class ART_API UBTDecorator_UtilityFunction : public UBTDecorator
 
 	/** wrapper for node instancing: CalculateUtilityValue */
 	float WrappedCalculateUtility(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const;
+	
+#if WITH_EDITOR
+	virtual FName GetNodeIconName() const override;
+#endif	// WITH_EDITOR
 
-	protected:
+protected:
 	/** Calculates the utility value of the associated behavior node. */
 	virtual float CalculateUtilityValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const;
 };

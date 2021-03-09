@@ -24,10 +24,21 @@ class ART_API UBTDecorator_UtilityAbility : public UBTDecorator_UtilityFunction
 	UPROPERTY(EditAnywhere, Category = "Utility")
 	FGameplayTagContainer GameplayTagContainer;
 
+	/** cached description */
+	UPROPERTY()
+	FString CachedDescription;
+
 	virtual FString GetStaticDescription() const override;
 	virtual void DescribeRuntimeValues(const UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, EBTDescriptionVerbosity::Type Verbosity, TArray<FString>& Values) const override;
 	virtual void InitializeMemory(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, EBTMemoryInit::Type InitType) const override;
 	virtual uint16 GetInstanceMemorySize() const override;
 protected:
 	virtual float CalculateUtilityValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const override;
+
+#if WITH_EDITOR
+	/** describe decorator and cache it */
+	virtual void BuildDescription();
+
+	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
+#endif
 };
