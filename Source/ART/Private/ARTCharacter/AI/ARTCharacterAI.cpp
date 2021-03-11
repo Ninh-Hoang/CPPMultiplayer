@@ -104,7 +104,7 @@ void AARTCharacterAI::BeginPlay()
 void AARTCharacterAI::FinishDying()
 {
 	//remove from AIManager
-	AARTGameState::GetAIConductor(this)->RemoveAIFromList(this);
+	if(HasAuthority()) AARTGameState::GetAIConductor(this)->RemoveAIFromList(this);
 	Super::FinishDying();
 }
 

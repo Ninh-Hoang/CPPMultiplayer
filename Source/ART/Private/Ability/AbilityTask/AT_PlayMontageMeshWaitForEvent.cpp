@@ -6,7 +6,6 @@
 #include "AbilitySystemGlobals.h"
 #include "Animation/AnimInstance.h"
 #include "Ability/ARTAbilitySystemComponent.h"
-#include "Ability/ARTGameplayAbility.h"
 #include "ART/ART.h"
 #include "GameFramework/Character.h"
 
@@ -15,6 +14,7 @@ UAT_PlayMontageMeshWaitForEvent::UAT_PlayMontageMeshWaitForEvent(const FObjectIn
 {
 	Rate = 1.f;
 	bStopWhenAbilityEnds = true;
+	bTickingTask = false;
 }
 
 UARTAbilitySystemComponent* UAT_PlayMontageMeshWaitForEvent::GetTargetASC()
@@ -139,7 +139,6 @@ void UAT_PlayMontageMeshWaitForEvent::Activate()
 
 	if (AbilitySystemComponent)
 	{
-		const FGameplayAbilityActorInfo* ActorInfo = Ability->GetCurrentActorInfo();
 		UAnimInstance* AnimInstance = Mesh->GetAnimInstance();
 		if (AnimInstance != nullptr)
 		{
@@ -181,13 +180,13 @@ void UAT_PlayMontageMeshWaitForEvent::Activate()
 		else
 		{
 			UE_LOG(LogTemp, Warning,
-			       TEXT("UGSAbilityTask_PlayMontageForMeshAndWaitForEvent call to PlayMontage failed!"));
+			       TEXT("UAbilityTask_PlayMontageForMeshAndWaitForEvent call to PlayMontage failed!"));
 		}
 	}
 	else
 	{
 		UE_LOG(LogTemp, Warning,
-		       TEXT("UGSAbilityTask_PlayMontageForMeshAndWaitForEvent called on invalid AbilitySystemComponent"));
+		       TEXT("UARTAbilityTask_PlayMontageForMeshAndWaitForEvent called on invalid AbilitySystemComponent"));
 	}
 
 	if (!bPlayedMontage)

@@ -2,7 +2,6 @@
 
 
 #include "Framework/ARTGameMode.h"
-#include "TimerManager.h"
 #include "Framework/ARTGameState.h"
 
 AARTGameMode::AARTGameMode()

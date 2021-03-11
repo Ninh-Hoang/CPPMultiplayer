@@ -12,14 +12,15 @@ AARTGameState::AARTGameState()
 
 void AARTGameState::BeginPlay()
 {
+	Super::BeginPlay();
 }
 
 UARTAIConductor* AARTGameState::GetAIConductor(const UObject* WorldContextObject)
 {
 	if(GEngine) {
 		UWorld* World = GEngine->GetWorldFromContextObjectChecked(WorldContextObject);
-		AARTGameState * GameMode = World->GetAuthGameMode<AARTGameState>();
-		if(GameMode) return GameMode->AIConductor;
+		AARTGameState * GameState = World->GetGameState<AARTGameState>();
+		if(GameState && GameState->AIConductor) return GameState->AIConductor;
 	}
 	return nullptr;
 }

@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/GameStateBase.h"
+#include "GameFramework/GameState.h"
 #include "ARTGameState.generated.h"
 
 /**
@@ -25,7 +25,7 @@ enum class EWaveState : uint8
 };
 
 UCLASS()
-class ART_API AARTGameState : public AGameStateBase
+class ART_API AARTGameState : public AGameState
 {
 	GENERATED_BODY()
 
@@ -37,17 +37,18 @@ protected:
           	
     UPROPERTY()
     UARTAIConductor* AIConductor;
+	
 	UFUNCTION()
 	void OnRep_WaveState(EWaveState OldState);
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void WaveStateChanged(EWaveState NewState, EWaveState OldState);
 
-	void BeginPlay() override;
+	virtual void BeginPlay() override;
 	
 public:
 	//Returns pointer to the AIDirector in the world
-	UFUNCTION(BlueprintPure, BlueprintAuthorityOnly, Meta = (WorldContext = "WorldContextObject", CompactNodeTitle = "AIManager"), Category = "Level|LevelManager")
+	UFUNCTION(BlueprintPure, BlueprintAuthorityOnly, Meta = (WorldContext = "WorldContextObject", CompactNodeTitle = "AIConductor"), Category = "Level|LevelManager")
     static class UARTAIConductor* GetAIConductor(const UObject* WorldContextObject);
 
 	void SetWaveState(EWaveState NewState);

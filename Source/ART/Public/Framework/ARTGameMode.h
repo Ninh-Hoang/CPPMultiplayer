@@ -10,6 +10,10 @@
 /**
  * 
  */
+
+class UARTAIConductor;
+
+
 enum class EWaveState : uint8;
 
 class UARTAIConductor;
@@ -21,8 +25,10 @@ class ART_API AARTGameMode : public AGameMode
 
 	AARTGameMode();
 	
-	void BeginPlay() override;
+	virtual void BeginPlay() override;
 	
+protected:
+
 public:
 
 };

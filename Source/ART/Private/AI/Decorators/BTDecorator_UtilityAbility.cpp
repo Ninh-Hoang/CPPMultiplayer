@@ -43,7 +43,7 @@ uint16 UBTDecorator_UtilityAbility::GetInstanceMemorySize() const
 float UBTDecorator_UtilityAbility::CalculateUtilityValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const
 {
 	const AAIController* AIOwner = OwnerComp.GetAIOwner();
-	AARTCharacterBase* Avatar = Cast<AARTCharacterBase>(AIOwner->GetPawn());
+	AARTCharacterBase* Avatar = AIOwner->GetPawn<AARTCharacterBase>();
 	if(Avatar)
 	{
 		TArray<UARTGameplayAbility*> Abilities;

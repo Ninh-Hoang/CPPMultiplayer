@@ -380,6 +380,7 @@
             <e p="Ability" t="Include">
               <e p="AbilityTask" t="Include">
                 <e p="AT_LookAtCursor.cpp" t="Include" />
+                <e p="AT_MontageDeltaCorrection.cpp" t="Include" />
                 <e p="AT_PlayMontageMeshWaitForEvent.cpp" t="Include" />
                 <e p="AT_ServerWaitForClientTargetData.cpp" t="Include" />
                 <e p="AT_SpawnActorComponent.cpp" t="Include" />
@@ -519,6 +520,7 @@
             <e p="Ability" t="Include">
               <e p="AbilityTask" t="Include">
                 <e p="AT_LookAtCursor.h" t="Include" />
+                <e p="AT_MontageDeltaCorrection.h" t="Include" />
                 <e p="AT_PlayMontageMeshWaitForEvent.h" t="Include" />
                 <e p="AT_ServerWaitForClientTargetData.h" t="Include" />
                 <e p="AT_SpawnActorComponent.h" t="Include" />
