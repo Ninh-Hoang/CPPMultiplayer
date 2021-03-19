@@ -4,6 +4,7 @@
 #include "Ability/AbilityTask/AT_MontageDeltaCorrection.h"
 #include "Ability/ARTAbilitySystemComponent.h"
 #include "ART/ART.h"
+#include "ARTCharacter/ARTCharacterMovementComponent.h"
 
 UAT_MontageDeltaCorrection::UAT_MontageDeltaCorrection(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -19,7 +20,8 @@ UAT_MontageDeltaCorrection::UAT_MontageDeltaCorrection(const FObjectInitializer&
 	OffSetRotation = FRotator(0, 0, 0);
 
 	RootEndLocation = FVector(0, 0, 0);
-	RootEndRotation = FRotator(0, 0, 0);
+	ActorEndRotation = FRotator(0, 0, 0);
+	ActorEndLocation = FVector(0, 0, 0);
 
 	CurrentLocationCorrection = FVector(0, 0, 0);;
 	CurrentRotationCorrection = FRotator(0, 0, 0);
@@ -43,11 +45,17 @@ UAT_MontageDeltaCorrection* UAT_MontageDeltaCorrection::MontageDeltaCorrect(
 	FGameplayTagContainer InLocationEventTags,
 	FGameplayTagContainer InRotationEventTags,
 	FVector InCorrectTarget,
-	FRotator InCorrectRotation,
+	FVector InCorrectRotationTarget,
+	FRotator InRotatePivotOffset,
 	AActor* InActorTarget,
 	float InMontagePlayRate,
 	float InRootMotionTranslationScale,
-	float InExpoAngle)
+	float InExpoAngle,
+	bool InVelocityLimit,
+	bool InRotationSpeedLimit,
+	float InVelocity,
+	float InRotationSpeed,
+	bool InDrawBug)
 {
 	UAT_MontageDeltaCorrection* MyObj = NewAbilityTask<UAT_MontageDeltaCorrection>(InOwningAbility, TaskInstanceName);
 	MyObj->Skeletal = InSkeletal;
@@ -55,11 +63,17 @@ UAT_MontageDeltaCorrection* UAT_MontageDeltaCorrection::MontageDeltaCorrect(
 	MyObj->LocationEventTags = InLocationEventTags;
 	MyObj->RotationEventTags = InRotationEventTags;
 	MyObj->CorrectTarget = InCorrectTarget;
-	MyObj->CorrectRotation = InCorrectRotation;
+	MyObj->CorrectRotationTarget = InCorrectRotationTarget;
+	MyObj->RotatePivotOffset = InRotatePivotOffset;
 	MyObj->ActorTarget = InActorTarget;
 	MyObj->MontagePlayRate = InMontagePlayRate;
 	MyObj->RootMotionTranslationScale = InRootMotionTranslationScale;
 	MyObj->ExpoAngle = InExpoAngle;
+	MyObj->DrawDebug = InDrawBug;
+	MyObj->VelocityLimit = InVelocityLimit;
+	MyObj->RotationSpeedLimit = InRotationSpeedLimit;
+	MyObj->Velocity = InVelocity;
+	MyObj->RotationSpeed = InRotationSpeed;
 
 	//combine tags
 	MyObj->CombineEventTags.AppendTags(MyObj->LocationEventTags);
@@ -80,8 +94,11 @@ void UAT_MontageDeltaCorrection::Activate()
 		return;
 	}
 
+	RootStartLocation = Skeletal->GetBoneLocation(Skeletal->GetBoneName(0), EBoneSpaces::WorldSpace);
+	MontageStartTime = GetWorld()->GetTimeSeconds();
+
 	UARTAbilitySystemComponent* ARTAbilitySystemComponent = GetTargetASC();
-	if (AbilitySystemComponent)
+	if (AbilitySystemComponent && !CombineEventTags.IsEmpty())
 	{
 		// Bind to event callback
 		EventHandle = ARTAbilitySystemComponent->AddGameplayEventTagContainerDelegate(
@@ -107,59 +124,70 @@ void UAT_MontageDeltaCorrection::TickTask(float DeltaTime)
 	{
 		LocationAlpha += (DeltaTime / RemainingDeltaTimeLocation);
 		LocationAlpha = FMath::Clamp(LocationAlpha, 0.0f, 1.0f);
+
 		FVector LerpOffset = FMath::InterpEaseInOut(FVector(0, 0, 0), OffSetVector, LocationAlpha, ExpoAngle);
 
 		FVector DeltaCorrectionTick = LerpOffset - CurrentLocationCorrection;
 
-		GetAvatarActor()->SetActorLocation(GetAvatarActor()->GetActorLocation() + DeltaCorrectionTick);
+		if (VelocityLimit) DeltaCorrectionTick = DeltaCorrectionTick.GetClampedToMaxSize(Velocity * DeltaTime); 
 
+		GetAvatarActor()->AddActorWorldOffset(DeltaCorrectionTick);
 		CurrentLocationCorrection = LerpOffset;
+		//GetAvatarActor()->SetActorLocation(GetAvatarActor()->GetActorLocation() +(DeltaTime / RemainingDeltaTimeLocation) * OffSetVector );
 		if (!UseActorTarget)
 		{
 			OffSetVector = CorrectTarget - RootEndLocation;
-			//DrawDebugSphere(GetWorld(), RootEndLocation, 200.0f,12, FColor::Red, false, 0, 0, 2);
-			//DrawDebugSphere(GetWorld(), CorrectTarget, 200.0f,12, FColor::Green, false, 0, 0, 2);
-			//DrawDebugSphere(GetWorld(), CorrectTarget, 200.0f, 12, FColor::Cyan, false, 0, 0, 2);
 		}
 		else
 		{
 			OffSetVector = ActorTarget->GetActorLocation() - RootEndLocation;
-			//DrawDebugSphere(GetWorld(), ActorTarget->GetActorLocation(), 200.0f, 12, FColor::Yellow, false, 0, 0, 2);
+		}
+
+		if (DrawDebug)
+		{
+			DrawDeltaCorrectionDebug(RootEndLocation, 50, FColor::Yellow, 0);
+			DrawDeltaCorrectionDebug(RootStartLocation, 50, FColor::Red, 0);
+			if(!UseActorTarget) DrawDeltaCorrectionDebug(CorrectTarget, 50, FColor::Green, 0);
+			else DrawDeltaCorrectionDebug(CorrectTarget, 50, FColor::Green, 0);
+
+			FVector CurrentRootLocation = Skeletal->GetBoneLocation(Skeletal->GetBoneName(0));
+			DrawDeltaCorrectionDebug(CurrentRootLocation, 5, FColor::Blue, DeltaCorrectionTimeLocation);
 		}
 	}
 	if (RotationDeltaCorrectionActivated)
 	{
 		RotationAlpha += (DeltaTime / RemainingDeltaTimeRotation);
 		RotationAlpha = FMath::Clamp(RotationAlpha, 0.0f, 1.0f);
+
 		FRotator LerpOffset = FMath::InterpEaseInOut(FRotator(0, 0, 0), OffSetRotation, RotationAlpha, ExpoAngle);
-
 		FRotator DeltaCorrectionTick = LerpOffset - CurrentRotationCorrection;
+		
+		if(RotationSpeedLimit) DeltaCorrectionTick = FRotator(0,FMath::Clamp(DeltaCorrectionTick.Yaw,0.f,RotationSpeed *DeltaTime),0);
 
-		GetAvatarActor()->SetActorRotation(GetAvatarActor()->GetActorRotation() + DeltaCorrectionTick);
+		GetAvatarActor()->AddActorWorldRotation(DeltaCorrectionTick);
 
 		CurrentRotationCorrection = LerpOffset;
 		if (!UseActorTarget)
 		{
-			//OffSetVector = CorrectTarget - RootEndLocation;
-			//DrawDebugSphere(GetWorld(), CorrectTarget, 200.0f, 12, FColor::Cyan, false, 0, 0, 2);
+			FRotator LookAtRotation = FRotator(0.f, (CorrectRotationTarget - ActorEndLocation).Rotation().Yaw, 0.f);
+			OffSetRotation = (LookAtRotation - ActorEndRotation).GetDenormalized();
 		}
 		else
 		{
-			//OffSetVector = ActorTarget->GetActorLocation() - RootEndLocation;
-			//DrawDebugSphere(GetWorld(), ActorTarget->GetActorLocation(), 200.0f, 12, FColor::Yellow, false, 0, 0, 2);
+			FRotator LookAtRotation = FRotator(0.f, (ActorTarget->GetActorLocation() - ActorEndLocation).Rotation().Yaw,
+			                                   0.f);
+			OffSetRotation = (LookAtRotation - ActorEndRotation).GetDenormalized();;
 		}
 	}
 }
 
 void UAT_MontageDeltaCorrection::OnDestroy(bool AbilityEnded)
 {
-	UARTAbilitySystemComponent* ARTAbilitySystemComponent = GetTargetASC();
-	if (ARTAbilitySystemComponent)
-	{
-		ARTAbilitySystemComponent->RemoveGameplayEventTagContainerDelegate(CombineEventTags, EventHandle);
-	}
-
+	if (UARTAbilitySystemComponent* ARTAbilitySystemComponent = GetTargetASC()) ARTAbilitySystemComponent->RemoveGameplayEventTagContainerDelegate(CombineEventTags, EventHandle);
+	
 	GetWorld()->GetTimerManager().ClearAllTimersForObject(this);
+	
+	if(UARTCharacterMovementComponent* MoveComp = GetTargetMovementComp()) MoveComp->SetMovementMode(EMovementMode::MOVE_Flying);
 
 	Super::OnDestroy(AbilityEnded);
 }
@@ -178,139 +206,140 @@ void UAT_MontageDeltaCorrection::ExternalSetCorrectionLocation(FVector InLocatio
 	}
 }
 
-void UAT_MontageDeltaCorrection::ExternalSetCorrectionRotation(FRotator InRotator)
+void UAT_MontageDeltaCorrection::ExternalSetCorrectionRotation(FVector InRotationTarget)
 {
-	CorrectRotation = InRotator;
+	CorrectRotationTarget = InRotationTarget;
 }
 
 void UAT_MontageDeltaCorrection::OnGameplayEvent(FGameplayTag EventTag, const FGameplayEventData* Payload)
 {
-	UAnimInstance* AnimInstance = Skeletal->GetAnimInstance();
-	if (AnimInstance)
+	if (EventTag.MatchesAny(LocationEventTags))
 	{
-		if (EventTag.MatchesAny(LocationEventTags))
+		//DELTA CORRECTION FOR LOCATION INIT
+		LocationDeltaCorrectionActivated = true;
+
+		if(UARTCharacterMovementComponent* MoveComp = GetTargetMovementComp()) MoveComp->SetMovementMode(EMovementMode::MOVE_Flying);
+
+		//interpolation
+		LocationAlpha = 0.0f;
+		CurrentLocationCorrection = FVector(0, 0, 0);
+
+		//set time
+		DeltaCorrectionTimeLocation = Payload->EventMagnitude / MontagePlayRate;
+		RemainingDeltaTimeLocation = DeltaCorrectionTimeLocation;
+
+		float StartTrackPosition = GetWorld()->GetTimeSeconds() - MontageStartTime;
+		float EndTrackPosition = StartTrackPosition + RemainingDeltaTimeLocation;
+
+		//calculate root end 
+		FTransform RootExtract = MontageToCorrect->ExtractRootMotionFromTrackRange(
+			StartTrackPosition, EndTrackPosition);
+
+		FTransform RootWorldTransform = Skeletal->ConvertLocalRootMotionToWorld(RootExtract);
+		FVector CurrentRootLocation = Skeletal->GetBoneLocation(Skeletal->GetBoneName(0));
+
+		RootEndLocation = CurrentRootLocation + RootWorldTransform.GetTranslation();
+
+		//calculate offset distance
+		if (!UseActorTarget) OffSetVector = CorrectTarget - RootEndLocation ;
+		else OffSetVector = ActorTarget->GetActorLocation() - RootEndLocation;
+
+		OnLocationCorrectStart.Broadcast(LocationCorrectionIndex);
+
+		GetWorld()->GetTimerManager().SetTimer(LocationDeltaTimerHandle,
+		                                       this,
+		                                       &UAT_MontageDeltaCorrection::EndLocationCorrection,
+		                                       RemainingDeltaTimeLocation,
+		                                       false);
+	}
+	else
+	{
+		/*
+		* DELTA CORRECTION FOR ROTATION INIT
+		*/
+		RotationDeltaCorrectionActivated = true;
+
+		//interpolation
+		RotationAlpha = 0.0f;
+		CurrentRotationCorrection = FRotator(0, 0, 0);
+
+		//set time
+		DeltaCorrectionTimeRotation = Payload->EventMagnitude / MontagePlayRate;
+		RemainingDeltaTimeRotation = DeltaCorrectionTimeRotation;
+
+		float StartTrackPosition = GetWorld()->GetTimeSeconds() - MontageStartTime;
+		float EndTrackPosition = StartTrackPosition + RemainingDeltaTimeRotation;
+
+		//calculate root end
+		FTransform RootExtract = MontageToCorrect->ExtractRootMotionFromTrackRange(
+			StartTrackPosition, EndTrackPosition);
+
+		FTransform RootWorldTransform = Skeletal->ConvertLocalRootMotionToWorld(RootExtract);
+		FRotator CurrentRootRotation = Skeletal->GetBoneQuaternion(Skeletal->GetBoneName(0)).Rotator();
+		FVector CurrentRootLocation = Skeletal->GetBoneLocation(Skeletal->GetBoneName(0));
+
+		//calculate offset rotation
+		ActorEndRotation = GetAvatarActor()->GetActorRotation() + FRotator(
+			0, RootExtract.GetRotation().Rotator().Yaw, 0);
+		ActorEndLocation = GetAvatarActor()->GetActorLocation() + RootWorldTransform.GetTranslation();
+		ActorEndRotation += RotatePivotOffset;
+
+		FRotator LookAtRotation;
+		if (!UseActorTarget) LookAtRotation = FRotator(0.f, (CorrectRotationTarget - ActorEndLocation).Rotation().Yaw, 0.f);	
+		else LookAtRotation = FRotator(0.f, (ActorTarget->GetActorLocation() - ActorEndLocation).Rotation().Yaw, 0.f);
+		
+		OffSetRotation = (LookAtRotation - ActorEndRotation).GetDenormalized();
+
+		if (DrawDebug)
 		{
-			/*
-			* DELTA CORRECTION FOR LOCATION INIT
-			*/
-			LocationDeltaCorrectionActivated = true;
-
-			//interpolation
-			LocationAlpha = 0.0f;
-			CurrentLocationCorrection = FVector(0, 0, 0);
-
-			//set Movement mode
-			//Cast<UARTCharacterMovementComponent>(Ability->GetActorInfo().MovementComponent)->SetMovementMode(EMovementMode::MOVE_Flying);
-
-			///get active montage instance
-			FAnimMontageInstance* MontageInstance = AnimInstance->GetActiveInstanceForMontage(MontageToCorrect);
-
-			//set time
-			DeltaCorrectionTimeLocation = Payload->EventMagnitude / MontagePlayRate;
-			RemainingDeltaTimeLocation = DeltaCorrectionTimeLocation;
-
-			//get rootmotion transform
-			float IntOut;
-			FRootMotionMovementParams RootParms;
-			MontageInstance->SimulateAdvance(Payload->EventMagnitude / MontagePlayRate, IntOut, RootParms);
-			FTransform RootMotionTransform = RootParms.GetRootMotionTransform();
-
-			FRotator RootTemp = FRotator(0,0,0);
-			FVector RootMotionTranslation = RootMotionTransform.GetTranslation() * RootMotionTranslationScale;
-			FRotator RootMotionRotation = RootMotionTransform.GetRotation().Rotator();
-			Skeletal->TransformFromBoneSpace(Skeletal->GetBoneName(0),
-			                                 RootMotionTranslation,
-			                                 RootMotionRotation,
-			                                 RootEndLocation,
-			                                 RootTemp);
-
-			//DrawDebugSphere(GetWorld(), RootEndLocation, 200.0f,12, FColor::Red, false, 3, 0, 2);
-
-			//calculate offset distance and rotation
-			//offsetgravity
-			if (!UseActorTarget) OffSetVector = CorrectTarget - RootEndLocation;
-			else OffSetVector = ActorTarget->GetActorLocation() - RootEndLocation;
-
-			OnLocationCorrectStart.Broadcast(LocationCorrectionIndex);
-
-			FTimerDelegate TimerCallback;
-			TimerCallback.BindLambda([this]
-			{
-				LocationDeltaCorrectionActivated = false;
-				OnLocationCorrectEnd.Broadcast(LocationCorrectionIndex);
-				LocationCorrectionIndex++;
-			});
-			GetWorld()->GetTimerManager().SetTimer(LocationDeltaTimerHandle, TimerCallback, DeltaCorrectionTimeLocation,
-			                                       false);
-		}
-		else
-		{
-			/*
-			* DELTA CORRECTION FOR ROTATION INIT
-			*/
-			RotationDeltaCorrectionActivated = true;
-
-			//interpolation
-			RotationAlpha = 0.0f;
-			CurrentRotationCorrection = FRotator(0, 0, 0);
-
-			//set Movement mode
-			//Cast<UARTCharacterMovementComponent>(Ability->GetActorInfo().MovementComponent)->SetMovementMode(EMovementMode::MOVE_Flying);
-
-			///get active montage instance
-			FAnimMontageInstance* MontageInstance = AnimInstance->GetActiveInstanceForMontage(MontageToCorrect);
-
-			//set time
-			DeltaCorrectionTimeRotation = Payload->EventMagnitude / MontagePlayRate;
-			RemainingDeltaTimeRotation = DeltaCorrectionTimeRotation;
-
-			//get rootmotion transform
-			float IntOut;
-			FRootMotionMovementParams RootParms;
-			MontageInstance->SimulateAdvance(DeltaCorrectionTimeRotation, IntOut, RootParms);
-			FTransform RootMotionTransform = RootParms.GetRootMotionTransform();
-
-			FVector RootTemp = FVector(0,0,0);
-			FVector RootMotionTranslation = RootMotionTransform.GetTranslation() * RootMotionTranslationScale;
-			FRotator RootMotionRotation = RootMotionTransform.GetRotation().Rotator();
-			Skeletal->TransformFromBoneSpace(Skeletal->GetBoneName(0),
-			                                 RootMotionTranslation,
-			                                 RootMotionRotation,
-			                                 RootTemp,
-			                                 RootEndRotation);
-
-			//calculate offset distance and rotation
-			//offsetgravity
-			RootEndRotation = GetAvatarActor()->GetActorRotation();
-			OffSetRotation = CorrectRotation - RootEndRotation;
-
 			FVector StartTrace = GetAvatarActor()->GetActorLocation();
 			FVector EndTrace = StartTrace + GetAvatarActor()->GetActorForwardVector() * 300;
 			FVector EndTraceCorrect = EndTrace;
-			EndTraceCorrect = CorrectRotation.RotateVector(EndTraceCorrect);
-			/*DrawDebugLine(GetWorld(), StartTrace, EndTrace, FColor::Red, false, 3.f, 0.f, 3.f);
-			if (!UseActorTarget)
-				DrawDebugLine(GetWorld(), StartTrace, EndTraceCorrect, FColor::Green, false, 3.f, 0.f, 3.f);
-			else
-				DrawDebugSphere(GetWorld(), ActorTarget->GetActorLocation(), 200.0f, 12, FColor::Yellow, false,
-				                0, 0, 2);*/
-
-			OnRotationCorrectStart.Broadcast(RotationCorrectionIndex);
-
-			FTimerDelegate TimerCallback;
-			TimerCallback.BindLambda([this]
-			{
-				RotationDeltaCorrectionActivated = false;
-				OnRotationCorrectEnd.Broadcast(RotationCorrectionIndex);
-				RotationCorrectionIndex++;
-			});
-			GetWorld()->GetTimerManager().SetTimer(RotationDeltaTimerHandle, TimerCallback, DeltaCorrectionTimeRotation,
-			                                       false);
+			//EndTraceCorrect = CorrectRotation.RotateVector(EndTraceCorrect);
 		}
+		UE_LOG(LogTemp, Warning, TEXT("Look At Rot: %s"), *CurrentRootRotation.ToString());
+
+		OnRotationCorrectStart.Broadcast(RotationCorrectionIndex);
+
+		GetWorld()->GetTimerManager().SetTimer(RotationDeltaTimerHandle,
+		                                       this,
+		                                       &UAT_MontageDeltaCorrection::EndRotationCorrection,
+		                                       RemainingDeltaTimeRotation,
+		                                       false);
 	}
 }
 
 UARTAbilitySystemComponent* UAT_MontageDeltaCorrection::GetTargetASC()
 {
 	return Cast<UARTAbilitySystemComponent>(AbilitySystemComponent);
+}
+
+UARTCharacterMovementComponent* UAT_MontageDeltaCorrection::GetTargetMovementComp()
+{
+	return Cast<UARTCharacterMovementComponent>(Ability->GetActorInfo().MovementComponent);
+}
+
+void UAT_MontageDeltaCorrection::DrawDeltaCorrectionDebug(FVector Location, float Radius, FColor Color, float Time)
+{
+#if ENABLE_DRAW_DEBUG
+	if (DrawDebug)
+	{
+		DrawDebugSphere(GetWorld(), Location, Radius, 12, Color, false, Time, 0, 2);
+	}
+#endif
+}
+
+void UAT_MontageDeltaCorrection::EndLocationCorrection()
+{
+	LocationDeltaCorrectionActivated = false;
+	if(UARTCharacterMovementComponent* MoveComp = GetTargetMovementComp()) MoveComp->SetMovementMode(EMovementMode::MOVE_Walking);
+	OnLocationCorrectEnd.Broadcast(LocationCorrectionIndex);
+	LocationCorrectionIndex++;
+}
+
+void UAT_MontageDeltaCorrection::EndRotationCorrection()
+{
+	RotationDeltaCorrectionActivated = false;
+	OnRotationCorrectEnd.Broadcast(RotationCorrectionIndex);
+	RotationCorrectionIndex++;
 }

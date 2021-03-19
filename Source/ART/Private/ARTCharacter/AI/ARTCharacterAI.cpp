@@ -36,7 +36,7 @@ AARTCharacterAI::AARTCharacterAI(const class FObjectInitializer& ObjectInitializ
 	// automatically registers the AttributeSet with the AbilitySystemComponent
 	if(AttributeSetClass)
 	{
-		HardRefAttributeSetBase = Cast<UARTCharacterAttributeSet>(CreateDefaultSubobject(TEXT("AttributeSetBase"), AttributeSetClass, AttributeSetClass, true, false, false));
+		HardRefAttributeSetBase = Cast<UARTCharacterAttributeSet>(CreateDefaultSubobject(TEXT("AttributeSetBase"), AttributeSetClass, AttributeSetClass, true,  false));
 	}
 	else
 	{

@@ -466,6 +466,7 @@
             </e>
             <e p="ARTEngineSubsystem.cpp" t="Include" />
             <e p="Blueprint" t="Include">
+              <e p="AnimNotifyState_DeltaCorrection.cpp" t="Include" />
               <e p="ARTBlueprintFunctionLibrary.cpp" t="Include" />
               <e p="ARTCurve.cpp" t="Include" />
               <e p="ARTTargetFilter.cpp" t="Include" />
@@ -609,6 +610,7 @@
             </e>
             <e p="ARTEngineSubsystem.h" t="Include" />
             <e p="Blueprint" t="Include">
+              <e p="AnimNotifyState_DeltaCorrection.h" t="Include" />
               <e p="ARTBlueprintFunctionLibrary.h" t="Include" />
               <e p="ARTCurve.h" t="Include" />
               <e p="ARTTargetFilter.h" t="Include" />
