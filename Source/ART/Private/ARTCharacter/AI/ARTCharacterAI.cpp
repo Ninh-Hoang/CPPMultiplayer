@@ -9,6 +9,9 @@
 #include <Widget/ARTFloatingStatusBarWidget.h>
 
 #include "AI/ARTAIConductor.h"
+#include "AI/Order/ARTAutoOrderComponent.h"
+#include "AI/Order/ARTOrderComponent.h"
+#include "AI/Order/ARTSelectComponent.h"
 #include "ARTCharacter/AI/ARTNavigationInvokerComponent.h"
 #include "Framework/ARTGameState.h"
 
@@ -46,6 +49,13 @@ AARTCharacterAI::AARTCharacterAI(const class FObjectInitializer& ObjectInitializ
 	// Set our parent's TWeakObjectPtr
 	AttributeSetBase = HardRefAttributeSetBase;
 
+	//selectcomp
+	SelectComponent = CreateDefaultSubobject<UARTSelectComponent>(TEXT("SelectComponent"));
+	
+	//create order comps
+	OrderComponent = CreateDefaultSubobject<UARTOrderComponent>(TEXT("OrderComponent"));
+	AutoOrderComponent = CreateDefaultSubobject<UARTAutoOrderComponent>(TEXT("AutoOrderComponent"));
+	
 	//set collision
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
 

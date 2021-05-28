@@ -4,3 +4,7 @@
 #include "Modules/ModuleManager.h"
 
 IMPLEMENT_PRIMARY_GAME_MODULE(FDefaultGameModuleImpl, ART, "ART");
+
+#if WITH_EDITOR
+DEFINE_LOG_CATEGORY(LogOrder)
+#endif

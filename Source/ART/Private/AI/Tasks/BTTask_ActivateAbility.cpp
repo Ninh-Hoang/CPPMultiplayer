@@ -4,6 +4,7 @@
 #include "AI/Tasks/BTTask_ActivateAbility.h"
 
 #include "Ability/ARTGameplayAbility.h"
+#include "AI/Order/ARTOrderComponent.h"
 #include "ARTCharacter/ARTCharacterBase.h"
 
 UBTTask_ActivateAbility::UBTTask_ActivateAbility(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
@@ -18,19 +19,35 @@ EBTNodeResult::Type UBTTask_ActivateAbility::ExecuteTask(UBehaviorTreeComponent&
 	const AController* MyController = Cast<AController>(OwnerComp.GetOwner());
 	APawn* MyPawn = MyController ? MyController->GetPawn() : NULL;
 
-	if(!MyPawn)
+	if (!MyPawn)
 	{
 		return EBTNodeResult::Failed;
 	}
-	if(AARTCharacterBase* AvatarActor = Cast<AARTCharacterBase>(MyPawn))
+	if (AARTCharacterBase* AvatarActor = Cast<AARTCharacterBase>(MyPawn))
 	{
-		bool Activated = AvatarActor->ActivateAbilitiesWithTags(GameplayTagContainer, false);
-		
-		if(!Activated) return EBTNodeResult::Failed;
-		if(InstantExecute) return EBTNodeResult::Succeeded;
+		if (UseOrderTags)
+		{
+			UARTOrderComponent* OrderComp = AvatarActor->FindComponentByClass<UARTOrderComponent>();
+			GameplayTagContainer = OrderComp->GetCurrentOrderTagContainer();
+		}
 
 		ASC = AvatarActor->GetAbilitySystemComponent();
+		TArray<FGameplayAbilitySpec*> SpecArray;
+		ASC->GetActivatableGameplayAbilitySpecsByAllMatchingTags(GameplayTagContainer, SpecArray, false);
+		if(SpecArray.Num() <1 ) return EBTNodeResult::Failed;
+
+		TArray<UGameplayAbility*> InstanceAbilities = SpecArray[0]->GetAbilityInstances();
+		if(InstanceAbilities.Num() < 1) return EBTNodeResult::Failed;
+		
+		ActiveAbility = SpecArray[0]->GetAbilityInstances()[0];
+		
 		OnAbilityEndHandle = ASC->OnAbilityEnded.AddUObject(this, &UBTTask_ActivateAbility::OnAbilityEnded);
+		
+		bool Activated = AvatarActor->ActivateAbilitiesWithTags(GameplayTagContainer, false);
+
+		if (!Activated) return EBTNodeResult::Failed;
+		if (InstantExecute) return EBTNodeResult::Succeeded;
+
 
 		MyOwnerComp = &OwnerComp;
 		return EBTNodeResult::InProgress;
@@ -38,17 +55,29 @@ EBTNodeResult::Type UBTTask_ActivateAbility::ExecuteTask(UBehaviorTreeComponent&
 	return EBTNodeResult::Failed;
 }
 
+
+void UBTTask_ActivateAbility::OnTaskFinished(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory,
+	EBTNodeResult::Type TaskResult)
+{
+	ASC->OnAbilityEnded.Remove(OnAbilityEndHandle);
+	Super::OnTaskFinished(OwnerComp, NodeMemory, TaskResult);
+}
+
 EBTNodeResult::Type UBTTask_ActivateAbility::AbortTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	ASC->OnAbilityEnded.Remove(OnAbilityEndHandle);
-	return EBTNodeResult::Aborted;
+	return Super::AbortTask(OwnerComp, NodeMemory);
 }
 
 void UBTTask_ActivateAbility::OnAbilityEnded(const FAbilityEndedData& Data)
 {
-	UBehaviorTreeComponent* OwnerComp = Cast<UBehaviorTreeComponent>(GetOuter());
-	const EBTNodeResult::Type NodeResult = Data.bWasCancelled?  EBTNodeResult::Failed : EBTNodeResult::Succeeded;
-	FinishLatentTask(*OwnerComp, NodeResult);
+	if (Data.AbilityThatEnded == ActiveAbility)
+	{
+		ASC->OnAbilityEnded.Remove(OnAbilityEndHandle);
+		UBehaviorTreeComponent* OwnerComp = Cast<UBehaviorTreeComponent>(GetOuter());
+		const EBTNodeResult::Type NodeResult = Data.bWasCancelled ? EBTNodeResult::Aborted : EBTNodeResult::Succeeded;
+		FinishLatentTask(*OwnerComp, NodeResult);
+	}
 }
 
 FString UBTTask_ActivateAbility::GetStaticDescription() const
@@ -66,8 +95,8 @@ void UBTTask_ActivateAbility::BuildDescription()
 {
 	CachedDescription = GameplayTagContainer.ToMatchingText(EGameplayContainerMatchType::All, false).ToString();
 }
- 
- void UBTTask_ActivateAbility::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
+
+void UBTTask_ActivateAbility::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
 {
 	Super::PostEditChangeProperty(PropertyChangedEvent);
 	if (PropertyChangedEvent.Property == NULL)

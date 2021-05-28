@@ -15,6 +15,10 @@ class ART_API UBTTask_ActivateAbility : public UBTTask_GameplayTagBase
 {
 	GENERATED_UCLASS_BODY()
 
+	/** use current order tags instead */
+	UPROPERTY(EditAnywhere, Category=GameplayTag)
+	bool UseOrderTags;
+
 	UPROPERTY(Category = Node, EditAnywhere)
 	bool InstantExecute;
 
@@ -23,6 +27,7 @@ class ART_API UBTTask_ActivateAbility : public UBTTask_GameplayTagBase
 
 	FDelegateHandle OnAbilityEndHandle;
 	UAbilitySystemComponent* ASC;
+	UGameplayAbility* ActiveAbility;
 
 	/** cached description */
 	UPROPERTY()
@@ -32,7 +37,8 @@ class ART_API UBTTask_ActivateAbility : public UBTTask_GameplayTagBase
 	void OnAbilityEnded(const FAbilityEndedData& Data);
 	virtual FString GetStaticDescription() const override;
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
-	virtual EBTNodeResult::Type AbortTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
+	virtual void OnTaskFinished(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, EBTNodeResult::Type TaskResult) override;
+	virtual EBTNodeResult::Type AbortTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory);
 #if WITH_EDITOR
 	virtual FName GetNodeIconName() const override;
 

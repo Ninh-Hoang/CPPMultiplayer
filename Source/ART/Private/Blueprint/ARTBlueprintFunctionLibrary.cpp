@@ -9,6 +9,8 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include <Ability/ARTGameplayEffectUIData.h>
 #include <Ability/ARTGameplayAbilityUIData.h>
+
+#include "Ability/ARTGlobalTags.h"
 #include "Blueprint/SlateBlueprintLibrary.h"
 
 
@@ -126,16 +128,17 @@ TArray<FActiveGameplayEffectHandle> UARTBlueprintFunctionLibrary::ApplyExternalE
 			for (TSharedPtr<FGameplayAbilityTargetData> Data : ContainerSpec.TargetData.Data)
 			{
 				//if instigator ASC still alive
-				if(SpecHandle.Data.Get()->GetContext().GetInstigatorAbilitySystemComponent()){
+				if (SpecHandle.Data.Get()->GetContext().GetInstigatorAbilitySystemComponent())
+				{
 					AllEffects.Append(Data->ApplyGameplayEffectSpec(*SpecHandle.Data.Get()));
 				}
-				//TODO: Optimize this loop
-				//apply gameplay effect to self instead
+					//TODO: Optimize this loop
+					//apply gameplay effect to self instead
 				else
 				{
-					for(TWeakObjectPtr<AActor> Actor : Data->GetActors())
+					for (TWeakObjectPtr<AActor> Actor : Data->GetActors())
 					{
-						if(UAbilitySystemComponent* ASC = GetAbilitySystemComponent(Actor.Get()))
+						if (UAbilitySystemComponent* ASC = GetAbilitySystemComponent(Actor.Get()))
 						{
 							AllEffects.Add(ASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get()));
 						}
@@ -181,7 +184,7 @@ float UARTBlueprintFunctionLibrary::EffectContextGetKnockBackStrength(FGameplayE
 }
 
 void UARTBlueprintFunctionLibrary::EffectContextSetKnockBackStrength(FGameplayEffectContextHandle EffectContext,
-	float InKnockBackStrength)
+                                                                     float InKnockBackStrength)
 {
 	FARTGameplayEffectContext* ARTContext = static_cast<FARTGameplayEffectContext*>(EffectContext.Get());
 	if (ARTContext)
@@ -227,7 +230,7 @@ FGameplayTargetDataFilterHandle UARTBlueprintFunctionLibrary::MakeTargetDataFilt
 
 FGameplayTargetDataFilterHandle UARTBlueprintFunctionLibrary::MakeTargetDataFilterByTeamAttitude(AActor* FilterActor,
 	FGameplayTagContainer InFilterTagContainer,
-    bool InFilterTag,
+	bool InFilterTag,
 	TEnumAsByte<ETeamAttitude::Type> InTeamAttitude,
 	TEnumAsByte<ETargetDataFilterSelf::Type> InSelfFilter,
 	TSubclassOf<AActor> InRequiredActorClass, bool InReverseFilter)
@@ -261,7 +264,8 @@ TArray<FGameplayAbilityTargetDataHandle> UARTBlueprintFunctionLibrary::FilterTar
 	return OutTargetDataArray;
 }
 
-FGameplayAbilityTargetDataHandle UARTBlueprintFunctionLibrary::MakeTargetDataFromHitArray(TArray<FHitResult>& HitResults)
+FGameplayAbilityTargetDataHandle UARTBlueprintFunctionLibrary::MakeTargetDataFromHitArray(
+	TArray<FHitResult>& HitResults)
 {
 	FGameplayAbilityTargetDataHandle ReturnDataHandle;
 
@@ -273,7 +277,8 @@ FGameplayAbilityTargetDataHandle UARTBlueprintFunctionLibrary::MakeTargetDataFro
 	return ReturnDataHandle;
 }
 
-TArray<FGameplayAbilityTargetDataHandle> UARTBlueprintFunctionLibrary::MakeArrayTargetDataFromHitArray(TArray<FHitResult>& HitResults)
+TArray<FGameplayAbilityTargetDataHandle> UARTBlueprintFunctionLibrary::MakeArrayTargetDataFromHitArray(
+	TArray<FHitResult>& HitResults)
 {
 	TArray<FGameplayAbilityTargetDataHandle> ReturnDataHandles;
 
@@ -325,18 +330,20 @@ UARTGameplayAbilityUIData* UARTBlueprintFunctionLibrary::GetGameplayAbilityUIDat
 {
 	if (InASC)
 	{
-		if(FGameplayAbilitySpec* Spec = InASC->FindAbilitySpecFromInputID(static_cast<int32>(Input)))
+		if (FGameplayAbilitySpec* Spec = InASC->FindAbilitySpecFromInputID(static_cast<int32>(Input)))
 		{
 			UARTGameplayAbility* Ability = Cast<UARTGameplayAbility>(Spec->Ability);
-			return Cast<UARTGameplayAbilityUIData>(Ability->UIData);
-			
+			//return Cast<UARTGameplayAbilityUIData>(Ability->UIData);
 		}
 	}
 	return nullptr;
 }
 
 bool UARTBlueprintFunctionLibrary::ProjectWorldToScreenBidirectional(APlayerController* Player,
-	const FVector& WorldPosition, FVector2D& ScreenPosition, bool& bTargetBehindCamera, bool bPlayerViewportRelative)
+                                                                     const FVector& WorldPosition,
+                                                                     FVector2D& ScreenPosition,
+                                                                     bool& bTargetBehindCamera,
+                                                                     bool bPlayerViewportRelative)
 {
 	FVector Projected;
 	bool bSuccess = false;
@@ -352,10 +359,10 @@ bool UARTBlueprintFunctionLibrary::ProjectWorldToScreenBidirectional(APlayerCont
 			const FIntRect ViewRectangle = ProjectionData.GetConstrainedViewRect();
 
 			FPlane Result = ViewProjectionMatrix.TransformFVector4(FVector4(WorldPosition, 1.f));
-			
+
 			if (Result.W < 0.f) { bTargetBehindCamera = true; }
-			else {bTargetBehindCamera = false;}
-			
+			else { bTargetBehindCamera = false; }
+
 			if (Result.W == 0.f) { Result.W = 1.f; } // Prevent Divide By Zero
 
 			const float RHW = 1.f / FMath::Abs(Result.W);
@@ -386,14 +393,18 @@ bool UARTBlueprintFunctionLibrary::ProjectWorldToScreenBidirectional(APlayerCont
 }
 
 bool UARTBlueprintFunctionLibrary::ProjectWorldToWidgetBidirectional(APlayerController* Player,
-	const FVector& WorldPosition, FVector2D& ViewportPosition, bool& bTargetBehindCamera, bool bPlayerViewportRelative)
+                                                                     const FVector& WorldPosition,
+                                                                     FVector2D& ViewportPosition,
+                                                                     bool& bTargetBehindCamera,
+                                                                     bool bPlayerViewportRelative)
 {
 	if (Player)
 	{
 		FVector2D ScreenPosition2D;
-		const bool bProjected = ProjectWorldToScreenBidirectional(Player, WorldPosition, ScreenPosition2D,bTargetBehindCamera, bPlayerViewportRelative);
-	
-		if ( bProjected )
+		const bool bProjected = ProjectWorldToScreenBidirectional(Player, WorldPosition, ScreenPosition2D,
+		                                                          bTargetBehindCamera, bPlayerViewportRelative);
+
+		if (bProjected)
 		{
 			FVector2D ViewportPosition2D;
 			USlateBlueprintLibrary::ScreenToViewport(Player, ScreenPosition2D, ViewportPosition2D);
@@ -406,4 +417,138 @@ bool UARTBlueprintFunctionLibrary::ProjectWorldToWidgetBidirectional(APlayerCont
 	ViewportPosition = FVector2D::ZeroVector;
 
 	return false;
+}
+
+bool UARTBlueprintFunctionLibrary::DoesSatisfyTagRequirements(const FGameplayTagContainer& Tags,
+                                                              const FGameplayTagContainer& RequiredTags,
+                                                              const FGameplayTagContainer& BlockedTags)
+{
+	if (BlockedTags.Num() || RequiredTags.Num())
+	{
+		if (Tags.HasAny(BlockedTags))
+		{
+			return false;
+		}
+
+		if (!Tags.HasAll(RequiredTags))
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+bool UARTBlueprintFunctionLibrary::DoesSatisfyTagRequirementsWithResult(const FGameplayTagContainer& Tags,
+                                                                        const FGameplayTagContainer& InRequiredTags,
+                                                                        const FGameplayTagContainer& InBlockedTags,
+                                                                        FGameplayTagContainer& OutMissingTags,
+                                                                        FGameplayTagContainer& OutBlockingTags)
+{
+	bool bSuccess = true;
+	for (FGameplayTag Tag : InBlockedTags)
+	{
+		if (Tags.HasTag(Tag))
+		{
+			bSuccess = false;
+			OutBlockingTags.AddTag(Tag);
+		}
+	}
+
+	for (FGameplayTag Tag : InRequiredTags)
+	{
+		if (!Tags.HasTag(Tag))
+		{
+			bSuccess = false;
+			OutMissingTags.AddTag(Tag);
+		}
+	}
+
+	return bSuccess;
+}
+
+void UARTBlueprintFunctionLibrary::GetTags(const AActor* Actor, FGameplayTagContainer& OutGameplayTags)
+{
+	OutGameplayTags = OutGameplayTags.EmptyContainer;
+	if (!Actor)
+	{
+		return;
+	}
+
+	const UAbilitySystemComponent* AbilitySystem = Actor->FindComponentByClass<UAbilitySystemComponent>();
+	if (AbilitySystem == nullptr)
+	{
+		return;
+	}
+
+	AbilitySystem->GetOwnedGameplayTags(OutGameplayTags);
+}
+
+void UARTBlueprintFunctionLibrary::GetSourceAndTargetTags(const AActor* SourceActor, const AActor* TargetActor,
+                                                          FGameplayTagContainer& OutSourceTags,
+                                                          FGameplayTagContainer& OutTargetTags)
+{
+	GetTags(SourceActor, OutSourceTags);
+	GetTags(TargetActor, OutTargetTags);
+
+	FGameplayTagContainer RelationshipTags = GetTeamAttitudeTags(SourceActor, TargetActor);
+
+	OutSourceTags.AppendTags(RelationshipTags);
+	OutTargetTags.AppendTags(RelationshipTags);
+}
+
+FGameplayTagContainer UARTBlueprintFunctionLibrary::GetTeamAttitudeTags(const AActor* Actor, const AActor* Other)
+{
+	FGameplayTagContainer RelationshipTags;
+	if (Actor == nullptr || Other == nullptr)
+	{
+		RelationshipTags.AddTag(UARTGlobalTags::Behaviour_Neutral());
+		return RelationshipTags;
+	}
+	if (Actor == Other)
+	{
+		RelationshipTags.AddTag(UARTGlobalTags::Behaviour_Friendly());
+		RelationshipTags.AddTag(UARTGlobalTags::Behaviour_Self());
+		RelationshipTags.AddTag(UARTGlobalTags::Behaviour_Visible());
+		return RelationshipTags;
+	}
+	
+	const AARTCharacterBase* SourceCharacter = Cast<AARTCharacterBase>(Actor);
+	ETeamAttitude::Type TeamAttitude = SourceCharacter->GetTeamAttitudeTowards(*Other);
+
+	switch (TeamAttitude)
+	{
+	case ETeamAttitude::Friendly:
+		RelationshipTags.AddTag(UARTGlobalTags::Behaviour_Friendly());
+		break;
+	case ETeamAttitude::Neutral:
+		RelationshipTags.AddTag(UARTGlobalTags::Behaviour_Neutral());
+		break;
+	case ETeamAttitude::Hostile:
+		RelationshipTags.AddTag(UARTGlobalTags::Behaviour_Hostile());
+		break;
+	default:
+		break;
+	}
+	return RelationshipTags;
+}
+
+bool UARTBlueprintFunctionLibrary::IsVisibleForActor(const AActor* Actor, const AActor* Other)
+{
+	if (Actor == nullptr || Other == nullptr)
+	{
+		return false;
+	}
+
+	//TODO: Implement stealth..etc here
+	return true;
+}
+
+FVector UARTBlueprintFunctionLibrary::GetGroundLocation2D(AARTAIController* Controller, const FVector2D Location2D)
+{
+	FVector ViewLocation;
+	FRotator ViewRot;
+	Controller->GetPlayerViewPoint(ViewLocation, ViewRot);
+
+	return FVector(0);
 }

@@ -12,6 +12,7 @@
 
 AARTPlayerController::AARTPlayerController()
 {
+	SetShowMouseCursor(true);
 }
 
 void AARTPlayerController::CreateHUD()

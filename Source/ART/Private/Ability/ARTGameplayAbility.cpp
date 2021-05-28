@@ -2,7 +2,6 @@
 
 
 #include "Ability/ARTGameplayAbility.h"
-#include <AbilitySystemComponent.h>
 #include "ARTCharacter/ARTCharacterBase.h"
 #include "Ability/ARTAbilitySystemComponent.h"
 #include "Blueprint/ARTTargetType.h"
@@ -26,7 +25,7 @@ UARTGameplayAbility::UARTGameplayAbility()
 	InteractingTag = FGameplayTag::RequestGameplayTag("State.Interacting");
 	InteractingRemovalTag = FGameplayTag::RequestGameplayTag("State.InteractingRemoval");
 	
-	auto ImplementedInBlueprint = [](const UFunction* Func) -> bool
+	auto ImplementedInBlueprintUtilityScore = [](const UFunction* Func) -> bool
 	{
 		return Func && ensure(Func->GetOuter())
             && (Func->GetOuter()->IsA(UBlueprintGeneratedClass::StaticClass()) || Func->GetOuter()->IsA(UDynamicClass::StaticClass()));
@@ -34,8 +33,42 @@ UARTGameplayAbility::UARTGameplayAbility()
 	{
 		static FName FuncName = FName(TEXT("K2_ScoreAbilityUtility"));
 		UFunction* ScoreUtilityFunction = GetClass()->FindFunctionByName(FuncName);
-		bHasBlueprintScoreUtility = ImplementedInBlueprint(ScoreUtilityFunction);
+		bHasBlueprintScoreUtility = ImplementedInBlueprintUtilityScore(ScoreUtilityFunction);
 	}
+
+	auto ImplementedInBlueprintTargetScore = [](const UFunction* Func) -> bool
+	{
+		return Func && ensure(Func->GetOuter())
+			&& (Func->GetOuter()->IsA(UBlueprintGeneratedClass::StaticClass()) || Func->GetOuter()->IsA(UDynamicClass::StaticClass()));
+	};
+	{
+		static FName FuncName = FName(TEXT("K2_GetTargetScore"));
+		UFunction* TargetScoreFunction = GetClass()->FindFunctionByName(FuncName);
+		bHasBlueprintScoreUtility = ImplementedInBlueprintTargetScore(TargetScoreFunction);
+	}
+
+	auto ImplementedInBlueprintAbilityRange = [](const UFunction* Func) -> bool
+	{
+		return Func && ensure(Func->GetOuter())
+			&& (Func->GetOuter()->IsA(UBlueprintGeneratedClass::StaticClass()) || Func->GetOuter()->IsA(UDynamicClass::StaticClass()));
+	};
+	{
+		static FName FuncName = FName(TEXT("K2_GetRange"));
+		UFunction* AbilityRangeFunction = GetClass()->FindFunctionByName(FuncName);
+		bHasBlueprintScoreUtility = ImplementedInBlueprintAbilityRange(AbilityRangeFunction);
+	}
+
+	//order system
+	AbilityProcessPolicy = EARTAbilityProcessPolicy::INSTANT;
+
+	GroupExecutionType = EARTOrderGroupExecutionType::MOST_SUITABLE_UNIT;
+
+	AcquisitionRadiusOverride = 0.0f;
+	bIsAcquisitionRadiusOverridden = false;
+
+	bHumanPlayerAutoAbility = false;
+	bHumanPlayerAutoAutoAbilityInitialState = false;
+	bAIPlayerAutoAbility = true;
 }
 
 
@@ -456,7 +489,7 @@ TArray<FActiveGameplayEffectHandle> UARTGameplayAbility::ApplyEffectContainer(
 	return ApplyEffectContainerSpec(Spec);
 }
 
-void UARTGameplayAbility::ApplyAbilityTagsToGameplayEffectSpec(FGameplayEffectSpec& Spec,
+void UARTGameplayAbility::BP_ApplyAbilityTagsToGameplayEffectSpec(FGameplayEffectSpec& Spec,
 	FGameplayAbilitySpec& AbilitySpec) const
 {
 	FGameplayTagContainer& CapturedSourceTags = Spec.CapturedSourceTags.GetSpecTags();
@@ -550,11 +583,6 @@ void UARTGameplayAbility::MontageStopForAllMeshes(float OverrideBlendOutTime)
 	}
 }
 
-bool UARTGameplayAbility::AreAbilityTasksActive() const
-{
-	return ActiveTasks.Num() > 0;
-}
-
 // ----------------------------------------------------------------------------------------------------------------
 //	ARTAvatarActorInfo Getter
 // ----------------------------------------------------------------------------------------------------------------
@@ -578,4 +606,172 @@ AWeapon* UARTGameplayAbility::BP_GetWeapon() const
 {
 	const FARTGameplayAbilityActorInfo* KaosActorInfo = GetARTActorInfo(CurrentActorInfo);
 	return KaosActorInfo ? KaosActorInfo->GetWeapon() : nullptr;
+}
+
+/*
+ * Order functions
+ */
+
+EARTTargetType UARTGameplayAbility::GetTargetType() const
+{
+    return TargetType;
+}
+
+EARTOrderGroupExecutionType UARTGameplayAbility::GetGroupExecutionType() const
+{
+    return GroupExecutionType;
+}
+
+FGameplayTag UARTGameplayAbility::GetEventTriggerTag() const
+{
+    for (const FAbilityTriggerData& AbilityTrigger : AbilityTriggers)
+    {
+        if (AbilityTrigger.TriggerSource == EGameplayAbilityTriggerSource::GameplayEvent)
+        {
+            return AbilityTrigger.TriggerTag;
+        }
+    }
+
+    return FGameplayTag();
+}
+
+const TArray<FAbilityTriggerData>& UARTGameplayAbility::GetAbilityTriggerData() const
+{
+    return AbilityTriggers;
+}
+
+UTexture2D* UARTGameplayAbility::GetIcon() const
+{
+    return Icon;
+}
+
+FText UARTGameplayAbility::GetName() const
+{
+    return Name;
+}
+
+FText UARTGameplayAbility::GetDescription(const AActor* Actor) const
+{
+    FText FormattedDescription;
+    FormatDescription(Description, Actor, FormattedDescription);
+    return FormattedDescription;
+}
+
+FARTOrderPreviewData UARTGameplayAbility::GetAbilityPreviewData() const
+{
+    return AbilityPreviewData;
+}
+
+void UARTGameplayAbility::FormatDescription_Implementation(const FText& InDescription, const AActor* Actor,
+                                                           FText& OutDescription) const
+
+{
+    OutDescription = InDescription;
+}
+
+bool UARTGameplayAbility::ShouldShowAsOrderInUI()
+{
+    return bShouldShowAsOrderInUI;
+}
+
+bool UARTGameplayAbility::GetAcquisitionRadiusOverride(float& OutAcquisitionRadius) const
+{
+    OutAcquisitionRadius = AcquisitionRadiusOverride;
+    return bIsAcquisitionRadiusOverridden;
+}
+
+bool UARTGameplayAbility::IsHumanPlayerAutoAbility() const
+{
+    return bHumanPlayerAutoAbility;
+}
+
+bool UARTGameplayAbility::GetHumanPlayerAutoAutoAbilityInitialState() const
+{
+    return bHumanPlayerAutoAutoAbilityInitialState;
+}
+
+bool UARTGameplayAbility::IsAIPlayerAutoAbility() const
+{
+    return bAIPlayerAutoAbility;
+}
+
+bool UARTGameplayAbility::IsTargetScoreOverriden() const
+{
+    return bIsTargetScoreOverridden;
+}
+
+bool UARTGameplayAbility::AreAbilityTasksActive() const
+{
+	return ActiveTasks.Num() > 0;
+}
+
+bool UARTGameplayAbility::ShouldActivateAbility(ENetRole Role) const
+{
+    // This is currently only used by CanActivateAbility to block clients from activating abilities themselves.
+    // This in turn is also prevented by NetExecutionPolicy in our case.
+    // However, CanActivateAbility is also used by clients in order to check the respective ability before issuing the
+    // order.
+    return true;
+}
+
+void UARTGameplayAbility::OnGameplayTaskActivated(UGameplayTask& Task)
+{
+    Super::OnGameplayTaskActivated(Task);
+}
+
+void UARTGameplayAbility::OnGameplayTaskDeactivated(UGameplayTask& Task)
+{
+    Super::OnGameplayTaskDeactivated(Task);
+}
+
+void UARTGameplayAbility::OnAbilityLevelChanged_Implementation(int32 NewLevel)
+{
+}
+
+float UARTGameplayAbility::GetTargetScore(const AActor* OrderedActor, const FARTOrderTargetData& TargetData, int32 Index) const
+{
+    return K2_GetTargetScore(OrderedActor, TargetData, Index);
+}
+
+float UARTGameplayAbility::GetRange(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
+                                    const FGameplayAbilityActivationInfo ActivationInfo) const
+{
+    return K2_GetRange();
+}
+
+float UARTGameplayAbility::BP_GetRange()
+{
+	return K2_GetRange();
+}
+
+EARTAbilityProcessPolicy UARTGameplayAbility::GetAbilityProcessPolicy() const
+{
+    return AbilityProcessPolicy;
+}
+
+FGameplayTagContainer UARTGameplayAbility::GetActivationRequiredTags() const
+{
+    return ActivationRequiredTags;
+}
+
+void UARTGameplayAbility::GetOrderTagRequirements(FARTOrderTagRequirements& OutTagRequirements) const
+{
+    OutTagRequirements.SourceRequiredTags.AppendTags(SourceRequiredTags);
+    OutTagRequirements.SourceBlockedTags.AppendTags(SourceBlockedTags);
+    OutTagRequirements.TargetRequiredTags.AppendTags(TargetRequiredTags);
+    OutTagRequirements.TargetBlockedTags.AppendTags(TargetBlockedTags);
+}
+
+void UARTGameplayAbility::GetSourceTagRequirements(FGameplayTagContainer& OutRequiredTags,
+                                                   FGameplayTagContainer& OutBlockedTags) const
+{
+    OutRequiredTags.AppendTags(SourceRequiredTags);
+    OutBlockedTags.AppendTags(SourceBlockedTags);
+}
+
+void UARTGameplayAbility::GetTargetTagRequirements(FGameplayTagContainer& OutRequiredTags,
+                                                   FGameplayTagContainer& OutBlockedTags) const
+{
+    OutRequiredTags.AppendTags(TargetRequiredTags);
+    OutBlockedTags.AppendTags(TargetBlockedTags);
 }

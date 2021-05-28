@@ -13,7 +13,8 @@ public class ART : ModuleRules
 			"Core",
 			"CoreUObject",
 			"Engine",
-			"InputCore"
+			"InputCore",
+			"AIModule"
 		});
 
 		//DynamicallyLoadedModuleNames.Add("OnlineSubsystemSteam");

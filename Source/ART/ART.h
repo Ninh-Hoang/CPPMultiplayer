@@ -9,6 +9,12 @@
 #include "Online.h"
 #include "UObject/ObjectMacros.h"
 
+#if WITH_EDITOR
+DECLARE_LOG_CATEGORY_EXTERN(LogOrder, Log, All);
+#endif
+
+DECLARE_STATS_GROUP(TEXT("Order"), STATGROUP_Order, STATCAT_Advanced);
+
 #define SURFACE_FLESHDEFAULT SurfaceType1
 #define SURFACE_FLESHVULNERABLE SurfaceType2
 

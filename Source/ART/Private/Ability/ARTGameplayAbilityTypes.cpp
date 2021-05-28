@@ -1,5 +1,4 @@
 ﻿#include "Ability/ARTGameplayAbilityTypes.h"
-
 #include "Ability/ARTAbilitySystemComponent.h"
 #include "ARTCharacter/ARTSurvivor.h"
 #include "ARTCharacter/AI/ARTCharacterAI.h"

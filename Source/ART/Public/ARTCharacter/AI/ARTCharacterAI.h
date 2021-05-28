@@ -25,6 +25,7 @@ public:
 	virtual void BeginPlay() override;
 
 	virtual void FinishDying() override;
+
 protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "ART|Abilities")
 	class TSubclassOf<UARTAttributeSetBase> AttributeSetClass =  UARTCharacterAttributeSet::StaticClass();
@@ -35,6 +36,15 @@ protected:
 	class UARTAbilitySystemComponent* HardRefAbilitySystemComponent;
 
 	class UARTCharacterAttributeSet* HardRefAttributeSetBase;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	class UARTSelectComponent* SelectComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	class UARTOrderComponent* OrderComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	class UARTAutoOrderComponent* AutoOrderComponent;
 
 	FDelegateHandle HealthChangedDelegateHandle;
 

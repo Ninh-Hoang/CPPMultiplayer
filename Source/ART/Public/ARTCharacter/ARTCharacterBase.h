@@ -113,7 +113,7 @@ protected:
 
 	//ABILITY SYSTEM STUFFS
 protected:
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	class UARTAbilitySystemComponent* AbilitySystemComponent;
 
 	UPROPERTY()

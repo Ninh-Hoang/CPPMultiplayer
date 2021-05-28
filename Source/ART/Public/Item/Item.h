@@ -35,6 +35,7 @@ class ART_API UItem : public UPrimaryDataAsset
 
 public:
 	UItem();
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Item")
 	FText ItemDisplayName;
 

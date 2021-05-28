@@ -6,62 +6,124 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="879561f1-dfda-4537-b838-a6709d37e8cc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/BTTaskes/BTTask_CalculateDotProduct.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Dino/AI/Dino_BB.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Dino/AI/Dino_BT.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Dino/AI/Dino_Controller.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Dino/Ability/Dino_HeadCombo.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Dino/Ability/Dino_JumpSlam.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Dino/Ability/Dino_Leap.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Dino/Ability/Dino_TurnWhip.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Dino/BP_Dino.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Dino/Dino_AbilitySet.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Dino/Dino_Anim.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Dino/Dino_AttributeSet.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Share/AbilityAndEffectBase/GA_AbilityBase_AI.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_disarm_over_shoulder_Montage.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Dino/dino.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Dino/dino_PhysicsAsset.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Dino/dino_Skeleton.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Dino/dino_charge.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Dino/dino_head_wipe.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Dino/dino_jump_high_Anim.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Dino/dino_leap.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Dino/dino_leap_far_Montage.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Dino/dino_leg_slam_left.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Dino/dino_leg_slam_right.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Dino/dino_shoot.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Dino/dino_walk.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Dino/dino_wipe_turn_left.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/CustomAsset/Dino/dino_wipe_turn_right.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/ART/Private/Blueprint/AnimNotifyState_DeltaCorrection.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/ART/Public/Blueprint/AnimNotifyState_DeltaCorrection.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/contentModel.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/ItemAndEquipment/Consumable/ElementTestItem/GE_Cooldown_Base.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Order/BB_Order_Base.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Order/BP_UnitController.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Order/BTDecorator_IsLocationOutOfRange.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Order/BTDecorator_IsTargetOutOfRange.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Order/BTTask_DisplayBlackBoardValue.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Order/BTTask_MoveToOrder_Location.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Order/BTTask_MoveToOrder_Target.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Order/BTTask_OrderSuccess.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Order/BT_SimpleMove.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Order/BT_StopOrder.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Order/BT_UseAbility.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Order/Or_SimpleMove.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Order/Or_UnitStopOrder.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Order/Or_UseAbility.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Order/Preview_PathPoint.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Order/UnitA_BB.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Abilities/GA_NormalShoot.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Player/BP_CameraPawn.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Player/BP_UnitA.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprint/Player/DS_UnitA_AbilitySet.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/FX/System/NiS_SelectCircle.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Decorators/BTDecorator_OrderTargetType.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTAutoOrderComponent.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTAutoOrderProvider.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTBlackboardHelper.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTCharacterAIOrder.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTMoveOrder.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTOrder.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTOrderComponent.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTOrderData.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTOrderErrorTags.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTOrderHelper.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTOrderPreview.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTOrderPreviewData.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTOrderTagRequirements.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTOrderTargetData.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTOrderTypeWithIndex.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTOrderWithBehavior.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTOrderWithDisplay.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTStopOrder.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTUseAbilityOrder.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/CameraPawn.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGlobalTags.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Decorators/BTDecorator_OrderTargetType.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTAutoOrderComponent.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTAutoOrderProvider.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTBlackboardHelper.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTCharacterAIOrder.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTMoveOrder.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrder.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderComponent.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderData.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderErrorTags.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderGroupExecutionType.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderHelper.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderPreview.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderPreviewData.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderPreviewSnapMode.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderProcessPolicy.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderResult.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderTagRequirements.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderTargetData.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderTargetType.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderTypeWithIndex.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderWithBehavior.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderWithDisplay.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTSelectComponent.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTStopOrder.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTUseAbilityOrder.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/CameraPawn.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGlobalTags.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/contentModel.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/riderModule.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ART/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Config/DefaultGameplayTags.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGameplayTags.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/BB_EnemyBase.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/BB_EnemyBase.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/BTTaskes/BTService_FindNearestTarget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/BTTaskes/BTService_FindNearestTarget.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/BTTaskes/BTTask_MoveToActor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/BTTaskes/BTTask_MoveToActor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/BlockOutAI/Blockout_Anim.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/BlockOutAI/Blockout_Anim.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultInput.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultInput.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/BTTaskes/BTTask_LookAtBBEntity.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/BTTaskes/BTTask_LookAtBBEntity.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/CustomMovement/BTTask_MoveToLocation.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/CustomMovement/BTTask_MoveToLocation.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/Ability/GA_LegBot_Shoot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/LegBot/Ability/GA_LegBot_Shoot.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/MeleeBot/BT_MeleeBot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/MeleeBot/BT_MeleeBot.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/Stalker/Ability/GA_ShootRocket.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Stalker/Ability/GA_ShootRocket.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/Stalker/BP_Stalker.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Stalker/BP_Stalker.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/Stalker/Stalker_Anim.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/Stalker/Stalker_Anim.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/UE_Bot/AI/UEBot_BT.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/UE_Bot/AI/UEBot_BT.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/AI/UE_Bot/MeleeBot_Roll.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/AI/UE_Bot/MeleeBot_Roll.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Framework/Networking/MultiplayerGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Framework/Networking/MultiplayerGameMode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/ItemAndEquipment/Consumable/ElementTestItem/Electro/GA_TesElecDamage.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/ItemAndEquipment/Consumable/ElementTestItem/Electro/GA_TesElecDamage.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/ItemAndEquipment/Consumable/ElementTestItem/GA_TestPredictiveTag.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/ItemAndEquipment/Consumable/ElementTestItem/GA_TestPredictiveTag.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/ItemAndEquipment/Consumable/ElementTestItem/GE_CooldownTest.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/BP_ARTPlayerController.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/BP_ARTPlayerController.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/BP_Survivor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/BP_Survivor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/DS_SurvivorAbilitySet.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/DS_SurvivorAbilitySet.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/UE4Man_Survivor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/UE4Man_Survivor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Curve_SurvivorAttributeSet.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Curve_SurvivorAttributeSet.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/GE_SurvivorAttributeSet.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/GE_SurvivorAttributeSet.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/M_TargetingCircle_Decal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/M_TargetingCircle_Decal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Roll/GA_Roll.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Player/Weapon/Roll/GA_Roll.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprint/Share/AbilityAndEffectBase/GA_AbilityBase.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Share/AbilityAndEffectBase/GA_AbilityBase.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Share/GameplayEvent/ANS_AddLooseGameplayTag.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Share/GameplayEvent/ANS_AddLooseGameplayTag.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprint/Share/GameplayEvent/ANS_DeltaCorrectionWindow.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprint/Share/GameplayEvent/ANS_DeltaCorrectionWindow.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_disarm_over_shoulder.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/AxePack/standing_disarm_over_shoulder.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/Mesh/UE4_Mannequin_Skeleton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/Mesh/UE4_Mannequin_Skeleton.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/Random/Big_Jump_Montage.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CustomAsset/AnimStarterPack/UE4_Mannequin/Random/Big_Jump_Montage.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/Concept/Level.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Concept/Level.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/AI/Composites/BTComposite_Utility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Composites/BTComposite_Utility.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/ART.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/ART.Build.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/ART.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/ART.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/ART.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/ART.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/AI/Tasks/BTTask_ActivateAbility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/AI/Tasks/BTTask_ActivateAbility.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTAIController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTAIController.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTCharacterAI.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTCharacterAI.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/AbilityTask/AT_MontageDeltaCorrection.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/AbilityTask/AT_MontageDeltaCorrection.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_MontageDeltaCorrection.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_MontageDeltaCorrection.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterBase.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTPlayerController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTAbilitySystemComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTAbilitySystemComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTBlueprintFunctionLibrary.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTBlueprintFunctionLibrary.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/AI/Decorators/BTDecorator_UtilityBlackboard.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Decorators/BTDecorator_UtilityBlackboard.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/AI/Tasks/BTTask_ActivateAbility.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/AI/Tasks/BTTask_ActivateAbility.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/AI/ARTAIController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/AI/ARTAIController.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/AI/ARTCharacterAI.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/AI/ARTCharacterAI.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterBase.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTAbilitySystemComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTAbilitySystemComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayAbility.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayAbility.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayAbilityTypes.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbilityTypes.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTBlueprintFunctionLibrary.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTBlueprintFunctionLibrary.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/ART/Public/Item/Item.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ART/Public/Item/Item.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,161 +133,138 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/PlayerState.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/MovementComponent.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.25/Engine/Source/Runtime/Core/Public/Delegates/DelegateSignatureImpl.inl" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/UObject/UObjectGlobals.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Private/GenericPlatform/GenericPlatformMath.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/GameplayTags/Private/GameplayTagContainer.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/GameplayTags/Private/GameplayTagsManager.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/AI/Navigation/AvoidanceManager.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/PawnMovementComponent.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/KismetSystemLibrary.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/BehaviorTree/BehaviorTreeTypes.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/NetSerialization.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/BehaviorTree/BTDecorator.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/BehaviorTree/BTCompositeNode.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/AIController.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/Misc/RedirectCollector.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/PhysicsEngine/PhysAnim.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Pawn.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/UObject/ScriptCore.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Kismet/KismetMathLibrary.inl" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/GameplayStatics.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/BehaviorTree/Services/BTService_RunEQS.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/Actor.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/GameplayTasks/Classes/GameplayTaskOwnerInterface.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Editor/AnimationModifiers/Private/AnimationBlueprintLibrary.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/UMG/Private/Components/TextBlock.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Kismet/BlueprintFunctionLibrary.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/GameplayTasks/Private/GameplayTask.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Math/Vector.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/EnvironmentQuery/EnvQueryTest.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/EnvironmentQuery/EnvQueryManager.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Public/UnrealClient.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/SceneView.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Delegates/DelegateSignatureImpl.inl" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/AI/Navigation/NavigationTypes.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Public/UObject/UObjectBaseUtility.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Containers/Array.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Public/UObject/Object.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Private/HAL/MallocTBB.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Animation/AnimMontage.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/GenericTeamAgentInterface.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Camera/PlayerCameraManager.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/EngineBaseTypes.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Templates/MemoryOps.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Components/CharacterMovementComponent.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/UObject/UObjectArchetype.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/AIController.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Animation/AnimSequenceBase.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/PlayerState.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/EnvironmentQuery/Tests/EnvQueryTest_Dot.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Private/UObject/Class.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Components/SceneComponent.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/KismetMathLibrary.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/MovementComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Templates/PointerIsConvertibleFromTo.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/EngineTypes.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Math/TransformVectorized.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Public/DrawDebugHelpers.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/EngineTypes.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Templates/SharedPointer.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Components/ActorComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/GameplayTags/Classes/GameplayTagContainer.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Private/Logging/LogMacros.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Math/Rotator.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Containers/Set.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Animation/AnimationAsset.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Components/SkeletalMeshComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Animation/AnimInstance.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Delegates/DelegateSignatureImpl.inl" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/SlateCore/Public/Layout/LayoutUtils.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Animation/AnimMontage.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Public/Animation/PoseSnapshot.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Private/Windows/WindowsPlatformMisc.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Components/SkinnedMeshComponent.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Private/Math/UnrealMath.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Components/SkeletalMeshComponent.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Components/MeshComponent.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Components/SceneComponent.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Math/Rotator.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Containers/Map.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Components/ActorComponent.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Animation/AnimCompositeBase.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/Brush.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.25/Engine/Source/Runtime/Core/Public/Delegates/DelegateSignatureImpl.inl" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Animation/AnimMetaData.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Public/UObject/UObjectBaseUtility.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Animation/AnimNotifyState.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/AI/Navigation/AvoidanceManager.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/PawnMovementComponent.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/BehaviorTree/BehaviorTreeTypes.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/NetSerialization.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/BehaviorTree/BTDecorator.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/BehaviorTree/BTCompositeNode.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/Volume.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.27.29110/include/vcruntime_string.h" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/BehaviorTree/Services/BTService_RunEQS.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Public/Templates/Casts.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Private/BehaviorTree/BehaviorTreeComponent.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Animation/AnimSequenceBase.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Private/BehaviorTree/BTDecorator.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/Actor.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/DataAsset.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/LevelActor.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Private/BehaviorTree/BTTaskNode.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/UObject/WeakObjectPtrTemplates.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/Info.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/UMG/Private/SlateBlueprintLibrary.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Animation/AnimMontage.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/HotSpots/AIHotSpotManager.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Editor/PropertyEditor/Private/SDetailsViewBase.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/GameModeBase.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/NavMovementComponent.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/UMG/Private/WidgetLayoutLibrary.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Plugins/Lumin/MagicLeap/Source/MagicLeap/Private/MagicLeapHMDFunctionLibrary.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Private/BehaviorTree/Tasks/BTTask_BlueprintBase.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/GameplayTasks/Classes/GameplayTaskOwnerInterface.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/GenericPlatform/GenericPlatformMath.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/GameState.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Animation/AnimLinkableElement.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Animation/AnimNotifies/AnimNotifyState.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Actor.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Plugins/Lumin/MagicLeap/Source/MagicLeap/Private/MagicLeapHMD.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/World.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Components/SceneComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Public/Templates/SubclassOf.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/CharacterMovementComponent.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Kismet/BlueprintFunctionLibrary.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Kismet/KismetMathLibrary.inl" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Math/Vector.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Math/TransformVectorized.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/EnvironmentQuery/EnvQueryTest.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/EnvironmentQuery/EnvQueryManager.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Public/UnrealClient.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/GenericPlatform/GenericPlatformProcess.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/Core/Public/Async/TaskGraphInterfaces.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/ucrt/float.h" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/AITypes.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Source/Runtime/AIModule/Classes/Navigation/PathFollowingComponent.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Source/ART/Public/AI/ARTAIConductor.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/AI/ARTAIConductor.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/AI/UBTCompo.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/Framework/SGameState.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/AI/EnvQueryTest_TakenPosition.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Utility/BTComposite_Utility.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Utility/UBTUtilitySelectionMethod.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Utility/UBTUtilitySelectionMethod.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Utility/BTUtilityTypes.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Utility/BTUtilitySelectionMethod_Highest.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Utility/BTUtilitySelectionMethod_Highest.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Utility/BTUtilitySelectionMethod_Proportional.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Utility/BTUtilitySelectionMethod_Proportional.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Utility/BTDecorator_UtilityFunction.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Utility/BTDecorator_UtilityFunction.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Utility/BTUtilitySelectionMethod.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Utility/BTDecorator_UtilityConstant.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Utility/BTDecorator_UtilityConstant.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Composites/BTComposite_Utility.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Utility/BTComposite_Utility.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Tasks/BTTask_GameplayTagBase.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterBase.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Tasks/BTTask_GameplayTagBase.h" />
-      <option value="$PROJECT_DIR$/../Program Files/Epic Games/UE_4.26/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Public/Abilities/GameplayAbility.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayAbility.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Decorators/BTDecorator_UtilityConstant.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Decorators/BTDecorator_UtilityBlackboard.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Decorators/BTDecorator_UtilityConstant.h" />
+      <option value="$PROJECT_DIR$/Source/ART/ART.Build.cs" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/Blueprint/ARTBlueprintFunctionLibrary.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbilityTypes.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/Ability/ARTOrderAbility.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTBlackboardHelper.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTBlackboardHelper.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTOrderTypeWithIndex.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTCharacterAIOrder.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTCharacterAIOrder.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTAIController.cpp" />
       <option value="$PROJECT_DIR$/Source/ART/Public/AI/Decorators/BTDecorator_UtilityBlackboard.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Decorators/BTDecorator_UtilityAbility.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Decorators/BTDecorator_UtilityFunction.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Decorators/BTDecorator_UtilityFunction.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Decorators/BTDecorator_UtilityBlueprintBase.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Decorators/BTDecorator_UtilityBlueprintBase.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Tasks/BTTask_ActivateAbility.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/Framework/ARTGameMode.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Decorators/BTDecorator_UtilityAbility.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/Framework/ARTGameState.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/Framework/ARTGameState.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/Framework/ARTGameMode.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Tasks/BTTask_ActivateAbility.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/AbilityTask/AT_PlayMontageMeshWaitForEvent.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTAbilitySystemComponent.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Composites/BTComposite_Utility.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Decorators/BTDecorator_OrderTargetType.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Decorators/BTDecorator_OrderTargetType.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderData.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTOrderData.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderComponent.h" />
       <option value="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/AI/ARTCharacterAI.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/Blueprint/AnimNotifyState_DeltaCorrection.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/Blueprint/AnimNotifyState_DeltaCorrection.cpp" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_PlayMontageMeshWaitForEvent.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Public/Ability/AbilityTask/AT_MontageDeltaCorrection.h" />
-      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/AbilityTask/AT_MontageDeltaCorrection.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/CameraPawn.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/AI/ARTCharacterAI.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTSelectComponent.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTMoveOrder.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTMoveOrder.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderPreviewData.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderWithBehavior.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTOrderWithBehavior.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTUseAbilityOrder.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTOrderPreview.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderWithDisplay.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrder.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTOrder.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderHelper.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTOrderWithDisplay.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/CameraPawn.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderPreview.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTSelectComponent.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/ARTCharacter/ARTCharacterBase.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTOrderTypeWithIndex.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/Ability/ARTAbilitySystemComponent.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTAutoOrderProvider.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Order/ARTAutoOrderComponent.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTOrderComponent.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTAbilitySystemComponent.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTOrderHelper.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/ARTCharacter/ARTCharacterBase.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTUseAbilityOrder.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/Ability/ARTGameplayAbility.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Ability/ARTGameplayAbility.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/Blueprint/ARTBlueprintFunctionLibrary.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Public/AI/Tasks/BTTask_ActivateAbility.h" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Tasks/BTTask_ActivateAbility.cpp" />
+      <option value="$PROJECT_DIR$/Source/ART/Private/AI/Order/ARTAutoOrderComponent.cpp" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1lBFe3M5fiXhaBDPEYgqBFdVSir" />
@@ -490,6 +529,18 @@
       <workItem from="1615625905485" duration="69569000" />
       <workItem from="1615977955325" duration="5540000" />
       <workItem from="1616114234599" duration="1491000" />
+      <workItem from="1616187147292" duration="406000" />
+      <workItem from="1616215282893" duration="28741000" />
+      <workItem from="1616496252000" duration="75618000" />
+      <workItem from="1616733905929" duration="26126000" />
+      <workItem from="1616927355283" duration="3492000" />
+      <workItem from="1617067637977" duration="45286000" />
+      <workItem from="1617359491762" duration="16389000" />
+      <workItem from="1617667318318" duration="1198000" />
+      <workItem from="1617676963995" duration="3494000" />
+      <workItem from="1617934152247" duration="12950000" />
+      <workItem from="1621776227886" duration="205000" />
+      <workItem from="1621776639074" duration="193696000" />
     </task>
     <servers />
   </component>
@@ -537,7 +588,17 @@
           <line>346</line>
           <option name="timeStamp" value="30" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Plugins/Nav3D/Source/Nav3D/Private/Nav3DVolume.cpp</url>
+          <line>176</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="CppProject">
+        <watch expression="OrderedActor" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

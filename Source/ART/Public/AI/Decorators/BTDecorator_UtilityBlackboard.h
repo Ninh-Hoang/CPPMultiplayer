@@ -30,12 +30,12 @@ class ART_API UBTDecorator_UtilityBlackboard : public UBTDecorator_UtilityFuncti
 	/** get name of selected blackboard key */
 	FName GetSelectedBlackboardKey() const;
 
-	protected:
+protected:
 	/** blackboard key selector */
 	UPROPERTY(EditAnywhere, Category = "Blackboard")
 	struct FBlackboardKeySelector UtilityValueKey;
 
-	protected:
+
 	virtual float CalculateUtilityValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const override;
 };
 

@@ -12,6 +12,9 @@
  * 
  */
 
+class UARTGameplayEffectUIData;
+class UARTGameplayAbilityUIData;
+
 UCLASS()
 class ART_API UARTBlueprintFunctionLibrary : public UAbilitySystemBlueprintLibrary
 {
@@ -189,4 +192,39 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "UI Math")
     static bool ProjectWorldToWidgetBidirectional(APlayerController* Player, const FVector& WorldPosition, FVector2D& ViewportPosition, bool& bTargetBehindCamera, bool bPlayerViewportRelative = false);
+
+	/*
+	 * ORDER HELPER
+	 * /
+	/** Checks if the specified tags has all of the specified required tags and none of the specified blocked tags. */
+	UFUNCTION(Category = "Order|Tags", BlueprintPure)
+	static bool DoesSatisfyTagRequirements(const FGameplayTagContainer& Tags, const FGameplayTagContainer& RequiredTags,
+										const FGameplayTagContainer& BlockedTags);
+
+	/** Checks if the specified tags has all of the specified required tags and none of the specified blocked tags. */
+	UFUNCTION(Category = "Order|Tags", BlueprintPure)
+	static bool DoesSatisfyTagRequirementsWithResult(const FGameplayTagContainer& Tags,
+													const FGameplayTagContainer& InRequiredTags,
+													const FGameplayTagContainer& InBlockedTags,
+													FGameplayTagContainer& OutMissingTags,
+													FGameplayTagContainer& OutBlockingTags);
+
+	/** Gets the gameplay tags of the specified actor. */
+	UFUNCTION(Category = "Order|Tags", BlueprintPure)
+	static void GetTags(const AActor* Actor, FGameplayTagContainer& OutGameplayTags);
+
+	UFUNCTION(Category = "Order|Tags", BlueprintPure)
+	static void GetSourceAndTargetTags(const AActor* SourceActor, const AActor* TargetActor, FGameplayTagContainer& OutSourceTags, FGameplayTagContainer& OutTargetTags);
+
+	UFUNCTION(Category = "Order|Tags", BlueprintPure)
+	static FGameplayTagContainer GetTeamAttitudeTags(const AActor* Actor, const AActor* Other);
+
+	/** Whether 'Other' is visible for 'Actor'. */
+	UFUNCTION(Category = "Order|Tags", BlueprintPure)
+	static bool IsVisibleForActor(const AActor* Actor, const AActor* Other);
+
+	UFUNCTION(Category = "Order|Data", BlueprintPure)
+	static FVector GetGroundLocation2D(AARTAIController* Controller, const FVector2D Location2D);
+
+	
 };

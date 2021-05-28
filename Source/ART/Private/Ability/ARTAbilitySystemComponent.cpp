@@ -15,7 +15,7 @@
 #include <AbilitySystemBlueprintLibrary.h>
 
 UARTAbilitySystemComponent::UARTAbilitySystemComponent()
-{ 
+{
 }
 
 void UARTAbilitySystemComponent::BeginPlay()
@@ -123,9 +123,9 @@ void UARTAbilitySystemComponent::ReceiveDamage(UARTAbilitySystemComponent* Sourc
 }
 
 static TAutoConsoleVariable<float> CVarReplayMontageErrorThreshold(
-    TEXT("GS.replay.MontageErrorThreshold"),
-    0.5f,
-    TEXT("Tolerance level for when montage playback position correction occurs in replays")
+	TEXT("GS.replay.MontageErrorThreshold"),
+	0.5f,
+	TEXT("Tolerance level for when montage playback position correction occurs in replays")
 );
 
 void UARTAbilitySystemComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -499,7 +499,7 @@ bool UARTAbilitySystemComponent::AddGameplayEffectDurationHandle(FActiveGameplay
 	{
 		return false;
 	}
-	
+
 
 	FActiveGameplayEffect* AGE = const_cast<FActiveGameplayEffect*>(ActiveGameplayEffect);
 	if (AddDuration > 0.f)
@@ -1422,4 +1422,91 @@ bool UARTAbilitySystemComponent::ServerCurrentMontageSetPlayRateForMesh_Validate
 	USkeletalMeshComponent* InMesh, UAnimMontage* ClientAnimMontage, float InPlayRate)
 {
 	return true;
+}
+
+/*
+* Order System
+*/
+
+float UARTAbilitySystemComponent::GetAbilityRange(int32 Index)
+{
+	for (FGameplayAbilitySpec& Spec : ActivatableAbilities.Items)
+	{
+		if (Spec.InputID == Index)
+		{
+			UARTGameplayAbility* AbilityCDO = Cast<UARTGameplayAbility>(Spec.Ability);
+			return AbilityCDO->GetRange(Spec.Handle, AbilityActorInfo.Get(), FGameplayAbilityActivationInfo());
+		}
+	}
+
+	return 0.0f;
+}
+
+float UARTAbilitySystemComponent::GetAbilityRange(const FGameplayTagContainer& OrderTags)
+{
+	TArray<FGameplayAbilitySpec*> AbilitiesToActivate;
+	GetActivatableGameplayAbilitySpecsByAllMatchingTags(OrderTags, AbilitiesToActivate, false);
+
+	if (AbilitiesToActivate.Num() > 0)
+	{
+		UARTGameplayAbility* Ability = Cast<UARTGameplayAbility>(AbilitiesToActivate[0]->Ability);
+		return Ability->GetRange(AbilitiesToActivate[0]->Handle, AbilityActorInfo.Get(),
+		                         FGameplayAbilityActivationInfo());
+	}
+	return 0.0f;
+}
+
+void UARTAbilitySystemComponent::GetAutoOrders_Implementation(TArray<FARTOrderTypeWithIndex>& OutAutoOrders)
+{
+	TArray<FGameplayAbilitySpec> ActivatableSpecs = ActivatableAbilities.Items;
+	for (int32 Index = 0; Index < ActivatableSpecs.Num(); ++Index)
+	{
+		TSubclassOf<UGameplayAbility> AbilityType = ActivatableSpecs[Index].Ability->GetClass();
+
+		if (AbilityType == nullptr)
+		{
+			continue;
+		}
+
+		UARTGameplayAbility* Ability = AbilityType->GetDefaultObject<UARTGameplayAbility>();
+		if (Ability == nullptr)
+		{
+			continue;
+		}
+
+		if (Ability->GetTargetType() != EARTTargetType::PASSIVE)
+		{
+			OutAutoOrders.Add(FARTOrderTypeWithIndex(UseAbilityOrder, ActivatableSpecs[Index].InputID, Ability->AbilityTags));
+		}
+	}
+}
+
+FOnAutoOrderUpdate* UARTAbilitySystemComponent::GetAutoOrderAddDelegate()
+{
+	return &OnAutoOrderAdded;
+}
+
+FOnAutoOrderUpdate* UARTAbilitySystemComponent::GetAutoOrderRemoveDelegate()
+{
+	return &OnAutoOrderRemove;
+}
+
+void UARTAbilitySystemComponent::OnGiveAbility(FGameplayAbilitySpec& AbilitySpec)
+{
+	Super::OnGiveAbility(AbilitySpec);
+	UARTGameplayAbility* Ability = Cast<UARTGameplayAbility>(AbilitySpec.Ability);
+	if (Ability->GetTargetType() != EARTTargetType::PASSIVE)
+	{
+		OnAutoOrderAdded.Broadcast((FARTOrderTypeWithIndex(UseAbilityOrder, AbilitySpec.InputID, Ability->AbilityTags)));
+	}
+}
+
+void UARTAbilitySystemComponent::OnRemoveAbility(FGameplayAbilitySpec& AbilitySpec)
+{
+	Super::OnRemoveAbility(AbilitySpec);
+	UARTGameplayAbility* Ability = Cast<UARTGameplayAbility>(AbilitySpec.Ability);
+	if (Ability->GetTargetType() != EARTTargetType::PASSIVE)
+	{
+		OnAutoOrderRemove.Broadcast((FARTOrderTypeWithIndex(UseAbilityOrder, AbilitySpec.InputID, Ability->AbilityTags)));
+	}
 }

@@ -60,17 +60,21 @@ FGenericTeamId AARTCharacterBase::GetGenericTeamId() const
 
 ETeamAttitude::Type AARTCharacterBase::GetTeamAttitudeTowards(const AActor& Other) const
 {
+	ETeamAttitude::Type Attitude = ETeamAttitude::Neutral;
 	if (const AARTCharacterBase* OtherPawn = Cast<AARTCharacterBase>(&Other))
 	{
 		//Create an alliance with Team with ID 10 and set all the other teams as Hostiles:
 		FGenericTeamId OtherTeamID = OtherPawn->GetGenericTeamId();
 		if (OtherTeamID == FGenericTeamId(TeamNumber))
 		{
-			return ETeamAttitude::Friendly;
+			Attitude = ETeamAttitude::Friendly;
 		}
-		return ETeamAttitude::Hostile;
+		else
+		{
+			Attitude = ETeamAttitude::Hostile;
+		}
 	}
-	return ETeamAttitude::Neutral;
+	return Attitude;
 }
 
 EARTHitReactDirection AARTCharacterBase::GetHitReactDirectionVector(const FVector& ImpactPoint,
@@ -348,13 +352,13 @@ void AARTCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	PlayerInputComponent->BindAxis("MoveForward", this, &AARTCharacterBase::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AARTCharacterBase::MoveRight);
 
-	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AARTCharacterBase::Jump);
+	//PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AARTCharacterBase::Jump);
 
-	PlayerInputComponent->BindAxis("LookUp", this, &AARTCharacterBase::LookUp);
-	PlayerInputComponent->BindAxis("LookRight", this, &AARTCharacterBase::LookRight);
+	//PlayerInputComponent->BindAxis("LookUp", this, &AARTCharacterBase::LookUp);
+	//PlayerInputComponent->BindAxis("LookRight", this, &AARTCharacterBase::LookRight);
 
-	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &AARTCharacterBase::BeginCrouch);
-	PlayerInputComponent->BindAction("Crouch", IE_Released, this, &AARTCharacterBase::EndCrouch);
+	//PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &AARTCharacterBase::BeginCrouch);
+	//PlayerInputComponent->BindAction("Crouch", IE_Released, this, &AARTCharacterBase::EndCrouch);
 
 	BindASCInput();
 }

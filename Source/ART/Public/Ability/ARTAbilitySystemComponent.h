@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemComponent.h"
+#include "AI/Order/ARTAutoOrderProvider.h"
+#include "AI/Order/ARTUseAbilityOrder.h"
+#include "AI/Order/ARTOrderTypeWithIndex.h"
 #include "ARTAbilitySystemComponent.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FReceivedDamageDelegate, UARTAbilitySystemComponent*, SourceASC, float,
@@ -72,7 +75,7 @@ public:
 
 
 UCLASS()
-class ART_API UARTAbilitySystemComponent : public UAbilitySystemComponent
+class ART_API UARTAbilitySystemComponent : public UAbilitySystemComponent, public IARTAutoOrderProvider
 {
 	GENERATED_BODY()
 public:
@@ -378,4 +381,31 @@ protected:
 	                                                           UAnimMontage* ClientAnimMontage, float InPlayRate);
 	bool ServerCurrentMontageSetPlayRateForMesh_Validate(USkeletalMeshComponent* InMesh,
 	                                                     UAnimMontage* ClientAnimMontage, float InPlayRate);
+
+public:
+	/*
+	 * Order System
+	 */
+	float GetAbilityRange(int32 Index);
+
+	float GetAbilityRange(const FGameplayTagContainer& OrderTags);
+	
+	//~ Begin IRTSAutoOrderProvider Interface
+	virtual void GetAutoOrders_Implementation(TArray<FARTOrderTypeWithIndex>& OutAutoOrders) override;
+	virtual FOnAutoOrderUpdate* GetAutoOrderAddDelegate() override;
+	virtual FOnAutoOrderUpdate* GetAutoOrderRemoveDelegate() override;
+	//~ End IRTSAutoOrderProvider Interface
+
+	virtual void OnGiveAbility(FGameplayAbilitySpec& AbilitySpec) override;
+
+	virtual void OnRemoveAbility(FGameplayAbilitySpec& AbilitySpec) override;
+	
+protected:
+	FOnAutoOrderUpdate OnAutoOrderAdded;
+	FOnAutoOrderUpdate OnAutoOrderRemove;
+	
+private:
+	/** Order type that is used to issue a unit to activate an ability. */
+	UPROPERTY(Category = "Order", BlueprintReadOnly, EditDefaultsOnly, meta = (AllowPrivateAccess = true))
+	TSoftClassPtr<UARTUseAbilityOrder> UseAbilityOrder;
 };
