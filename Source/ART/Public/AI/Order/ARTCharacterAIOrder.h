@@ -10,7 +10,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(NotBlueprintType, Abstract, Blueprintable)
 class ART_API UARTCharacterAIOrder : public UARTOrderWithBehavior
 {
 	GENERATED_BODY()

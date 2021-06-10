@@ -1476,7 +1476,16 @@ void UARTAbilitySystemComponent::GetAutoOrders_Implementation(TArray<FARTOrderTy
 
 		if (Ability->GetTargetType() != EARTTargetType::PASSIVE)
 		{
-			OutAutoOrders.Add(FARTOrderTypeWithIndex(UseAbilityOrder, ActivatableSpecs[Index].InputID, Ability->AbilityTags));
+			int32 OrderIndex = OutAutoOrders.Num();
+			for(int32 i = 0; i < OutAutoOrders.Num(); i ++)
+			{
+				if(Ability->GetAutoOrderPriority() <= OutAutoOrders[i].Index)
+				{
+					OrderIndex = i;
+					break;
+				}
+			}
+			OutAutoOrders.Insert(FARTOrderTypeWithIndex(UseAbilityOrder, Ability->GetAutoOrderPriority(), Ability->AbilityTags), OrderIndex);
 		}
 	}
 }
@@ -1497,7 +1506,7 @@ void UARTAbilitySystemComponent::OnGiveAbility(FGameplayAbilitySpec& AbilitySpec
 	UARTGameplayAbility* Ability = Cast<UARTGameplayAbility>(AbilitySpec.Ability);
 	if (Ability->GetTargetType() != EARTTargetType::PASSIVE)
 	{
-		OnAutoOrderAdded.Broadcast((FARTOrderTypeWithIndex(UseAbilityOrder, AbilitySpec.InputID, Ability->AbilityTags)));
+		OnAutoOrderAdded.Broadcast((FARTOrderTypeWithIndex(UseAbilityOrder, Ability->GetAutoOrderPriority(), Ability->AbilityTags)));
 	}
 }
 
@@ -1507,6 +1516,6 @@ void UARTAbilitySystemComponent::OnRemoveAbility(FGameplayAbilitySpec& AbilitySp
 	UARTGameplayAbility* Ability = Cast<UARTGameplayAbility>(AbilitySpec.Ability);
 	if (Ability->GetTargetType() != EARTTargetType::PASSIVE)
 	{
-		OnAutoOrderRemove.Broadcast((FARTOrderTypeWithIndex(UseAbilityOrder, AbilitySpec.InputID, Ability->AbilityTags)));
+		OnAutoOrderRemove.Broadcast((FARTOrderTypeWithIndex(UseAbilityOrder, Ability->GetAutoOrderPriority(), Ability->AbilityTags)));
 	}
 }

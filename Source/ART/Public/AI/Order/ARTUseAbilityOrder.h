@@ -18,7 +18,7 @@ struct FARTOrderTargetData;
 class UARTAbilitySystemComponent;
 class UGameplayAbility;
 
-UCLASS(NotBlueprintType, Abstract, Blueprintable/*, hideCategories = "Order Display"*/)
+UCLASS(NotBlueprintType, Abstract, Blueprintable, hideCategories = ("Display", "Requirements", "Policy"))
 class ART_API UARTUseAbilityOrder : public UARTOrderWithBehavior
 {
 	GENERATED_BODY()

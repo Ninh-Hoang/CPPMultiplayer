@@ -708,7 +708,8 @@ void UARTOrderHelper::SetHumanPlayerAutoOrderState(const AActor* OrderedActor, c
 	AutoOrderComponent->SetHumanPlayerAutoOrderState(Order, bEnable);
 }
 
-bool UARTOrderHelper::AreAutoOrdersAllowedDuringOrder(TSoftClassPtr<UARTOrder> OrderType)
+bool UARTOrderHelper::AreAutoOrdersAllowedDuringOrder(TSoftClassPtr<UARTOrder> OrderType,
+																const AActor* OrderedActor, const FGameplayTagContainer& OrderTags, int32 Index)
 {
 	if (!OrderType.IsValid())
 	{
@@ -717,11 +718,11 @@ bool UARTOrderHelper::AreAutoOrdersAllowedDuringOrder(TSoftClassPtr<UARTOrder> O
 
 	if(!OrderType.IsValid())
 	{
-		UE_LOG(LogOrder, Error, TEXT("UARTOrderHelper::AreAutoOrdersAllowedDuringOrderr: The specified actor is Has no current order to compare."));
-		return false;
+		UE_LOG(LogOrder, Error, TEXT("UARTOrderHelper::AreAutoOrdersAllowedDuringOrderr: The specified actor is Has no current order to compare. Allow Auto Order."));
+		return true;
 	}
 
-	return OrderType->GetDefaultObject<UARTOrder>()->AreAutoOrdersAllowedDuringOrder();
+	return OrderType->GetDefaultObject<UARTOrder>()->AreAutoOrdersAllowedDuringOrder(OrderedActor, OrderTags, Index);
 }
 
 bool UARTOrderHelper::CanOrderBeConsideredAsSucceeded(TSoftClassPtr<UARTOrder> OrderType, const AActor* OrderedActor,

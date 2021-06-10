@@ -87,6 +87,9 @@ public:
 protected:
 	FGameplayTag DeadTag;
 	FGameplayTag EffectRemoveOnDeathTag;
+	
+	FTimerHandle ActorHiddenTimer;
+	FTimerHandle DeadDestroyTimer;
 
 	TArray<FARTDamageNumber> DamageNumberQueue;
 	FTimerHandle DamageNumberTimer;
@@ -179,6 +182,8 @@ protected:
 	void BindASCInput();
 
 	virtual void Restart() override;
+
+	void HideActorInGame();
 
 public:
 	//FOR AI/Manual Blueprint Ability Activation

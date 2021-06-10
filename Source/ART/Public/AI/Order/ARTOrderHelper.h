@@ -212,7 +212,8 @@ const FARTOrderTargetData& TargetData, const FGameplayTagContainer& OrderTags, i
 
     /** Whether the specified order order allows auto orders when it is active. */
     UFUNCTION(Category = "Order", BlueprintPure)
-    static bool AreAutoOrdersAllowedDuringOrder(TSoftClassPtr<UARTOrder> OrderType);
+ static bool AreAutoOrdersAllowedDuringOrder(TSoftClassPtr<UARTOrder> OrderType,
+                                                               const AActor* OrderedActor, const FGameplayTagContainer& OrderTags, int32 Index = -1);
 
     /**
      * Whether the specified order can be considered as succeeded in regard to the specified ordered actor and order

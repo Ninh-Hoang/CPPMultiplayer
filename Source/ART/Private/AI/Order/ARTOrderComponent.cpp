@@ -222,6 +222,11 @@ void UARTOrderComponent::EnqueueOrder(const FARTOrderData& Order)
 			return;
 		}
 
+		if(OrderQueue.Num() > 0 && OrderQueue.Last() == StopOrder)
+		{
+			OrderQueue.RemoveAt(OrderQueue.Num()-1);
+		}
+
 		OrderQueue.Add(Order);
 		OnOrderEnqueued.Broadcast(Order);
 

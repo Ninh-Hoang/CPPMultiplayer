@@ -32,37 +32,37 @@ public:
 
 private:
     /** Normal icon of the order. Can be shown in the UI. */
-    UPROPERTY(Category = "Order Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+    UPROPERTY(Category = "Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
     UTexture2D* NormalIcon;
 
     /** Hovered icon of the order. Can be shown in the UI. */
-    UPROPERTY(Category = "Order Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+    UPROPERTY(Category = " Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
     UTexture2D* HoveredIcon;
 
     /** Pressed icon of the order. Can be shown in the UI. */
-    UPROPERTY(Category = "Order Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+    UPROPERTY(Category = "Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
     UTexture2D* PressedIcon;
 
     /** Disabled icon of the order. Can be shown in the UI. */
-    UPROPERTY(Category = "Order Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+    UPROPERTY(Category = "Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
     UTexture2D* DisabledIcon;
 
     /** Name of the order. Can be shown in the UI. */
-    UPROPERTY(Category = "Order Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+    UPROPERTY(Category = "Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
     FText Name;
 
     /** Description of the order. Can be shown in the UI. */
-    UPROPERTY(Category = "Order Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+    UPROPERTY(Category = "Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
     FText Description;
 
     /** Whether to use a fixed index of the button when shown in the UI, instead of just lining it up among others. */
-    UPROPERTY(Category = "Order Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+    UPROPERTY(Category = "Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
     bool bUseFixedOrderButtonIndex;
 
     /** Index of the button when shown in the UI. */
-    UPROPERTY(Category = "Order Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+    UPROPERTY(Category = "Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
     int32 OrderButtonIndex;
 
-	UPROPERTY(Category = "Order Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	UPROPERTY(Category = "Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	FARTOrderPreviewData OrderPreviewData;
 };

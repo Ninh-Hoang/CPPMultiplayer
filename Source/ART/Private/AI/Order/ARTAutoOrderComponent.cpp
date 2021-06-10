@@ -174,7 +174,8 @@ void UARTAutoOrderComponent::BeginPlay()
     //    OwnerComponent->OnOwnerChanged.AddDynamic(this, &UARTAutoOrderComponent::OnOwnerChanged);
     //}
 
-    if (bHasAutoCastOrders && UARTOrderHelper::AreAutoOrdersAllowedDuringOrder(OrderComponent->GetCurrentOrderType()))
+    FARTOrderData CurrentOrder = OrderComponent->GetCurrentOrderData();
+    if (bHasAutoCastOrders && UARTOrderHelper::AreAutoOrdersAllowedDuringOrder(CurrentOrder.OrderType, GetOwner(), CurrentOrder.OrderTags, CurrentOrder.Index))
     {
         bCheckAutoOrders = true;
     }
@@ -230,7 +231,7 @@ void UARTAutoOrderComponent::CheckAutoOrders()
 
 void UARTAutoOrderComponent::OnOrderChanged(const FARTOrderData& NewOrder)
 {
-    bCheckAutoOrders = UARTOrderHelper::AreAutoOrdersAllowedDuringOrder(NewOrder.OrderType);
+    bCheckAutoOrders = UARTOrderHelper::AreAutoOrdersAllowedDuringOrder(NewOrder.OrderType, GetOwner(), NewOrder.OrderTags, NewOrder.Index);
 }
 
 void UARTAutoOrderComponent::OnOwnerChanged(APlayerState* PreviousOwner, APlayerState* NewOwner)
@@ -271,7 +272,8 @@ void UARTAutoOrderComponent::OnOwnerChanged(APlayerState* PreviousOwner, APlayer
 
     if (bHasAutoCastOrders)
     {
-        bCheckAutoOrders = UARTOrderHelper::AreAutoOrdersAllowedDuringOrder(OrderComponent->GetCurrentOrderType());
+        FARTOrderData CurrentOrder = OrderComponent->GetCurrentOrderData();
+        bCheckAutoOrders = UARTOrderHelper::AreAutoOrdersAllowedDuringOrder(CurrentOrder.OrderType, GetOwner(), CurrentOrder.OrderTags, CurrentOrder.Index);
     }
 }
 
@@ -353,11 +355,22 @@ float UARTAutoOrderComponent::GetAcquisitionRadius(const FARTOrderTypeWithIndex&
 void UARTAutoOrderComponent::OnAutoOrderAdded(const FARTOrderTypeWithIndex& AutoOrder)
 {
     if(Orders.Contains(AutoOrder)) return;
-    int32 Index = Orders.Add(AutoOrder);
+
+    int32 Index = Orders.Num();
+    for(int32 i = 0; i < Orders.Num(); i ++)
+    {
+        if(AutoOrder.Index <= Orders[i].Index)
+        {
+            Index = i;
+            break;
+        }
+    }
+    
+    Orders.Insert(AutoOrder, Index);
 
     AActor* Owner = GetOwner();
-    
-    HumanPlayerAutoOrders.AddDefaulted(1);
+
+    HumanPlayerAutoOrders.InsertDefaulted(Index, 1);
 
     // Only certain abilities are auto cast abilities for human players.
     HumanPlayerAutoOrders[Index] = UARTOrderHelper::IsHumanPlayerAutoOrder(Orders[Index].OrderType, Owner, Orders[Index].OrderTags, Orders[Index].Index);
@@ -369,8 +382,8 @@ void UARTAutoOrderComponent::OnAutoOrderAdded(const FARTOrderTypeWithIndex& Auto
         return;
     }
 
-    HumanPlayerAutoOrderStates.AddDefaulted(1);
-    AIPlayerAutoOrders.AddDefaulted(1);
+    HumanPlayerAutoOrderStates.InsertDefaulted(Index, 1);
+    AIPlayerAutoOrders.InsertDefaulted(Index, 1);
 
     bool bHasAutoCastOrders = false;
 
@@ -387,7 +400,8 @@ void UARTAutoOrderComponent::OnAutoOrderAdded(const FARTOrderTypeWithIndex& Auto
 
     if(UARTOrderComponent* OrderComponent = GetOwner()->FindComponentByClass<UARTOrderComponent>())
     {
-        if (bHasAutoCastOrders && UARTOrderHelper::AreAutoOrdersAllowedDuringOrder(OrderComponent->GetCurrentOrderType()))
+        FARTOrderData CurrentOrder = OrderComponent->GetCurrentOrderData();
+        if (bHasAutoCastOrders && UARTOrderHelper::AreAutoOrdersAllowedDuringOrder(CurrentOrder.OrderType, GetOwner(), CurrentOrder.OrderTags, CurrentOrder.Index))
         {
             bCheckAutoOrders = true;
         }

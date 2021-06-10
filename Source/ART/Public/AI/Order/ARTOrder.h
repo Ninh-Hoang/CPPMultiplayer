@@ -159,26 +159,27 @@ public:
 	                                 int32 Index) const;
 
 	/** Whether this order allows auto orders when it is active. */
-	virtual bool AreAutoOrdersAllowedDuringOrder() const;
+	virtual bool AreAutoOrdersAllowedDuringOrder(const AActor* OrderedActor, const FGameplayTagContainer& OrderTags,
+									int32 Index) const;
 
 protected:
 	/** Tag requirements for an order that must be full filled to be issued. */
-	UPROPERTY(Category = "OrderRequirements", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	UPROPERTY(Category = "Requirements", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	FARTOrderTagRequirements TagRequirements;
 
 	/** Tag requirements for an order that must be full filled to be to be successful. */
-	UPROPERTY(Category = "OrderRequirements", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	UPROPERTY(Category = "Requirements", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	FARTOrderTagRequirements SuccessTagRequirements;
 
 	/**
 	* Describes how an order is executed. This might determine how the order is displayed in the UI and it determines
 	* how the order is handled by the order system.
 	*/
-	UPROPERTY(Category = "Order", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	UPROPERTY(Category = "Policy", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	EARTOrderProcessPolicy OrderProcessPolicy;
 
 private:
 	/** Order to issue instead if the player specified an invalid target for this one. */
-	UPROPERTY(Category = "Order", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	UPROPERTY(Category = "Policy", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	TSoftClassPtr<UARTOrder> FallbackOrder;
 };

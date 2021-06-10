@@ -26,14 +26,11 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 	                           FActorComponentTickFunction* ThisTickFunction) override;
 
+	UPROPERTY(BlueprintAssignable, Category = "Order")
 	FONSelectEvent OnSelected;
+
+	UPROPERTY(BlueprintAssignable, Category = "Order")
 	FONSelectEvent OnDeselected;
-
-	UFUNCTION(Category = "Order|Select", BlueprintImplementableEvent, meta = (DisplayName = "OnUnitSelected"))
-	void OnUnitSelect();
-
-	UFUNCTION(Category = "Order|Select", BlueprintImplementableEvent, meta = (DisplayName = "OnUnitDeselected"))
-	void OnUnitDeselected();
 
 	UFUNCTION(BlueprintPure, Category=Selectable)
 	bool IsSelected();

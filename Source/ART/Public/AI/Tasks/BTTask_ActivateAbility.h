@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "AI/Tasks/BTTask_GameplayTagBase.h"
 #include "Abilities/GameplayAbilityTypes.h"
+#include "ARTCharacter/AI/ARTAIController.h"
+
 #include "BTTask_ActivateAbility.generated.h"
 
 /**
@@ -19,6 +21,9 @@ class ART_API UBTTask_ActivateAbility : public UBTTask_GameplayTagBase
 	UPROPERTY(EditAnywhere, Category=GameplayTag)
 	bool UseOrderTags;
 
+	UPROPERTY(EditAnywhere, Category=GameplayTag)
+	bool BroadcastResultToController;
+
 	UPROPERTY(Category = Node, EditAnywhere)
 	bool InstantExecute;
 
@@ -26,7 +31,14 @@ class ART_API UBTTask_ActivateAbility : public UBTTask_GameplayTagBase
 	UBehaviorTreeComponent* MyOwnerComp;
 
 	FDelegateHandle OnAbilityEndHandle;
+
+	UPROPERTY()
+	AARTAIController* AIController;
+
+	UPROPERTY()
 	UAbilitySystemComponent* ASC;
+
+	UPROPERTY()
 	UGameplayAbility* ActiveAbility;
 
 	/** cached description */

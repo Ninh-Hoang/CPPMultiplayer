@@ -14,7 +14,8 @@ UARTStopOrder::UARTStopOrder()
 	//TagRequirements.SourceBlockedTags.AddTag(UARTGlobalTags::Status_Changing_Constructing());
 }
 
-bool UARTStopOrder::AreAutoOrdersAllowedDuringOrder() const
+bool UARTStopOrder::AreAutoOrdersAllowedDuringOrder(const AActor* OrderedActor, const FGameplayTagContainer& OrderTags,
+									int32 Index) const 
 {
 	return true;
 }

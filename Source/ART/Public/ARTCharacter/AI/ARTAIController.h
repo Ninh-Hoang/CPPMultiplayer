@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "AIController.h"
 #include "AI/Order/ARTOrderData.h"
-#include "AI/Order/ARTStopOrder.h"
+#include "AI/Order/ARTOrder.h"
 #include "BehaviorTree/BehaviorTreeTypes.h"
 
 #include "ARTAIController.generated.h"
@@ -34,7 +34,7 @@ public:
 	//~ End AActor Interface
 
 	UFUNCTION(Category = ART, BlueprintPure)
-	TSoftClassPtr<UARTStopOrder> GetStopOrder() const;
+	TSoftClassPtr<UARTOrder> GetStopOrder() const;
 
 	/** Called from the behavior tree to indicate that it has ended with the passed result. */
 	UFUNCTION(Category = ART, BlueprintCallable)
@@ -59,7 +59,7 @@ private:
 
 	/** The order to stop the character and put him in the idle state. */
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "ART", meta = (AllowPrivateAccess = true))
-	TSoftClassPtr<UARTStopOrder> StopOrder;
+	TSoftClassPtr<UARTOrder> DefaultOrder;
 
 	/** Blackboard to use for holding all data relevant to the character AI. */
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "ART", meta = (AllowPrivateAccess = true))

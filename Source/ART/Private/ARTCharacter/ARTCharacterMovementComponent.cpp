@@ -12,6 +12,7 @@ UARTCharacterMovementComponent::UARTCharacterMovementComponent()
 	ADSSpeedMultiplier = 0.5f;
 	BlockingSpeedMultiplier = 0.0f;
 	AttackingMultiplier = 0.0f;
+	bUseControllerDesiredRotation = true;
 }
 
 float UARTCharacterMovementComponent::GetMaxSpeed() const

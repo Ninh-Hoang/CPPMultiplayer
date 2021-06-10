@@ -17,6 +17,7 @@ class ART_API UARTStopOrder : public UARTCharacterAIOrder
 	UARTStopOrder();
 
 	//~ Begin URTSOrder Interface
-	virtual bool AreAutoOrdersAllowedDuringOrder() const;
+	virtual bool AreAutoOrdersAllowedDuringOrder(const AActor* OrderedActor, const FGameplayTagContainer& OrderTags,
+									int32 Index) const override; 
 	//~ End URTSOrder Interface
 };

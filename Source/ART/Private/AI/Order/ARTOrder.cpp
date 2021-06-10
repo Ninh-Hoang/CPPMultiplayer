@@ -212,7 +212,8 @@ bool UARTOrder::IsAIPlayerAutoOrder(const AActor* OrderedActor, const FGameplayT
 	return false;
 }
 
-bool UARTOrder::AreAutoOrdersAllowedDuringOrder() const
+bool UARTOrder::AreAutoOrdersAllowedDuringOrder(const AActor* OrderedActor, const FGameplayTagContainer& OrderTags,
+									int32 Index) const 
 {
 	return false;
 }

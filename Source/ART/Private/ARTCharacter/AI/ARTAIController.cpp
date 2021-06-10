@@ -23,7 +23,7 @@ void AARTAIController::OnPossess(APawn* InPawn)
     Super::OnPossess(InPawn);
 
     // Load assets.s
-    StopOrder.LoadSynchronous();
+    DefaultOrder.LoadSynchronous();
 
     // Make AI use assigned blackboard.
     UBlackboardComponent* BlackboardComponent;
@@ -31,11 +31,11 @@ void AARTAIController::OnPossess(APawn* InPawn)
     if (UseBlackboard(CharacterBlackboardAsset, BlackboardComponent))
     {
         // Setup blackboard.
-        SetBlackboardValues(FARTOrderData(StopOrder.Get()), InPawn->GetActorLocation());
+        SetBlackboardValues(FARTOrderData(DefaultOrder.Get()), InPawn->GetActorLocation());
     }
 
     // Call RunBehaviorTree. This will setup the behavior tree component.
-    UBehaviorTree* BehaviorTree = UARTOrderHelper::GetBehaviorTree(StopOrder.Get());
+    UBehaviorTree* BehaviorTree = UARTOrderHelper::GetBehaviorTree(DefaultOrder.Get());
     RunBehaviorTree(BehaviorTree);
 }
 
@@ -68,9 +68,9 @@ void AARTAIController::IssueOrder(const FARTOrderData& Order, FARTOrderCallback 
     ApplyOrder(Order, BehaviorTree);
 }
 
-TSoftClassPtr<UARTStopOrder> AARTAIController::GetStopOrder() const
+TSoftClassPtr<UARTOrder> AARTAIController::GetStopOrder() const
 {
-    return StopOrder;
+    return DefaultOrder;
 }
 
 void AARTAIController::BehaviorTreeEnded(EBTNodeResult::Type Result)

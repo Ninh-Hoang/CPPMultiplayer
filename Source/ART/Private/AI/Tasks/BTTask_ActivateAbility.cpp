@@ -11,13 +11,17 @@ UBTTask_ActivateAbility::UBTTask_ActivateAbility(const FObjectInitializer& Objec
 {
 	NodeName = "Activate Gameplay Ability";
 	bCreateNodeInstance = true;
+	
+	UseOrderTags = false;
+	BroadcastResultToController = false;
+	InstantExecute = false;
 }
 
 
 EBTNodeResult::Type UBTTask_ActivateAbility::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-	const AController* MyController = Cast<AController>(OwnerComp.GetOwner());
-	APawn* MyPawn = MyController ? MyController->GetPawn() : NULL;
+	AIController = Cast<AARTAIController>(OwnerComp.GetOwner());
+	APawn* MyPawn = AIController ? AIController->GetPawn() : NULL;
 
 	if (!MyPawn)
 	{
@@ -45,13 +49,18 @@ EBTNodeResult::Type UBTTask_ActivateAbility::ExecuteTask(UBehaviorTreeComponent&
 		
 		bool Activated = AvatarActor->ActivateAbilitiesWithTags(GameplayTagContainer, false);
 
-		if (!Activated) return EBTNodeResult::Failed;
+		if (!Activated)
+		{
+			if(BroadcastResultToController) AIController->BehaviorTreeEnded(EBTNodeResult::Failed);
+			return EBTNodeResult::Failed;
+		}
 		if (InstantExecute) return EBTNodeResult::Succeeded;
 
 
 		MyOwnerComp = &OwnerComp;
 		return EBTNodeResult::InProgress;
 	}
+	if(BroadcastResultToController) AIController->BehaviorTreeEnded(EBTNodeResult::Failed);
 	return EBTNodeResult::Failed;
 }
 
@@ -59,6 +68,7 @@ EBTNodeResult::Type UBTTask_ActivateAbility::ExecuteTask(UBehaviorTreeComponent&
 void UBTTask_ActivateAbility::OnTaskFinished(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory,
 	EBTNodeResult::Type TaskResult)
 {
+	if(BroadcastResultToController) AIController->BehaviorTreeEnded(TaskResult);
 	ASC->OnAbilityEnded.Remove(OnAbilityEndHandle);
 	Super::OnTaskFinished(OwnerComp, NodeMemory, TaskResult);
 }
@@ -66,6 +76,7 @@ void UBTTask_ActivateAbility::OnTaskFinished(UBehaviorTreeComponent& OwnerComp, 
 EBTNodeResult::Type UBTTask_ActivateAbility::AbortTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	ASC->OnAbilityEnded.Remove(OnAbilityEndHandle);
+	if(BroadcastResultToController) AIController->BehaviorTreeEnded(EBTNodeResult::Aborted);
 	return Super::AbortTask(OwnerComp, NodeMemory);
 }
 
@@ -76,6 +87,7 @@ void UBTTask_ActivateAbility::OnAbilityEnded(const FAbilityEndedData& Data)
 		ASC->OnAbilityEnded.Remove(OnAbilityEndHandle);
 		UBehaviorTreeComponent* OwnerComp = Cast<UBehaviorTreeComponent>(GetOuter());
 		const EBTNodeResult::Type NodeResult = Data.bWasCancelled ? EBTNodeResult::Aborted : EBTNodeResult::Succeeded;
+		if(BroadcastResultToController) AIController->BehaviorTreeEnded(NodeResult);
 		FinishLatentTask(*OwnerComp, NodeResult);
 	}
 }

@@ -76,5 +76,7 @@ DerivedDataCache/*
 Plugins/*
 
 #Ignore Asset files as they are too heavy
-#Content/CustomAsset/*
+Content/CustomAsset/*
+Content/ParagonMinions/*
+Content/ParagonTwinblast/*
 

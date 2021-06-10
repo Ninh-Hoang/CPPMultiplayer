@@ -190,19 +190,40 @@ void AARTCharacterBase::Die()
 		//UGameplayStatics::PlaySoundAtLocation(this, DeathSound, GetActorLocation());
 	}
 
+	SetActorEnableCollision(false);
+	
 	if (DeathMontage)
 	{
-		PlayAnimMontage(DeathMontage);
+		float DeadMontagePlayTime = PlayAnimMontage(DeathMontage);
+
+		if (!GetWorldTimerManager().IsTimerActive(ActorHiddenTimer))
+		{
+			//TODO: Remove magic number
+			GetWorldTimerManager().SetTimer(ActorHiddenTimer, this, &AARTCharacterBase::HideActorInGame, DeadMontagePlayTime+2.f, false);
+		}
 	}
 	else
 	{
-		FinishDying();
+		HideActorInGame();
+	}
+
+	if (!GetWorldTimerManager().IsTimerActive(DeadDestroyTimer))
+	{
+		SetActorEnableCollision(false);
+		//TODO: Remove Magic number 10 seconds after dead
+		GetWorldTimerManager().SetTimer(DeadDestroyTimer, this, &AARTCharacterBase::FinishDying, 10.f, false);
 	}
 }
 
 void AARTCharacterBase::FinishDying()
 {
 	Destroy();
+}
+
+
+void AARTCharacterBase::HideActorInGame()
+{
+	SetActorHiddenInGame(true);
 }
 
 void AARTCharacterBase::AddDamageNumber(float Damage, FGameplayTagContainer DamageNumberTags)

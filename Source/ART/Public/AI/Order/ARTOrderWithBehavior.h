@@ -38,20 +38,20 @@ public:
 
 private:
 	/** The behavior tree that should run in order to obey this order. */
-	UPROPERTY(Category = "Order Behavior", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	UPROPERTY(Category = "Behavior", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	UBehaviorTree* BehaviorTree;
 
 	/** Whether to restart the behavior tree whenever a new order of this type is issued. */
-	UPROPERTY(Category = "Order Behavior", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	UPROPERTY(Category = "Behavior", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	bool bShouldRestartBehaviorTree;
 
 	/** The specific acquisition radius for this order. */
-	UPROPERTY(Category = "Order Behavior", EditDefaultsOnly, BlueprintReadOnly,
+	UPROPERTY(Category = "Behavior", EditDefaultsOnly, BlueprintReadOnly,
 			meta = (AllowPrivateAccess = true, EditCondition = bIsAcquisitionRadiusOverridden))
 	float AcquisitionRadiusOverride;
 
 	/** Whether this order uses a specific acquisition radius. */
-	UPROPERTY(Category = "Order Behavior", EditDefaultsOnly, BlueprintReadOnly,
+	UPROPERTY(Category = "Behavior", EditDefaultsOnly, BlueprintReadOnly,
 			meta = (AllowPrivateAccess = true, InlineEditConditionToggle = true))
 	bool bIsAcquisitionRadiusOverridden;
 };

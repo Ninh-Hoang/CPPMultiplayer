@@ -42,11 +42,6 @@ bool UARTUseAbilityOrder::CanObeyOrder(const AActor* OrderedActor, const FGamepl
 						OutErrorTags->ErrorTags = FailureTags;
 					}
 
-					UE_LOG(LogOrder, Error,
-					       TEXT(
-						       "Order fail to be issued as ability '%s' CanActivate() fail"),
-					       *Ability->GetName());
-
 					return false;
 				}
 
@@ -374,7 +369,7 @@ bool UARTUseAbilityOrder::GetAcquisitionRadiusOverride(const AActor* OrderedActo
 	}
 
 	const UARTAbilitySystemComponent* AbilitySystem = OrderedActor->FindComponentByClass<UARTAbilitySystemComponent>();
-	UARTGameplayAbility* Ability = Cast<UARTGameplayAbility>(GetAbility(AbilitySystem, Index));
+	UARTGameplayAbility* Ability = Cast<UARTGameplayAbility>(GetAbility(AbilitySystem, OrderTags));
 
 	if (Ability != nullptr)
 	{
@@ -411,7 +406,6 @@ void UARTUseAbilityOrder::GetTagRequirements(const AActor* OrderedActor, const F
 	{
 		return;
 	}
-
 	UARTAbilitySystemComponent* AbilitySystem = OrderedActor->FindComponentByClass<UARTAbilitySystemComponent>();
 	UARTGameplayAbility* Ability = Cast<UARTGameplayAbility>(GetAbility(AbilitySystem, OrderTags));
 

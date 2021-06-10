@@ -70,7 +70,8 @@ enum class EARTAbilityProcessPolicy : uint8
 	* Same as 'CanBeCanceled' with the only difference that the ability can not be canceled as long an an ability task
 	* is active (e.g. 'PlayMontageAndWaitWithNotify').
 	*/
-	CAN_BE_CANCELED_WHEN_NO_GAMEPLAY_TASK_IS_RUNNING UMETA(DisplayName = "Can be Canceled when no Gameplay Task is running")
+	CAN_BE_CANCELED_WHEN_NO_GAMEPLAY_TASK_IS_RUNNING UMETA(
+		DisplayName = "Can be Canceled when no Gameplay Task is running")
 	// clang-format on
 };
 
@@ -81,7 +82,7 @@ class ART_API UARTGameplayAbility : public UGameplayAbility
 
 public:
 	UARTGameplayAbility();
-	                        
+
 	// Abilities with this set will automatically activate when the input is pressed
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Ability|Input")
 	EARTAbilityInputID AbilityInputID = EARTAbilityInputID::None;
@@ -120,7 +121,7 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Ability|Charge")
 	int32 AbilityCharge = 1;
 
-	//Ability that can stack/charge or not, 1 mean no stack
+	//cooldown duration
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Ability|Cooldown")
 	FScalableFloat CooldownDuration;
 
@@ -143,12 +144,14 @@ public:
 	virtual void OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec) override;
 
 	//Do not called this directly, this is only used for logic after ability is activated
-	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;
+	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
+	                             const FGameplayAbilityActivationInfo ActivationInfo,
+	                             const FGameplayEventData* TriggerEventData) override;
 
 	virtual void EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
 	                        const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility,
 	                        bool bWasCancelled) override;
-	
+
 	// Make gameplay effect container spec to be applied later, using the passed in container
 	UFUNCTION(BlueprintCallable, Category = Ability, meta = (AutoCreateRefTerm = "EventData"))
 	virtual FARTGameplayEffectContainerSpec MakeEffectContainerSpecFromContainer(
@@ -189,15 +192,16 @@ public:
 	// ----------------------------------------------------------------------------------------------------------------
 	//	Override cooldown related function for dynamic cooldown GE
 	// ----------------------------------------------------------------------------------------------------------------
-	
+
 	/** Event for generating ultility score */
-	UFUNCTION(BlueprintImplementableEvent, Category = Ability, DisplayName="ScoreAbilityutility", meta=(ScriptName="ScoreAbilityUtility"))
-    float K2_ScoreAbilityUtility(FGameplayAbilityActorInfo ActorInfo) const;
+	UFUNCTION(BlueprintImplementableEvent, Category = Ability, DisplayName="ScoreAbilityutility",
+		meta=(ScriptName="ScoreAbilityUtility"))
+	float K2_ScoreAbilityUtility(FGameplayAbilityActorInfo ActorInfo) const;
 
 	bool bHasBlueprintScoreUtility;
-	
+
 	virtual float ScoreAbilityUtility();
-	
+
 	virtual bool CanActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
 	                                const FGameplayTagContainer* SourceTags = nullptr,
 	                                const FGameplayTagContainer* TargetTags = nullptr,
@@ -278,13 +282,15 @@ public:
 	//TODO: FIX this node
 	UFUNCTION(BlueprintCallable, Category = "Ability|GameplayEffect")
 	void BP_ApplyAbilityTagsToGameplayEffectSpec(FGameplayEffectSpec& Spec, FGameplayAbilitySpec& AbilitySpec) const;
-	
-protected:
 
+protected:
 	int32 CurrentCharges = 0;
 
 	FGameplayTag InteractingTag;
 	FGameplayTag InteractingRemovalTag;
+
+	//Array of handles for CancelTag
+	TMap<FGameplayTag, FDelegateHandle> RegisteredCancelTagEventHandles;
 
 	// Temp container that we will return the pointer to in GetCooldownTags().
 	// This will be a union of our CooldownTags and the Cooldown GE's cooldown tags.
@@ -329,17 +335,17 @@ public:
 	// ----------------------------------------------------------------------------------------------------------------
 	//	ARTAvatarActorInfo Getter
 	// ----------------------------------------------------------------------------------------------------------------
-	
+
 	const FARTGameplayAbilityActorInfo* GetARTActorInfo(const FGameplayAbilityActorInfo* Info) const;
-	
+
 	UFUNCTION(BlueprintPure, Category = "Ability|ActorInfo")
 	FARTGameplayAbilityActorInfo BP_GetARTActorInfo();
-	
+
 	UFUNCTION(BlueprintPure, Category = "Ability|ActorInfo")
-    UAnimInstance* GetAnimInstance() const;
-	
+	UAnimInstance* GetAnimInstance() const;
+
 	UFUNCTION(BlueprintPure, Category = "Ability|ActorInfo")
-    AWeapon* BP_GetWeapon() const;
+	AWeapon* BP_GetWeapon() const;
 
 
 protected:
@@ -348,182 +354,194 @@ protected:
 	* determines how the ability is handled by the order system. Note that this has nothing todo with the effects an
 	* ability might apply to a target. This has also nothing todo with the cooldown of the ability.
 	*/
-	
+
 	UPROPERTY(Category = "Ability|Order", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
-    EARTAbilityProcessPolicy AbilityProcessPolicy;
+	EARTAbilityProcessPolicy AbilityProcessPolicy;
 
-    /**
-     * To how many and which of the selected units should this order be issued to.
-     */
-    UPROPERTY(Category = "Ability|Order", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
-    EARTOrderGroupExecutionType GroupExecutionType;
+	/**
+	 * To how many and which of the selected units should this order be issued to.
+	 */
+	UPROPERTY(Category = "Ability|Order", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	EARTOrderGroupExecutionType GroupExecutionType;
 
-    /**
-     * The target type of this ability.
-     */
+	/**
+	 * The target type of this ability.
+	 */
 
 	UPROPERTY(Category = "Ability|Targeting", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	FScalableFloat AbilityBaseRange;
 
+	UPROPERTY(Category = "Ability|Targeting", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	EARTTargetType TargetType;
+
+	/** Details about the preview for this ability while choosing a target. */
+	UPROPERTY(Category = "Ability|Targeting", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	FARTOrderPreviewData AbilityPreviewData;
+
+	/** Icon of the ability. Can be shown in the UI. */
+	UPROPERTY(Category = "Ability|Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	UTexture2D* Icon;
+
+	/** Name of the ability. Can be shown in the UI. */
+	UPROPERTY(Category = "Ability|Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	FText Name;
+
+	/** Description of the ability. Can be shown in the UI. */
+	UPROPERTY(Category = "Ability|Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	FText Description;
+
+	/** Whether to show this ability as a default order in the UI, instead of as an ability. */
+	UPROPERTY(Category = "Ability|Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	bool bShouldShowAsOrderInUI;
+
+	/** The specific acquisition radius for this ability. */
+	UPROPERTY(Category = "Ability|AutoOrder", EditDefaultsOnly, BlueprintReadOnly,
+		meta = (AllowPrivateAccess = true, EditCondition = bIsAcquisitionRadiusOverridden))
+	float AcquisitionRadiusOverride;
+
+	/** Whether this ability uses a specific acquisition radius. */
+	UPROPERTY(Category = "Ability|AutoOrder", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	bool bIsAcquisitionRadiusOverridden; // InlineEditConditionToggle caused Editor crashes here.
+
+	/** Auto order priority, lower means will be priotized */
+	UPROPERTY(Category = "Ability|AutoOrder", EditDefaultsOnly, BlueprintReadOnly,meta = (AllowPrivateAccess = true))
+	int32 AutoOrderPriority;
 	
-    UPROPERTY(Category = "Ability|Targeting", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
-    EARTTargetType TargetType;
+	/** Whether this ability is an auto ability for the human player. */
+	UPROPERTY(Category = "Ability|AutoOrder", BlueprintReadOnly, EditDefaultsOnly, meta = (AllowPrivateAccess = true))
+	bool bHumanPlayerAutoAbility;
 
-    /** Details about the preview for this ability while choosing a target. */
-    UPROPERTY(Category = "Ability|Targeting", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
-    FARTOrderPreviewData AbilityPreviewData;
+	/** When this ability is an auto ability, this value indicates whether it is active by default. */
+	UPROPERTY(Category = "Ability|AutoOrder", BlueprintReadOnly, EditAnywhere, meta = (AllowPrivateAccess = true))
+	bool bHumanPlayerAutoAutoAbilityInitialState;
 
-    /** Icon of the ability. Can be shown in the UI. */
-    UPROPERTY(Category = "Ability|Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
-    UTexture2D* Icon;
+	/** Whether this ability is an auto ability for AI players. */
+	UPROPERTY(Category = "Ability|AutoOrder", BlueprintReadOnly, EditDefaultsOnly, meta = (AllowPrivateAccess = true))
+	bool bAIPlayerAutoAbility;
 
-    /** Name of the ability. Can be shown in the UI. */
-    UPROPERTY(Category = "Ability|Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
-    FText Name;
-
-    /** Description of the ability. Can be shown in the UI. */
-    UPROPERTY(Category = "Ability|Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
-    FText Description;
-
-    /** Whether to show this ability as a default order in the UI, instead of as an ability. */
-    UPROPERTY(Category = "Ability|Display", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
-    bool bShouldShowAsOrderInUI;
-
-    /** The specific acquisition radius for this ability. */
-    UPROPERTY(Category = "Ability|AutoOrder", EditDefaultsOnly, BlueprintReadOnly,
-              meta = (AllowPrivateAccess = true, EditCondition = bIsAcquisitionRadiusOverridden))
-    float AcquisitionRadiusOverride;
-
-    /** Whether this ability uses a specific acquisition radius. */
-    UPROPERTY(Category = "Ability|AutoOrder", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
-    bool bIsAcquisitionRadiusOverridden; // InlineEditConditionToggle caused Editor crashes here.
-
-    /** Whether this ability is an auto ability for the human player. */
-    UPROPERTY(Category = "Ability|AutoOrder", BlueprintReadOnly, EditDefaultsOnly, meta = (AllowPrivateAccess = true))
-    bool bHumanPlayerAutoAbility;
-
-    /** When this ability is an auto ability, this value indicates whether it is active by default. */
-    UPROPERTY(Category = "Ability|AutoOrder", BlueprintReadOnly, EditAnywhere, meta = (AllowPrivateAccess = true))
-    bool bHumanPlayerAutoAutoAbilityInitialState;
-
-    /** Whether this ability is an auto ability for AI players. */
-    UPROPERTY(Category = "Ability|AutoOrder", BlueprintReadOnly, EditDefaultsOnly, meta = (AllowPrivateAccess = true))
-    bool bAIPlayerAutoAbility;
-
-    /** Whether this ability uses a specific target score. */
-    UPROPERTY(Category = "Ability|AutoOrder", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
-    bool bIsTargetScoreOverridden;
+	/** Whether this ability uses a specific target score. */
+	UPROPERTY(Category = "Ability|AutoOrder", EditDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	bool bIsTargetScoreOverridden;
 
 public:
 	/*
 	 *Order related function
 	 */
 	/** Gets the target type of this ability. */
-    EARTTargetType GetTargetType() const;
+	EARTTargetType GetTargetType() const;
 
-    /** Gets the group execution type this ability. */
-    EARTOrderGroupExecutionType GetGroupExecutionType() const;
+	/** Gets the group execution type this ability. */
+	EARTOrderGroupExecutionType GetGroupExecutionType() const;
 
-    /**
-     * Gets the event trigger tag of this ability is triggered with. Note that this just returns the first event tag
-     * found in AbilityTriggers.
-     */
-    UFUNCTION(Category = Order, BlueprintPure)
-    FGameplayTag GetEventTriggerTag() const;
+	/**
+	 * Gets the event trigger tag of this ability is triggered with. Note that this just returns the first event tag
+	 * found in AbilityTriggers.
+	 */
+	UFUNCTION(Category = Order, BlueprintPure)
+	FGameplayTag GetEventTriggerTag() const;
 
-    /** Gets the AbilityTriggerData of this ability. */
-    const TArray<FAbilityTriggerData>& GetAbilityTriggerData() const;
+	/** Gets the AbilityTriggerData of this ability. */
+	const TArray<FAbilityTriggerData>& GetAbilityTriggerData() const;
 
-    /** Gets the icon of this ability. Can be shown in the UI. */
-    UFUNCTION(Category = Order, BlueprintPure)
-    UTexture2D* GetIcon() const;
+	/** Gets the icon of this ability. Can be shown in the UI. */
+	UFUNCTION(Category = Order, BlueprintPure)
+	UTexture2D* GetIcon() const;
 
-    /** Gets the name of this ability. Can be shown in the UI. */
-    UFUNCTION(Category = Order, BlueprintPure)
-    FText GetName() const;
+	/** Gets the name of this ability. Can be shown in the UI. */
+	UFUNCTION(Category = Order, BlueprintPure)
+	FText GetName() const;
 
-    /** Gets the description of this ability. Can be shown in the UI. */
-    UFUNCTION(Category = Order, BlueprintPure)
-    FText GetDescription(const AActor* Actor) const;
+	/** Gets the description of this ability. Can be shown in the UI. */
+	UFUNCTION(Category = Order, BlueprintPure)
+	FText GetDescription(const AActor* Actor) const;
 
-    /** Gets details about the preview for this ability while choosing a target. */
-    FARTOrderPreviewData GetAbilityPreviewData() const;
+	/** Gets details about the preview for this ability while choosing a target. */
+	FARTOrderPreviewData GetAbilityPreviewData() const;
 
-    /** Formats the description by replacing any placeholders by actual values. */
-    UFUNCTION(Category = Order, BlueprintNativeEvent)
-    void FormatDescription(const FText& InDescription, const AActor* Actor, FText& OutDescription) const;
-    virtual void FormatDescription_Implementation(const FText& InDescription, const AActor* Actor,
-                                                  FText& OutDescription) const;
+	/** Formats the description by replacing any placeholders by actual values. */
+	UFUNCTION(Category = Order, BlueprintNativeEvent)
+	void FormatDescription(const FText& InDescription, const AActor* Actor, FText& OutDescription) const;
+	virtual void FormatDescription_Implementation(const FText& InDescription, const AActor* Actor,
+	                                              FText& OutDescription) const;
 
-    /** Whether to show this ability as a default order in the UI, instead of as an ability. */
-    UFUNCTION(Category = ART, BlueprintPure)
-    bool ShouldShowAsOrderInUI();
+	/** Whether to show this ability as a default order in the UI, instead of as an ability. */
+	UFUNCTION(Category = ART, BlueprintPure)
+	bool ShouldShowAsOrderInUI();
 
-    /**
-     * Called by the owning gameplay ability system when the level of the owner has been changed. Note that this is not
-     * called on non instanced abilities.
-     */
-    UFUNCTION(Category = Order, BlueprintNativeEvent)
-    void OnAbilityLevelChanged(int32 NewLevel);
-    virtual void OnAbilityLevelChanged_Implementation(int32 NewLevel);
+	/**
+	 * Called by the owning gameplay ability system when the level of the owner has been changed. Note that this is not
+	 * called on non instanced abilities.
+	 */
+	UFUNCTION(Category = Order, BlueprintNativeEvent)
+	void OnAbilityLevelChanged(int32 NewLevel);
+	virtual void OnAbilityLevelChanged_Implementation(int32 NewLevel);
 
-    /**
-     * Evaluates the target and returns a score that can be used to compare the different targets. A higher score means
-     * a better target for the ability.
-     */
-	UFUNCTION(BlueprintImplementableEvent, Category = Order, DisplayName="AbilityTargetScore", meta=(ScriptName="AbilityTargetScore"))
-    float K2_GetTargetScore(const AActor* OrderedActor, const FARTOrderTargetData& TargetData, int32 Index) const;
-    virtual float GetTargetScore(const AActor* OrderedActor, const FARTOrderTargetData& TargetData, int32 Index) const;
+	/**
+	 * Evaluates the target and returns a score that can be used to compare the different targets. A higher score means
+	 * a better target for the ability.
+	 */
+	UFUNCTION(BlueprintImplementableEvent, Category = Order, DisplayName="AbilityTargetScore",
+		meta=(ScriptName="AbilityTargetScore"))
+	float K2_GetTargetScore(const AActor* OrderedActor, const FARTOrderTargetData& TargetData, int32 Index) const;
+	virtual float GetTargetScore(const AActor* OrderedActor, const FARTOrderTargetData& TargetData, int32 Index) const;
 
-    /** Gets the ability process policy of this ability. */
-    EARTAbilityProcessPolicy GetAbilityProcessPolicy() const;
+	/** Gets the ability process policy of this ability. */
+	EARTAbilityProcessPolicy GetAbilityProcessPolicy() const;
 
-    /** Gets the tags the activating actor needs to have in order to activate the ability. */
-    UFUNCTION(Category = Order, BlueprintPure)
-    FGameplayTagContainer GetActivationRequiredTags() const;
+	/** Gets the tags the activating actor needs to have in order to activate the ability. */
+	UFUNCTION(Category = Order, BlueprintPure)
+	FGameplayTagContainer GetActivationRequiredTags() const;
 
-    /** Gets order tag requirements that corresponds with the tags of this ability. */
-    void GetOrderTagRequirements(FARTOrderTagRequirements& OutTagRequirements) const;
+	/** Gets order tag requirements that corresponds with the tags of this ability. */
+	void GetOrderTagRequirements(FARTOrderTagRequirements& OutTagRequirements) const;
 
-    /** Gets source tag requirements of this ability. */
-    void GetSourceTagRequirements(FGameplayTagContainer& OutRequiredTags, FGameplayTagContainer& OutBlockedTags) const;
+	/** Gets source tag requirements of this ability. */
+	void GetSourceTagRequirements(FGameplayTagContainer& OutRequiredTags, FGameplayTagContainer& OutBlockedTags) const;
 
-    /** Gets target tag requirements of this ability. */
-    void GetTargetTagRequirements(FGameplayTagContainer& OutRequiredTags, FGameplayTagContainer& OutBlockedTags) const;
+	/** Gets target tag requirements of this ability. */
+	void GetTargetTagRequirements(FGameplayTagContainer& OutRequiredTags, FGameplayTagContainer& OutBlockedTags) const;
 
-    /**
-     * Gets the minimum range between the caster and the target that is needed to activate the ability.
-     * '0' value is returned if the ability has no range.
-     */
-	UFUNCTION(BlueprintImplementableEvent, Category = Order, DisplayName="AbilityRange", meta=(ScriptName="AbilityRange"))
-    float K2_GetRange() const;
-    virtual float GetRange(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
-                           const FGameplayAbilityActivationInfo ActivationInfo) const;
+	/**
+	 * Gets the minimum range between the caster and the target that is needed to activate the ability.
+	 * '0' value is returned if the ability has no range.
+	 */
+	UFUNCTION(BlueprintImplementableEvent, Category = Order, DisplayName="AbilityRange",
+		meta=(ScriptName="AbilityRange"))
+	float K2_GetRange() const;
+	virtual float GetRange(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
+	                       const FGameplayAbilityActivationInfo ActivationInfo) const;
 	UFUNCTION(BlueprintPure, Category=Order)
 	float BP_GetRange();
 	
-    /** Gets the specific acquisition radius for this ability. */
-    bool GetAcquisitionRadiusOverride(float& OutAcquisitionRadius) const;
+	/** Gets the specific acquisition radius for this ability. */
+	bool GetAcquisitionRadiusOverride(float& OutAcquisitionRadius) const;
 
-    /** Whether this ability is an auto ability for the human player. */
-    bool IsHumanPlayerAutoAbility() const;
+	int32 GetAutoOrderPriority() const;
 
-    /** When this ability is an auto ability, this value indicates whether it is active by default. */
-    bool GetHumanPlayerAutoAutoAbilityInitialState() const;
+	/** Whether this ability is an auto ability for the human player. */
+	bool IsHumanPlayerAutoAbility() const;
 
-    /** Whether this ability is an auto ability for AI players. */
-    bool IsAIPlayerAutoAbility() const;
+	/** When this ability is an auto ability, this value indicates whether it is active by default. */
+	bool GetHumanPlayerAutoAutoAbilityInitialState() const;
 
-    /** Whether this ability uses a specific target score. */
-    bool IsTargetScoreOverriden() const;
+	/** Whether this ability is an auto ability for AI players. */
+	bool IsAIPlayerAutoAbility() const;
+
+	/** Whether this ability uses a specific target score. */
+	bool IsTargetScoreOverriden() const;
 
 	/** Whether there are ability tasks active on this gameplay ability instance. */
 	bool AreAbilityTasksActive() const;
 
-    //~ Begin UGameplayAbility Interface
-    virtual bool ShouldActivateAbility(ENetRole Role) const override;
-    virtual void OnGameplayTaskActivated(UGameplayTask& Task) override;
-    virtual void OnGameplayTaskDeactivated(UGameplayTask& Task) override;
-    //~ End UGameplayAbility Interface
-};
+	//~ Begin UGameplayAbility Interface
+	virtual bool ShouldActivateAbility(ENetRole Role) const override;
+	virtual void OnGameplayTaskActivated(UGameplayTask& Task) override;
+	virtual void OnGameplayTaskDeactivated(UGameplayTask& Task) override;
+	//~ End UGameplayAbility Interface
 
+	UFUNCTION(BlueprintPure, Category="Order")
+	FVector GetOrderLocation();
+
+	UFUNCTION(BlueprintPure, Category="Order")
+	AActor* GetOrderTarget();
+};
