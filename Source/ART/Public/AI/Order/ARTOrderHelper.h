@@ -272,7 +272,7 @@ const FARTOrderTargetData& TargetData, const FGameplayTagContainer& OrderTags, i
     /**
      * Finds the most suitable actor to obey the specified order.
      * @param OrderType                 The order type.
-     * @param OrderedActor              The actors to check.
+     * @param OrderedActors             The actors to check.
      * @param TargetData                The target for the order.
      * @param Index                     Order index. This is needed for certain orders to differentiate. Default '-1'.
      * @return                          The target or 'nullptr' if no target was found.

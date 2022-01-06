@@ -3,12 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
+#include "AI/ARTAIConductor.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "ARTCharacterMovementComponent.generated.h"
 
 /**
  * 
  */
+
 UCLASS()
 class ART_API UARTCharacterMovementComponent : public UCharacterMovementComponent
 {
@@ -64,29 +67,30 @@ public:
 	UARTCharacterMovementComponent();
 
 	//movespeed stuffs
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sprint")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GAS Movement")
 	float SprintSpeedMultiplier;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Aim Down Sights")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GAS Movement")
 	float ADSSpeedMultiplier;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blocking")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GAS Movement")
 	float BlockingSpeedMultiplier;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attacking")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GAS Movement")
 	float AttackingMultiplier;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sprinting")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GAS Movement")
 	bool IsSprinting;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Aiming")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GAS Movement")
 	bool IsAiming;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blocking")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GAS Movement")
 	bool IsBlocking;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attacking")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GAS Movement")
 	bool IsAttacking;
+
 
 	uint8 RequestToStartSprinting : 1;
 	uint8 RequestToStartADS : 1;
@@ -124,4 +128,124 @@ public:
     void StartAttacking();
 	UFUNCTION(BlueprintCallable, Category = "Block")
     void StopAttacking();
+
+public:
+
+	//group movement, flocking, steering
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Group Movement")
+	uint8 bUseGroupMovement:1;
+	
+	/* The weight of the Alignment vector component */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI|Steering Behavior Component")
+	float AlignmentWeight;
+
+	/* The weight of the Cohesion vector component */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI|Steering Behavior Component")
+	float CohesionWeight;
+
+	/* The damping of the cohesion force after sum */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI|Steering Behavior Component")
+	float CohesionLerp;
+
+	/* The weight of the Collision vector component */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI|Steering Behavior Component")
+	float CollisionWeight;
+
+	float SeparationLerp;
+	float SeparationForce;
+	float StimuliLerp;
+
+	/* The weight of the Separation vector component */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI|Steering Behavior Component")
+	float SeparationWeight;
+
+	/* The maximum movement speed the Agents can have */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI|Steering Behavior Component")
+	float MaxMovementSpeedMultiplier;
+
+	/* The maximum radius at which the Agent can detect other Agents */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI|Steering Behavior Component")
+	float VisionRadius;
+
+	UPROPERTY(EditAnywhere , BlueprintReadWrite, Category = "AI|Steering Behavior Component")
+	float CollisionDistanceLook;
+	
+	UPROPERTY(EditAnywhere , BlueprintReadWrite, Category = "AI|Steering Behavior Component")
+	FVector AlignmentComponent;
+
+	UPROPERTY(EditAnywhere , BlueprintReadWrite, Category = "AI|Steering Behavior Component")
+	FVector CohesionComponent;
+
+	UPROPERTY(EditAnywhere , BlueprintReadWrite, Category = "AI|Steering Behavior Component")
+	FVector SeparationComponent;
+	
+	UPROPERTY(EditAnywhere , BlueprintReadWrite, Category = "AI|Steering Behavior Component")
+	FVector NegativeStimuliComponent;
+
+	UPROPERTY(EditAnywhere , BlueprintReadWrite, Category = "AI|Steering Behavior Component")
+	FVector PositiveStimuliComponent;
+
+	UPROPERTY(EditAnywhere , BlueprintReadWrite, Category = "AI|Steering Behavior Component")
+	float NegativeStimuliMaxFactor;
+
+	UPROPERTY(EditAnywhere , BlueprintReadWrite, Category = "AI|Steering Behavior Component")
+	float PositiveStimuliMaxFactor;
+	
+	UPROPERTY(EditAnywhere , BlueprintReadWrite, Category = "AI|Steering Behavior Component")
+	float InertiaWeigh;
+
+	UPROPERTY(EditAnywhere , BlueprintReadWrite, Category = "AI|Steering Behavior Component")
+	float BoidPhysicalRadius;
+	
+	UPROPERTY(EditAnywhere , BlueprintReadWrite, Category = "AI|Steering Behavior Component")
+	TArray<AARTCharacterAI*> Neighbourhood;
+
+	UPROPERTY(VisibleAnywhere , BlueprintReadOnly, Category = "AI|Steering Behavior Component")
+	TArray<class AActor*> ActorsInVision;
+	
+	UPROPERTY(EditAnywhere , BlueprintReadWrite, Category = "AI|Steering Behavior Component", meta = (Tooltip=
+		"If enable components forces will be visible"))
+	bool bEnableDebugDraw;
+
+	UPROPERTY(EditAnywhere , BlueprintReadWrite, Category = "AI|Steering Behavior Component", meta = (ClampMin=0.1f,
+		ClampMax=10.0f))
+	float DebugRayDuration;
+
+	const float DefaultNormalizeVectorTolerance = 0.0001f;
+
+	void SetAIConductor(UARTAIConductor* InAIConductor);
+	virtual void RemoveFromGroup();
+	virtual void SetBoidGroup(int32 Key);
+
+	UFUNCTION(BlueprintPure, Category="AIBoid")
+	int32 GetBoidGroupKey();
+	virtual void SetGroupMovementUID(int32 UID);
+	virtual int32 GetGroupMovementUID();
+	virtual void RequestPathMove(const FVector& MoveInput) override;
+	virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
+	virtual bool ApplyRequestedMove(float DeltaTime, float MaxAccel, float MaxSpeed, float Friction, float BrakingDeceleration, FVector& OutAcceleration, float& OutRequestedSpeed) override;
+	
+protected:
+	//if 0 has no group
+	int32 BoidListIndex;
+
+	UPROPERTY()
+	UARTAIConductor* AIConductor;
+	/* The movement vector (in local) this agent should move this tick. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI|Steering Behavior Component")
+	FVector m_NewMoveVector;
+
+	/* The movement vector (in local) this agent had last tick. */
+	UPROPERTY(EditAnywhere , BlueprintReadOnly, Category = "AI|Steering Behavior Component")
+	FVector m_CurrentMoveVector;
+
+	virtual void UpdateBoidNeighbourhood();
+	virtual void CalculateNewMoveVector();
+	virtual void CalculateAlignmentComponentVector();
+	virtual void CalculateCohesionComponentVector();
+	virtual void CalculateSeparationComponentVector();
+	virtual void ComputeAggregationOfComponents();
+	virtual void CorrectDirectionAgainstCollision(FVector& Direction);
+	virtual void ResetComponents();
+	virtual void DebugDraw() const;
 };

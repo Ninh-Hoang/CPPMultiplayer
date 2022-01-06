@@ -33,7 +33,7 @@ private:
 	* @param UnitCount The required amount of locations.
 	* @param Direction The direction the formation should face to. Does not have to be normalized.
 	* @param TargetLocation Target location of the formation.
-	* @param[out] An array that will be filled with the locations starting from the front line.
+	* @param OutLocations An array that will be filled with the locations starting from the front line.
 	*/
 	void CalculateFormation(int32 UnitCount, const FVector2D Direction, const FVector2D TargetLocation,
 							TArray<FVector2D>& OutLocations) const;

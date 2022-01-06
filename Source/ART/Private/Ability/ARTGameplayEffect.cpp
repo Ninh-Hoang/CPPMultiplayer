@@ -181,12 +181,4 @@ FText FGameplayEffectEvent::GetValueForEditorDisplay() const
 
 	return NSLOCTEXT("GameplayEffect", "UnknownModifierMagnitude", "Unknown");
 }
-
-void FGameplayEffectEvent::ReportErrors(const FString& PathName) const
-{
-	if (GameplayEventMagnitudeCalculation == EGameplayEffectEventMagnitude::ScalableFloat)
-	{
-		GETCURVE_REPORTERROR_WITHPATHNAME_WITHPOSTLOAD(ScalableFloatEventMagnitude.Curve, PathName);
-	}
-}
 #endif // WITH_EDITOR

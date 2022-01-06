@@ -69,6 +69,10 @@ ETeamAttitude::Type AARTCharacterBase::GetTeamAttitudeTowards(const AActor& Othe
 		{
 			Attitude = ETeamAttitude::Friendly;
 		}
+		else if (OtherTeamID.GetId() > 50)
+		{
+			Attitude = ETeamAttitude::Neutral;
+		}
 		else
 		{
 			Attitude = ETeamAttitude::Hostile;

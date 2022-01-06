@@ -59,7 +59,12 @@ public:
 
 	/** Evaluate this float curve at the specified time */
 	UFUNCTION(BlueprintCallable, Category = "Math|Curves")
-	float GetCurveValue(FGameplayTag QueryTag, float InTime) const;
+	float GetCurveValueByName(FName Name, float InTime) const;
+
+	UFUNCTION(BlueprintCallable, Category = "Math|Curves")
+	float GetCurveValueByTag(FGameplayTag QueryTag, float InTime) const;
+
+	virtual bool GetCurveTagList(FGameplayTagContainer &TagList);
 
 	// Begin FCurveOwnerInterface
 	virtual TArray<FRichCurveEditInfoConst> GetCurves() const override;
@@ -77,10 +82,16 @@ public:
 	void MakeCurveNameUnique(int CurveIdx);
 
 	virtual void PreEditChange(class FEditPropertyChain& PropertyAboutToChange) override;
+	virtual void PostEditChangeProperty(struct FPropertyChangedEvent& e) override;
 	virtual void PostEditChangeChainProperty(struct FPropertyChangedChainEvent& PropertyChangedChainEvent) override;
 	//virtual void OnCurveChanged(const TArray<FRichCurveEditInfo>& ChangedCurveEditInfos) override;
 #endif
 
 	UPROPERTY(EditAnywhere, Category = "ARTCurviest")
+	UARTCurve *ParentCurve = nullptr;
+
+	UPROPERTY(EditAnywhere, Category = "ARTCurviest")
 	TArray<FARTCurveData> ARTCurveData;
+
+	virtual void RebuildLookupMaps() override;
 };

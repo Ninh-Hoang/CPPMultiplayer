@@ -11,6 +11,7 @@
 #include <ARTCharacter/ARTPlayerController.h>
 #include <Weapon/Weapon.h>
 
+#include "Ability/ARTGlobalTags.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Blueprint/AIBlueprintHelperLibrary.h"
 
@@ -806,4 +807,66 @@ FVector UARTGameplayAbility::GetOrderLocation()
 AActor* UARTGameplayAbility::GetOrderTarget()
 {
 	return Cast<AActor>(UAIBlueprintHelperLibrary::GetBlackboard(GetAvatarActorFromActorInfo())->GetValueAsObject(FName("Order_Target")));
+}
+
+bool UARTGameplayAbility::DoesSatisfyTargetTagRequirement(AActor* TargetActor)
+{
+	FGameplayTagContainer TargetTags = FGameplayTagContainer::EmptyContainer;
+
+	if (!TargetActor)
+	{
+		return false;
+	}
+
+	const UAbilitySystemComponent* AbilitySystem = TargetActor->FindComponentByClass<UAbilitySystemComponent>();
+	if (AbilitySystem == nullptr)
+	{
+		return false;
+	}
+
+	AbilitySystem->GetOwnedGameplayTags(TargetTags);
+
+	FGameplayTagContainer RelationshipTags;
+
+	if (GetAvatarActorFromActorInfo() == TargetActor)
+	{
+		RelationshipTags.AddTag(UARTGlobalTags::Behaviour_Friendly());
+		RelationshipTags.AddTag(UARTGlobalTags::Behaviour_Self());
+		RelationshipTags.AddTag(UARTGlobalTags::Behaviour_Visible());
+	}
+	
+	const AARTCharacterBase* SourceCharacter = Cast<AARTCharacterBase>(GetAvatarActorFromActorInfo());
+	ETeamAttitude::Type TeamAttitude = SourceCharacter->GetTeamAttitudeTowards(*TargetActor);
+
+	switch (TeamAttitude)
+	{
+	case ETeamAttitude::Friendly:
+		RelationshipTags.AddTag(UARTGlobalTags::Behaviour_Friendly());
+		break;
+	case ETeamAttitude::Neutral:
+		RelationshipTags.AddTag(UARTGlobalTags::Behaviour_Neutral());
+		break;
+	case ETeamAttitude::Hostile:
+		RelationshipTags.AddTag(UARTGlobalTags::Behaviour_Hostile());
+		break;
+	default:
+		break;
+	}
+	
+	TargetTags.AppendTags(RelationshipTags);
+
+	if (TargetRequiredTags.Num() || TargetBlockedTags.Num())
+	{
+		if (TargetTags.HasAny(TargetBlockedTags))
+		{
+			return false;
+		}
+
+		if (!TargetTags .HasAll(TargetRequiredTags))
+		{
+			return false;
+		}
+	}
+
+	return true;
 }

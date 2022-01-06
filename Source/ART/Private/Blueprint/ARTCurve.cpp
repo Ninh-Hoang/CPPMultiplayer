@@ -2,21 +2,72 @@
 
 #include "Blueprint/ARTCurve.h"
 
+static FName NAME_CurveDefault(TEXT("Curve_0"));
+
 UARTCurve::UARTCurve()
 {
-	ARTCurveData.Add(FARTCurveData("Curve_0", FLinearColor::MakeRandomColor()));
+	ARTCurveData.Add(FARTCurveData(NAME_CurveDefault, FLinearColor::MakeRandomColor()));
+	bLookupsNeedRebuild = true;
 }
 
 UARTCurve::~UARTCurve()
 {
 }
 
-float UARTCurve::GetCurveValue(FGameplayTag QueryTag, float InTime) const
+void UARTCurve::RebuildLookupMaps()
+{
+	if (bLookupsNeedRebuild)
+	{
+		CurveLookupByName.Reset();
+		CurveLookupByTag.Reset();
+		for (int i = 0; i < ARTCurveData.Num(); i++)
+		{
+			auto &Data = ARTCurveData[i];
+			CurveLookupByName.Add(Data.Name, i);
+			CurveLookupByTag.Add(Data.CurveTag, i);
+		}
+		bLookupsNeedRebuild = false;
+	}
+}
+
+float UARTCurve::GetCurveValueByName(FName Name, float InTime) const
+{
+	const_cast<UARTCurve*>(this)->RebuildLookupMaps();
+
+	const int *CurveIdx = CurveLookupByName.Find(Name);
+	if (CurveIdx)
+	{
+		return ARTCurveData[*CurveIdx].Curve.Eval(InTime);
+	}
+
+	return 0.f;
+}
+
+float UARTCurve::GetCurveValueByTag(FGameplayTag QueryTag, float InTime) const
+{
+	const_cast<UARTCurve*>(this)->RebuildLookupMaps();
+
+	const int *CurveIdx = CurveLookupByTag.Find(QueryTag);
+	if (CurveIdx)
+	{
+		return ARTCurveData[*CurveIdx].Curve.Eval(InTime);
+	}
+
+	// Check for parent data
+	if (ParentCurve)
+		return ParentCurve->GetCurveValueByTag(QueryTag, InTime);
+
+	return 0.f;
+}
+
+bool UARTCurve::GetCurveTagList(FGameplayTagContainer &TagList)
 {
 	for (const auto& Data : ARTCurveData)
-		if (Data.CurveTag == QueryTag)
-			return Data.Curve.Eval(InTime);
-	return 0;
+		TagList.AddTag(Data.CurveTag);
+
+	if(ParentCurve) ParentCurve->GetCurveTagList(TagList);
+
+	return true;
 }
 
 TArray<FRichCurveEditInfoConst> UARTCurve::GetCurves() const
@@ -111,55 +162,69 @@ void UARTCurve::PreEditChange(class FEditPropertyChain& PropertyAboutToChange)
 	OldCurveCount = ARTCurveData.Num();
 }
 
+void UARTCurve::PostEditChangeProperty(struct FPropertyChangedEvent& e)
+{
+	const FName PropName = e.GetPropertyName();
+	if (PropName == GET_MEMBER_NAME_CHECKED(UARTCurve, ParentCurve))
+	{
+		if (ParentCurve == this)
+			ParentCurve = nullptr;
+	}
+}
+
 void UARTCurve::PostEditChangeChainProperty(struct FPropertyChangedChainEvent& e)
 {
-	Super::PostEditChangeChainProperty(e);
-
 	const FName PropName = e.GetPropertyName();
-	int CurveIdx = e.GetArrayIndex("ARTCurveData");
+	const FName ArrayName = e.PropertyChain.GetHead()->GetValue()->GetFName();
 
-	switch (e.ChangeType)
+	if (ArrayName == GET_MEMBER_NAME_CHECKED(UARTCurve, ARTCurveData))
 	{
-	case EPropertyChangeType::ArrayAdd:
-		if (OldCurveCount < ARTCurveData.Num())
+		int CurveIdx = e.GetArrayIndex(GET_MEMBER_NAME_STRING_CHECKED(UARTCurve, ARTCurveData));
+		switch (e.ChangeType)
 		{
-			ARTCurveData[CurveIdx].Name = "Curve_0";
-			ARTCurveData[CurveIdx].Color = FLinearColor::MakeRandomColor();
-			MakeCurveNameUnique(CurveIdx);
-		}
-		break;
-
-	case EPropertyChangeType::Duplicate:
-		// For whatever reason, duplicate adds the new item in the index before the selected
-		// but we want to fix up the name on the later one, not the earlier...
-		if (0 <= CurveIdx && CurveIdx + 1 < ARTCurveData.Num())
-		{
-			MakeCurveNameUnique(CurveIdx + 1);
-		}
-		break;
-
-	case EPropertyChangeType::ValueSet:
-		if (0 <= CurveIdx)
-		{
-			if (PropName == "Name")
+		case EPropertyChangeType::ArrayAdd:
+			if (OldCurveCount < ARTCurveData.Num())
 			{
+				ARTCurveData[CurveIdx].Name = NAME_CurveDefault;
+				ARTCurveData[CurveIdx].Color = FLinearColor::MakeRandomColor();
 				MakeCurveNameUnique(CurveIdx);
 			}
-			if (PropName == "Color")
+			break;
+
+		case EPropertyChangeType::Duplicate:
+			// For whatever reason, duplicate adds the new item in the index before the selected
+			// but we want to fix up the name on the later one, not the earlier...
+			if (0 <= CurveIdx && CurveIdx + 1 < ARTCurveData.Num())
 			{
-				ARTCurveData[CurveIdx].Color.A = 1.0f;
+				MakeCurveNameUnique(CurveIdx + 1);
 			}
-			if (PropName == "CurveTag")
+			break;
+
+		case EPropertyChangeType::ValueSet:
+			if (0 <= CurveIdx)
 			{
+				if (PropName == "Name")
+				{
+					MakeCurveNameUnique(CurveIdx);
+				}
+				if (PropName == "Color")
+				{
+					ARTCurveData[CurveIdx].Color.A = 1.0f;
+				}
 			}
+			break;
+
+		case EPropertyChangeType::ArrayClear:
+			break;
+
 		}
-		break;
 
-	case EPropertyChangeType::ArrayClear:
-		break;
+		OnCurveMapChanged.Broadcast(this);
+
+		bLookupsNeedRebuild = true;
+
 	}
-
-	OnCurveMapChanged.Broadcast(this);
 }
 
 #endif
+

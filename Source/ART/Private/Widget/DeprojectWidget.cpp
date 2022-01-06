@@ -5,7 +5,7 @@
 
 UDeprojectWidget::UDeprojectWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
-	GEngine->GameViewport->Viewport->ViewportResizedEvent.AddUObject(this, &UDeprojectWidget::OnViewportSizeChanged);
+	//GEngine->GameViewport->Viewport->ViewportResizedEvent.AddUObject(this, &UDeprojectWidget::OnViewportSizeChanged);
 }
 
 void UDeprojectWidget::OnViewportSizeChanged(FViewport* ViewPort, uint32 val)

@@ -119,7 +119,7 @@ TArray<FHitResult> AGATA_MeleeWeaponTrace::PerformTrace(AActor* InSourceActor)
 	{
 		FHitResult& HitResult = PersistentHitResults[i];
 
-		if (!HitResult.Actor.IsValid() || FVector::DistSquared(TraceStart, HitResult.Actor.Get()->GetActorLocation()) >
+		if (!HitResult.GetActor() || FVector::DistSquared(TraceStart, HitResult.GetActor()->GetActorLocation()) >
 			(MaxRange * MaxRange))
 		{
 			PersistentHitResults.RemoveAt(i);
@@ -179,7 +179,7 @@ TArray<FHitResult> AGATA_MeleeWeaponTrace::PerformTrace(AActor* InSourceActor)
 
 		// This is looping backwards so that further objects from player are added first to the queue.
 		// This results in closer actors taking precedence as the further actors will get bumped out of the TArray.
-		if (HitResult.Actor.IsValid() /*&& (!HitResult.bBlockingHit || PersistentHitResults.Num() < 1)*/)
+		if (HitResult.GetActor() /*&& (!HitResult.bBlockingHit || PersistentHitResults.Num() < 1)*/)
 		{
 			bool bActorAlreadyInPersistentHits = false;
 
@@ -188,7 +188,7 @@ TArray<FHitResult> AGATA_MeleeWeaponTrace::PerformTrace(AActor* InSourceActor)
 			{
 				FHitResult& CacheHitResult = CacheHitResults[k];
 
-				if (CacheHitResult.Actor.Get() == HitResult.Actor.Get())
+				if (CacheHitResult.GetActor() == HitResult.GetActor())
 				{
 					bActorAlreadyInPersistentHits = true;
 					break;
@@ -260,14 +260,14 @@ TArray<FHitResult> AGATA_MeleeWeaponTrace::PerformTrace(AActor* InSourceActor)
 
 		if (AGameplayAbilityWorldReticle* LocalReticleActor = ReticleActors[PersistentHitResultIndex].Get())
 		{
-			const bool bHitActor = HitResult.Actor != nullptr;
+			const bool bHitActor = HitResult.GetActor() != nullptr;
 
 			if (bHitActor && !HitResult.bBlockingHit)
 			{
 				LocalReticleActor->SetActorHiddenInGame(false);
 
 				const FVector ReticleLocation = (bHitActor && LocalReticleActor->bSnapToTargetedActor)
-					                                ? HitResult.Actor->GetActorLocation()
+					                                ? HitResult.GetActor()->GetActorLocation()
 					                                : HitResult.Location;
 
 				LocalReticleActor->SetActorLocation(ReticleLocation);

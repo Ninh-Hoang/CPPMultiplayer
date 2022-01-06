@@ -79,7 +79,7 @@ void AGATA_SphereTrace::SphereTraceWithFilter(TArray<FHitResult>& OutHitResults,
 	{
 		FHitResult& Hit = HitResults[HitIdx];
 
-		if (!Hit.Actor.IsValid() || FilterHandle.FilterPassesForActor(Hit.Actor))
+		if (!Hit.GetActor() || FilterHandle.FilterPassesForActor(Hit.GetActor()))
 		{
 			Hit.TraceStart = TraceStart;
 			Hit.TraceEnd = End;

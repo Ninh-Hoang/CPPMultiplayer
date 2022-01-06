@@ -659,7 +659,7 @@ bool ULauncherComponent::PredictTrace(UWorld* World, ABallisticProjectile* Bulle
 
 	if (Hit) {
 		Time = Result.Time;
-		Actor = Result.Actor.Get();
+		Actor = Result.GetActor();
 		HitLocation = Result.Location;
 	}
 	return Hit;

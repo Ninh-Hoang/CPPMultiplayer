@@ -544,4 +544,7 @@ public:
 
 	UFUNCTION(BlueprintPure, Category="Order")
 	AActor* GetOrderTarget();
+
+	UFUNCTION(BlueprintPure, Category="Ability|Targeting")
+	bool DoesSatisfyTargetTagRequirement(AActor* Target);
 };

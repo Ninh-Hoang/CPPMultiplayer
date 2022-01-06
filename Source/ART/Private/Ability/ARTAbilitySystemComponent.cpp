@@ -543,13 +543,11 @@ FGameplayEffectSpecHandle UARTAbilitySystemComponent::MakeOutgoingSpec(TSubclass
 			if (UARTCurve* GECurve = ArtGE->Curves)
 			{
 				//for each curve in ARTCurve asset, take the curve's tag and use it to SetByCallerMagnitude for GE
-				for (const auto& Data : GECurve->ARTCurveData)
-				{
-					FGameplayTag MagTag = Data.CurveTag;
+				FGameplayTagContainer TagList;
+				GECurve->GetCurveTagList(TagList);
 
-					//UE_LOG(LogTemp, Warning, TEXT("%f"), GECurve->GetCurveValue(MagTag, Level));
-					Spec.Data->SetSetByCallerMagnitude(MagTag, GECurve->GetCurveValue(MagTag, Level));
-				}
+				for(auto& Tag : TagList)
+					Spec.Data->SetSetByCallerMagnitude(Tag, GECurve->GetCurveValueByTag(Tag, Level));
 			}
 		}
 		return Spec;
@@ -967,11 +965,11 @@ float UARTAbilitySystemComponent::GetCurrentMontageSectionLengthForMesh(USkeleta
 					GetTime());
 			}
 			// Otherwise we are the last section, so take delta with Montage total time.
-			return (CurrentAnimMontage->SequenceLength - CompositeSections[CurrentSectionID].GetTime());
+			return (CurrentAnimMontage->GetPlayLength() - CompositeSections[CurrentSectionID].GetTime());
 		}
 
 		// if we have no sections, just return total length of Montage.
-		return CurrentAnimMontage->SequenceLength;
+		return CurrentAnimMontage->GetPlayLength();
 	}
 
 	return 0.f;

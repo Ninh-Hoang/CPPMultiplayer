@@ -200,7 +200,7 @@ void AGATA_Trace::LineTraceWithFilter(TArray<FHitResult>& OutHitResults, const U
 	{
 		FHitResult& Hit = HitResults[HitIdx];
 
-		if (!Hit.Actor.IsValid() || FilterHandle.FilterPassesForActor(Hit.Actor))
+		if (!Hit.GetActor() || FilterHandle.FilterPassesForActor(Hit.GetActor()))
 		{
 			Hit.TraceStart = TraceStart;
 			Hit.TraceEnd = End;
@@ -380,8 +380,8 @@ TArray<FHitResult> AGATA_Trace::PerformTrace(AActor* InSourceActor)
 		{
 			FHitResult& HitResult = PersistentHitResults[i];
 
-			if (HitResult.bBlockingHit || !HitResult.Actor.IsValid() || FVector::DistSquared(
-				TraceStart, HitResult.Actor.Get()->GetActorLocation()) > (MaxRange * MaxRange))
+			if (HitResult.bBlockingHit || !HitResult.GetActor() || FVector::DistSquared(
+				TraceStart, HitResult.GetActor()->GetActorLocation()) > (MaxRange * MaxRange))
 			{
 				PersistentHitResults.RemoveAt(i);
 			}
@@ -418,7 +418,7 @@ TArray<FHitResult> AGATA_Trace::PerformTrace(AActor* InSourceActor)
 			{
 				FHitResult& HitResult = TraceHitResults[a];
 				
-				if(HitResult.Actor.Get() == CacheHitActors[b])
+				if(HitResult.GetActor() == CacheHitActors[b])
 				{
 					bActorAlreadyInCache = true;
 					break;
@@ -429,7 +429,7 @@ TArray<FHitResult> AGATA_Trace::PerformTrace(AActor* InSourceActor)
 				continue;
 			}
 
-			CacheHitActors.Add(TraceHitResults[a].Actor.Get());
+			CacheHitActors.Add(TraceHitResults[a].GetActor());
 			ClampedHitResults.Add(TraceHitResults[a]);
 		}
 		
@@ -443,7 +443,7 @@ TArray<FHitResult> AGATA_Trace::PerformTrace(AActor* InSourceActor)
 			{
 				// This is looping backwards so that further objects from player are added first to the queue.
 				// This results in closer actors taking precedence as the further actors will get bumped out of the TArray.
-				if (HitResult.Actor.IsValid() && (!HitResult.bBlockingHit || PersistentHitResults.Num() < 1))
+				if (HitResult.GetActor() && (!HitResult.bBlockingHit || PersistentHitResults.Num() < 1))
 				{
 					bool bActorAlreadyInPersistentHits = false;
 
@@ -452,7 +452,7 @@ TArray<FHitResult> AGATA_Trace::PerformTrace(AActor* InSourceActor)
 					{
 						FHitResult& PersistentHitResult = PersistentHitResults[k];
 
-						if (PersistentHitResult.Actor.Get() == HitResult.Actor.Get())
+						if (PersistentHitResult.GetActor() == HitResult.GetActor())
 						{
 							bActorAlreadyInPersistentHits = true;
 							break;
@@ -481,14 +481,14 @@ TArray<FHitResult> AGATA_Trace::PerformTrace(AActor* InSourceActor)
 				{
 					if (AGameplayAbilityWorldReticle* LocalReticleActor = ReticleActors[ReticleIndex].Get())
 					{
-						const bool bHitActor = HitResult.Actor != nullptr;
+						const bool bHitActor = HitResult.GetActor() != nullptr;
 
 						if (bHitActor && !HitResult.bBlockingHit)
 						{
 							LocalReticleActor->SetActorHiddenInGame(false);
 
 							const FVector ReticleLocation = (bHitActor && LocalReticleActor->bSnapToTargetedActor)
-								                                ? HitResult.Actor->GetActorLocation()
+								                                ? HitResult.GetActor()->GetActorLocation()
 								                                : HitResult.Location;
 
 							LocalReticleActor->SetActorLocation(ReticleLocation);
@@ -553,14 +553,14 @@ TArray<FHitResult> AGATA_Trace::PerformTrace(AActor* InSourceActor)
 
 			if (AGameplayAbilityWorldReticle* LocalReticleActor = ReticleActors[PersistentHitResultIndex].Get())
 			{
-				const bool bHitActor = HitResult.Actor != nullptr;
+				const bool bHitActor = HitResult.GetActor() != nullptr;
 
 				if (bHitActor && !HitResult.bBlockingHit)
 				{
 					LocalReticleActor->SetActorHiddenInGame(false);
 
 					const FVector ReticleLocation = (bHitActor && LocalReticleActor->bSnapToTargetedActor)
-						                                ? HitResult.Actor->GetActorLocation()
+						                                ? HitResult.GetActor()->GetActorLocation()
 						                                : HitResult.Location;
 
 					LocalReticleActor->SetActorLocation(ReticleLocation);

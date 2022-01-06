@@ -8,35 +8,41 @@
 #include "BehaviorTree/BlackboardComponent.h"
 
 #include "AI/Order/ARTOrderHelper.h"
-#include "Navigation/CrowdFollowingComponent.h"
 #include "ARTCharacter/ARTCharacterBase.h"
 #include "Blueprint/ARTBlueprintFunctionLibrary.h"
 
 AARTAIController::AARTAIController(const FObjectInitializer& ObjectInitializer)
-    : Super(ObjectInitializer)
+: Super(ObjectInitializer)
 {
     PrimaryActorTick.bCanEverTick = true;
+    /*UCrowdFollowingComponent* CrowdFollowingComponent = Cast<UCrowdFollowingComponent>(GetPathFollowingComponent());
+    CrowdFollowingComponent->SetCrowdSeparation(true);
+    CrowdFollowingComponent->SetCrowdSeparationWeight(500);*/
 }
 
 void AARTAIController::OnPossess(APawn* InPawn)
 {
     Super::OnPossess(InPawn);
 
-    // Load assets.s
-    DefaultOrder.LoadSynchronous();
-
     // Make AI use assigned blackboard.
     UBlackboardComponent* BlackboardComponent;
 
-    if (UseBlackboard(CharacterBlackboardAsset, BlackboardComponent))
-    {
-        // Setup blackboard.
-        SetBlackboardValues(FARTOrderData(DefaultOrder.Get()), InPawn->GetActorLocation());
-    }
-
+    // Load assets.s
+    DefaultOrder.LoadSynchronous();
+    
     // Call RunBehaviorTree. This will setup the behavior tree component.
-    UBehaviorTree* BehaviorTree = UARTOrderHelper::GetBehaviorTree(DefaultOrder.Get());
-    RunBehaviorTree(BehaviorTree);
+    if(IsValid(DefaultOrder.Get()))
+    {
+        if (UseBlackboard(CharacterBlackboardAsset, BlackboardComponent))
+        {
+            // Setup blackboard.
+            SetBlackboardValues(FARTOrderData(DefaultOrder.Get()), InPawn->GetActorLocation());
+        }
+    
+        // Call RunBehaviorTree. This will setup the behavior tree component.
+        UBehaviorTree* BehaviorTree = UARTOrderHelper::GetBehaviorTree(DefaultOrder.Get());
+        RunBehaviorTree(BehaviorTree);
+    }
 }
 
 bool AARTAIController::HasOrder(TSubclassOf<UARTOrder> OrderType) const

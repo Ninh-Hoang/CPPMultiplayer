@@ -9,6 +9,14 @@
 
 class AARTCharacterAI;
 
+USTRUCT()
+struct FFlock
+{
+	GENERATED_BODY()
+	UPROPERTY()
+	TArray<AARTCharacterAI*> BoidList;
+};
+
 UCLASS()
 class ART_API UARTAIConductor : public UActorComponent
 {
@@ -43,5 +51,23 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category="AIManager")
     void AddLocationToList(FVector Location);
+
+	TMap<int32, FFlock> BoidMap;
+	int32 ListBuffer;
+
+	UFUNCTION(BlueprintPure, Category="AIManager")
+	TArray<AARTCharacterAI*> GetBoidList(int32 Key) const;
+	
+	UFUNCTION(BlueprintCallable, Category="AIManager")
+	int32 CreateFlock();
+
+	UFUNCTION(BlueprintCallable, Category="AIManager")
+	bool TryRemoveBoidList(int32 ListKey);
+
+	UFUNCTION(BlueprintCallable, Category="AIManager")
+	bool TryAddBoidToList(int32 ListKey, AARTCharacterAI* InBoid);
+
+	UFUNCTION(BlueprintCallable, Category="AIManager")
+	bool TryRemoveBoidFromList(AARTCharacterAI* InBoid);
 };
 

@@ -3,9 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
-#include <Actor.h>
-
 #include "ARTOrder.h"
 #include "ARTOrderWithDisplay.generated.h"
 

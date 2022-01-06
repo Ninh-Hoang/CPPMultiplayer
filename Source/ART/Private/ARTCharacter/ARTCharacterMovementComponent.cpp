@@ -5,6 +5,7 @@
 #include "ARTCharacter/ARTCharacterBase.h"
 #include <AbilitySystemComponent.h>
 #include "GameplayTagContainer.h"
+#include "Blueprint/ARTBlueprintFunctionLibrary.h"
 
 UARTCharacterMovementComponent::UARTCharacterMovementComponent()
 {
@@ -13,6 +14,31 @@ UARTCharacterMovementComponent::UARTCharacterMovementComponent()
 	BlockingSpeedMultiplier = 0.0f;
 	AttackingMultiplier = 0.0f;
 	bUseControllerDesiredRotation = true;
+	bUseGroupMovement = false;
+
+	//flocking
+	AlignmentWeight = 1.0f;
+	CohesionWeight = 1.0f;
+	CohesionLerp = 100.0f;
+	CollisionWeight = 1.0f;
+	SeparationLerp = 5.0f;
+	SeparationForce = 100.0f;
+	StimuliLerp = 100.0f;
+	SeparationWeight = 0.8f;
+	MaxMovementSpeedMultiplier = 1.5f;
+	VisionRadius = 400.0f;
+	CollisionDistanceLook = 400.0f;
+	AlignmentComponent = FVector(0.0f, 0.0f, 0.0f);
+	CohesionComponent = FVector(0.0f, 0.0f, 0.0f);
+	SeparationComponent = FVector(0.0f, 0.0f, 0.0f);
+	NegativeStimuliComponent = FVector(0.0f, 0.0f, 0.0f);
+	PositiveStimuliComponent = FVector(0.0f, 0.0f, 0.0f);
+	NegativeStimuliMaxFactor = 0.0f;
+	PositiveStimuliMaxFactor = 0.0f;
+	InertiaWeigh = 0.0f;
+	BoidPhysicalRadius = 45.0f;
+	bEnableDebugDraw = false;
+	DebugRayDuration = 0.12f;
 }
 
 float UARTCharacterMovementComponent::GetMaxSpeed() const
@@ -94,7 +120,7 @@ FNetworkPredictionData_Client* UARTCharacterMovementComponent::GetPredictionData
 FRotator UARTCharacterMovementComponent::GetDeltaRotation(float DeltaTime) const
 {
 	//return Owner->GetMoveSpeed();
-	
+
 	float YawRotateRate = 0.0f;
 
 	AARTCharacterBase* Owner = Cast<AARTCharacterBase>(GetOwner());
@@ -112,7 +138,7 @@ FRotator UARTCharacterMovementComponent::GetDeltaRotation(float DeltaTime) const
 	{
 		YawRotateRate = 0.0f;
 	}
-	
+
 	if (RequestToStartBlocking)
 	{
 		YawRotateRate = 0.0f;
@@ -282,4 +308,276 @@ UARTCharacterMovementComponent::FARTNetworkPredictionData_Client::FARTNetworkPre
 FSavedMovePtr UARTCharacterMovementComponent::FARTNetworkPredictionData_Client::AllocateNewMove()
 {
 	return MakeShared<FARTSavedMove>();
+}
+
+void UARTCharacterMovementComponent::SetGroupMovementUID(int32 UID)
+{
+	bUseGroupMovement = UID;
+}
+
+int32 UARTCharacterMovementComponent::GetGroupMovementUID()
+{
+	return bUseGroupMovement;
+}
+
+void UARTCharacterMovementComponent::RequestPathMove(const FVector& MoveInput)
+{
+	//copied from charactermovementcomp
+	FVector AdjustedMoveInput(MoveInput);
+
+	// preserve magnitude when moving on ground/falling and requested input has Z component
+	// see ConstrainInputAcceleration for details
+	if (MoveInput.Z != 0.f && (IsMovingOnGround() || IsFalling()))
+	{
+		const float Mag = MoveInput.Size();
+		AdjustedMoveInput = MoveInput.GetSafeNormal2D() * Mag;
+	}
+
+	Super::RequestPathMove(AdjustedMoveInput);
+}
+
+void UARTCharacterMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
+{
+	if (MoveVelocity.SizeSquared() < KINDA_SMALL_NUMBER)
+	{
+		return;
+	}
+
+	if (ShouldPerformAirControlForPathFollowing())
+	{
+		const FVector FallVelocity = MoveVelocity.GetClampedToMaxSize(GetMaxSpeed());
+		PerformAirControlForPathFollowing(FallVelocity, FallVelocity.Z);
+		return;
+	}
+
+	RequestedVelocity = MoveVelocity;
+	bHasRequestedVelocity = true;
+	bRequestedMoveWithMaxSpeed = bForceMaxSpeed;
+
+	if (IsMovingOnGround())
+	{
+		RequestedVelocity.Z = 0.0f;
+	}
+}
+
+void UARTCharacterMovementComponent::SetAIConductor(UARTAIConductor* InAIConductor)
+{
+	if(InAIConductor) AIConductor = InAIConductor;
+}
+
+void UARTCharacterMovementComponent::RemoveFromGroup()
+{
+	BoidListIndex = 0;
+}
+
+void UARTCharacterMovementComponent::SetBoidGroup(int32 Key)
+{
+	BoidListIndex = Key;
+}
+
+int32 UARTCharacterMovementComponent::GetBoidGroupKey()
+{
+	return BoidListIndex;
+}
+
+bool UARTCharacterMovementComponent::ApplyRequestedMove(float DeltaTime, float MaxAccel, float MaxSpeed, float Friction,
+	float BrakingDeceleration, FVector& OutAcceleration, float& OutRequestedSpeed)
+{
+	if (bHasRequestedVelocity)
+	{
+		const float RequestedSpeedSquared = RequestedVelocity.SizeSquared();
+		if (RequestedSpeedSquared < KINDA_SMALL_NUMBER)
+		{
+			return false;
+		}
+
+		// Compute requested speed from path following
+		float RequestedSpeed = FMath::Sqrt(RequestedSpeedSquared);
+		const FVector RequestedMoveDir = RequestedVelocity / RequestedSpeed;
+		RequestedSpeed = (bRequestedMoveWithMaxSpeed ? MaxSpeed : FMath::Min(MaxSpeed, RequestedSpeed));
+		
+		// Compute actual requested velocity
+		const FVector MoveVelocity = RequestedMoveDir * RequestedSpeed;
+		
+		// Compute acceleration. Use MaxAccel to limit speed increase, 1% buffer.
+		FVector NewAcceleration = FVector::ZeroVector;
+		const float CurrentSpeedSq = Velocity.SizeSquared();
+			
+		if (ShouldComputeAccelerationToReachRequestedVelocity(RequestedSpeed))
+		{
+			//BOIDMOVEMENT HERE
+			if (bUseGroupMovement && BoidListIndex > 0 && AIConductor)
+			{
+				m_CurrentMoveVector = RequestedMoveDir;
+				UpdateBoidNeighbourhood();
+				CalculateNewMoveVector();
+
+				const float VelSize = FMath::Sqrt(CurrentSpeedSq);
+				Velocity = Velocity - (Velocity - m_NewMoveVector * VelSize) * FMath::Min(DeltaTime * Friction, 1.f);
+
+				// How much do we need to accelerate to get to the new velocity?
+				NewAcceleration = ((m_NewMoveVector * RequestedSpeed - Velocity) / DeltaTime);
+				NewAcceleration = NewAcceleration.GetClampedToMaxSize(MaxAccel);
+			}
+			else
+			{
+				// Turn in the same manner as with input acceleration.
+				const float VelSize = FMath::Sqrt(CurrentSpeedSq);
+				Velocity = Velocity - (Velocity - RequestedMoveDir * VelSize) * FMath::Min(DeltaTime * Friction, 1.f);
+
+				// How much do we need to accelerate to get to the new velocity?
+				NewAcceleration = ((MoveVelocity - Velocity) / DeltaTime);
+				NewAcceleration = NewAcceleration.GetClampedToMaxSize(MaxAccel);
+			}
+		}
+		else
+		{
+			// Just set velocity directly.
+			// If decelerating we do so instantly, so we don't slide through the destination if we can't brake fast enough.
+			Velocity = MoveVelocity;
+		}
+		
+		
+		// Copy to out params
+		OutRequestedSpeed = RequestedSpeed;
+		OutAcceleration = NewAcceleration;
+		
+		return true;
+	}
+
+	return false;
+}
+
+void UARTCharacterMovementComponent::UpdateBoidNeighbourhood()
+{
+	Neighbourhood.Empty();
+	for(auto& Boid : AIConductor->GetBoidList(BoidListIndex))
+	{
+		//continue if the boid is the current character
+		if(!Boid || GetPawnOwner() == Boid) continue;
+		
+		float Distance = (GetActorLocation() - Boid->GetActorLocation()).Size();
+		//if in vision
+		if(Distance > 0.0f && Distance < VisionRadius)
+		{
+			Neighbourhood.Add(Boid);
+		}
+	}
+}
+
+void UARTCharacterMovementComponent::CalculateNewMoveVector()
+{
+	ResetComponents();
+	CalculateAlignmentComponentVector();
+	
+	if (Neighbourhood.Num() > 0)
+	{
+		CalculateCohesionComponentVector();
+		CalculateSeparationComponentVector();
+	}
+
+	ComputeAggregationOfComponents();
+
+	if (bEnableDebugDraw)
+	{
+		DebugDraw();
+	}
+}
+
+void UARTCharacterMovementComponent::CalculateAlignmentComponentVector()
+{
+	//Compute Alignment Component Vector
+	/*for (AARTCharacterAI* Boid : Neighbourhood)
+	{
+		AlignmentComponent += Boid->GetVelocity().GetSafeNormal(DefaultNormalizeVectorTolerance);
+	}
+	AlignmentComponent = (m_CurrentMoveVector + AlignmentComponent).GetSafeNormal(DefaultNormalizeVectorTolerance);*/
+	AlignmentComponent  = m_CurrentMoveVector;
+}
+
+void UARTCharacterMovementComponent::CalculateCohesionComponentVector()
+{
+	const FVector& Location = GetActorLocation();
+	for (AARTCharacterAI* Boid : Neighbourhood)
+	{
+		CohesionComponent += Boid->GetActorLocation()- Location;
+	}
+
+	CohesionComponent = (CohesionComponent / Neighbourhood.Num()) / CohesionLerp;
+}
+
+void UARTCharacterMovementComponent::CalculateSeparationComponentVector()
+{
+	const FVector& Location = GetActorLocation();
+
+	for (AARTCharacterAI* Boid : Neighbourhood)
+	{
+		FVector Separation = Location - Boid->GetActorLocation();
+		SeparationComponent += Separation.GetSafeNormal(DefaultNormalizeVectorTolerance)
+			/ FMath::Abs(Separation.Size() - BoidPhysicalRadius);
+	}
+
+	const FVector SeparationForceComponent = SeparationComponent * SeparationForce;
+	SeparationComponent += SeparationForceComponent + SeparationForceComponent *
+		(SeparationLerp / Neighbourhood.Num());
+}
+
+void UARTCharacterMovementComponent::ComputeAggregationOfComponents()
+{
+	m_NewMoveVector = (AlignmentComponent * AlignmentWeight)
+		+ (CohesionComponent * CohesionWeight)
+		+ (SeparationComponent * SeparationWeight)
+		+ NegativeStimuliComponent
+		+ PositiveStimuliComponent;
+}
+
+void UARTCharacterMovementComponent::CorrectDirectionAgainstCollision(FVector& Direction)
+{
+	//check for a hit on movement
+	const FVector& Location = GetActorLocation();
+	static TArray<AActor*> IgnoreActor;
+	FHitResult Hit(1.0f);
+	if (UKismetSystemLibrary::LineTraceSingle(
+		this, Location,
+		Location + Direction.GetSafeNormal(DefaultNormalizeVectorTolerance) * CollisionDistanceLook,
+		TraceTypeQuery1, false, IgnoreActor, EDrawDebugTrace::ForOneFrame, Hit, true))
+	{
+		if (Hit.IsValidBlockingHit())
+		{
+			const FVector Normal2D = Hit.Normal.GetSafeNormal2D();
+			Direction = FVector::VectorPlaneProject(Direction, Normal2D) * (1.f - Hit.Time) * CollisionWeight;
+		}
+	}
+}
+
+void UARTCharacterMovementComponent::ResetComponents()
+{
+	AlignmentComponent = FVector::ZeroVector;
+	CohesionComponent = FVector::ZeroVector;
+	SeparationComponent = FVector::ZeroVector;
+	NegativeStimuliComponent = FVector::ZeroVector;
+	PositiveStimuliComponent = FVector::ZeroVector;
+	NegativeStimuliMaxFactor = 0.0f;
+	PositiveStimuliMaxFactor = 0.0f;
+}
+
+void UARTCharacterMovementComponent::DebugDraw() const
+{
+	const UWorld* World = GetWorld();
+	const FVector& Location = GetActorLocation();
+	DrawDebugLine(World, Location,
+				Location + m_CurrentMoveVector * 300.0f,
+				FColor::Red, false, DebugRayDuration, 0, 1.0f);
+
+	DrawDebugLine(World, Location,
+				Location + CohesionComponent * CohesionWeight * 100.0f,
+				FColor::Orange, false, DebugRayDuration, 0, 1.0f);
+
+	DrawDebugLine(World, Location,
+				Location + AlignmentComponent * AlignmentWeight * 100.0f,
+				FColor::Purple, false, DebugRayDuration, 0, 1.0f);
+
+	DrawDebugLine(World, Location,
+				Location + (SeparationComponent * SeparationWeight * 100.0f),
+				FColor::Blue, false, DebugRayDuration, 0, 1.0f);
 }
