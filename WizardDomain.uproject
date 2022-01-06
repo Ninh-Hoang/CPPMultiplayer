@@ -1,0 +1,37 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "5.0",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "WizardDomain",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine",
+				"CoreUObject",
+				"UMG",
+				"GameplayAbilities",
+				"AIModule",
+				"NavigationSystem",
+				"TheCurviestCurve"
+			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "GameplayAbilities",
+			"Enabled": true
+		},
+		{
+			"Name": "TheCurviestCurve",
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/b5fce2cbfa644b1a8e1fcb7683a881d2"
+		},
+		{
+			"Name": "ART",
+			"Enabled": true
+		}
+	]
+}
